@@ -2,6 +2,12 @@
 
 ProcureChain is a monorepo containing the frontend, backend, infrastructure support files, and technical documentation for the procurement platform.
 
+## Ownership
+
+- Delivery authoring entity: Blueprints K2025626063
+- Maintainer: Joshua Boyd (`jboyd@blprnts`)
+- Platform owner: ProcureChain (`admin@procurechain.co.za`)
+
 ## Repository Structure
 
 ```text

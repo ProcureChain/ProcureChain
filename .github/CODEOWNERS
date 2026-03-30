@@ -1,3 +1,5 @@
+# GitHub CODEOWNERS only supports GitHub users and teams. Operational ownership
+# details live in README.md and CONTRIBUTING.md.
 * @blprnts
 
 /web/ @blprnts

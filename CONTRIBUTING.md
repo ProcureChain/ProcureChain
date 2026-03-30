@@ -1,5 +1,11 @@
 # Contributing
 
+## Ownership
+
+- Delivery authoring entity: Blueprints K2025626063
+- Maintainer: Joshua Boyd (`jboyd@blprnts`)
+- Platform owner: ProcureChain (`admin@procurechain.co.za`)
+
 ## Working Agreement
 
 This codebase should read like it was written by engineers for engineers.
