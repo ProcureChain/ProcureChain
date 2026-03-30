@@ -1,0 +1,70 @@
+services:
+  db:
+    image: postgres:16
+    container_name: procurechain_db
+    environment:
+      POSTGRES_DB: procurechain_dev
+      POSTGRES_USER: procurechain
+      POSTGRES_PASSWORD: procurechain_dev_pw
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U procurechain -d procurechain_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    image: node:20-bookworm
+    container_name: procurechain_api
+    working_dir: /workspace/api/procurechain-api
+    command: >
+      sh -lc "npm install && npm run start:dev"
+    environment:
+      ENV_NAME: dev
+      PORT: 8080
+      DATABASE_URL: postgresql://procurechain:procurechain_dev_pw@db:5432/procurechain_dev?schema=dev
+      GEOCODER_PROVIDER: GEOAPIFY
+      GEOCODER_API_KEY: change-me
+      GEOCODER_USER_AGENT: ProcureChain/1.0
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/workspace
+      - api_node_modules:/workspace/api/procurechain-api/node_modules
+
+  web:
+    image: node:20-bookworm
+    container_name: procurechain_web
+    working_dir: /workspace/web
+    command: >
+      sh -lc "npm install && npm run dev -- --hostname 0.0.0.0"
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8080
+      NEXT_PUBLIC_TENANT_ID: dev-tenant
+      NEXT_PUBLIC_COMPANY_ID: dev-company
+      NEXT_PUBLIC_USE_MOCK: "false"
+      NEXT_PUBLIC_ACTOR_NAME: Kyle
+      NEXT_PUBLIC_ACTOR_INITIALS: KY
+      NEXT_PUBLIC_ACTOR_ROLES: PROCUREMENT_OFFICER
+      NEXT_PUBLIC_COMPANY_DEPARTMENTS: Operations,Finance,IT,Procurement
+      NEXT_PUBLIC_COMPANY_COST_CENTRES: OPS-001,FIN-001,IT-001,PROC-001
+      NEXT_PUBLIC_ORGANIZATION_COUNTRY: ZA
+      NEXT_PUBLIC_DEFAULT_SUBCATEGORY_ID: FAC-SRV-MNT-001
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/workspace
+      - web_node_modules:/workspace/web/node_modules
+
+volumes:
+  db_data:
+  api_node_modules:
+  web_node_modules:

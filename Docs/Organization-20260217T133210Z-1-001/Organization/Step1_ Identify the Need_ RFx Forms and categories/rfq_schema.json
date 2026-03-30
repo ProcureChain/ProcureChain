@@ -1,0 +1,606 @@
+{
+  "General": {
+    "fields": [
+      {
+        "name": "buyer_details",
+        "label": "Buyer Details",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "rfq_title",
+        "label": "RFQ Title",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "quantity",
+        "label": "Quantity / Volume",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "delivery_timeline",
+        "label": "Delivery Timeline",
+        "type": "date",
+        "required": true
+      },
+      {
+        "name": "budget",
+        "label": "Budget Range",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "contract_length",
+        "label": "Contract Length",
+        "type": "text",
+        "required": false
+      },
+      {
+        "name": "compliance",
+        "label": "Compliance / Certifications",
+        "type": "multiselect",
+        "required": false
+      },
+      {
+        "name": "submission_deadline",
+        "label": "Submission Deadline",
+        "type": "date",
+        "required": true
+      }
+    ]
+  },
+  "Professional & Business Services": {
+    "fields": [
+      {
+        "name": "professional_&_business_services_field_1",
+        "label": "Scope of work (objectives, expected deliverables)",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers need clarity on what outcomes are expected to avoid under/over quoting."
+      },
+      {
+        "name": "professional_&_business_services_field_2",
+        "label": "Duration of engagement",
+        "type": "text",
+        "required": true,
+        "feedback": "Helps define pricing model (hourly, daily, project-based)."
+      },
+      {
+        "name": "professional_&_business_services_field_3",
+        "label": "Required qualifications",
+        "type": "text",
+        "required": true,
+        "feedback": "Ensures only compliant/properly licensed providers respond."
+      },
+      {
+        "name": "professional_&_business_services_field_4",
+        "label": "Performance indicators",
+        "type": "text",
+        "required": true,
+        "feedback": "Allows suppliers to measure feasibility and price risk into their proposal."
+      },
+      {
+        "name": "professional_&_business_services_field_5",
+        "label": "Confidentiality / IP ownership clauses",
+        "type": "text",
+        "required": true,
+        "feedback": "Important for legal/consulting services where knowledge transfer is sensitive."
+      }
+    ]
+  },
+  "Technology & Digital": {
+    "fields": [
+      {
+        "name": "technology_&_digital_field_1",
+        "label": "Technical specifications",
+        "type": "text",
+        "required": true,
+        "feedback": "Without detailed specs, suppliers cannot give accurate costing."
+      },
+      {
+        "name": "technology_&_digital_field_2",
+        "label": "Service level agreements (SLAs)",
+        "type": "text",
+        "required": true,
+        "feedback": "Uptime and support commitments drive cost structures."
+      },
+      {
+        "name": "technology_&_digital_field_3",
+        "label": "Security/compliance standards",
+        "type": "text",
+        "required": true,
+        "feedback": "Ensures quotes cover necessary certifications and compliance overhead."
+      },
+      {
+        "name": "technology_&_digital_field_4",
+        "label": "Licensing models",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers need clarity on per-user vs enterprise licensing."
+      },
+      {
+        "name": "technology_&_digital_field_5",
+        "label": "Implementation timeline & milestones",
+        "type": "text",
+        "required": true,
+        "feedback": "Drives resourcing and deployment cost."
+      },
+      {
+        "name": "technology_&_digital_field_6",
+        "label": "Support requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Onsite vs remote support drastically impacts pricing."
+      }
+    ]
+  },
+  "Facilities & Operations": {
+    "fields": [
+      {
+        "name": "facilities_&_operations_field_1",
+        "label": "Type and volume of supplies/services",
+        "type": "text",
+        "required": true,
+        "feedback": "Quantities and scope are critical for accurate quotes."
+      },
+      {
+        "name": "facilities_&_operations_field_2",
+        "label": "Frequency",
+        "type": "text",
+        "required": true,
+        "feedback": "Recurring vs one-time affects pricing models."
+      },
+      {
+        "name": "facilities_&_operations_field_3",
+        "label": "Service hours / schedules",
+        "type": "text",
+        "required": true,
+        "feedback": "Evening/weekend shifts add cost premiums."
+      },
+      {
+        "name": "facilities_&_operations_field_4",
+        "label": "Quality standards",
+        "type": "text",
+        "required": true,
+        "feedback": "Eco-friendly or ergonomic-certified items can increase cost."
+      },
+      {
+        "name": "facilities_&_operations_field_5",
+        "label": "Maintenance response times",
+        "type": "text",
+        "required": true,
+        "feedback": "SLA-driven costs need to be factored in."
+      },
+      {
+        "name": "facilities_&_operations_field_6",
+        "label": "Warranty terms",
+        "type": "text",
+        "required": true,
+        "feedback": "Longer warranties = higher upfront pricing."
+      }
+    ]
+  },
+  "Manufacturing & Industrial": {
+    "fields": [
+      {
+        "name": "manufacturing_&_industrial_field_1",
+        "label": "Technical drawings/specifications",
+        "type": "text",
+        "required": true,
+        "feedback": "Blueprints/CAD are required for accurate cost estimation."
+      },
+      {
+        "name": "manufacturing_&_industrial_field_2",
+        "label": "Material grades/standards",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers need clarity on material compliance to avoid rework."
+      },
+      {
+        "name": "manufacturing_&_industrial_field_3",
+        "label": "Production volume",
+        "type": "text",
+        "required": true,
+        "feedback": "Batch size influences economies of scale."
+      },
+      {
+        "name": "manufacturing_&_industrial_field_4",
+        "label": "Quality assurance/testing requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Testing adds direct costs suppliers must include."
+      },
+      {
+        "name": "manufacturing_&_industrial_field_5",
+        "label": "Lead times for production & delivery",
+        "type": "text",
+        "required": true,
+        "feedback": "Shorter deadlines = higher costs."
+      },
+      {
+        "name": "manufacturing_&_industrial_field_6",
+        "label": "Packaging specifications",
+        "type": "text",
+        "required": true,
+        "feedback": "Custom packaging adds cost suppliers must factor in."
+      }
+    ]
+  },
+  "Logistics & Supply Chain": {
+    "fields": [
+      {
+        "name": "logistics_&_supply_chain_field_1",
+        "label": "Type of cargo",
+        "type": "text",
+        "required": true,
+        "feedback": "Special cargo (hazardous/refrigerated) requires specialized providers."
+      },
+      {
+        "name": "logistics_&_supply_chain_field_2",
+        "label": "Volume/weight",
+        "type": "text",
+        "required": true,
+        "feedback": "Directly impacts freight and handling costs."
+      },
+      {
+        "name": "logistics_&_supply_chain_field_3",
+        "label": "Route details",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers need to factor customs/transit costs."
+      },
+      {
+        "name": "logistics_&_supply_chain_field_4",
+        "label": "Delivery timelines",
+        "type": "text",
+        "required": true,
+        "feedback": "Expedited services are costlier."
+      },
+      {
+        "name": "logistics_&_supply_chain_field_5",
+        "label": "Compliance requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Licenses and customs fees impact quotes."
+      },
+      {
+        "name": "logistics_&_supply_chain_field_6",
+        "label": "Insurance coverage requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers must include policy premiums in pricing."
+      }
+    ]
+  },
+  "Construction & Infrastructure": {
+    "fields": [
+      {
+        "name": "construction_&_infrastructure_field_1",
+        "label": "Scope of works",
+        "type": "text",
+        "required": true,
+        "feedback": "Drawings/BOQs must be clear for suppliers to bid accurately."
+      },
+      {
+        "name": "construction_&_infrastructure_field_2",
+        "label": "Materials specifications",
+        "type": "text",
+        "required": true,
+        "feedback": "Brand/grade directly affect pricing."
+      },
+      {
+        "name": "construction_&_infrastructure_field_3",
+        "label": "Site location & access requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Remote or restricted sites raise cost."
+      },
+      {
+        "name": "construction_&_infrastructure_field_4",
+        "label": "Project timelines & milestones",
+        "type": "text",
+        "required": true,
+        "feedback": "Impacts resourcing and equipment hire."
+      },
+      {
+        "name": "construction_&_infrastructure_field_5",
+        "label": "Safety standards",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers may need additional safety compliance costs."
+      },
+      {
+        "name": "construction_&_infrastructure_field_6",
+        "label": "Contractor qualifications",
+        "type": "text",
+        "required": true,
+        "feedback": "Grading/licensing requirements limit eligible bidders."
+      },
+      {
+        "name": "construction_&_infrastructure_field_7",
+        "label": "Warranty & defect liability period",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers price risk based on post-completion liability."
+      }
+    ]
+  },
+  "Healthcare & Wellness": {
+    "fields": [
+      {
+        "name": "healthcare_&_wellness_field_1",
+        "label": "Type & specifications of medical supplies/equipment",
+        "type": "text",
+        "required": true,
+        "feedback": "Precision ensures compliance and correct pricing."
+      },
+      {
+        "name": "healthcare_&_wellness_field_2",
+        "label": "Certification requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers include regulatory certification costs in pricing."
+      },
+      {
+        "name": "healthcare_&_wellness_field_3",
+        "label": "Quantity/usage frequency",
+        "type": "text",
+        "required": true,
+        "feedback": "Single-use vs reusable changes cost basis."
+      },
+      {
+        "name": "healthcare_&_wellness_field_4",
+        "label": "Service/maintenance plans",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers must plan for ongoing costs."
+      },
+      {
+        "name": "healthcare_&_wellness_field_5",
+        "label": "Expiry dates & shelf life",
+        "type": "text",
+        "required": true,
+        "feedback": "Critical for pharmaceuticals; affects supply feasibility."
+      },
+      {
+        "name": "healthcare_&_wellness_field_6",
+        "label": "Insurance coverage for services",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers need to cost-in liability coverage."
+      }
+    ]
+  },
+  "Retail, Hospitality & Events": {
+    "fields": [
+      {
+        "name": "retail,_hospitality_&_events_field_1",
+        "label": "Event type / size",
+        "type": "text",
+        "required": true,
+        "feedback": "Number of attendees drives food, staff, and equipment costs."
+      },
+      {
+        "name": "retail,_hospitality_&_events_field_2",
+        "label": "Menu/food specifications",
+        "type": "text",
+        "required": true,
+        "feedback": "Dietary restrictions can increase food costs."
+      },
+      {
+        "name": "retail,_hospitality_&_events_field_3",
+        "label": "Service hours",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers must allocate staff for setup, event, teardown."
+      },
+      {
+        "name": "retail,_hospitality_&_events_field_4",
+        "label": "Branding/personalization requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Customization adds significant costs."
+      },
+      {
+        "name": "retail,_hospitality_&_events_field_5",
+        "label": "Equipment & staffing needs",
+        "type": "text",
+        "required": true,
+        "feedback": "Staffing levels and AV setup are cost drivers."
+      },
+      {
+        "name": "retail,_hospitality_&_events_field_6",
+        "label": "Safety/compliance standards",
+        "type": "text",
+        "required": true,
+        "feedback": "Food hygiene/liquor licensing adds compliance overhead."
+      }
+    ]
+  },
+  "Financial & Insurance": {
+    "fields": [
+      {
+        "name": "financial_&_insurance_field_1",
+        "label": "Scope of services",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers need to know exactly which services to cost."
+      },
+      {
+        "name": "financial_&_insurance_field_2",
+        "label": "Transaction volume",
+        "type": "text",
+        "required": true,
+        "feedback": "Determines whether suppliers offer tiered pricing."
+      },
+      {
+        "name": "financial_&_insurance_field_3",
+        "label": "Risk/coverage requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Insurance coverage limits directly impact premiums."
+      },
+      {
+        "name": "financial_&_insurance_field_4",
+        "label": "Licensing/regulatory requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers pass on compliance costs."
+      },
+      {
+        "name": "financial_&_insurance_field_5",
+        "label": "Service level agreements",
+        "type": "text",
+        "required": true,
+        "feedback": "Faster turnaround increases supplier cost base."
+      },
+      {
+        "name": "financial_&_insurance_field_6",
+        "label": "Pricing model",
+        "type": "text",
+        "required": true,
+        "feedback": "Helps align supplier quotes with buyer expectations."
+      }
+    ]
+  },
+  "Sustainability & CSR": {
+    "fields": [
+      {
+        "name": "sustainability_&_csr_field_1",
+        "label": "Project type",
+        "type": "text",
+        "required": true,
+        "feedback": "Different project types have widely varying cost bases."
+      },
+      {
+        "name": "sustainability_&_csr_field_2",
+        "label": "Sustainability standards",
+        "type": "text",
+        "required": true,
+        "feedback": "Certification fees drive cost."
+      },
+      {
+        "name": "sustainability_&_csr_field_3",
+        "label": "Scope & deliverables",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers need clarity to allocate resources."
+      },
+      {
+        "name": "sustainability_&_csr_field_4",
+        "label": "Carbon reduction targets/KPIs",
+        "type": "text",
+        "required": true,
+        "feedback": "Defines scope of required interventions."
+      },
+      {
+        "name": "sustainability_&_csr_field_5",
+        "label": "Location & environment impact requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Remote locations raise costs."
+      },
+      {
+        "name": "sustainability_&_csr_field_6",
+        "label": "Certification or audit body requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers must factor audit fees."
+      }
+    ]
+  },
+  "Human Capital & Workforce": {
+    "fields": [
+      {
+        "name": "human_capital_&_workforce_field_1",
+        "label": "Role types & job descriptions",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers must match profiles to cost appropriately."
+      },
+      {
+        "name": "human_capital_&_workforce_field_2",
+        "label": "Number of staff required & duration",
+        "type": "text",
+        "required": true,
+        "feedback": "Headcount and contract length define pricing."
+      },
+      {
+        "name": "human_capital_&_workforce_field_3",
+        "label": "Skill level & certifications",
+        "type": "text",
+        "required": true,
+        "feedback": "Specialized staff are higher cost."
+      },
+      {
+        "name": "human_capital_&_workforce_field_4",
+        "label": "Work schedule",
+        "type": "text",
+        "required": true,
+        "feedback": "Night shifts/weekends carry premiums."
+      },
+      {
+        "name": "human_capital_&_workforce_field_5",
+        "label": "Payroll/benefits handling",
+        "type": "text",
+        "required": true,
+        "feedback": "Agency vs buyer-covered benefits affect pricing."
+      },
+      {
+        "name": "human_capital_&_workforce_field_6",
+        "label": "Performance monitoring/reporting",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers must cost-in tracking systems."
+      }
+    ]
+  },
+  "Government, Education & NGOs": {
+    "fields": [
+      {
+        "name": "government,_education_&_ngos_field_1",
+        "label": "Scope of program/project",
+        "type": "text",
+        "required": true,
+        "feedback": "Clarity is critical for accurate budgeting."
+      },
+      {
+        "name": "government,_education_&_ngos_field_2",
+        "label": "Compliance requirements",
+        "type": "text",
+        "required": true,
+        "feedback": "Public procurement standards add supplier compliance costs."
+      },
+      {
+        "name": "government,_education_&_ngos_field_3",
+        "label": "Reporting obligations",
+        "type": "text",
+        "required": true,
+        "feedback": "Suppliers need to cost-in reporting time/tools."
+      },
+      {
+        "name": "government,_education_&_ngos_field_4",
+        "label": "Documentation",
+        "type": "text",
+        "required": true,
+        "feedback": "Accreditations/licenses incur supplier costs."
+      },
+      {
+        "name": "government,_education_&_ngos_field_5",
+        "label": "Delivery locations",
+        "type": "text",
+        "required": true,
+        "feedback": "Multi-site programs significantly raise delivery costs."
+      },
+      {
+        "name": "government,_education_&_ngos_field_6",
+        "label": "Evaluation criteria",
+        "type": "text",
+        "required": true,
+        "feedback": "Impact/coverage expectations define project scale."
+      }
+    ]
+  }
+}

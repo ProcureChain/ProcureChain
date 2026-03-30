@@ -1,0 +1,95 @@
+Category,Bid Line Item
+Professional & Business Services,Consultant / Resource Name & Role
+Professional & Business Services,Hourly / Daily Rate
+Professional & Business Services,Estimated Hours / Days
+Professional & Business Services,Deliverable Fees
+Professional & Business Services,Travel & Accommodation
+Professional & Business Services,Admin/Overhead Charges
+Professional & Business Services,VAT / Tax
+Technology & Digital,Software License (per user / enterprise)
+Technology & Digital,Implementation Fee
+Technology & Digital,Hardware Costs
+Technology & Digital,Custom Development Hours
+Technology & Digital,Support & Maintenance
+Technology & Digital,Training
+Technology & Digital,Hosting/Cloud Costs
+Technology & Digital,VAT / Tax
+Facilities & Operations,Unit Price of Supplies
+Facilities & Operations,Service Fee
+Facilities & Operations,Staff Costs
+Facilities & Operations,Equipment Hire / Usage
+Facilities & Operations,Consumables
+Facilities & Operations,Transport / Delivery Charges
+Facilities & Operations,Warranty Costs
+Facilities & Operations,VAT / Tax
+Manufacturing & Industrial,Raw Materials
+Manufacturing & Industrial,Component Costs
+Manufacturing & Industrial,Labour / Production Hours
+Manufacturing & Industrial,Machine Setup / Tooling Fees
+Manufacturing & Industrial,Quality Testing / Certification Fees
+Manufacturing & Industrial,Packaging Costs
+Manufacturing & Industrial,Freight / Delivery Charges
+Manufacturing & Industrial,VAT / Tax
+Logistics & Supply Chain,Freight Charges
+Logistics & Supply Chain,Handling Fees
+Logistics & Supply Chain,Customs Clearance Fees
+Logistics & Supply Chain,Storage / Warehousing
+Logistics & Supply Chain,Insurance Premiums
+Logistics & Supply Chain,Fuel Surcharge
+Logistics & Supply Chain,Documentation Fees
+Logistics & Supply Chain,VAT / Tax
+Construction & Infrastructure,Labour Costs
+Construction & Infrastructure,Materials
+Construction & Infrastructure,Plant & Equipment Hire
+Construction & Infrastructure,Subcontractor Fees
+Construction & Infrastructure,Safety Equipment / Compliance Costs
+Construction & Infrastructure,Site Setup & Preliminary Costs
+Construction & Infrastructure,Contingency / Risk Allowance
+Construction & Infrastructure,VAT / Tax
+Healthcare & Wellness,Medical Equipment
+Healthcare & Wellness,Consumables
+Healthcare & Wellness,Pharmaceuticals
+Healthcare & Wellness,Service / Maintenance Fees
+Healthcare & Wellness,Training / Support Costs
+Healthcare & Wellness,Delivery / Cold Chain Costs
+Healthcare & Wellness,Warranty / Calibration Costs
+Healthcare & Wellness,VAT / Tax
+"Retail, Hospitality & Events",Venue Hire
+"Retail, Hospitality & Events",Catering
+"Retail, Hospitality & Events",Staff Costs
+"Retail, Hospitality & Events",Décor & Branding Items
+"Retail, Hospitality & Events",Equipment Hire
+"Retail, Hospitality & Events",Travel & Transport Costs
+"Retail, Hospitality & Events",Setup & Teardown Fees
+"Retail, Hospitality & Events",VAT / Tax
+Financial & Insurance,Service Fees
+Financial & Insurance,Transaction Charges
+Financial & Insurance,Retainer Fees
+Financial & Insurance,Risk Premiums
+Financial & Insurance,Compliance/Regulatory Filing Fees
+Financial & Insurance,Training/Consultation Hours
+Financial & Insurance,VAT / Tax
+Sustainability & CSR,Equipment Costs
+Sustainability & CSR,Installation / Labour Fees
+Sustainability & CSR,Certification / Audit Fees
+Sustainability & CSR,Monitoring & Reporting Costs
+Sustainability & CSR,Consumables
+Sustainability & CSR,Maintenance / Service Fees
+Sustainability & CSR,Transportation / Logistics Costs
+Sustainability & CSR,VAT / Tax
+Human Capital & Workforce,Staff Hourly / Daily Rates
+Human Capital & Workforce,Number of Staff × Duration
+Human Capital & Workforce,Recruitment / Placement Fees
+Human Capital & Workforce,Training & Induction Costs
+Human Capital & Workforce,PPE / Uniform Costs
+Human Capital & Workforce,Travel & Accommodation
+Human Capital & Workforce,Payroll/Benefits Charges
+Human Capital & Workforce,VAT / Tax
+"Government, Education & NGOs",Professional Fees
+"Government, Education & NGOs",Training Program Costs
+"Government, Education & NGOs",Educational Materials
+"Government, Education & NGOs",Equipment
+"Government, Education & NGOs",Travel & Fieldwork Expenses
+"Government, Education & NGOs",Reporting / Compliance Costs
+"Government, Education & NGOs",Monitoring & Evaluation Fees
+"Government, Education & NGOs",VAT / Tax

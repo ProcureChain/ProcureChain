@@ -1,0 +1,3 @@
+ALTER TABLE "PaymentProof"
+  ADD COLUMN IF NOT EXISTS "popPath" TEXT,
+  ADD COLUMN IF NOT EXISTS "popName" TEXT;

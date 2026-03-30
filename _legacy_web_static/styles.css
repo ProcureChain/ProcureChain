@@ -1,0 +1,251 @@
+:root {
+  --bg: #0b111b;
+  --panel: #121b29;
+  --panel-2: #152236;
+  --text: #e9f0ff;
+  --muted: #95a4bf;
+  --line: #2a3b58;
+  --accent: #39c7b0;
+  --accent-2: #ffb84d;
+  --danger: #ff6f6f;
+  --ok: #5ed47a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Sora', sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 600px at 15% -10%, #1b3355 0%, transparent 60%),
+    radial-gradient(1000px 600px at 95% 0%, #19425f 0%, transparent 60%),
+    var(--bg);
+}
+
+.bg-orb {
+  position: fixed;
+  border-radius: 999px;
+  filter: blur(40px);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.bg-orb-a {
+  width: 280px;
+  height: 280px;
+  background: var(--accent);
+  top: 18%;
+  left: -60px;
+}
+
+.bg-orb-b {
+  width: 240px;
+  height: 240px;
+  background: var(--accent-2);
+  bottom: 10%;
+  right: -80px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding: 24px clamp(16px, 3vw, 36px) 8px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h1 {
+  margin: 2px 0 0;
+  font-size: clamp(24px, 4vw, 36px);
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.status {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0d1828;
+}
+
+main {
+  padding: 12px clamp(16px, 3vw, 36px) 28px;
+  display: grid;
+  gap: 14px;
+}
+
+.card {
+  background: linear-gradient(160deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.grid {
+  display: grid;
+  gap: 10px;
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+input,
+select,
+button,
+textarea {
+  font: inherit;
+}
+
+input,
+select {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0d1828;
+  color: var(--text);
+  padding: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.actions.wrap {
+  flex-wrap: wrap;
+}
+
+.actions.end {
+  align-items: end;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: linear-gradient(130deg, var(--accent), #2ca7e0);
+  color: #042229;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 140ms ease, filter 140ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+button.ghost {
+  color: var(--text);
+  background: #1b2a44;
+  border: 1px solid var(--line);
+}
+
+.muted {
+  color: var(--muted);
+  margin: 0;
+}
+
+pre {
+  margin: 0;
+  min-height: 180px;
+  max-height: 360px;
+  overflow: auto;
+  padding: 12px;
+  border-radius: 10px;
+  background: #081220;
+  border: 1px solid #21314c;
+  color: #cde0ff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+}
+
+footer {
+  padding: 0 clamp(16px, 3vw, 36px) 20px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.reveal {
+  animation: fadeUp 420ms ease both;
+}
+
+.reveal:nth-child(2) { animation-delay: 60ms; }
+.reveal:nth-child(3) { animation-delay: 120ms; }
+.reveal:nth-child(4) { animation-delay: 180ms; }
+.reveal:nth-child(5) { animation-delay: 240ms; }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid-4,
+  .grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
+
+  .grid-4,
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 6px;
+  }
+}

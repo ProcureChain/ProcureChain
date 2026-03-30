@@ -1,0 +1,9 @@
+[
+  {"id":"IT-SW-LIC-001","name":"Software Licenses","level1":"IT","level2":"Software","level3":"Licensing","archetype":"F"},
+  {"id":"IT-SW-SUB-001","name":"Software Subscriptions (SaaS)","level1":"IT","level2":"Software","level3":"Subscription","archetype":"F"},
+  {"id":"IT-HW-END-001","name":"Laptops & Desktops","level1":"IT","level2":"Hardware","level3":"End User Devices","archetype":"F"},
+  {"id":"IT-HW-PER-001","name":"Peripherals","level1":"IT","level2":"Hardware","level3":"Peripherals","archetype":"F"},
+  {"id":"FAC-SRV-CLN-001","name":"Cleaning Services","level1":"Facilities","level2":"Services","level3":"Cleaning","archetype":"C"},
+  {"id":"FAC-SRV-MNT-001","name":"Building Maintenance","level1":"Facilities","level2":"Services","level3":"Maintenance","archetype":"C"},
+  {"id":"PRO-SRV-CON-001","name":"Management Consulting","level1":"Professional Services","level2":"Consulting","level3":"Strategy & Advisory","archetype":"D"}
+]

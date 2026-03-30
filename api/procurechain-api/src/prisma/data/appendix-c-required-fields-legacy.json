@@ -1,0 +1,28 @@
+[
+  {"rulePackKey":"rules.pr.it.sw.licensing.global.v1","entityType":"PR","fieldPath":"subcategoryId"},
+  {"rulePackKey":"rules.pr.it.sw.licensing.global.v1","entityType":"PR","fieldPath":"metadata.kpiName"},
+  {"rulePackKey":"rules.pr.it.sw.subscription.global.v1","entityType":"PR","fieldPath":"metadata.staffCount"},
+  {"rulePackKey":"rules.pr.it.hw.enduser.global.v1","entityType":"PR","fieldPath":"metadata.deliverableSummary"},
+  {"rulePackKey":"rules.pr.it.hw.peripherals.global.v1","entityType":"PR","fieldPath":"metadata.slaHours"},
+  {"rulePackKey":"rules.pr.fac.srv.cleaning.global.v1","entityType":"PR","fieldPath":"metadata.milestonePlan"},
+  {"rulePackKey":"rules.pr.fac.srv.maintenance.global.v1","entityType":"PR","fieldPath":"metadata.serviceBlend"},
+  {"rulePackKey":"rules.pr.pro.srv.consulting.global.v1","entityType":"PR","fieldPath":"metadata.professionalScope"},
+
+  {"rulePackKey":"rules.rfq.it.sw.licensing.global.v1","entityType":"RFQ","fieldPath":"metadata.deliveryDate"},
+  {"rulePackKey":"rules.rfq.it.sw.subscription.global.v1","entityType":"RFQ","fieldPath":"metadata.resourcePlan"},
+  {"rulePackKey":"rules.rfq.it.hw.enduser.global.v1","entityType":"RFQ","fieldPath":"metadata.evaluationMethod"},
+  {"rulePackKey":"rules.rfq.it.hw.peripherals.global.v1","entityType":"RFQ","fieldPath":"metadata.maintenanceWindow"},
+  {"rulePackKey":"rules.rfq.fac.srv.cleaning.global.v1","entityType":"RFQ","fieldPath":"metadata.projectTimeline"},
+  {"rulePackKey":"rules.rfq.fac.srv.maintenance.global.v1","entityType":"RFQ","fieldPath":"metadata.hybridAllocation"},
+  {"rulePackKey":"rules.rfq.pro.srv.consulting.global.v1","entityType":"RFQ","fieldPath":"metadata.proposalFormat"},
+  {"rulePackKey":"rules.rfq.pro.srv.consulting.za.v1","entityType":"RFQ","fieldPath":"metadata.bbeeRequirement"},
+
+  {"rulePackKey":"rules.bid.it.sw.licensing.global.v1","entityType":"BID","fieldPath":"pricing.totalBidValue"},
+  {"rulePackKey":"rules.bid.it.sw.subscription.global.v1","entityType":"BID","fieldPath":"team.namedResources"},
+  {"rulePackKey":"rules.bid.it.hw.enduser.global.v1","entityType":"BID","fieldPath":"approach.methodStatement"},
+  {"rulePackKey":"rules.bid.it.hw.peripherals.global.v1","entityType":"BID","fieldPath":"maintenance.responseCommitment"},
+  {"rulePackKey":"rules.bid.fac.srv.cleaning.global.v1","entityType":"BID","fieldPath":"project.workBreakdown"},
+  {"rulePackKey":"rules.bid.fac.srv.maintenance.global.v1","entityType":"BID","fieldPath":"hybrid.blendJustification"},
+  {"rulePackKey":"rules.bid.pro.srv.consulting.global.v1","entityType":"BID","fieldPath":"professional.cvPack"},
+  {"rulePackKey":"rules.bid.pro.srv.consulting.za.v1","entityType":"BID","fieldPath":"compliance.localRequirements"}
+]

@@ -1,0 +1,79 @@
+[
+  {
+    "subcategoryId": "IT-SW-LIC-001",
+    "serviceFamily": "MEASURABLE",
+    "prFormKey": "pr.it.sw.licensing.v1",
+    "rfqFormKey": "rfq.it.sw.licensing.v1",
+    "bidFormKey": "bid.it.sw.licensing.v1",
+    "prRulePackKey": "rules.pr.it.sw.licensing.global.v1",
+    "rfqRulePackKey": "rules.rfq.it.sw.licensing.global.v1",
+    "bidRulePackKey": "rules.bid.it.sw.licensing.global.v1"
+  },
+  {
+    "subcategoryId": "IT-SW-SUB-001",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "pr.it.sw.subscription.v1",
+    "rfqFormKey": "rfq.it.sw.subscription.v1",
+    "bidFormKey": "bid.it.sw.subscription.v1",
+    "prRulePackKey": "rules.pr.it.sw.subscription.global.v1",
+    "rfqRulePackKey": "rules.rfq.it.sw.subscription.global.v1",
+    "bidRulePackKey": "rules.bid.it.sw.subscription.global.v1"
+  },
+  {
+    "subcategoryId": "IT-HW-END-001",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "pr.it.hw.enduser.v1",
+    "rfqFormKey": "rfq.it.hw.enduser.v1",
+    "bidFormKey": "bid.it.hw.enduser.v1",
+    "prRulePackKey": "rules.pr.it.hw.enduser.global.v1",
+    "rfqRulePackKey": "rules.rfq.it.hw.enduser.global.v1",
+    "bidRulePackKey": "rules.bid.it.hw.enduser.global.v1"
+  },
+  {
+    "subcategoryId": "IT-HW-PER-001",
+    "serviceFamily": "MAINTENANCE",
+    "prFormKey": "pr.it.hw.peripherals.v1",
+    "rfqFormKey": "rfq.it.hw.peripherals.v1",
+    "bidFormKey": "bid.it.hw.peripherals.v1",
+    "prRulePackKey": "rules.pr.it.hw.peripherals.global.v1",
+    "rfqRulePackKey": "rules.rfq.it.hw.peripherals.global.v1",
+    "bidRulePackKey": "rules.bid.it.hw.peripherals.global.v1"
+  },
+  {
+    "subcategoryId": "FAC-SRV-CLN-001",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "pr.fac.srv.cleaning.v1",
+    "rfqFormKey": "rfq.fac.srv.cleaning.v1",
+    "bidFormKey": "bid.fac.srv.cleaning.v1",
+    "prRulePackKey": "rules.pr.fac.srv.cleaning.global.v1",
+    "rfqRulePackKey": "rules.rfq.fac.srv.cleaning.global.v1",
+    "bidRulePackKey": "rules.bid.fac.srv.cleaning.global.v1"
+  },
+  {
+    "subcategoryId": "FAC-SRV-MNT-001",
+    "serviceFamily": "HYBRID",
+    "prFormKey": "pr.fac.srv.maintenance.v1",
+    "rfqFormKey": "rfq.fac.srv.maintenance.v1",
+    "bidFormKey": "bid.fac.srv.maintenance.v1",
+    "prRulePackKey": "rules.pr.fac.srv.maintenance.global.v1",
+    "rfqRulePackKey": "rules.rfq.fac.srv.maintenance.global.v1",
+    "bidRulePackKey": "rules.bid.fac.srv.maintenance.global.v1"
+  },
+  {
+    "subcategoryId": "PRO-SRV-CON-001",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "pr.pro.srv.consulting.v1",
+    "rfqFormKey": "rfq.pro.srv.consulting.v1",
+    "bidFormKey": "bid.pro.srv.consulting.v1",
+    "prRulePackKey": "rules.pr.pro.srv.consulting.global.v1",
+    "rfqRulePackKey": "rules.rfq.pro.srv.consulting.global.v1",
+    "bidRulePackKey": "rules.bid.pro.srv.consulting.global.v1",
+    "overlays": [
+      {
+        "countryCode": "ZA",
+        "rfqRulePackKey": "rules.rfq.pro.srv.consulting.za.v1",
+        "bidRulePackKey": "rules.bid.pro.srv.consulting.za.v1"
+      }
+    ]
+  }
+]

@@ -1,0 +1,3512 @@
+[
+  {
+    "subcategoryId": "GOO_RAW_STEEL_SHEET",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_STEEL_SHEET_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_STEEL_SHEET_V1",
+    "bidFormKey": "BID_GOO_RAW_STEEL_SHEET_V1",
+    "prRulePackKey": "rules.pr.goo_raw_steel_sheet.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_steel_sheet.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_steel_sheet.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_STEEL_BAR_R",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_STEEL_BAR_R_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_STEEL_BAR_R_V1",
+    "bidFormKey": "BID_GOO_RAW_STEEL_BAR_R_V1",
+    "prRulePackKey": "rules.pr.goo_raw_steel_bar_r.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_steel_bar_r.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_steel_bar_r.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_STAINLESS_ST",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_STAINLESS_ST_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_STAINLESS_ST_V1",
+    "bidFormKey": "BID_GOO_RAW_STAINLESS_ST_V1",
+    "prRulePackKey": "rules.pr.goo_raw_stainless_st.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_stainless_st.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_stainless_st.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_ALUMINIUM",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_ALUMINIUM_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_ALUMINIUM_V1",
+    "bidFormKey": "BID_GOO_RAW_ALUMINIUM_V1",
+    "prRulePackKey": "rules.pr.goo_raw_aluminium.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_aluminium.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_aluminium.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_COPPER",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_COPPER_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_COPPER_V1",
+    "bidFormKey": "BID_GOO_RAW_COPPER_V1",
+    "prRulePackKey": "rules.pr.goo_raw_copper.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_copper.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_copper.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_BRASS_BRONZE",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_BRASS_BRONZE_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_BRASS_BRONZE_V1",
+    "bidFormKey": "BID_GOO_RAW_BRASS_BRONZE_V1",
+    "prRulePackKey": "rules.pr.goo_raw_brass_bronze.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_brass_bronze.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_brass_bronze.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_CAST_IRON",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_CAST_IRON_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_CAST_IRON_V1",
+    "bidFormKey": "BID_GOO_RAW_CAST_IRON_V1",
+    "prRulePackKey": "rules.pr.goo_raw_cast_iron.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_cast_iron.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_cast_iron.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_PLASTICS_EN",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_PLASTICS_EN_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_PLASTICS_EN_V1",
+    "bidFormKey": "BID_GOO_RAW_PLASTICS_EN_V1",
+    "prRulePackKey": "rules.pr.goo_raw_plastics_en.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_plastics_en.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_plastics_en.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_RUBBER",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_RUBBER_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_RUBBER_V1",
+    "bidFormKey": "BID_GOO_RAW_RUBBER_V1",
+    "prRulePackKey": "rules.pr.goo_raw_rubber.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_rubber.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_rubber.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_TIMBER_AND_PLY",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_TIMBER_AND_PLY_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_TIMBER_AND_PLY_V1",
+    "bidFormKey": "BID_GOO_RAW_TIMBER_AND_PLY_V1",
+    "prRulePackKey": "rules.pr.goo_raw_timber_and_ply.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_timber_and_ply.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_timber_and_ply.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_GLASS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_GLASS_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_GLASS_V1",
+    "bidFormKey": "BID_GOO_RAW_GLASS_V1",
+    "prRulePackKey": "rules.pr.goo_raw_glass.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_glass.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_glass.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_CERAMICS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_CERAMICS_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_CERAMICS_V1",
+    "bidFormKey": "BID_GOO_RAW_CERAMICS_V1",
+    "prRulePackKey": "rules.pr.goo_raw_ceramics.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_ceramics.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_ceramics.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_COMPOSITES",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_COMPOSITES_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_COMPOSITES_V1",
+    "bidFormKey": "BID_GOO_RAW_COMPOSITES_V1",
+    "prRulePackKey": "rules.pr.goo_raw_composites.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_composites.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_composites.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_REFRACTORY_M",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_REFRACTORY_M_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_REFRACTORY_M_V1",
+    "bidFormKey": "BID_GOO_RAW_REFRACTORY_M_V1",
+    "prRulePackKey": "rules.pr.goo_raw_refractory_m.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_refractory_m.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_refractory_m.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_OILS_AND_LUBRI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_OILS_AND_LUBRI_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_OILS_AND_LUBRI_V1",
+    "bidFormKey": "BID_GOO_RAW_OILS_AND_LUBRI_V1",
+    "prRulePackKey": "rules.pr.goo_raw_oils_and_lubri.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_oils_and_lubri.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_oils_and_lubri.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_FUELS_AND_ADDI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_FUELS_AND_ADDI_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_FUELS_AND_ADDI_V1",
+    "bidFormKey": "BID_GOO_RAW_FUELS_AND_ADDI_V1",
+    "prRulePackKey": "rules.pr.goo_raw_fuels_and_addi.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_fuels_and_addi.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_fuels_and_addi.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_INDUSTRIAL_G",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_INDUSTRIAL_G_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_INDUSTRIAL_G_V1",
+    "bidFormKey": "BID_GOO_RAW_INDUSTRIAL_G_V1",
+    "prRulePackKey": "rules.pr.goo_raw_industrial_g.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_industrial_g.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_industrial_g.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_WELDING_CONS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_WELDING_CONS_V1",
+    "rfqFormKey": "RFQ_GOO_RAW_WELDING_CONS_V1",
+    "bidFormKey": "BID_GOO_RAW_WELDING_CONS_V1",
+    "prRulePackKey": "rules.pr.goo_raw_welding_cons.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_welding_cons.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_welding_cons.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_RAW_ADHESIVES_AND_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_RAW_ADHESIVES_AND__V1",
+    "rfqFormKey": "RFQ_GOO_RAW_ADHESIVES_AND__V1",
+    "bidFormKey": "BID_GOO_RAW_ADHESIVES_AND__V1",
+    "prRulePackKey": "rules.pr.goo_raw_adhesives_and_.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_raw_adhesives_and_.global.v1",
+    "bidRulePackKey": "rules.bid.goo_raw_adhesives_and_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_CABLES_AND_WIR",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_CABLES_AND_WIR_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_CABLES_AND_WIR_V1",
+    "bidFormKey": "BID_GOO_ELE_CABLES_AND_WIR_V1",
+    "prRulePackKey": "rules.pr.goo_ele_cables_and_wir.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_cables_and_wir.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_cables_and_wir.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_CABLE_MANAGE",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_CABLE_MANAGE_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_CABLE_MANAGE_V1",
+    "bidFormKey": "BID_GOO_ELE_CABLE_MANAGE_V1",
+    "prRulePackKey": "rules.pr.goo_ele_cable_manage.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_cable_manage.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_cable_manage.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_SWITCHGEAR_AND",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_SWITCHGEAR_AND_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_SWITCHGEAR_AND_V1",
+    "bidFormKey": "BID_GOO_ELE_SWITCHGEAR_AND_V1",
+    "prRulePackKey": "rules.pr.goo_ele_switchgear_and.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_switchgear_and.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_switchgear_and.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_PANELS_AND_ENC",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_PANELS_AND_ENC_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_PANELS_AND_ENC_V1",
+    "bidFormKey": "BID_GOO_ELE_PANELS_AND_ENC_V1",
+    "prRulePackKey": "rules.pr.goo_ele_panels_and_enc.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_panels_and_enc.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_panels_and_enc.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_MOTORS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_MOTORS_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_MOTORS_V1",
+    "bidFormKey": "BID_GOO_ELE_MOTORS_V1",
+    "prRulePackKey": "rules.pr.goo_ele_motors.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_motors.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_motors.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_DRIVES_VSDS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_DRIVES_VSDS_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_DRIVES_VSDS_V1",
+    "bidFormKey": "BID_GOO_ELE_DRIVES_VSDS_V1",
+    "prRulePackKey": "rules.pr.goo_ele_drives_vsds.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_drives_vsds.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_drives_vsds.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_SENSORS_PRO",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_SENSORS_PRO_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_SENSORS_PRO_V1",
+    "bidFormKey": "BID_GOO_ELE_SENSORS_PRO_V1",
+    "prRulePackKey": "rules.pr.goo_ele_sensors_pro.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_sensors_pro.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_sensors_pro.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_PLC_AND_CONTRO",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_PLC_AND_CONTRO_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_PLC_AND_CONTRO_V1",
+    "bidFormKey": "BID_GOO_ELE_PLC_AND_CONTRO_V1",
+    "prRulePackKey": "rules.pr.goo_ele_plc_and_contro.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_plc_and_contro.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_plc_and_contro.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_HMI_AND_SCADA_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_HMI_AND_SCADA__V1",
+    "rfqFormKey": "RFQ_GOO_ELE_HMI_AND_SCADA__V1",
+    "bidFormKey": "BID_GOO_ELE_HMI_AND_SCADA__V1",
+    "prRulePackKey": "rules.pr.goo_ele_hmi_and_scada_.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_hmi_and_scada_.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_hmi_and_scada_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_INSTRUMENTAT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_INSTRUMENTAT_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_INSTRUMENTAT_V1",
+    "bidFormKey": "BID_GOO_ELE_INSTRUMENTAT_V1",
+    "prRulePackKey": "rules.pr.goo_ele_instrumentat.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_instrumentat.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_instrumentat.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_LIGHTING",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_LIGHTING_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_LIGHTING_V1",
+    "bidFormKey": "BID_GOO_ELE_LIGHTING_V1",
+    "prRulePackKey": "rules.pr.goo_ele_lighting.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_lighting.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_lighting.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_BATTERIES_AND_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_BATTERIES_AND__V1",
+    "rfqFormKey": "RFQ_GOO_ELE_BATTERIES_AND__V1",
+    "bidFormKey": "BID_GOO_ELE_BATTERIES_AND__V1",
+    "prRulePackKey": "rules.pr.goo_ele_batteries_and_.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_batteries_and_.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_batteries_and_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_TRANSFORMERS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_TRANSFORMERS_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_TRANSFORMERS_V1",
+    "bidFormKey": "BID_GOO_ELE_TRANSFORMERS_V1",
+    "prRulePackKey": "rules.pr.goo_ele_transformers.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_transformers.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_transformers.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_EARTHING_AND_L",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_EARTHING_AND_L_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_EARTHING_AND_L_V1",
+    "bidFormKey": "BID_GOO_ELE_EARTHING_AND_L_V1",
+    "prRulePackKey": "rules.pr.goo_ele_earthing_and_l.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_earthing_and_l.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_earthing_and_l.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_CONDUITS_AND_T",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_CONDUITS_AND_T_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_CONDUITS_AND_T_V1",
+    "bidFormKey": "BID_GOO_ELE_CONDUITS_AND_T_V1",
+    "prRulePackKey": "rules.pr.goo_ele_conduits_and_t.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_conduits_and_t.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_conduits_and_t.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_ELE_CONNECTORS_AND",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_ELE_CONNECTORS_AND_V1",
+    "rfqFormKey": "RFQ_GOO_ELE_CONNECTORS_AND_V1",
+    "bidFormKey": "BID_GOO_ELE_CONNECTORS_AND_V1",
+    "prRulePackKey": "rules.pr.goo_ele_connectors_and.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ele_connectors_and.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ele_connectors_and.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_FASTENERS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_FASTENERS_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_FASTENERS_V1",
+    "bidFormKey": "BID_GOO_MEC_FASTENERS_V1",
+    "prRulePackKey": "rules.pr.goo_mec_fasteners.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_fasteners.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_fasteners.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_BEARINGS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_BEARINGS_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_BEARINGS_V1",
+    "bidFormKey": "BID_GOO_MEC_BEARINGS_V1",
+    "prRulePackKey": "rules.pr.goo_mec_bearings.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_bearings.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_bearings.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_SEALS_AND_GASK",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_SEALS_AND_GASK_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_SEALS_AND_GASK_V1",
+    "bidFormKey": "BID_GOO_MEC_SEALS_AND_GASK_V1",
+    "prRulePackKey": "rules.pr.goo_mec_seals_and_gask.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_seals_and_gask.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_seals_and_gask.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_BELTS_AND_PULL",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_BELTS_AND_PULL_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_BELTS_AND_PULL_V1",
+    "bidFormKey": "BID_GOO_MEC_BELTS_AND_PULL_V1",
+    "prRulePackKey": "rules.pr.goo_mec_belts_and_pull.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_belts_and_pull.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_belts_and_pull.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_CHAINS_AND_SPR",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_CHAINS_AND_SPR_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_CHAINS_AND_SPR_V1",
+    "bidFormKey": "BID_GOO_MEC_CHAINS_AND_SPR_V1",
+    "prRulePackKey": "rules.pr.goo_mec_chains_and_spr.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_chains_and_spr.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_chains_and_spr.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_GEARBOXES",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_GEARBOXES_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_GEARBOXES_V1",
+    "bidFormKey": "BID_GOO_MEC_GEARBOXES_V1",
+    "prRulePackKey": "rules.pr.goo_mec_gearboxes.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_gearboxes.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_gearboxes.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_COUPLINGS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_COUPLINGS_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_COUPLINGS_V1",
+    "bidFormKey": "BID_GOO_MEC_COUPLINGS_V1",
+    "prRulePackKey": "rules.pr.goo_mec_couplings.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_couplings.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_couplings.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_HYDRAULICS_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_HYDRAULICS__V1",
+    "rfqFormKey": "RFQ_GOO_MEC_HYDRAULICS__V1",
+    "bidFormKey": "BID_GOO_MEC_HYDRAULICS__V1",
+    "prRulePackKey": "rules.pr.goo_mec_hydraulics_.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_hydraulics_.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_hydraulics_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_PNEUMATICS_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_PNEUMATICS__V1",
+    "rfqFormKey": "RFQ_GOO_MEC_PNEUMATICS__V1",
+    "bidFormKey": "BID_GOO_MEC_PNEUMATICS__V1",
+    "prRulePackKey": "rules.pr.goo_mec_pneumatics_.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_pneumatics_.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_pneumatics_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_VALVES_PROC",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_VALVES_PROC_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_VALVES_PROC_V1",
+    "bidFormKey": "BID_GOO_MEC_VALVES_PROC_V1",
+    "prRulePackKey": "rules.pr.goo_mec_valves_proc.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_valves_proc.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_valves_proc.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_PIPES_AND_FITT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_PIPES_AND_FITT_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_PIPES_AND_FITT_V1",
+    "bidFormKey": "BID_GOO_MEC_PIPES_AND_FITT_V1",
+    "prRulePackKey": "rules.pr.goo_mec_pipes_and_fitt.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_pipes_and_fitt.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_pipes_and_fitt.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_STRUCTURAL_S",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_STRUCTURAL_S_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_STRUCTURAL_S_V1",
+    "bidFormKey": "BID_GOO_MEC_STRUCTURAL_S_V1",
+    "prRulePackKey": "rules.pr.goo_mec_structural_s.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_structural_s.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_structural_s.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_SHEET_METAL",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_SHEET_METAL_V1",
+    "rfqFormKey": "RFQ_GOO_MEC_SHEET_METAL_V1",
+    "bidFormKey": "BID_GOO_MEC_SHEET_METAL_V1",
+    "prRulePackKey": "rules.pr.goo_mec_sheet_metal.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_sheet_metal.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_sheet_metal.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_MEC_FABRICATION_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_MEC_FABRICATION__V1",
+    "rfqFormKey": "RFQ_GOO_MEC_FABRICATION__V1",
+    "bidFormKey": "BID_GOO_MEC_FABRICATION__V1",
+    "prRulePackKey": "rules.pr.goo_mec_fabrication_.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_mec_fabrication_.global.v1",
+    "bidRulePackKey": "rules.bid.goo_mec_fabrication_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_CARTONS_AND_BO",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_CARTONS_AND_BO_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_CARTONS_AND_BO_V1",
+    "bidFormKey": "BID_GOO_PAC_CARTONS_AND_BO_V1",
+    "prRulePackKey": "rules.pr.goo_pac_cartons_and_bo.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_cartons_and_bo.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_cartons_and_bo.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_STRETCH_WRAP",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_STRETCH_WRAP_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_STRETCH_WRAP_V1",
+    "bidFormKey": "BID_GOO_PAC_STRETCH_WRAP_V1",
+    "prRulePackKey": "rules.pr.goo_pac_stretch_wrap.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_stretch_wrap.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_stretch_wrap.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_BAGS_AND_LINER",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_BAGS_AND_LINER_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_BAGS_AND_LINER_V1",
+    "bidFormKey": "BID_GOO_PAC_BAGS_AND_LINER_V1",
+    "prRulePackKey": "rules.pr.goo_pac_bags_and_liner.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_bags_and_liner.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_bags_and_liner.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_LABELS_AND_PRI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_LABELS_AND_PRI_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_LABELS_AND_PRI_V1",
+    "bidFormKey": "BID_GOO_PAC_LABELS_AND_PRI_V1",
+    "prRulePackKey": "rules.pr.goo_pac_labels_and_pri.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_labels_and_pri.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_labels_and_pri.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_PALLETS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_PALLETS_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_PALLETS_V1",
+    "bidFormKey": "BID_GOO_PAC_PALLETS_V1",
+    "prRulePackKey": "rules.pr.goo_pac_pallets.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_pallets.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_pallets.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_STRAPPING",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_STRAPPING_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_STRAPPING_V1",
+    "bidFormKey": "BID_GOO_PAC_STRAPPING_V1",
+    "prRulePackKey": "rules.pr.goo_pac_strapping.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_strapping.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_strapping.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_TAPES",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_TAPES_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_TAPES_V1",
+    "bidFormKey": "BID_GOO_PAC_TAPES_V1",
+    "prRulePackKey": "rules.pr.goo_pac_tapes.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_tapes.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_tapes.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_CLEANING_CON",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_CLEANING_CON_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_CLEANING_CON_V1",
+    "bidFormKey": "BID_GOO_PAC_CLEANING_CON_V1",
+    "prRulePackKey": "rules.pr.goo_pac_cleaning_con.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_cleaning_con.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_cleaning_con.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_OFFICE_SUPPL",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_OFFICE_SUPPL_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_OFFICE_SUPPL_V1",
+    "bidFormKey": "BID_GOO_PAC_OFFICE_SUPPL_V1",
+    "prRulePackKey": "rules.pr.goo_pac_office_suppl.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_office_suppl.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_office_suppl.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_STATIONERY",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_STATIONERY_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_STATIONERY_V1",
+    "bidFormKey": "BID_GOO_PAC_STATIONERY_V1",
+    "prRulePackKey": "rules.pr.goo_pac_stationery.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_stationery.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_stationery.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_PRINTER_CONS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_PRINTER_CONS_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_PRINTER_CONS_V1",
+    "bidFormKey": "BID_GOO_PAC_PRINTER_CONS_V1",
+    "prRulePackKey": "rules.pr.goo_pac_printer_cons.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_printer_cons.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_printer_cons.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PAC_CANTEEN_CONS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PAC_CANTEEN_CONS_V1",
+    "rfqFormKey": "RFQ_GOO_PAC_CANTEEN_CONS_V1",
+    "bidFormKey": "BID_GOO_PAC_CANTEEN_CONS_V1",
+    "prRulePackKey": "rules.pr.goo_pac_canteen_cons.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_pac_canteen_cons.global.v1",
+    "bidRulePackKey": "rules.bid.goo_pac_canteen_cons.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_SAFETY_GLOVE",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_SAFETY_GLOVE_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_SAFETY_GLOVE_V1",
+    "bidFormKey": "BID_GOO_PPE_SAFETY_GLOVE_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_safety_glove.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_safety_glove.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_safety_glove.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_SAFETY_SHOES",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_SAFETY_SHOES_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_SAFETY_SHOES_V1",
+    "bidFormKey": "BID_GOO_PPE_SAFETY_SHOES_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_safety_shoes.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_safety_shoes.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_safety_shoes.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_HARD_HATS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_HARD_HATS_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_HARD_HATS_V1",
+    "bidFormKey": "BID_GOO_PPE_HARD_HATS_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_hard_hats.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_hard_hats.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_hard_hats.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_EYE_PROTECTI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_EYE_PROTECTI_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_EYE_PROTECTI_V1",
+    "bidFormKey": "BID_GOO_PPE_EYE_PROTECTI_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_eye_protecti.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_eye_protecti.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_eye_protecti.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_HEARING_PROT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_HEARING_PROT_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_HEARING_PROT_V1",
+    "bidFormKey": "BID_GOO_PPE_HEARING_PROT_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_hearing_prot.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_hearing_prot.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_hearing_prot.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_RESPIRATORS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_RESPIRATORS_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_RESPIRATORS_V1",
+    "bidFormKey": "BID_GOO_PPE_RESPIRATORS_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_respirators.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_respirators.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_respirators.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_PROTECTIVE_C",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_PROTECTIVE_C_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_PROTECTIVE_C_V1",
+    "bidFormKey": "BID_GOO_PPE_PROTECTIVE_C_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_protective_c.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_protective_c.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_protective_c.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_FALL_PROTECT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_FALL_PROTECT_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_FALL_PROTECT_V1",
+    "bidFormKey": "BID_GOO_PPE_FALL_PROTECT_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_fall_protect.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_fall_protect.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_fall_protect.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_FIRE_EXTINGU",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_FIRE_EXTINGU_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_FIRE_EXTINGU_V1",
+    "bidFormKey": "BID_GOO_PPE_FIRE_EXTINGU_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_fire_extingu.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_fire_extingu.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_fire_extingu.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_FIRST_AID_KI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_FIRST_AID_KI_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_FIRST_AID_KI_V1",
+    "bidFormKey": "BID_GOO_PPE_FIRST_AID_KI_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_first_aid_ki.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_first_aid_ki.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_first_aid_ki.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_SAFETY_SIGNA",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_SAFETY_SIGNA_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_SAFETY_SIGNA_V1",
+    "bidFormKey": "BID_GOO_PPE_SAFETY_SIGNA_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_safety_signa.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_safety_signa.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_safety_signa.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_PPE_GAS_DETECTOR",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_PPE_GAS_DETECTOR_V1",
+    "rfqFormKey": "RFQ_GOO_PPE_GAS_DETECTOR_V1",
+    "bidFormKey": "BID_GOO_PPE_GAS_DETECTOR_V1",
+    "prRulePackKey": "rules.pr.goo_ppe_gas_detector.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ppe_gas_detector.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ppe_gas_detector.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_HAND_TOOLS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_HAND_TOOLS_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_HAND_TOOLS_V1",
+    "bidFormKey": "BID_MRO_TOO_HAND_TOOLS_V1",
+    "prRulePackKey": "rules.pr.mro_too_hand_tools.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_hand_tools.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_hand_tools.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_POWER_TOOLS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_POWER_TOOLS_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_POWER_TOOLS_V1",
+    "bidFormKey": "BID_MRO_TOO_POWER_TOOLS_V1",
+    "prRulePackKey": "rules.pr.mro_too_power_tools.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_power_tools.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_power_tools.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_TORQUE_TOOLS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_TORQUE_TOOLS_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_TORQUE_TOOLS_V1",
+    "bidFormKey": "BID_MRO_TOO_TORQUE_TOOLS_V1",
+    "prRulePackKey": "rules.pr.mro_too_torque_tools.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_torque_tools.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_torque_tools.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_MEASURING_TO",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_MEASURING_TO_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_MEASURING_TO_V1",
+    "bidFormKey": "BID_MRO_TOO_MEASURING_TO_V1",
+    "prRulePackKey": "rules.pr.mro_too_measuring_to.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_measuring_to.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_measuring_to.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_CALIBRATION_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_CALIBRATION__V1",
+    "rfqFormKey": "RFQ_MRO_TOO_CALIBRATION__V1",
+    "bidFormKey": "BID_MRO_TOO_CALIBRATION__V1",
+    "prRulePackKey": "rules.pr.mro_too_calibration_.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_calibration_.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_calibration_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_WORKSHOP_EQU",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_WORKSHOP_EQU_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_WORKSHOP_EQU_V1",
+    "bidFormKey": "BID_MRO_TOO_WORKSHOP_EQU_V1",
+    "prRulePackKey": "rules.pr.mro_too_workshop_equ.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_workshop_equ.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_workshop_equ.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_LIFTING_EQUI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_LIFTING_EQUI_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_LIFTING_EQUI_V1",
+    "bidFormKey": "BID_MRO_TOO_LIFTING_EQUI_V1",
+    "prRulePackKey": "rules.pr.mro_too_lifting_equi.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_lifting_equi.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_lifting_equi.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_WELDING_MACH",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_WELDING_MACH_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_WELDING_MACH_V1",
+    "bidFormKey": "BID_MRO_TOO_WELDING_MACH_V1",
+    "prRulePackKey": "rules.pr.mro_too_welding_mach.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_welding_mach.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_welding_mach.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_COMPRESSORS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_COMPRESSORS_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_COMPRESSORS_V1",
+    "bidFormKey": "BID_MRO_TOO_COMPRESSORS_V1",
+    "prRulePackKey": "rules.pr.mro_too_compressors.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_compressors.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_compressors.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_GENERATORS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_GENERATORS_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_GENERATORS_V1",
+    "bidFormKey": "BID_MRO_TOO_GENERATORS_V1",
+    "prRulePackKey": "rules.pr.mro_too_generators.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_generators.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_generators.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_PUMPS_GENER",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_PUMPS_GENER_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_PUMPS_GENER_V1",
+    "bidFormKey": "BID_MRO_TOO_PUMPS_GENER_V1",
+    "prRulePackKey": "rules.pr.mro_too_pumps_gener.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_pumps_gener.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_pumps_gener.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_TOO_INDUSTRIAL_V",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_TOO_INDUSTRIAL_V_V1",
+    "rfqFormKey": "RFQ_MRO_TOO_INDUSTRIAL_V_V1",
+    "bidFormKey": "BID_MRO_TOO_INDUSTRIAL_V_V1",
+    "prRulePackKey": "rules.pr.mro_too_industrial_v.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_too_industrial_v.global.v1",
+    "bidRulePackKey": "rules.bid.mro_too_industrial_v.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_MACHINE_SPAR",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_MACHINE_SPAR_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_MACHINE_SPAR_V1",
+    "bidFormKey": "BID_MRO_SPA_MACHINE_SPAR_V1",
+    "prRulePackKey": "rules.pr.mro_spa_machine_spar.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_machine_spar.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_machine_spar.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_CONVEYOR_SPA",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_CONVEYOR_SPA_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_CONVEYOR_SPA_V1",
+    "bidFormKey": "BID_MRO_SPA_CONVEYOR_SPA_V1",
+    "prRulePackKey": "rules.pr.mro_spa_conveyor_spa.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_conveyor_spa.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_conveyor_spa.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_BOILER_SPARE",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_BOILER_SPARE_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_BOILER_SPARE_V1",
+    "bidFormKey": "BID_MRO_SPA_BOILER_SPARE_V1",
+    "prRulePackKey": "rules.pr.mro_spa_boiler_spare.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_boiler_spare.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_boiler_spare.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_COMPRESSOR_S",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_COMPRESSOR_S_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_COMPRESSOR_S_V1",
+    "bidFormKey": "BID_MRO_SPA_COMPRESSOR_S_V1",
+    "prRulePackKey": "rules.pr.mro_spa_compressor_s.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_compressor_s.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_compressor_s.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_PUMP_SPARES",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_PUMP_SPARES_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_PUMP_SPARES_V1",
+    "bidFormKey": "BID_MRO_SPA_PUMP_SPARES_V1",
+    "prRulePackKey": "rules.pr.mro_spa_pump_spares.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_pump_spares.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_pump_spares.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_MOTOR_SPARES",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_MOTOR_SPARES_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_MOTOR_SPARES_V1",
+    "bidFormKey": "BID_MRO_SPA_MOTOR_SPARES_V1",
+    "prRulePackKey": "rules.pr.mro_spa_motor_spares.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_motor_spares.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_motor_spares.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_GEARBOX_SPAR",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_GEARBOX_SPAR_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_GEARBOX_SPAR_V1",
+    "bidFormKey": "BID_MRO_SPA_GEARBOX_SPAR_V1",
+    "prRulePackKey": "rules.pr.mro_spa_gearbox_spar.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_gearbox_spar.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_gearbox_spar.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_ELECTRICAL_S",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_ELECTRICAL_S_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_ELECTRICAL_S_V1",
+    "bidFormKey": "BID_MRO_SPA_ELECTRICAL_S_V1",
+    "prRulePackKey": "rules.pr.mro_spa_electrical_s.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_electrical_s.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_electrical_s.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_INSTRUMENTAT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_INSTRUMENTAT_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_INSTRUMENTAT_V1",
+    "bidFormKey": "BID_MRO_SPA_INSTRUMENTAT_V1",
+    "prRulePackKey": "rules.pr.mro_spa_instrumentat.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_instrumentat.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_instrumentat.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_HYDRAULIC_SP",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_HYDRAULIC_SP_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_HYDRAULIC_SP_V1",
+    "bidFormKey": "BID_MRO_SPA_HYDRAULIC_SP_V1",
+    "prRulePackKey": "rules.pr.mro_spa_hydraulic_sp.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_hydraulic_sp.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_hydraulic_sp.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SPA_PNEUMATIC_SP",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SPA_PNEUMATIC_SP_V1",
+    "rfqFormKey": "RFQ_MRO_SPA_PNEUMATIC_SP_V1",
+    "bidFormKey": "BID_MRO_SPA_PNEUMATIC_SP_V1",
+    "prRulePackKey": "rules.pr.mro_spa_pneumatic_sp.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_spa_pneumatic_sp.global.v1",
+    "bidRulePackKey": "rules.bid.mro_spa_pneumatic_sp.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_FAC_PLUMBING_MAT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_FAC_PLUMBING_MAT_V1",
+    "rfqFormKey": "RFQ_MRO_FAC_PLUMBING_MAT_V1",
+    "bidFormKey": "BID_MRO_FAC_PLUMBING_MAT_V1",
+    "prRulePackKey": "rules.pr.mro_fac_plumbing_mat.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_fac_plumbing_mat.global.v1",
+    "bidRulePackKey": "rules.bid.mro_fac_plumbing_mat.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_FAC_HVAC_PARTS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_FAC_HVAC_PARTS_V1",
+    "rfqFormKey": "RFQ_MRO_FAC_HVAC_PARTS_V1",
+    "bidFormKey": "BID_MRO_FAC_HVAC_PARTS_V1",
+    "prRulePackKey": "rules.pr.mro_fac_hvac_parts.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_fac_hvac_parts.global.v1",
+    "bidRulePackKey": "rules.bid.mro_fac_hvac_parts.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_FAC_BUILDING_CON",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_FAC_BUILDING_CON_V1",
+    "rfqFormKey": "RFQ_MRO_FAC_BUILDING_CON_V1",
+    "bidFormKey": "BID_MRO_FAC_BUILDING_CON_V1",
+    "prRulePackKey": "rules.pr.mro_fac_building_con.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_fac_building_con.global.v1",
+    "bidRulePackKey": "rules.bid.mro_fac_building_con.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_FAC_PAINTS_AND_COA",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_FAC_PAINTS_AND_COA_V1",
+    "rfqFormKey": "RFQ_MRO_FAC_PAINTS_AND_COA_V1",
+    "bidFormKey": "BID_MRO_FAC_PAINTS_AND_COA_V1",
+    "prRulePackKey": "rules.pr.mro_fac_paints_and_coa.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_fac_paints_and_coa.global.v1",
+    "bidRulePackKey": "rules.bid.mro_fac_paints_and_coa.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_FAC_FLOORING_MAT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_FAC_FLOORING_MAT_V1",
+    "rfqFormKey": "RFQ_MRO_FAC_FLOORING_MAT_V1",
+    "bidFormKey": "BID_MRO_FAC_FLOORING_MAT_V1",
+    "prRulePackKey": "rules.pr.mro_fac_flooring_mat.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_fac_flooring_mat.global.v1",
+    "bidRulePackKey": "rules.bid.mro_fac_flooring_mat.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_FAC_LOCKS_AND_HARD",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_FAC_LOCKS_AND_HARD_V1",
+    "rfqFormKey": "RFQ_MRO_FAC_LOCKS_AND_HARD_V1",
+    "bidFormKey": "BID_MRO_FAC_LOCKS_AND_HARD_V1",
+    "prRulePackKey": "rules.pr.mro_fac_locks_and_hard.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_fac_locks_and_hard.global.v1",
+    "bidRulePackKey": "rules.bid.mro_fac_locks_and_hard.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_FAC_WATER_TREATM",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_FAC_WATER_TREATM_V1",
+    "rfqFormKey": "RFQ_MRO_FAC_WATER_TREATM_V1",
+    "bidFormKey": "BID_MRO_FAC_WATER_TREATM_V1",
+    "prRulePackKey": "rules.pr.mro_fac_water_treatm.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_fac_water_treatm.global.v1",
+    "bidRulePackKey": "rules.bid.mro_fac_water_treatm.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_FAC_WASTE_HANDLI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_FAC_WASTE_HANDLI_V1",
+    "rfqFormKey": "RFQ_MRO_FAC_WASTE_HANDLI_V1",
+    "bidFormKey": "BID_MRO_FAC_WASTE_HANDLI_V1",
+    "prRulePackKey": "rules.pr.mro_fac_waste_handli.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_fac_waste_handli.global.v1",
+    "bidRulePackKey": "rules.bid.mro_fac_waste_handli.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MEA_CLEANING_M\u00b2",
+    "serviceFamily": "MEASURABLE",
+    "prFormKey": "PR_SER_MEA_CLEANING_M\u00b2_V1",
+    "rfqFormKey": "RFQ_SER_MEA_CLEANING_M\u00b2_V1",
+    "bidFormKey": "BID_SER_MEA_CLEANING_M\u00b2_V1",
+    "prRulePackKey": "rules.pr.ser_mea_cleaning_m\u00b2.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mea_cleaning_m\u00b2.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mea_cleaning_m\u00b2.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MEA_PAINTING_M\u00b2",
+    "serviceFamily": "MEASURABLE",
+    "prFormKey": "PR_SER_MEA_PAINTING_M\u00b2_V1",
+    "rfqFormKey": "RFQ_SER_MEA_PAINTING_M\u00b2_V1",
+    "bidFormKey": "BID_SER_MEA_PAINTING_M\u00b2_V1",
+    "prRulePackKey": "rules.pr.ser_mea_painting_m\u00b2.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mea_painting_m\u00b2.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mea_painting_m\u00b2.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MEA_WASTE_REMOVA",
+    "serviceFamily": "MEASURABLE",
+    "prFormKey": "PR_SER_MEA_WASTE_REMOVA_V1",
+    "rfqFormKey": "RFQ_SER_MEA_WASTE_REMOVA_V1",
+    "bidFormKey": "BID_SER_MEA_WASTE_REMOVA_V1",
+    "prRulePackKey": "rules.pr.ser_mea_waste_remova.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mea_waste_remova.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mea_waste_remova.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MEA_PEST_CONTROL",
+    "serviceFamily": "MEASURABLE",
+    "prFormKey": "PR_SER_MEA_PEST_CONTROL_V1",
+    "rfqFormKey": "RFQ_SER_MEA_PEST_CONTROL_V1",
+    "bidFormKey": "BID_SER_MEA_PEST_CONTROL_V1",
+    "prRulePackKey": "rules.pr.ser_mea_pest_control.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mea_pest_control.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mea_pest_control.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MEA_SECURITY_GUA",
+    "serviceFamily": "MEASURABLE",
+    "prFormKey": "PR_SER_MEA_SECURITY_GUA_V1",
+    "rfqFormKey": "RFQ_SER_MEA_SECURITY_GUA_V1",
+    "bidFormKey": "BID_SER_MEA_SECURITY_GUA_V1",
+    "prRulePackKey": "rules.pr.ser_mea_security_gua.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mea_security_gua.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mea_security_gua.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MEA_TRANSPORT_P",
+    "serviceFamily": "MEASURABLE",
+    "prFormKey": "PR_SER_MEA_TRANSPORT_P_V1",
+    "rfqFormKey": "RFQ_SER_MEA_TRANSPORT_P_V1",
+    "bidFormKey": "BID_SER_MEA_TRANSPORT_P_V1",
+    "prRulePackKey": "rules.pr.ser_mea_transport_p.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mea_transport_p.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mea_transport_p.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MEA_EQUIPMENT_HI",
+    "serviceFamily": "MEASURABLE",
+    "prFormKey": "PR_SER_MEA_EQUIPMENT_HI_V1",
+    "rfqFormKey": "RFQ_SER_MEA_EQUIPMENT_HI_V1",
+    "bidFormKey": "BID_SER_MEA_EQUIPMENT_HI_V1",
+    "prRulePackKey": "rules.pr.ser_mea_equipment_hi.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mea_equipment_hi.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mea_equipment_hi.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MEA_CATERING_PE",
+    "serviceFamily": "MEASURABLE",
+    "prFormKey": "PR_SER_MEA_CATERING_PE_V1",
+    "rfqFormKey": "RFQ_SER_MEA_CATERING_PE_V1",
+    "bidFormKey": "BID_SER_MEA_CATERING_PE_V1",
+    "prRulePackKey": "rules.pr.ser_mea_catering_pe.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mea_catering_pe.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mea_catering_pe.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MEA_LAUNDRY_KG",
+    "serviceFamily": "MEASURABLE",
+    "prFormKey": "PR_SER_MEA_LAUNDRY_KG_V1",
+    "rfqFormKey": "RFQ_SER_MEA_LAUNDRY_KG_V1",
+    "bidFormKey": "BID_SER_MEA_LAUNDRY_KG_V1",
+    "prRulePackKey": "rules.pr.ser_mea_laundry_kg.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mea_laundry_kg.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mea_laundry_kg.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LAB_SKILLED_TECH",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "PR_SER_LAB_SKILLED_TECH_V1",
+    "rfqFormKey": "RFQ_SER_LAB_SKILLED_TECH_V1",
+    "bidFormKey": "BID_SER_LAB_SKILLED_TECH_V1",
+    "prRulePackKey": "rules.pr.ser_lab_skilled_tech.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_lab_skilled_tech.global.v1",
+    "bidRulePackKey": "rules.bid.ser_lab_skilled_tech.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "role, grade, rate_card, hours_days, start_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LAB_ARTISANS",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "PR_SER_LAB_ARTISANS_V1",
+    "rfqFormKey": "RFQ_SER_LAB_ARTISANS_V1",
+    "bidFormKey": "BID_SER_LAB_ARTISANS_V1",
+    "prRulePackKey": "rules.pr.ser_lab_artisans.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_lab_artisans.global.v1",
+    "bidRulePackKey": "rules.bid.ser_lab_artisans.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "role, grade, rate_card, hours_days, start_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LAB_WELDERS",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "PR_SER_LAB_WELDERS_V1",
+    "rfqFormKey": "RFQ_SER_LAB_WELDERS_V1",
+    "bidFormKey": "BID_SER_LAB_WELDERS_V1",
+    "prRulePackKey": "rules.pr.ser_lab_welders.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_lab_welders.global.v1",
+    "bidRulePackKey": "rules.bid.ser_lab_welders.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "role, grade, rate_card, hours_days, start_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LAB_ELECTRICIANS",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "PR_SER_LAB_ELECTRICIANS_V1",
+    "rfqFormKey": "RFQ_SER_LAB_ELECTRICIANS_V1",
+    "bidFormKey": "BID_SER_LAB_ELECTRICIANS_V1",
+    "prRulePackKey": "rules.pr.ser_lab_electricians.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_lab_electricians.global.v1",
+    "bidRulePackKey": "rules.bid.ser_lab_electricians.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "role, grade, rate_card, hours_days, start_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LAB_FITTERS_AND_TU",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "PR_SER_LAB_FITTERS_AND_TU_V1",
+    "rfqFormKey": "RFQ_SER_LAB_FITTERS_AND_TU_V1",
+    "bidFormKey": "BID_SER_LAB_FITTERS_AND_TU_V1",
+    "prRulePackKey": "rules.pr.ser_lab_fitters_and_tu.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_lab_fitters_and_tu.global.v1",
+    "bidRulePackKey": "rules.bid.ser_lab_fitters_and_tu.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "role, grade, rate_card, hours_days, start_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LAB_RIGGERS",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "PR_SER_LAB_RIGGERS_V1",
+    "rfqFormKey": "RFQ_SER_LAB_RIGGERS_V1",
+    "bidFormKey": "BID_SER_LAB_RIGGERS_V1",
+    "prRulePackKey": "rules.pr.ser_lab_riggers.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_lab_riggers.global.v1",
+    "bidRulePackKey": "rules.bid.ser_lab_riggers.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "role, grade, rate_card, hours_days, start_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LAB_OPERATORS_M",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "PR_SER_LAB_OPERATORS_M_V1",
+    "rfqFormKey": "RFQ_SER_LAB_OPERATORS_M_V1",
+    "bidFormKey": "BID_SER_LAB_OPERATORS_M_V1",
+    "prRulePackKey": "rules.pr.ser_lab_operators_m.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_lab_operators_m.global.v1",
+    "bidRulePackKey": "rules.bid.ser_lab_operators_m.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "role, grade, rate_card, hours_days, start_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LAB_GENERAL_LABO",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "PR_SER_LAB_GENERAL_LABO_V1",
+    "rfqFormKey": "RFQ_SER_LAB_GENERAL_LABO_V1",
+    "bidFormKey": "BID_SER_LAB_GENERAL_LABO_V1",
+    "prRulePackKey": "rules.pr.ser_lab_general_labo.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_lab_general_labo.global.v1",
+    "bidRulePackKey": "rules.bid.ser_lab_general_labo.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "role, grade, rate_card, hours_days, start_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LAB_SUPERVISORS_",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "PR_SER_LAB_SUPERVISORS__V1",
+    "rfqFormKey": "RFQ_SER_LAB_SUPERVISORS__V1",
+    "bidFormKey": "BID_SER_LAB_SUPERVISORS__V1",
+    "prRulePackKey": "rules.pr.ser_lab_supervisors_.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_lab_supervisors_.global.v1",
+    "bidRulePackKey": "rules.bid.ser_lab_supervisors_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "role, grade, rate_card, hours_days, start_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_ENGINEERING_",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_ENGINEERING__V1",
+    "rfqFormKey": "RFQ_SER_PRO_ENGINEERING__V1",
+    "bidFormKey": "BID_SER_PRO_ENGINEERING__V1",
+    "prRulePackKey": "rules.pr.ser_pro_engineering_.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_engineering_.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_engineering_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_PROJECT_MANA",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_PROJECT_MANA_V1",
+    "rfqFormKey": "RFQ_SER_PRO_PROJECT_MANA_V1",
+    "bidFormKey": "BID_SER_PRO_PROJECT_MANA_V1",
+    "prRulePackKey": "rules.pr.ser_pro_project_mana.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_project_mana.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_project_mana.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_LEGAL_SERVIC",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_LEGAL_SERVIC_V1",
+    "rfqFormKey": "RFQ_SER_PRO_LEGAL_SERVIC_V1",
+    "bidFormKey": "BID_SER_PRO_LEGAL_SERVIC_V1",
+    "prRulePackKey": "rules.pr.ser_pro_legal_servic.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_legal_servic.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_legal_servic.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_ACCOUNTING_AND",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_ACCOUNTING_AND_V1",
+    "rfqFormKey": "RFQ_SER_PRO_ACCOUNTING_AND_V1",
+    "bidFormKey": "BID_SER_PRO_ACCOUNTING_AND_V1",
+    "prRulePackKey": "rules.pr.ser_pro_accounting_and.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_accounting_and.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_accounting_and.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_HR_CONSULTIN",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_HR_CONSULTIN_V1",
+    "rfqFormKey": "RFQ_SER_PRO_HR_CONSULTIN_V1",
+    "bidFormKey": "BID_SER_PRO_HR_CONSULTIN_V1",
+    "prRulePackKey": "rules.pr.ser_pro_hr_consultin.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_hr_consultin.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_hr_consultin.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_TRAINING_SER",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_TRAINING_SER_V1",
+    "rfqFormKey": "RFQ_SER_PRO_TRAINING_SER_V1",
+    "bidFormKey": "BID_SER_PRO_TRAINING_SER_V1",
+    "prRulePackKey": "rules.pr.ser_pro_training_ser.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_training_ser.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_training_ser.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_QUALITY_CONS",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_QUALITY_CONS_V1",
+    "rfqFormKey": "RFQ_SER_PRO_QUALITY_CONS_V1",
+    "bidFormKey": "BID_SER_PRO_QUALITY_CONS_V1",
+    "prRulePackKey": "rules.pr.ser_pro_quality_cons.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_quality_cons.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_quality_cons.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_SAFETY_CONSU",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_SAFETY_CONSU_V1",
+    "rfqFormKey": "RFQ_SER_PRO_SAFETY_CONSU_V1",
+    "bidFormKey": "BID_SER_PRO_SAFETY_CONSU_V1",
+    "prRulePackKey": "rules.pr.ser_pro_safety_consu.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_safety_consu.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_safety_consu.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_ENVIRONMENTA",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_ENVIRONMENTA_V1",
+    "rfqFormKey": "RFQ_SER_PRO_ENVIRONMENTA_V1",
+    "bidFormKey": "BID_SER_PRO_ENVIRONMENTA_V1",
+    "prRulePackKey": "rules.pr.ser_pro_environmenta.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_environmenta.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_environmenta.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_IT_CONSULTIN",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_IT_CONSULTIN_V1",
+    "rfqFormKey": "RFQ_SER_PRO_IT_CONSULTIN_V1",
+    "bidFormKey": "BID_SER_PRO_IT_CONSULTIN_V1",
+    "prRulePackKey": "rules.pr.ser_pro_it_consultin.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_it_consultin.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_it_consultin.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_PRO_CUSTOM_SOFTW",
+    "serviceFamily": "PROFESSIONAL",
+    "prFormKey": "PR_SER_PRO_CUSTOM_SOFTW_V1",
+    "rfqFormKey": "RFQ_SER_PRO_CUSTOM_SOFTW_V1",
+    "bidFormKey": "BID_SER_PRO_CUSTOM_SOFTW_V1",
+    "prRulePackKey": "rules.pr.ser_pro_custom_softw.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_pro_custom_softw.global.v1",
+    "bidRulePackKey": "rules.bid.ser_pro_custom_softw.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "scope, deliverables, milestones(optional), timeline, team_profile",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MAI_ELECTRICAL_M",
+    "serviceFamily": "MAINTENANCE",
+    "prFormKey": "PR_SER_MAI_ELECTRICAL_M_V1",
+    "rfqFormKey": "RFQ_SER_MAI_ELECTRICAL_M_V1",
+    "bidFormKey": "BID_SER_MAI_ELECTRICAL_M_V1",
+    "prRulePackKey": "rules.pr.ser_mai_electrical_m.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mai_electrical_m.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mai_electrical_m.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MAI_MECHANICAL_M",
+    "serviceFamily": "MAINTENANCE",
+    "prFormKey": "PR_SER_MAI_MECHANICAL_M_V1",
+    "rfqFormKey": "RFQ_SER_MAI_MECHANICAL_M_V1",
+    "bidFormKey": "BID_SER_MAI_MECHANICAL_M_V1",
+    "prRulePackKey": "rules.pr.ser_mai_mechanical_m.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mai_mechanical_m.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mai_mechanical_m.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MAI_HVAC_MAINTEN",
+    "serviceFamily": "MAINTENANCE",
+    "prFormKey": "PR_SER_MAI_HVAC_MAINTEN_V1",
+    "rfqFormKey": "RFQ_SER_MAI_HVAC_MAINTEN_V1",
+    "bidFormKey": "BID_SER_MAI_HVAC_MAINTEN_V1",
+    "prRulePackKey": "rules.pr.ser_mai_hvac_mainten.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mai_hvac_mainten.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mai_hvac_mainten.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MAI_FIRE_SYSTEMS",
+    "serviceFamily": "MAINTENANCE",
+    "prFormKey": "PR_SER_MAI_FIRE_SYSTEMS_V1",
+    "rfqFormKey": "RFQ_SER_MAI_FIRE_SYSTEMS_V1",
+    "bidFormKey": "BID_SER_MAI_FIRE_SYSTEMS_V1",
+    "prRulePackKey": "rules.pr.ser_mai_fire_systems.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mai_fire_systems.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mai_fire_systems.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MAI_CALIBRATION_",
+    "serviceFamily": "MAINTENANCE",
+    "prFormKey": "PR_SER_MAI_CALIBRATION__V1",
+    "rfqFormKey": "RFQ_SER_MAI_CALIBRATION__V1",
+    "bidFormKey": "BID_SER_MAI_CALIBRATION__V1",
+    "prRulePackKey": "rules.pr.ser_mai_calibration_.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mai_calibration_.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mai_calibration_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MAI_ASSET_CONDIT",
+    "serviceFamily": "MAINTENANCE",
+    "prFormKey": "PR_SER_MAI_ASSET_CONDIT_V1",
+    "rfqFormKey": "RFQ_SER_MAI_ASSET_CONDIT_V1",
+    "bidFormKey": "BID_SER_MAI_ASSET_CONDIT_V1",
+    "prRulePackKey": "rules.pr.ser_mai_asset_condit.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mai_asset_condit.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mai_asset_condit.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MAI_IT_SUPPORT_",
+    "serviceFamily": "MAINTENANCE",
+    "prFormKey": "PR_SER_MAI_IT_SUPPORT__V1",
+    "rfqFormKey": "RFQ_SER_MAI_IT_SUPPORT__V1",
+    "bidFormKey": "BID_SER_MAI_IT_SUPPORT__V1",
+    "prRulePackKey": "rules.pr.ser_mai_it_support_.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mai_it_support_.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mai_it_support_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_MAI_SECURITY_SYS",
+    "serviceFamily": "MAINTENANCE",
+    "prFormKey": "PR_SER_MAI_SECURITY_SYS_V1",
+    "rfqFormKey": "RFQ_SER_MAI_SECURITY_SYS_V1",
+    "bidFormKey": "BID_SER_MAI_SECURITY_SYS_V1",
+    "prRulePackKey": "rules.pr.ser_mai_security_sys.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_mai_security_sys.global.v1",
+    "bidRulePackKey": "rules.bid.ser_mai_security_sys.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_CON_CIVIL_WORKS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_CON_CIVIL_WORKS_V1",
+    "rfqFormKey": "RFQ_WOR_CON_CIVIL_WORKS_V1",
+    "bidFormKey": "BID_WOR_CON_CIVIL_WORKS_V1",
+    "prRulePackKey": "rules.pr.wor_con_civil_works.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_con_civil_works.global.v1",
+    "bidRulePackKey": "rules.bid.wor_con_civil_works.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_CON_BUILDING_CON",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_CON_BUILDING_CON_V1",
+    "rfqFormKey": "RFQ_WOR_CON_BUILDING_CON_V1",
+    "bidFormKey": "BID_WOR_CON_BUILDING_CON_V1",
+    "prRulePackKey": "rules.pr.wor_con_building_con.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_con_building_con.global.v1",
+    "bidRulePackKey": "rules.bid.wor_con_building_con.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_CON_RENOVATIONS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_CON_RENOVATIONS_V1",
+    "rfqFormKey": "RFQ_WOR_CON_RENOVATIONS_V1",
+    "bidFormKey": "BID_WOR_CON_RENOVATIONS_V1",
+    "prRulePackKey": "rules.pr.wor_con_renovations.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_con_renovations.global.v1",
+    "bidRulePackKey": "rules.bid.wor_con_renovations.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_CON_ROAD_WORKS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_CON_ROAD_WORKS_V1",
+    "rfqFormKey": "RFQ_WOR_CON_ROAD_WORKS_V1",
+    "bidFormKey": "BID_WOR_CON_ROAD_WORKS_V1",
+    "prRulePackKey": "rules.pr.wor_con_road_works.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_con_road_works.global.v1",
+    "bidRulePackKey": "rules.bid.wor_con_road_works.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_CON_CONCRETE_WOR",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_CON_CONCRETE_WOR_V1",
+    "rfqFormKey": "RFQ_WOR_CON_CONCRETE_WOR_V1",
+    "bidFormKey": "BID_WOR_CON_CONCRETE_WOR_V1",
+    "prRulePackKey": "rules.pr.wor_con_concrete_wor.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_con_concrete_wor.global.v1",
+    "bidRulePackKey": "rules.bid.wor_con_concrete_wor.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_CON_STEEL_ERECTI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_CON_STEEL_ERECTI_V1",
+    "rfqFormKey": "RFQ_WOR_CON_STEEL_ERECTI_V1",
+    "bidFormKey": "BID_WOR_CON_STEEL_ERECTI_V1",
+    "prRulePackKey": "rules.pr.wor_con_steel_erecti.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_con_steel_erecti.global.v1",
+    "bidRulePackKey": "rules.bid.wor_con_steel_erecti.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_CON_ROOFING",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_CON_ROOFING_V1",
+    "rfqFormKey": "RFQ_WOR_CON_ROOFING_V1",
+    "bidFormKey": "BID_WOR_CON_ROOFING_V1",
+    "prRulePackKey": "rules.pr.wor_con_roofing.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_con_roofing.global.v1",
+    "bidRulePackKey": "rules.bid.wor_con_roofing.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_CON_FENCING",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_CON_FENCING_V1",
+    "rfqFormKey": "RFQ_WOR_CON_FENCING_V1",
+    "bidFormKey": "BID_WOR_CON_FENCING_V1",
+    "prRulePackKey": "rules.pr.wor_con_fencing.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_con_fencing.global.v1",
+    "bidRulePackKey": "rules.bid.wor_con_fencing.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_IND_PLANT_INSTAL",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_IND_PLANT_INSTAL_V1",
+    "rfqFormKey": "RFQ_WOR_IND_PLANT_INSTAL_V1",
+    "bidFormKey": "BID_WOR_IND_PLANT_INSTAL_V1",
+    "prRulePackKey": "rules.pr.wor_ind_plant_instal.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_ind_plant_instal.global.v1",
+    "bidRulePackKey": "rules.bid.wor_ind_plant_instal.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_IND_EQUIPMENT_CO",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_IND_EQUIPMENT_CO_V1",
+    "rfqFormKey": "RFQ_WOR_IND_EQUIPMENT_CO_V1",
+    "bidFormKey": "BID_WOR_IND_EQUIPMENT_CO_V1",
+    "prRulePackKey": "rules.pr.wor_ind_equipment_co.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_ind_equipment_co.global.v1",
+    "bidRulePackKey": "rules.bid.wor_ind_equipment_co.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_IND_SHUTDOWN_PRO",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_IND_SHUTDOWN_PRO_V1",
+    "rfqFormKey": "RFQ_WOR_IND_SHUTDOWN_PRO_V1",
+    "bidFormKey": "BID_WOR_IND_SHUTDOWN_PRO_V1",
+    "prRulePackKey": "rules.pr.wor_ind_shutdown_pro.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_ind_shutdown_pro.global.v1",
+    "bidRulePackKey": "rules.bid.wor_ind_shutdown_pro.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_IND_PROCESS_PIPI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_IND_PROCESS_PIPI_V1",
+    "rfqFormKey": "RFQ_WOR_IND_PROCESS_PIPI_V1",
+    "bidFormKey": "BID_WOR_IND_PROCESS_PIPI_V1",
+    "prRulePackKey": "rules.pr.wor_ind_process_pipi.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_ind_process_pipi.global.v1",
+    "bidRulePackKey": "rules.bid.wor_ind_process_pipi.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_IND_ELECTRICAL_I",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_IND_ELECTRICAL_I_V1",
+    "rfqFormKey": "RFQ_WOR_IND_ELECTRICAL_I_V1",
+    "bidFormKey": "BID_WOR_IND_ELECTRICAL_I_V1",
+    "prRulePackKey": "rules.pr.wor_ind_electrical_i.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_ind_electrical_i.global.v1",
+    "bidRulePackKey": "rules.bid.wor_ind_electrical_i.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_IND_AUTOMATION_I",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_IND_AUTOMATION_I_V1",
+    "rfqFormKey": "RFQ_WOR_IND_AUTOMATION_I_V1",
+    "bidFormKey": "BID_WOR_IND_AUTOMATION_I_V1",
+    "prRulePackKey": "rules.pr.wor_ind_automation_i.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_ind_automation_i.global.v1",
+    "bidRulePackKey": "rules.bid.wor_ind_automation_i.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_IND_TURNKEY_PROJ",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_IND_TURNKEY_PROJ_V1",
+    "rfqFormKey": "RFQ_WOR_IND_TURNKEY_PROJ_V1",
+    "bidFormKey": "BID_WOR_IND_TURNKEY_PROJ_V1",
+    "prRulePackKey": "rules.pr.wor_ind_turnkey_proj.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_ind_turnkey_proj.global.v1",
+    "bidRulePackKey": "rules.bid.wor_ind_turnkey_proj.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_COU_SAME_DAY_COU",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_COU_SAME_DAY_COU_V1",
+    "rfqFormKey": "RFQ_LOG_COU_SAME_DAY_COU_V1",
+    "bidFormKey": "BID_LOG_COU_SAME_DAY_COU_V1",
+    "prRulePackKey": "rules.pr.log_cou_same_day_cou.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_cou_same_day_cou.global.v1",
+    "bidRulePackKey": "rules.bid.log_cou_same_day_cou.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_COU_OVERNIGHT_CO",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_COU_OVERNIGHT_CO_V1",
+    "rfqFormKey": "RFQ_LOG_COU_OVERNIGHT_CO_V1",
+    "bidFormKey": "BID_LOG_COU_OVERNIGHT_CO_V1",
+    "prRulePackKey": "rules.pr.log_cou_overnight_co.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_cou_overnight_co.global.v1",
+    "bidRulePackKey": "rules.bid.log_cou_overnight_co.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_COU_ECONOMY_COUR",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_COU_ECONOMY_COUR_V1",
+    "rfqFormKey": "RFQ_LOG_COU_ECONOMY_COUR_V1",
+    "bidFormKey": "BID_LOG_COU_ECONOMY_COUR_V1",
+    "prRulePackKey": "rules.pr.log_cou_economy_cour.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_cou_economy_cour.global.v1",
+    "bidRulePackKey": "rules.bid.log_cou_economy_cour.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_COU_INTERNATIONA",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_COU_INTERNATIONA_V1",
+    "rfqFormKey": "RFQ_LOG_COU_INTERNATIONA_V1",
+    "bidFormKey": "BID_LOG_COU_INTERNATIONA_V1",
+    "prRulePackKey": "rules.pr.log_cou_internationa.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_cou_internationa.global.v1",
+    "bidRulePackKey": "rules.bid.log_cou_internationa.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_COU_DOCUMENT_COU",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_COU_DOCUMENT_COU_V1",
+    "rfqFormKey": "RFQ_LOG_COU_DOCUMENT_COU_V1",
+    "bidFormKey": "BID_LOG_COU_DOCUMENT_COU_V1",
+    "prRulePackKey": "rules.pr.log_cou_document_cou.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_cou_document_cou.global.v1",
+    "bidRulePackKey": "rules.bid.log_cou_document_cou.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_FRE_ROAD_FREIGHT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_FRE_ROAD_FREIGHT_V1",
+    "rfqFormKey": "RFQ_LOG_FRE_ROAD_FREIGHT_V1",
+    "bidFormKey": "BID_LOG_FRE_ROAD_FREIGHT_V1",
+    "prRulePackKey": "rules.pr.log_fre_road_freight.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_fre_road_freight.global.v1",
+    "bidRulePackKey": "rules.bid.log_fre_road_freight.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_FRE_SEA_FREIGHT_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_FRE_SEA_FREIGHT__V1",
+    "rfqFormKey": "RFQ_LOG_FRE_SEA_FREIGHT__V1",
+    "bidFormKey": "BID_LOG_FRE_SEA_FREIGHT__V1",
+    "prRulePackKey": "rules.pr.log_fre_sea_freight_.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_fre_sea_freight_.global.v1",
+    "bidRulePackKey": "rules.bid.log_fre_sea_freight_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_FRE_AIR_FREIGHT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_FRE_AIR_FREIGHT_V1",
+    "rfqFormKey": "RFQ_LOG_FRE_AIR_FREIGHT_V1",
+    "bidFormKey": "BID_LOG_FRE_AIR_FREIGHT_V1",
+    "prRulePackKey": "rules.pr.log_fre_air_freight.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_fre_air_freight.global.v1",
+    "bidRulePackKey": "rules.bid.log_fre_air_freight.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_FRE_RAIL_FREIGHT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_FRE_RAIL_FREIGHT_V1",
+    "rfqFormKey": "RFQ_LOG_FRE_RAIL_FREIGHT_V1",
+    "bidFormKey": "BID_LOG_FRE_RAIL_FREIGHT_V1",
+    "prRulePackKey": "rules.pr.log_fre_rail_freight.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_fre_rail_freight.global.v1",
+    "bidRulePackKey": "rules.bid.log_fre_rail_freight.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_FRE_CROSS_BORDER",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_FRE_CROSS_BORDER_V1",
+    "rfqFormKey": "RFQ_LOG_FRE_CROSS_BORDER_V1",
+    "bidFormKey": "BID_LOG_FRE_CROSS_BORDER_V1",
+    "prRulePackKey": "rules.pr.log_fre_cross_border.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_fre_cross_border.global.v1",
+    "bidRulePackKey": "rules.bid.log_fre_cross_border.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_FRE_CUSTOMS_CLEA",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_FRE_CUSTOMS_CLEA_V1",
+    "rfqFormKey": "RFQ_LOG_FRE_CUSTOMS_CLEA_V1",
+    "bidFormKey": "BID_LOG_FRE_CUSTOMS_CLEA_V1",
+    "prRulePackKey": "rules.pr.log_fre_customs_clea.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_fre_customs_clea.global.v1",
+    "bidRulePackKey": "rules.bid.log_fre_customs_clea.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_FRE_WAREHOUSING",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_FRE_WAREHOUSING_V1",
+    "rfqFormKey": "RFQ_LOG_FRE_WAREHOUSING_V1",
+    "bidFormKey": "BID_LOG_FRE_WAREHOUSING_V1",
+    "prRulePackKey": "rules.pr.log_fre_warehousing.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_fre_warehousing.global.v1",
+    "bidRulePackKey": "rules.bid.log_fre_warehousing.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_FRE_COLD_CHAIN_L",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_FRE_COLD_CHAIN_L_V1",
+    "rfqFormKey": "RFQ_LOG_FRE_COLD_CHAIN_L_V1",
+    "bidFormKey": "BID_LOG_FRE_COLD_CHAIN_L_V1",
+    "prRulePackKey": "rules.pr.log_fre_cold_chain_l.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_fre_cold_chain_l.global.v1",
+    "bidRulePackKey": "rules.bid.log_fre_cold_chain_l.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_CHE_ACIDS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_CHE_ACIDS_V1",
+    "rfqFormKey": "RFQ_GOO_CHE_ACIDS_V1",
+    "bidFormKey": "BID_GOO_CHE_ACIDS_V1",
+    "prRulePackKey": "rules.pr.goo_che_acids.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_che_acids.global.v1",
+    "bidRulePackKey": "rules.bid.goo_che_acids.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_CHE_ALKALIS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_CHE_ALKALIS_V1",
+    "rfqFormKey": "RFQ_GOO_CHE_ALKALIS_V1",
+    "bidFormKey": "BID_GOO_CHE_ALKALIS_V1",
+    "prRulePackKey": "rules.pr.goo_che_alkalis.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_che_alkalis.global.v1",
+    "bidRulePackKey": "rules.bid.goo_che_alkalis.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_CHE_SOLVENTS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_CHE_SOLVENTS_V1",
+    "rfqFormKey": "RFQ_GOO_CHE_SOLVENTS_V1",
+    "bidFormKey": "BID_GOO_CHE_SOLVENTS_V1",
+    "prRulePackKey": "rules.pr.goo_che_solvents.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_che_solvents.global.v1",
+    "bidRulePackKey": "rules.bid.goo_che_solvents.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_CHE_COOLANTS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_CHE_COOLANTS_V1",
+    "rfqFormKey": "RFQ_GOO_CHE_COOLANTS_V1",
+    "bidFormKey": "BID_GOO_CHE_COOLANTS_V1",
+    "prRulePackKey": "rules.pr.goo_che_coolants.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_che_coolants.global.v1",
+    "bidRulePackKey": "rules.bid.goo_che_coolants.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_CHE_COATINGS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_CHE_COATINGS_V1",
+    "rfqFormKey": "RFQ_GOO_CHE_COATINGS_V1",
+    "bidFormKey": "BID_GOO_CHE_COATINGS_V1",
+    "prRulePackKey": "rules.pr.goo_che_coatings.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_che_coatings.global.v1",
+    "bidRulePackKey": "rules.bid.goo_che_coatings.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_CHE_RESINS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_CHE_RESINS_V1",
+    "rfqFormKey": "RFQ_GOO_CHE_RESINS_V1",
+    "bidFormKey": "BID_GOO_CHE_RESINS_V1",
+    "prRulePackKey": "rules.pr.goo_che_resins.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_che_resins.global.v1",
+    "bidRulePackKey": "rules.bid.goo_che_resins.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_CHE_CATALYSTS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_CHE_CATALYSTS_V1",
+    "rfqFormKey": "RFQ_GOO_CHE_CATALYSTS_V1",
+    "bidFormKey": "BID_GOO_CHE_CATALYSTS_V1",
+    "prRulePackKey": "rules.pr.goo_che_catalysts.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_che_catalysts.global.v1",
+    "bidRulePackKey": "rules.bid.goo_che_catalysts.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_CHE_WATER_TREATM",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_CHE_WATER_TREATM_V1",
+    "rfqFormKey": "RFQ_GOO_CHE_WATER_TREATM_V1",
+    "bidFormKey": "BID_GOO_CHE_WATER_TREATM_V1",
+    "prRulePackKey": "rules.pr.goo_che_water_treatm.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_che_water_treatm.global.v1",
+    "bidRulePackKey": "rules.bid.goo_che_water_treatm.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_CHE_LABORATORY_R",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_CHE_LABORATORY_R_V1",
+    "rfqFormKey": "RFQ_GOO_CHE_LABORATORY_R_V1",
+    "bidFormKey": "BID_GOO_CHE_LABORATORY_R_V1",
+    "prRulePackKey": "rules.pr.goo_che_laboratory_r.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_che_laboratory_r.global.v1",
+    "bidRulePackKey": "rules.bid.goo_che_laboratory_r.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_CHE_CLEANING_CHE",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_CHE_CLEANING_CHE_V1",
+    "rfqFormKey": "RFQ_GOO_CHE_CLEANING_CHE_V1",
+    "bidFormKey": "BID_GOO_CHE_CLEANING_CHE_V1",
+    "prRulePackKey": "rules.pr.goo_che_cleaning_che.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_che_cleaning_che.global.v1",
+    "bidRulePackKey": "rules.bid.goo_che_cleaning_che.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_INS_PRESSURE_INS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_INS_PRESSURE_INS_V1",
+    "rfqFormKey": "RFQ_GOO_INS_PRESSURE_INS_V1",
+    "bidFormKey": "BID_GOO_INS_PRESSURE_INS_V1",
+    "prRulePackKey": "rules.pr.goo_ins_pressure_ins.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ins_pressure_ins.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ins_pressure_ins.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_INS_TEMPERATURE_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_INS_TEMPERATURE__V1",
+    "rfqFormKey": "RFQ_GOO_INS_TEMPERATURE__V1",
+    "bidFormKey": "BID_GOO_INS_TEMPERATURE__V1",
+    "prRulePackKey": "rules.pr.goo_ins_temperature_.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ins_temperature_.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ins_temperature_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_INS_FLOW_INSTRUM",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_INS_FLOW_INSTRUM_V1",
+    "rfqFormKey": "RFQ_GOO_INS_FLOW_INSTRUM_V1",
+    "bidFormKey": "BID_GOO_INS_FLOW_INSTRUM_V1",
+    "prRulePackKey": "rules.pr.goo_ins_flow_instrum.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ins_flow_instrum.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ins_flow_instrum.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_INS_LEVEL_INSTRU",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_INS_LEVEL_INSTRU_V1",
+    "rfqFormKey": "RFQ_GOO_INS_LEVEL_INSTRU_V1",
+    "bidFormKey": "BID_GOO_INS_LEVEL_INSTRU_V1",
+    "prRulePackKey": "rules.pr.goo_ins_level_instru.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ins_level_instru.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ins_level_instru.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_INS_ANALYTICAL_I",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_INS_ANALYTICAL_I_V1",
+    "rfqFormKey": "RFQ_GOO_INS_ANALYTICAL_I_V1",
+    "bidFormKey": "BID_GOO_INS_ANALYTICAL_I_V1",
+    "prRulePackKey": "rules.pr.goo_ins_analytical_i.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ins_analytical_i.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ins_analytical_i.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_INS_CALIBRATION_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_INS_CALIBRATION__V1",
+    "rfqFormKey": "RFQ_GOO_INS_CALIBRATION__V1",
+    "bidFormKey": "BID_GOO_INS_CALIBRATION__V1",
+    "prRulePackKey": "rules.pr.goo_ins_calibration_.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_ins_calibration_.global.v1",
+    "bidRulePackKey": "rules.bid.goo_ins_calibration_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_QUA_LAB_CONSUMAB",
+    "serviceFamily": "LABOUR",
+    "prFormKey": "PR_GOO_QUA_LAB_CONSUMAB_V1",
+    "rfqFormKey": "RFQ_GOO_QUA_LAB_CONSUMAB_V1",
+    "bidFormKey": "BID_GOO_QUA_LAB_CONSUMAB_V1",
+    "prRulePackKey": "rules.pr.goo_qua_lab_consumab.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_qua_lab_consumab.global.v1",
+    "bidRulePackKey": "rules.bid.goo_qua_lab_consumab.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_QUA_SAMPLING_EQU",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_QUA_SAMPLING_EQU_V1",
+    "rfqFormKey": "RFQ_GOO_QUA_SAMPLING_EQU_V1",
+    "bidFormKey": "BID_GOO_QUA_SAMPLING_EQU_V1",
+    "prRulePackKey": "rules.pr.goo_qua_sampling_equ.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_qua_sampling_equ.global.v1",
+    "bidRulePackKey": "rules.bid.goo_qua_sampling_equ.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_QUA_TEST_INSTRUM",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_QUA_TEST_INSTRUM_V1",
+    "rfqFormKey": "RFQ_GOO_QUA_TEST_INSTRUM_V1",
+    "bidFormKey": "BID_GOO_QUA_TEST_INSTRUM_V1",
+    "prRulePackKey": "rules.pr.goo_qua_test_instrum.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_qua_test_instrum.global.v1",
+    "bidRulePackKey": "rules.bid.goo_qua_test_instrum.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_QUA_MICROMETERS_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_QUA_MICROMETERS__V1",
+    "rfqFormKey": "RFQ_GOO_QUA_MICROMETERS__V1",
+    "bidFormKey": "BID_GOO_QUA_MICROMETERS__V1",
+    "prRulePackKey": "rules.pr.goo_qua_micrometers_.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_qua_micrometers_.global.v1",
+    "bidRulePackKey": "rules.bid.goo_qua_micrometers_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_QUA_WEIGHING_SCA",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_QUA_WEIGHING_SCA_V1",
+    "rfqFormKey": "RFQ_GOO_QUA_WEIGHING_SCA_V1",
+    "bidFormKey": "BID_GOO_QUA_WEIGHING_SCA_V1",
+    "prRulePackKey": "rules.pr.goo_qua_weighing_sca.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_qua_weighing_sca.global.v1",
+    "bidRulePackKey": "rules.bid.goo_qua_weighing_sca.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "GOO_QUA_METROLOGY_SE",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_GOO_QUA_METROLOGY_SE_V1",
+    "rfqFormKey": "RFQ_GOO_QUA_METROLOGY_SE_V1",
+    "bidFormKey": "BID_GOO_QUA_METROLOGY_SE_V1",
+    "prRulePackKey": "rules.pr.goo_qua_metrology_se.global.v1",
+    "rfqRulePackKey": "rules.rfq.goo_qua_metrology_se.global.v1",
+    "bidRulePackKey": "rules.bid.goo_qua_metrology_se.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_LUB_GREASE",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_LUB_GREASE_V1",
+    "rfqFormKey": "RFQ_MRO_LUB_GREASE_V1",
+    "bidFormKey": "BID_MRO_LUB_GREASE_V1",
+    "prRulePackKey": "rules.pr.mro_lub_grease.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_lub_grease.global.v1",
+    "bidRulePackKey": "rules.bid.mro_lub_grease.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_LUB_HYDRAULIC_OI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_LUB_HYDRAULIC_OI_V1",
+    "rfqFormKey": "RFQ_MRO_LUB_HYDRAULIC_OI_V1",
+    "bidFormKey": "BID_MRO_LUB_HYDRAULIC_OI_V1",
+    "prRulePackKey": "rules.pr.mro_lub_hydraulic_oi.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_lub_hydraulic_oi.global.v1",
+    "bidRulePackKey": "rules.bid.mro_lub_hydraulic_oi.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_LUB_GEAR_OIL",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_LUB_GEAR_OIL_V1",
+    "rfqFormKey": "RFQ_MRO_LUB_GEAR_OIL_V1",
+    "bidFormKey": "BID_MRO_LUB_GEAR_OIL_V1",
+    "prRulePackKey": "rules.pr.mro_lub_gear_oil.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_lub_gear_oil.global.v1",
+    "bidRulePackKey": "rules.bid.mro_lub_gear_oil.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_LUB_COMPRESSOR_O",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_LUB_COMPRESSOR_O_V1",
+    "rfqFormKey": "RFQ_MRO_LUB_COMPRESSOR_O_V1",
+    "bidFormKey": "BID_MRO_LUB_COMPRESSOR_O_V1",
+    "prRulePackKey": "rules.pr.mro_lub_compressor_o.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_lub_compressor_o.global.v1",
+    "bidRulePackKey": "rules.bid.mro_lub_compressor_o.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_LUB_CUTTING_FLUI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_LUB_CUTTING_FLUI_V1",
+    "rfqFormKey": "RFQ_MRO_LUB_CUTTING_FLUI_V1",
+    "bidFormKey": "BID_MRO_LUB_CUTTING_FLUI_V1",
+    "prRulePackKey": "rules.pr.mro_lub_cutting_flui.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_lub_cutting_flui.global.v1",
+    "bidRulePackKey": "rules.bid.mro_lub_cutting_flui.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_LUB_LUBRICATION_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_LUB_LUBRICATION__V1",
+    "rfqFormKey": "RFQ_MRO_LUB_LUBRICATION__V1",
+    "bidFormKey": "BID_MRO_LUB_LUBRICATION__V1",
+    "prRulePackKey": "rules.pr.mro_lub_lubrication_.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_lub_lubrication_.global.v1",
+    "bidRulePackKey": "rules.bid.mro_lub_lubrication_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SAF_FIRE_DETECTI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SAF_FIRE_DETECTI_V1",
+    "rfqFormKey": "RFQ_MRO_SAF_FIRE_DETECTI_V1",
+    "bidFormKey": "BID_MRO_SAF_FIRE_DETECTI_V1",
+    "prRulePackKey": "rules.pr.mro_saf_fire_detecti.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_saf_fire_detecti.global.v1",
+    "bidRulePackKey": "rules.bid.mro_saf_fire_detecti.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SAF_FIRE_SUPPRES",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SAF_FIRE_SUPPRES_V1",
+    "rfqFormKey": "RFQ_MRO_SAF_FIRE_SUPPRES_V1",
+    "bidFormKey": "BID_MRO_SAF_FIRE_SUPPRES_V1",
+    "prRulePackKey": "rules.pr.mro_saf_fire_suppres.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_saf_fire_suppres.global.v1",
+    "bidRulePackKey": "rules.bid.mro_saf_fire_suppres.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SAF_EMERGENCY_LI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SAF_EMERGENCY_LI_V1",
+    "rfqFormKey": "RFQ_MRO_SAF_EMERGENCY_LI_V1",
+    "bidFormKey": "BID_MRO_SAF_EMERGENCY_LI_V1",
+    "prRulePackKey": "rules.pr.mro_saf_emergency_li.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_saf_emergency_li.global.v1",
+    "bidRulePackKey": "rules.bid.mro_saf_emergency_li.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SAF_SAFETY_INTER",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SAF_SAFETY_INTER_V1",
+    "rfqFormKey": "RFQ_MRO_SAF_SAFETY_INTER_V1",
+    "bidFormKey": "BID_MRO_SAF_SAFETY_INTER_V1",
+    "prRulePackKey": "rules.pr.mro_saf_safety_inter.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_saf_safety_inter.global.v1",
+    "bidRulePackKey": "rules.bid.mro_saf_safety_inter.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_SAF_MACHINE_GUAR",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_SAF_MACHINE_GUAR_V1",
+    "rfqFormKey": "RFQ_MRO_SAF_MACHINE_GUAR_V1",
+    "bidFormKey": "BID_MRO_SAF_MACHINE_GUAR_V1",
+    "prRulePackKey": "rules.pr.mro_saf_machine_guar.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_saf_machine_guar.global.v1",
+    "bidRulePackKey": "rules.bid.mro_saf_machine_guar.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_UTI_BOILERS_AND_ST",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_UTI_BOILERS_AND_ST_V1",
+    "rfqFormKey": "RFQ_MRO_UTI_BOILERS_AND_ST_V1",
+    "bidFormKey": "BID_MRO_UTI_BOILERS_AND_ST_V1",
+    "prRulePackKey": "rules.pr.mro_uti_boilers_and_st.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_uti_boilers_and_st.global.v1",
+    "bidRulePackKey": "rules.bid.mro_uti_boilers_and_st.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_UTI_COMPRESSED_A",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_UTI_COMPRESSED_A_V1",
+    "rfqFormKey": "RFQ_MRO_UTI_COMPRESSED_A_V1",
+    "bidFormKey": "BID_MRO_UTI_COMPRESSED_A_V1",
+    "prRulePackKey": "rules.pr.mro_uti_compressed_a.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_uti_compressed_a.global.v1",
+    "bidRulePackKey": "rules.bid.mro_uti_compressed_a.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_UTI_WATER_PUMPS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_UTI_WATER_PUMPS_V1",
+    "rfqFormKey": "RFQ_MRO_UTI_WATER_PUMPS_V1",
+    "bidFormKey": "BID_MRO_UTI_WATER_PUMPS_V1",
+    "prRulePackKey": "rules.pr.mro_uti_water_pumps.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_uti_water_pumps.global.v1",
+    "bidRulePackKey": "rules.bid.mro_uti_water_pumps.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_UTI_CHILLERS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_UTI_CHILLERS_V1",
+    "rfqFormKey": "RFQ_MRO_UTI_CHILLERS_V1",
+    "bidFormKey": "BID_MRO_UTI_CHILLERS_V1",
+    "prRulePackKey": "rules.pr.mro_uti_chillers.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_uti_chillers.global.v1",
+    "bidRulePackKey": "rules.bid.mro_uti_chillers.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "MRO_UTI_GENERATORS_",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_MRO_UTI_GENERATORS__V1",
+    "rfqFormKey": "RFQ_MRO_UTI_GENERATORS__V1",
+    "bidFormKey": "BID_MRO_UTI_GENERATORS__V1",
+    "prRulePackKey": "rules.pr.mro_uti_generators_.global.v1",
+    "rfqRulePackKey": "rules.rfq.mro_uti_generators_.global.v1",
+    "bidRulePackKey": "rules.bid.mro_uti_generators_.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "item_name, qty, uom, spec_json, required_date, delivery_location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LOG_3PL_MANAGEME",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_LOG_3PL_MANAGEME_V1",
+    "rfqFormKey": "RFQ_SER_LOG_3PL_MANAGEME_V1",
+    "bidFormKey": "BID_SER_LOG_3PL_MANAGEME_V1",
+    "prRulePackKey": "rules.pr.ser_log_3pl_manageme.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_log_3pl_manageme.global.v1",
+    "bidRulePackKey": "rules.bid.ser_log_3pl_manageme.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LOG_ROUTE_PLANNI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_LOG_ROUTE_PLANNI_V1",
+    "rfqFormKey": "RFQ_SER_LOG_ROUTE_PLANNI_V1",
+    "bidFormKey": "BID_SER_LOG_ROUTE_PLANNI_V1",
+    "prRulePackKey": "rules.pr.ser_log_route_planni.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_log_route_planni.global.v1",
+    "bidRulePackKey": "rules.bid.ser_log_route_planni.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LOG_FLEET_MAINTE",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_LOG_FLEET_MAINTE_V1",
+    "rfqFormKey": "RFQ_SER_LOG_FLEET_MAINTE_V1",
+    "bidFormKey": "BID_SER_LOG_FLEET_MAINTE_V1",
+    "prRulePackKey": "rules.pr.ser_log_fleet_mainte.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_log_fleet_mainte.global.v1",
+    "bidRulePackKey": "rules.bid.ser_log_fleet_mainte.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_LOG_CUSTOMS_BROK",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_LOG_CUSTOMS_BROK_V1",
+    "rfqFormKey": "RFQ_SER_LOG_CUSTOMS_BROK_V1",
+    "bidFormKey": "BID_SER_LOG_CUSTOMS_BROK_V1",
+    "prRulePackKey": "rules.pr.ser_log_customs_brok.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_log_customs_brok.global.v1",
+    "bidRulePackKey": "rules.bid.ser_log_customs_brok.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_TES_NDT_INSPECTI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_TES_NDT_INSPECTI_V1",
+    "rfqFormKey": "RFQ_SER_TES_NDT_INSPECTI_V1",
+    "bidFormKey": "BID_SER_TES_NDT_INSPECTI_V1",
+    "prRulePackKey": "rules.pr.ser_tes_ndt_inspecti.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_tes_ndt_inspecti.global.v1",
+    "bidRulePackKey": "rules.bid.ser_tes_ndt_inspecti.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_TES_PRESSURE_VES",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_TES_PRESSURE_VES_V1",
+    "rfqFormKey": "RFQ_SER_TES_PRESSURE_VES_V1",
+    "bidFormKey": "BID_SER_TES_PRESSURE_VES_V1",
+    "prRulePackKey": "rules.pr.ser_tes_pressure_ves.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_tes_pressure_ves.global.v1",
+    "bidRulePackKey": "rules.bid.ser_tes_pressure_ves.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_TES_ELECTRICAL_C",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_TES_ELECTRICAL_C_V1",
+    "rfqFormKey": "RFQ_SER_TES_ELECTRICAL_C_V1",
+    "bidFormKey": "BID_SER_TES_ELECTRICAL_C_V1",
+    "prRulePackKey": "rules.pr.ser_tes_electrical_c.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_tes_electrical_c.global.v1",
+    "bidRulePackKey": "rules.bid.ser_tes_electrical_c.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_TES_LIFTING_EQUI",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_TES_LIFTING_EQUI_V1",
+    "rfqFormKey": "RFQ_SER_TES_LIFTING_EQUI_V1",
+    "bidFormKey": "BID_SER_TES_LIFTING_EQUI_V1",
+    "prRulePackKey": "rules.pr.ser_tes_lifting_equi.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_tes_lifting_equi.global.v1",
+    "bidRulePackKey": "rules.bid.ser_tes_lifting_equi.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_TES_ISO_AUDITS",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_TES_ISO_AUDITS_V1",
+    "rfqFormKey": "RFQ_SER_TES_ISO_AUDITS_V1",
+    "bidFormKey": "BID_SER_TES_ISO_AUDITS_V1",
+    "prRulePackKey": "rules.pr.ser_tes_iso_audits.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_tes_iso_audits.global.v1",
+    "bidRulePackKey": "rules.bid.ser_tes_iso_audits.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_HSE_RISK_ASSESSM",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_HSE_RISK_ASSESSM_V1",
+    "rfqFormKey": "RFQ_SER_HSE_RISK_ASSESSM_V1",
+    "bidFormKey": "BID_SER_HSE_RISK_ASSESSM_V1",
+    "prRulePackKey": "rules.pr.ser_hse_risk_assessm.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_hse_risk_assessm.global.v1",
+    "bidRulePackKey": "rules.bid.ser_hse_risk_assessm.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_HSE_INCIDENT_INV",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_HSE_INCIDENT_INV_V1",
+    "rfqFormKey": "RFQ_SER_HSE_INCIDENT_INV_V1",
+    "bidFormKey": "BID_SER_HSE_INCIDENT_INV_V1",
+    "prRulePackKey": "rules.pr.ser_hse_incident_inv.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_hse_incident_inv.global.v1",
+    "bidRulePackKey": "rules.bid.ser_hse_incident_inv.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_HSE_SAFETY_TRAIN",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_HSE_SAFETY_TRAIN_V1",
+    "rfqFormKey": "RFQ_SER_HSE_SAFETY_TRAIN_V1",
+    "bidFormKey": "BID_SER_HSE_SAFETY_TRAIN_V1",
+    "prRulePackKey": "rules.pr.ser_hse_safety_train.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_hse_safety_train.global.v1",
+    "bidRulePackKey": "rules.bid.ser_hse_safety_train.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_HSE_PPE_FIT_TEST",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_HSE_PPE_FIT_TEST_V1",
+    "rfqFormKey": "RFQ_SER_HSE_PPE_FIT_TEST_V1",
+    "bidFormKey": "BID_SER_HSE_PPE_FIT_TEST_V1",
+    "prRulePackKey": "rules.pr.ser_hse_ppe_fit_test.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_hse_ppe_fit_test.global.v1",
+    "bidRulePackKey": "rules.bid.ser_hse_ppe_fit_test.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "SER_HSE_MEDICAL_SURV",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_SER_HSE_MEDICAL_SURV_V1",
+    "rfqFormKey": "RFQ_SER_HSE_MEDICAL_SURV_V1",
+    "bidFormKey": "BID_SER_HSE_MEDICAL_SURV_V1",
+    "prRulePackKey": "rules.pr.ser_hse_medical_surv.global.v1",
+    "rfqRulePackKey": "rules.rfq.ser_hse_medical_surv.global.v1",
+    "bidRulePackKey": "rules.bid.ser_hse_medical_surv.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "service_desc, unit_rate, unit, quantity_measure, required_date, location",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_INF_DRAINAGE",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_INF_DRAINAGE_V1",
+    "rfqFormKey": "RFQ_WOR_INF_DRAINAGE_V1",
+    "bidFormKey": "BID_WOR_INF_DRAINAGE_V1",
+    "prRulePackKey": "rules.pr.wor_inf_drainage.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_inf_drainage.global.v1",
+    "bidRulePackKey": "rules.bid.wor_inf_drainage.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_INF_WATER_RETICU",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_INF_WATER_RETICU_V1",
+    "rfqFormKey": "RFQ_WOR_INF_WATER_RETICU_V1",
+    "bidFormKey": "BID_WOR_INF_WATER_RETICU_V1",
+    "prRulePackKey": "rules.pr.wor_inf_water_reticu.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_inf_water_reticu.global.v1",
+    "bidRulePackKey": "rules.bid.wor_inf_water_reticu.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_INF_ELECTRICAL_S",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_INF_ELECTRICAL_S_V1",
+    "rfqFormKey": "RFQ_WOR_INF_ELECTRICAL_S_V1",
+    "bidFormKey": "BID_WOR_INF_ELECTRICAL_S_V1",
+    "prRulePackKey": "rules.pr.wor_inf_electrical_s.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_inf_electrical_s.global.v1",
+    "bidRulePackKey": "rules.bid.wor_inf_electrical_s.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_INF_SOLAR_INSTAL",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_INF_SOLAR_INSTAL_V1",
+    "rfqFormKey": "RFQ_WOR_INF_SOLAR_INSTAL_V1",
+    "bidFormKey": "BID_WOR_INF_SOLAR_INSTAL_V1",
+    "prRulePackKey": "rules.pr.wor_inf_solar_instal.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_inf_solar_instal.global.v1",
+    "bidRulePackKey": "rules.bid.wor_inf_solar_instal.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_INF_CONCRETE_FOU",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_INF_CONCRETE_FOU_V1",
+    "rfqFormKey": "RFQ_WOR_INF_CONCRETE_FOU_V1",
+    "bidFormKey": "BID_WOR_INF_CONCRETE_FOU_V1",
+    "prRulePackKey": "rules.pr.wor_inf_concrete_fou.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_inf_concrete_fou.global.v1",
+    "bidRulePackKey": "rules.bid.wor_inf_concrete_fou.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_FIT_OFFICE_FIT_O",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_FIT_OFFICE_FIT_O_V1",
+    "rfqFormKey": "RFQ_WOR_FIT_OFFICE_FIT_O_V1",
+    "bidFormKey": "BID_WOR_FIT_OFFICE_FIT_O_V1",
+    "prRulePackKey": "rules.pr.wor_fit_office_fit_o.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_fit_office_fit_o.global.v1",
+    "bidRulePackKey": "rules.bid.wor_fit_office_fit_o.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_FIT_WORKSHOP_FIT",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_FIT_WORKSHOP_FIT_V1",
+    "rfqFormKey": "RFQ_WOR_FIT_WORKSHOP_FIT_V1",
+    "bidFormKey": "BID_WOR_FIT_WORKSHOP_FIT_V1",
+    "prRulePackKey": "rules.pr.wor_fit_workshop_fit.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_fit_workshop_fit.global.v1",
+    "bidRulePackKey": "rules.bid.wor_fit_workshop_fit.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_FIT_RACKING_INST",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_FIT_RACKING_INST_V1",
+    "rfqFormKey": "RFQ_WOR_FIT_RACKING_INST_V1",
+    "bidFormKey": "BID_WOR_FIT_RACKING_INST_V1",
+    "prRulePackKey": "rules.pr.wor_fit_racking_inst.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_fit_racking_inst.global.v1",
+    "bidRulePackKey": "rules.bid.wor_fit_racking_inst.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "WOR_FIT_MEZZANINE_FL",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_WOR_FIT_MEZZANINE_FL_V1",
+    "rfqFormKey": "RFQ_WOR_FIT_MEZZANINE_FL_V1",
+    "bidFormKey": "BID_WOR_FIT_MEZZANINE_FL_V1",
+    "prRulePackKey": "rules.pr.wor_fit_mezzanine_fl.global.v1",
+    "rfqRulePackKey": "rules.rfq.wor_fit_mezzanine_fl.global.v1",
+    "bidRulePackKey": "rules.bid.wor_fit_mezzanine_fl.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "BoQ/SoW, milestones, site_conditions, timeline, retention(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_SPE_ABNORMAL_LOA",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_SPE_ABNORMAL_LOA_V1",
+    "rfqFormKey": "RFQ_LOG_SPE_ABNORMAL_LOA_V1",
+    "bidFormKey": "BID_LOG_SPE_ABNORMAL_LOA_V1",
+    "prRulePackKey": "rules.pr.log_spe_abnormal_loa.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_spe_abnormal_loa.global.v1",
+    "bidRulePackKey": "rules.bid.log_spe_abnormal_loa.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_SPE_HAZARDOUS_GO",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_SPE_HAZARDOUS_GO_V1",
+    "rfqFormKey": "RFQ_LOG_SPE_HAZARDOUS_GO_V1",
+    "bidFormKey": "BID_LOG_SPE_HAZARDOUS_GO_V1",
+    "prRulePackKey": "rules.pr.log_spe_hazardous_go.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_spe_hazardous_go.global.v1",
+    "bidRulePackKey": "rules.bid.log_spe_hazardous_go.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_SPE_CRANE_HIRE_L",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_SPE_CRANE_HIRE_L_V1",
+    "rfqFormKey": "RFQ_LOG_SPE_CRANE_HIRE_L_V1",
+    "bidFormKey": "BID_LOG_SPE_CRANE_HIRE_L_V1",
+    "prRulePackKey": "rules.pr.log_spe_crane_hire_l.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_spe_crane_hire_l.global.v1",
+    "bidRulePackKey": "rules.bid.log_spe_crane_hire_l.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  },
+  {
+    "subcategoryId": "LOG_SPE_HEAVY_MACHIN",
+    "serviceFamily": "PROJECT",
+    "prFormKey": "PR_LOG_SPE_HEAVY_MACHIN_V1",
+    "rfqFormKey": "RFQ_LOG_SPE_HEAVY_MACHIN_V1",
+    "bidFormKey": "BID_LOG_SPE_HEAVY_MACHIN_V1",
+    "prRulePackKey": "rules.pr.log_spe_heavy_machin.global.v1",
+    "rfqRulePackKey": "rules.rfq.log_spe_heavy_machin.global.v1",
+    "bidRulePackKey": "rules.bid.log_spe_heavy_machin.global.v1",
+    "metadata": {
+      "source": "appendix-c-exhaustive",
+      "mandatoryFieldsHint": "pickup_location, delivery_location, package_details, required_dates, incoterms(optional)",
+      "supplierComplianceHint": "Supplier registration + tax/VAT + bank confirmation; country may add sector certificates"
+    }
+  }
+]

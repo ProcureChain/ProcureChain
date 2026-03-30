@@ -1,0 +1,3 @@
+ALTER TABLE "DeliveryNote"
+  ADD COLUMN IF NOT EXISTS "documentPath" TEXT,
+  ADD COLUMN IF NOT EXISTS "documentName" TEXT;

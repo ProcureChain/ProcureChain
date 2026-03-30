@@ -1,0 +1,3632 @@
+ProcureChain Service Family Dynamic Fields
+Generated: 2026-03-17 UTC
+Source: /taxonomy/subcategories + /taxonomy/pr-form-schema
+Grouped by: service family
+
+=== Service Family: MEASURABLE ===
+Service count: 11
+
+[1] Cleaning Services
+Requested ID: FAC-SRV-CLN-001
+Resolved ID: SER_MEA_CLEANING_M²
+Level 1: Facilities
+Level 2: Services
+Level 3: Cleaning
+PR Form Key: PR_SER_MEA_CLEANING_M²_V1
+PR Rule Pack: rules.pr.ser_mea_cleaning_m².global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[2] Software Licenses
+Requested ID: IT-SW-LIC-001
+Resolved ID: IT-SW-LIC-001
+Level 1: IT
+Level 2: Software
+Level 3: Licensing
+PR Form Key: pr.it.sw.licensing.v1
+PR Rule Pack: rules.pr.it.sw.licensing.global.v1
+Dynamic Fields:
+- KpiName | key=kpiName | path=metadata.kpiName | type=text | required=True
+- SubcategoryId | key=subcategoryId | path=subcategoryId | type=text | required=True
+
+[3] Catering (per head)
+Requested ID: SER_MEA_CATERING_PE
+Resolved ID: SER_MEA_CATERING_PE
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Catering (per head)
+PR Form Key: PR_SER_MEA_CATERING_PE_V1
+PR Rule Pack: rules.pr.ser_mea_catering_pe.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[4] Cleaning (m² based)
+Requested ID: SER_MEA_CLEANING_M²
+Resolved ID: SER_MEA_CLEANING_M²
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Cleaning (m² based)
+PR Form Key: PR_SER_MEA_CLEANING_M²_V1
+PR Rule Pack: rules.pr.ser_mea_cleaning_m².global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[5] Equipment hire (daily/weekly)
+Requested ID: SER_MEA_EQUIPMENT_HI
+Resolved ID: SER_MEA_EQUIPMENT_HI
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Equipment hire (daily/weekly)
+PR Form Key: PR_SER_MEA_EQUIPMENT_HI_V1
+PR Rule Pack: rules.pr.ser_mea_equipment_hi.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[6] Laundry (kg)
+Requested ID: SER_MEA_LAUNDRY_KG
+Resolved ID: SER_MEA_LAUNDRY_KG
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Laundry (kg)
+PR Form Key: PR_SER_MEA_LAUNDRY_KG_V1
+PR Rule Pack: rules.pr.ser_mea_laundry_kg.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[7] Painting (m² based)
+Requested ID: SER_MEA_PAINTING_M²
+Resolved ID: SER_MEA_PAINTING_M²
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Painting (m² based)
+PR Form Key: PR_SER_MEA_PAINTING_M²_V1
+PR Rule Pack: rules.pr.ser_mea_painting_m².global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[8] Pest control (site based)
+Requested ID: SER_MEA_PEST_CONTROL
+Resolved ID: SER_MEA_PEST_CONTROL
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Pest control (site based)
+PR Form Key: PR_SER_MEA_PEST_CONTROL_V1
+PR Rule Pack: rules.pr.ser_mea_pest_control.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[9] Security guarding (hours)
+Requested ID: SER_MEA_SECURITY_GUA
+Resolved ID: SER_MEA_SECURITY_GUA
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Security guarding (hours)
+PR Form Key: PR_SER_MEA_SECURITY_GUA_V1
+PR Rule Pack: rules.pr.ser_mea_security_gua.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[10] Transport (per km)
+Requested ID: SER_MEA_TRANSPORT_P
+Resolved ID: SER_MEA_TRANSPORT_P
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Transport (per km)
+PR Form Key: PR_SER_MEA_TRANSPORT_P_V1
+PR Rule Pack: rules.pr.ser_mea_transport_p.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[11] Waste removal (volume/weight)
+Requested ID: SER_MEA_WASTE_REMOVA
+Resolved ID: SER_MEA_WASTE_REMOVA
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Waste removal (volume/weight)
+PR Form Key: PR_SER_MEA_WASTE_REMOVA_V1
+PR Rule Pack: rules.pr.ser_mea_waste_remova.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+
+=== Service Family: LABOUR ===
+Service count: 11
+
+[1] Lab consumables
+Requested ID: GOO_QUA_LAB_CONSUMAB
+Resolved ID: GOO_QUA_LAB_CONSUMAB
+Level 1: Goods & Materials
+Level 2: Quality & Lab
+Level 3: Lab consumables
+PR Form Key: PR_GOO_QUA_LAB_CONSUMAB_V1
+PR Rule Pack: rules.pr.goo_qua_lab_consumab.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[2] Software Subscriptions (SaaS)
+Requested ID: IT-SW-SUB-001
+Resolved ID: IT-SW-SUB-001
+Level 1: IT
+Level 2: Software
+Level 3: Subscription
+PR Form Key: pr.it.sw.subscription.v1
+PR Rule Pack: rules.pr.it.sw.subscription.global.v1
+Dynamic Fields:
+- StaffCount | key=staffCount | path=metadata.staffCount | type=text | required=True
+
+[3] Artisans
+Requested ID: SER_LAB_ARTISANS
+Resolved ID: SER_LAB_ARTISANS
+Level 1: Services
+Level 2: Labour / Manpower
+Level 3: Artisans
+PR Form Key: PR_SER_LAB_ARTISANS_V1
+PR Rule Pack: rules.pr.ser_lab_artisans.global.v1
+Dynamic Fields:
+- Grade | key=grade | path=metadata.grade | type=text | required=False
+- Hours Days | key=hours_days | path=metadata.hours_days | type=number | required=False
+- Location | key=location | path=metadata.location | type=text | required=False
+- Rate Card | key=rate_card | path=metadata.rate_card | type=number | required=False
+- Role | key=role | path=metadata.role | type=text | required=False
+- Start Date | key=start_date | path=metadata.start_date | type=date | required=False
+
+[4] Electricians
+Requested ID: SER_LAB_ELECTRICIANS
+Resolved ID: SER_LAB_ELECTRICIANS
+Level 1: Services
+Level 2: Labour / Manpower
+Level 3: Electricians
+PR Form Key: PR_SER_LAB_ELECTRICIANS_V1
+PR Rule Pack: rules.pr.ser_lab_electricians.global.v1
+Dynamic Fields:
+- Grade | key=grade | path=metadata.grade | type=text | required=False
+- Hours Days | key=hours_days | path=metadata.hours_days | type=number | required=False
+- Location | key=location | path=metadata.location | type=text | required=False
+- Rate Card | key=rate_card | path=metadata.rate_card | type=number | required=False
+- Role | key=role | path=metadata.role | type=text | required=False
+- Start Date | key=start_date | path=metadata.start_date | type=date | required=False
+
+[5] Fitters & turners
+Requested ID: SER_LAB_FITTERS_AND_TU
+Resolved ID: SER_LAB_FITTERS_AND_TU
+Level 1: Services
+Level 2: Labour / Manpower
+Level 3: Fitters & turners
+PR Form Key: PR_SER_LAB_FITTERS_AND_TU_V1
+PR Rule Pack: rules.pr.ser_lab_fitters_and_tu.global.v1
+Dynamic Fields:
+- Grade | key=grade | path=metadata.grade | type=text | required=False
+- Hours Days | key=hours_days | path=metadata.hours_days | type=number | required=False
+- Location | key=location | path=metadata.location | type=text | required=False
+- Rate Card | key=rate_card | path=metadata.rate_card | type=number | required=False
+- Role | key=role | path=metadata.role | type=text | required=False
+- Start Date | key=start_date | path=metadata.start_date | type=date | required=False
+
+[6] General labour
+Requested ID: SER_LAB_GENERAL_LABO
+Resolved ID: SER_LAB_GENERAL_LABO
+Level 1: Services
+Level 2: Labour / Manpower
+Level 3: General labour
+PR Form Key: PR_SER_LAB_GENERAL_LABO_V1
+PR Rule Pack: rules.pr.ser_lab_general_labo.global.v1
+Dynamic Fields:
+- Grade | key=grade | path=metadata.grade | type=text | required=False
+- Hours Days | key=hours_days | path=metadata.hours_days | type=number | required=False
+- Location | key=location | path=metadata.location | type=text | required=False
+- Rate Card | key=rate_card | path=metadata.rate_card | type=number | required=False
+- Role | key=role | path=metadata.role | type=text | required=False
+- Start Date | key=start_date | path=metadata.start_date | type=date | required=False
+
+[7] Operators (machine)
+Requested ID: SER_LAB_OPERATORS_M
+Resolved ID: SER_LAB_OPERATORS_M
+Level 1: Services
+Level 2: Labour / Manpower
+Level 3: Operators (machine)
+PR Form Key: PR_SER_LAB_OPERATORS_M_V1
+PR Rule Pack: rules.pr.ser_lab_operators_m.global.v1
+Dynamic Fields:
+- Grade | key=grade | path=metadata.grade | type=text | required=False
+- Hours Days | key=hours_days | path=metadata.hours_days | type=number | required=False
+- Location | key=location | path=metadata.location | type=text | required=False
+- Rate Card | key=rate_card | path=metadata.rate_card | type=number | required=False
+- Role | key=role | path=metadata.role | type=text | required=False
+- Start Date | key=start_date | path=metadata.start_date | type=date | required=False
+
+[8] Riggers
+Requested ID: SER_LAB_RIGGERS
+Resolved ID: SER_LAB_RIGGERS
+Level 1: Services
+Level 2: Labour / Manpower
+Level 3: Riggers
+PR Form Key: PR_SER_LAB_RIGGERS_V1
+PR Rule Pack: rules.pr.ser_lab_riggers.global.v1
+Dynamic Fields:
+- Grade | key=grade | path=metadata.grade | type=text | required=False
+- Hours Days | key=hours_days | path=metadata.hours_days | type=number | required=False
+- Location | key=location | path=metadata.location | type=text | required=False
+- Rate Card | key=rate_card | path=metadata.rate_card | type=number | required=False
+- Role | key=role | path=metadata.role | type=text | required=False
+- Start Date | key=start_date | path=metadata.start_date | type=date | required=False
+
+[9] Skilled technicians
+Requested ID: SER_LAB_SKILLED_TECH
+Resolved ID: SER_LAB_SKILLED_TECH
+Level 1: Services
+Level 2: Labour / Manpower
+Level 3: Skilled technicians
+PR Form Key: PR_SER_LAB_SKILLED_TECH_V1
+PR Rule Pack: rules.pr.ser_lab_skilled_tech.global.v1
+Dynamic Fields:
+- Grade | key=grade | path=metadata.grade | type=text | required=False
+- Hours Days | key=hours_days | path=metadata.hours_days | type=number | required=False
+- Location | key=location | path=metadata.location | type=text | required=False
+- Rate Card | key=rate_card | path=metadata.rate_card | type=number | required=False
+- Role | key=role | path=metadata.role | type=text | required=False
+- Start Date | key=start_date | path=metadata.start_date | type=date | required=False
+
+[10] Supervisors (site)
+Requested ID: SER_LAB_SUPERVISORS_
+Resolved ID: SER_LAB_SUPERVISORS_
+Level 1: Services
+Level 2: Labour / Manpower
+Level 3: Supervisors (site)
+PR Form Key: PR_SER_LAB_SUPERVISORS__V1
+PR Rule Pack: rules.pr.ser_lab_supervisors_.global.v1
+Dynamic Fields:
+- Grade | key=grade | path=metadata.grade | type=text | required=False
+- Hours Days | key=hours_days | path=metadata.hours_days | type=number | required=False
+- Location | key=location | path=metadata.location | type=text | required=False
+- Rate Card | key=rate_card | path=metadata.rate_card | type=number | required=False
+- Role | key=role | path=metadata.role | type=text | required=False
+- Start Date | key=start_date | path=metadata.start_date | type=date | required=False
+
+[11] Welders
+Requested ID: SER_LAB_WELDERS
+Resolved ID: SER_LAB_WELDERS
+Level 1: Services
+Level 2: Labour / Manpower
+Level 3: Welders
+PR Form Key: PR_SER_LAB_WELDERS_V1
+PR Rule Pack: rules.pr.ser_lab_welders.global.v1
+Dynamic Fields:
+- Grade | key=grade | path=metadata.grade | type=text | required=False
+- Hours Days | key=hours_days | path=metadata.hours_days | type=number | required=False
+- Location | key=location | path=metadata.location | type=text | required=False
+- Rate Card | key=rate_card | path=metadata.rate_card | type=number | required=False
+- Role | key=role | path=metadata.role | type=text | required=False
+- Start Date | key=start_date | path=metadata.start_date | type=date | required=False
+
+
+=== Service Family: PROFESSIONAL ===
+Service count: 13
+
+[1] Laptops & Desktops
+Requested ID: IT-HW-END-001
+Resolved ID: IT-HW-END-001
+Level 1: IT
+Level 2: Hardware
+Level 3: End User Devices
+PR Form Key: pr.it.hw.enduser.v1
+PR Rule Pack: rules.pr.it.hw.enduser.global.v1
+Dynamic Fields:
+- DeliverableSummary | key=deliverableSummary | path=metadata.deliverableSummary | type=text | required=True
+
+[2] Management Consulting
+Requested ID: PRO-SRV-CON-001
+Resolved ID: PRO-SRV-CON-001
+Level 1: Professional Services
+Level 2: Consulting
+Level 3: Strategy & Advisory
+PR Form Key: pr.pro.srv.consulting.v1
+PR Rule Pack: rules.pr.pro.srv.consulting.global.v1
+Dynamic Fields:
+- ProfessionalScope | key=professionalScope | path=metadata.professionalScope | type=text | required=True
+
+[3] Accounting & tax
+Requested ID: SER_PRO_ACCOUNTING_AND
+Resolved ID: SER_PRO_ACCOUNTING_AND
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: Accounting & tax
+PR Form Key: PR_SER_PRO_ACCOUNTING_AND_V1
+PR Rule Pack: rules.pr.ser_pro_accounting_and.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[4] Custom software development
+Requested ID: SER_PRO_CUSTOM_SOFTW
+Resolved ID: SER_PRO_CUSTOM_SOFTW
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: Custom software development
+PR Form Key: PR_SER_PRO_CUSTOM_SOFTW_V1
+PR Rule Pack: rules.pr.ser_pro_custom_softw.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[5] Engineering consulting
+Requested ID: SER_PRO_ENGINEERING_
+Resolved ID: SER_PRO_ENGINEERING_
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: Engineering consulting
+PR Form Key: PR_SER_PRO_ENGINEERING__V1
+PR Rule Pack: rules.pr.ser_pro_engineering_.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[6] Environmental consulting
+Requested ID: SER_PRO_ENVIRONMENTA
+Resolved ID: SER_PRO_ENVIRONMENTA
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: Environmental consulting
+PR Form Key: PR_SER_PRO_ENVIRONMENTA_V1
+PR Rule Pack: rules.pr.ser_pro_environmenta.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[7] HR consulting
+Requested ID: SER_PRO_HR_CONSULTIN
+Resolved ID: SER_PRO_HR_CONSULTIN
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: HR consulting
+PR Form Key: PR_SER_PRO_HR_CONSULTIN_V1
+PR Rule Pack: rules.pr.ser_pro_hr_consultin.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[8] IT consulting
+Requested ID: SER_PRO_IT_CONSULTIN
+Resolved ID: SER_PRO_IT_CONSULTIN
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: IT consulting
+PR Form Key: PR_SER_PRO_IT_CONSULTIN_V1
+PR Rule Pack: rules.pr.ser_pro_it_consultin.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[9] Legal services
+Requested ID: SER_PRO_LEGAL_SERVIC
+Resolved ID: SER_PRO_LEGAL_SERVIC
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: Legal services
+PR Form Key: PR_SER_PRO_LEGAL_SERVIC_V1
+PR Rule Pack: rules.pr.ser_pro_legal_servic.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[10] Project management
+Requested ID: SER_PRO_PROJECT_MANA
+Resolved ID: SER_PRO_PROJECT_MANA
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: Project management
+PR Form Key: PR_SER_PRO_PROJECT_MANA_V1
+PR Rule Pack: rules.pr.ser_pro_project_mana.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[11] Quality consulting
+Requested ID: SER_PRO_QUALITY_CONS
+Resolved ID: SER_PRO_QUALITY_CONS
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: Quality consulting
+PR Form Key: PR_SER_PRO_QUALITY_CONS_V1
+PR Rule Pack: rules.pr.ser_pro_quality_cons.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[12] Safety consulting
+Requested ID: SER_PRO_SAFETY_CONSU
+Resolved ID: SER_PRO_SAFETY_CONSU
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: Safety consulting
+PR Form Key: PR_SER_PRO_SAFETY_CONSU_V1
+PR Rule Pack: rules.pr.ser_pro_safety_consu.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[13] Training services
+Requested ID: SER_PRO_TRAINING_SER
+Resolved ID: SER_PRO_TRAINING_SER
+Level 1: Services
+Level 2: Professional & Advisory
+Level 3: Training services
+PR Form Key: PR_SER_PRO_TRAINING_SER_V1
+PR Rule Pack: rules.pr.ser_pro_training_ser.global.v1
+Dynamic Fields:
+- Deliverables | key=deliverables | path=metadata.deliverables | type=text | required=False
+- Milestones Optional | key=milestones_optional | path=metadata.milestones_optional | type=text | required=False
+- Scope | key=scope | path=metadata.scope | type=text | required=False
+- Team Profile | key=team_profile | path=metadata.team_profile | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+
+=== Service Family: MAINTENANCE ===
+Service count: 10
+
+[1] Building Maintenance
+Requested ID: FAC-SRV-MNT-001
+Resolved ID: SER_MAI_MECHANICAL_M
+Level 1: Facilities
+Level 2: Services
+Level 3: Maintenance
+PR Form Key: PR_SER_MAI_MECHANICAL_M_V1
+PR Rule Pack: rules.pr.ser_mai_mechanical_m.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[2] Peripherals
+Requested ID: IT-HW-PER-001
+Resolved ID: IT-HW-PER-001
+Level 1: IT
+Level 2: Hardware
+Level 3: Peripherals
+PR Form Key: pr.it.hw.peripherals.v1
+PR Rule Pack: rules.pr.it.hw.peripherals.global.v1
+Dynamic Fields:
+- SlaHours | key=slaHours | path=metadata.slaHours | type=text | required=True
+
+[3] Asset condition monitoring
+Requested ID: SER_MAI_ASSET_CONDIT
+Resolved ID: SER_MAI_ASSET_CONDIT
+Level 1: Services
+Level 2: Maintenance & SLA
+Level 3: Asset condition monitoring
+PR Form Key: PR_SER_MAI_ASSET_CONDIT_V1
+PR Rule Pack: rules.pr.ser_mai_asset_condit.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[4] Calibration services
+Requested ID: SER_MAI_CALIBRATION_
+Resolved ID: SER_MAI_CALIBRATION_
+Level 1: Services
+Level 2: Maintenance & SLA
+Level 3: Calibration services
+PR Form Key: PR_SER_MAI_CALIBRATION__V1
+PR Rule Pack: rules.pr.ser_mai_calibration_.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[5] Electrical maintenance (SLA)
+Requested ID: SER_MAI_ELECTRICAL_M
+Resolved ID: SER_MAI_ELECTRICAL_M
+Level 1: Services
+Level 2: Maintenance & SLA
+Level 3: Electrical maintenance (SLA)
+PR Form Key: PR_SER_MAI_ELECTRICAL_M_V1
+PR Rule Pack: rules.pr.ser_mai_electrical_m.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[6] Fire systems maintenance
+Requested ID: SER_MAI_FIRE_SYSTEMS
+Resolved ID: SER_MAI_FIRE_SYSTEMS
+Level 1: Services
+Level 2: Maintenance & SLA
+Level 3: Fire systems maintenance
+PR Form Key: PR_SER_MAI_FIRE_SYSTEMS_V1
+PR Rule Pack: rules.pr.ser_mai_fire_systems.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[7] HVAC maintenance (SLA)
+Requested ID: SER_MAI_HVAC_MAINTEN
+Resolved ID: SER_MAI_HVAC_MAINTEN
+Level 1: Services
+Level 2: Maintenance & SLA
+Level 3: HVAC maintenance (SLA)
+PR Form Key: PR_SER_MAI_HVAC_MAINTEN_V1
+PR Rule Pack: rules.pr.ser_mai_hvac_mainten.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[8] IT support (SLA)
+Requested ID: SER_MAI_IT_SUPPORT_
+Resolved ID: SER_MAI_IT_SUPPORT_
+Level 1: Services
+Level 2: Maintenance & SLA
+Level 3: IT support (SLA)
+PR Form Key: PR_SER_MAI_IT_SUPPORT__V1
+PR Rule Pack: rules.pr.ser_mai_it_support_.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[9] Mechanical maintenance (SLA)
+Requested ID: SER_MAI_MECHANICAL_M
+Resolved ID: SER_MAI_MECHANICAL_M
+Level 1: Services
+Level 2: Maintenance & SLA
+Level 3: Mechanical maintenance (SLA)
+PR Form Key: PR_SER_MAI_MECHANICAL_M_V1
+PR Rule Pack: rules.pr.ser_mai_mechanical_m.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[10] Security systems maintenance
+Requested ID: SER_MAI_SECURITY_SYS
+Resolved ID: SER_MAI_SECURITY_SYS
+Level 1: Services
+Level 2: Maintenance & SLA
+Level 3: Security systems maintenance
+PR Form Key: PR_SER_MAI_SECURITY_SYS_V1
+PR Rule Pack: rules.pr.ser_mai_security_sys.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+
+=== Service Family: PROJECT ===
+Service count: 196
+
+[1] Acids
+Requested ID: GOO_CHE_ACIDS
+Resolved ID: GOO_CHE_ACIDS
+Level 1: Goods & Materials
+Level 2: Chemicals & Process
+Level 3: Acids
+PR Form Key: PR_GOO_CHE_ACIDS_V1
+PR Rule Pack: rules.pr.goo_che_acids.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[2] Alkalis
+Requested ID: GOO_CHE_ALKALIS
+Resolved ID: GOO_CHE_ALKALIS
+Level 1: Goods & Materials
+Level 2: Chemicals & Process
+Level 3: Alkalis
+PR Form Key: PR_GOO_CHE_ALKALIS_V1
+PR Rule Pack: rules.pr.goo_che_alkalis.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[3] Catalysts
+Requested ID: GOO_CHE_CATALYSTS
+Resolved ID: GOO_CHE_CATALYSTS
+Level 1: Goods & Materials
+Level 2: Chemicals & Process
+Level 3: Catalysts
+PR Form Key: PR_GOO_CHE_CATALYSTS_V1
+PR Rule Pack: rules.pr.goo_che_catalysts.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[4] Cleaning chemicals
+Requested ID: GOO_CHE_CLEANING_CHE
+Resolved ID: GOO_CHE_CLEANING_CHE
+Level 1: Goods & Materials
+Level 2: Chemicals & Process
+Level 3: Cleaning chemicals
+PR Form Key: PR_GOO_CHE_CLEANING_CHE_V1
+PR Rule Pack: rules.pr.goo_che_cleaning_che.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[5] Coatings
+Requested ID: GOO_CHE_COATINGS
+Resolved ID: GOO_CHE_COATINGS
+Level 1: Goods & Materials
+Level 2: Chemicals & Process
+Level 3: Coatings
+PR Form Key: PR_GOO_CHE_COATINGS_V1
+PR Rule Pack: rules.pr.goo_che_coatings.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[6] Coolants
+Requested ID: GOO_CHE_COOLANTS
+Resolved ID: GOO_CHE_COOLANTS
+Level 1: Goods & Materials
+Level 2: Chemicals & Process
+Level 3: Coolants
+PR Form Key: PR_GOO_CHE_COOLANTS_V1
+PR Rule Pack: rules.pr.goo_che_coolants.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[7] Laboratory reagents
+Requested ID: GOO_CHE_LABORATORY_R
+Resolved ID: GOO_CHE_LABORATORY_R
+Level 1: Goods & Materials
+Level 2: Chemicals & Process
+Level 3: Laboratory reagents
+PR Form Key: PR_GOO_CHE_LABORATORY_R_V1
+PR Rule Pack: rules.pr.goo_che_laboratory_r.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[8] Resins
+Requested ID: GOO_CHE_RESINS
+Resolved ID: GOO_CHE_RESINS
+Level 1: Goods & Materials
+Level 2: Chemicals & Process
+Level 3: Resins
+PR Form Key: PR_GOO_CHE_RESINS_V1
+PR Rule Pack: rules.pr.goo_che_resins.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[9] Solvents
+Requested ID: GOO_CHE_SOLVENTS
+Resolved ID: GOO_CHE_SOLVENTS
+Level 1: Goods & Materials
+Level 2: Chemicals & Process
+Level 3: Solvents
+PR Form Key: PR_GOO_CHE_SOLVENTS_V1
+PR Rule Pack: rules.pr.goo_che_solvents.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[10] Water treatment chemicals
+Requested ID: GOO_CHE_WATER_TREATM
+Resolved ID: GOO_CHE_WATER_TREATM
+Level 1: Goods & Materials
+Level 2: Chemicals & Process
+Level 3: Water treatment chemicals
+PR Form Key: PR_GOO_CHE_WATER_TREATM_V1
+PR Rule Pack: rules.pr.goo_che_water_treatm.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[11] Batteries & UPS
+Requested ID: GOO_ELE_BATTERIES_AND_
+Resolved ID: GOO_ELE_BATTERIES_AND_
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Batteries & UPS
+PR Form Key: PR_GOO_ELE_BATTERIES_AND__V1
+PR Rule Pack: rules.pr.goo_ele_batteries_and_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[12] Cable management
+Requested ID: GOO_ELE_CABLE_MANAGE
+Resolved ID: GOO_ELE_CABLE_MANAGE
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Cable management
+PR Form Key: PR_GOO_ELE_CABLE_MANAGE_V1
+PR Rule Pack: rules.pr.goo_ele_cable_manage.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[13] Cables & wiring
+Requested ID: GOO_ELE_CABLES_AND_WIR
+Resolved ID: GOO_ELE_CABLES_AND_WIR
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Cables & wiring
+PR Form Key: PR_GOO_ELE_CABLES_AND_WIR_V1
+PR Rule Pack: rules.pr.goo_ele_cables_and_wir.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[14] Conduits & trunking
+Requested ID: GOO_ELE_CONDUITS_AND_T
+Resolved ID: GOO_ELE_CONDUITS_AND_T
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Conduits & trunking
+PR Form Key: PR_GOO_ELE_CONDUITS_AND_T_V1
+PR Rule Pack: rules.pr.goo_ele_conduits_and_t.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[15] Connectors & terminals
+Requested ID: GOO_ELE_CONNECTORS_AND
+Resolved ID: GOO_ELE_CONNECTORS_AND
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Connectors & terminals
+PR Form Key: PR_GOO_ELE_CONNECTORS_AND_V1
+PR Rule Pack: rules.pr.goo_ele_connectors_and.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[16] Drives/VSDs
+Requested ID: GOO_ELE_DRIVES_VSDS
+Resolved ID: GOO_ELE_DRIVES_VSDS
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Drives/VSDs
+PR Form Key: PR_GOO_ELE_DRIVES_VSDS_V1
+PR Rule Pack: rules.pr.goo_ele_drives_vsds.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[17] Earthing & lightning protection
+Requested ID: GOO_ELE_EARTHING_AND_L
+Resolved ID: GOO_ELE_EARTHING_AND_L
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Earthing & lightning protection
+PR Form Key: PR_GOO_ELE_EARTHING_AND_L_V1
+PR Rule Pack: rules.pr.goo_ele_earthing_and_l.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[18] HMI & SCADA hardware
+Requested ID: GOO_ELE_HMI_AND_SCADA_
+Resolved ID: GOO_ELE_HMI_AND_SCADA_
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: HMI & SCADA hardware
+PR Form Key: PR_GOO_ELE_HMI_AND_SCADA__V1
+PR Rule Pack: rules.pr.goo_ele_hmi_and_scada_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[19] Instrumentation
+Requested ID: GOO_ELE_INSTRUMENTAT
+Resolved ID: GOO_ELE_INSTRUMENTAT
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Instrumentation
+PR Form Key: PR_GOO_ELE_INSTRUMENTAT_V1
+PR Rule Pack: rules.pr.goo_ele_instrumentat.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[20] Lighting
+Requested ID: GOO_ELE_LIGHTING
+Resolved ID: GOO_ELE_LIGHTING
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Lighting
+PR Form Key: PR_GOO_ELE_LIGHTING_V1
+PR Rule Pack: rules.pr.goo_ele_lighting.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[21] Motors
+Requested ID: GOO_ELE_MOTORS
+Resolved ID: GOO_ELE_MOTORS
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Motors
+PR Form Key: PR_GOO_ELE_MOTORS_V1
+PR Rule Pack: rules.pr.goo_ele_motors.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[22] PLC & controllers
+Requested ID: GOO_ELE_PLC_AND_CONTRO
+Resolved ID: GOO_ELE_PLC_AND_CONTRO
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: PLC & controllers
+PR Form Key: PR_GOO_ELE_PLC_AND_CONTRO_V1
+PR Rule Pack: rules.pr.goo_ele_plc_and_contro.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[23] Panels & enclosures
+Requested ID: GOO_ELE_PANELS_AND_ENC
+Resolved ID: GOO_ELE_PANELS_AND_ENC
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Panels & enclosures
+PR Form Key: PR_GOO_ELE_PANELS_AND_ENC_V1
+PR Rule Pack: rules.pr.goo_ele_panels_and_enc.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[24] Sensors (proximity/photo)
+Requested ID: GOO_ELE_SENSORS_PRO
+Resolved ID: GOO_ELE_SENSORS_PRO
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Sensors (proximity/photo)
+PR Form Key: PR_GOO_ELE_SENSORS_PRO_V1
+PR Rule Pack: rules.pr.goo_ele_sensors_pro.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[25] Switchgear & breakers
+Requested ID: GOO_ELE_SWITCHGEAR_AND
+Resolved ID: GOO_ELE_SWITCHGEAR_AND
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Switchgear & breakers
+PR Form Key: PR_GOO_ELE_SWITCHGEAR_AND_V1
+PR Rule Pack: rules.pr.goo_ele_switchgear_and.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[26] Transformers
+Requested ID: GOO_ELE_TRANSFORMERS
+Resolved ID: GOO_ELE_TRANSFORMERS
+Level 1: Goods & Materials
+Level 2: Electrical & Automation
+Level 3: Transformers
+PR Form Key: PR_GOO_ELE_TRANSFORMERS_V1
+PR Rule Pack: rules.pr.goo_ele_transformers.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[27] Analytical instruments
+Requested ID: GOO_INS_ANALYTICAL_I
+Resolved ID: GOO_INS_ANALYTICAL_I
+Level 1: Goods & Materials
+Level 2: Instrumentation
+Level 3: Analytical instruments
+PR Form Key: PR_GOO_INS_ANALYTICAL_I_V1
+PR Rule Pack: rules.pr.goo_ins_analytical_i.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[28] Calibration kits
+Requested ID: GOO_INS_CALIBRATION_
+Resolved ID: GOO_INS_CALIBRATION_
+Level 1: Goods & Materials
+Level 2: Instrumentation
+Level 3: Calibration kits
+PR Form Key: PR_GOO_INS_CALIBRATION__V1
+PR Rule Pack: rules.pr.goo_ins_calibration_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[29] Flow instruments
+Requested ID: GOO_INS_FLOW_INSTRUM
+Resolved ID: GOO_INS_FLOW_INSTRUM
+Level 1: Goods & Materials
+Level 2: Instrumentation
+Level 3: Flow instruments
+PR Form Key: PR_GOO_INS_FLOW_INSTRUM_V1
+PR Rule Pack: rules.pr.goo_ins_flow_instrum.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[30] Level instruments
+Requested ID: GOO_INS_LEVEL_INSTRU
+Resolved ID: GOO_INS_LEVEL_INSTRU
+Level 1: Goods & Materials
+Level 2: Instrumentation
+Level 3: Level instruments
+PR Form Key: PR_GOO_INS_LEVEL_INSTRU_V1
+PR Rule Pack: rules.pr.goo_ins_level_instru.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[31] Pressure instruments
+Requested ID: GOO_INS_PRESSURE_INS
+Resolved ID: GOO_INS_PRESSURE_INS
+Level 1: Goods & Materials
+Level 2: Instrumentation
+Level 3: Pressure instruments
+PR Form Key: PR_GOO_INS_PRESSURE_INS_V1
+PR Rule Pack: rules.pr.goo_ins_pressure_ins.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[32] Temperature instruments
+Requested ID: GOO_INS_TEMPERATURE_
+Resolved ID: GOO_INS_TEMPERATURE_
+Level 1: Goods & Materials
+Level 2: Instrumentation
+Level 3: Temperature instruments
+PR Form Key: PR_GOO_INS_TEMPERATURE__V1
+PR Rule Pack: rules.pr.goo_ins_temperature_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[33] Bearings
+Requested ID: GOO_MEC_BEARINGS
+Resolved ID: GOO_MEC_BEARINGS
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Bearings
+PR Form Key: PR_GOO_MEC_BEARINGS_V1
+PR Rule Pack: rules.pr.goo_mec_bearings.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[34] Belts & pulleys
+Requested ID: GOO_MEC_BELTS_AND_PULL
+Resolved ID: GOO_MEC_BELTS_AND_PULL
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Belts & pulleys
+PR Form Key: PR_GOO_MEC_BELTS_AND_PULL_V1
+PR Rule Pack: rules.pr.goo_mec_belts_and_pull.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[35] Chains & sprockets
+Requested ID: GOO_MEC_CHAINS_AND_SPR
+Resolved ID: GOO_MEC_CHAINS_AND_SPR
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Chains & sprockets
+PR Form Key: PR_GOO_MEC_CHAINS_AND_SPR_V1
+PR Rule Pack: rules.pr.goo_mec_chains_and_spr.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[36] Couplings
+Requested ID: GOO_MEC_COUPLINGS
+Resolved ID: GOO_MEC_COUPLINGS
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Couplings
+PR Form Key: PR_GOO_MEC_COUPLINGS_V1
+PR Rule Pack: rules.pr.goo_mec_couplings.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[37] Fabrication parts
+Requested ID: GOO_MEC_FABRICATION_
+Resolved ID: GOO_MEC_FABRICATION_
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Fabrication parts
+PR Form Key: PR_GOO_MEC_FABRICATION__V1
+PR Rule Pack: rules.pr.goo_mec_fabrication_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[38] Fasteners
+Requested ID: GOO_MEC_FASTENERS
+Resolved ID: GOO_MEC_FASTENERS
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Fasteners
+PR Form Key: PR_GOO_MEC_FASTENERS_V1
+PR Rule Pack: rules.pr.goo_mec_fasteners.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[39] Gearboxes
+Requested ID: GOO_MEC_GEARBOXES
+Resolved ID: GOO_MEC_GEARBOXES
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Gearboxes
+PR Form Key: PR_GOO_MEC_GEARBOXES_V1
+PR Rule Pack: rules.pr.goo_mec_gearboxes.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[40] Hydraulics (hoses/fittings)
+Requested ID: GOO_MEC_HYDRAULICS_
+Resolved ID: GOO_MEC_HYDRAULICS_
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Hydraulics (hoses/fittings)
+PR Form Key: PR_GOO_MEC_HYDRAULICS__V1
+PR Rule Pack: rules.pr.goo_mec_hydraulics_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[41] Pipes & fittings
+Requested ID: GOO_MEC_PIPES_AND_FITT
+Resolved ID: GOO_MEC_PIPES_AND_FITT
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Pipes & fittings
+PR Form Key: PR_GOO_MEC_PIPES_AND_FITT_V1
+PR Rule Pack: rules.pr.goo_mec_pipes_and_fitt.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[42] Pneumatics (fittings)
+Requested ID: GOO_MEC_PNEUMATICS_
+Resolved ID: GOO_MEC_PNEUMATICS_
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Pneumatics (fittings)
+PR Form Key: PR_GOO_MEC_PNEUMATICS__V1
+PR Rule Pack: rules.pr.goo_mec_pneumatics_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[43] Seals & gaskets
+Requested ID: GOO_MEC_SEALS_AND_GASK
+Resolved ID: GOO_MEC_SEALS_AND_GASK
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Seals & gaskets
+PR Form Key: PR_GOO_MEC_SEALS_AND_GASK_V1
+PR Rule Pack: rules.pr.goo_mec_seals_and_gask.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[44] Sheet metal
+Requested ID: GOO_MEC_SHEET_METAL
+Resolved ID: GOO_MEC_SHEET_METAL
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Sheet metal
+PR Form Key: PR_GOO_MEC_SHEET_METAL_V1
+PR Rule Pack: rules.pr.goo_mec_sheet_metal.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[45] Structural steel
+Requested ID: GOO_MEC_STRUCTURAL_S
+Resolved ID: GOO_MEC_STRUCTURAL_S
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Structural steel
+PR Form Key: PR_GOO_MEC_STRUCTURAL_S_V1
+PR Rule Pack: rules.pr.goo_mec_structural_s.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[46] Valves (process)
+Requested ID: GOO_MEC_VALVES_PROC
+Resolved ID: GOO_MEC_VALVES_PROC
+Level 1: Goods & Materials
+Level 2: Mechanical Components
+Level 3: Valves (process)
+PR Form Key: PR_GOO_MEC_VALVES_PROC_V1
+PR Rule Pack: rules.pr.goo_mec_valves_proc.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[47] Eye protection
+Requested ID: GOO_PPE_EYE_PROTECTI
+Resolved ID: GOO_PPE_EYE_PROTECTI
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Eye protection
+PR Form Key: PR_GOO_PPE_EYE_PROTECTI_V1
+PR Rule Pack: rules.pr.goo_ppe_eye_protecti.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[48] Fall protection
+Requested ID: GOO_PPE_FALL_PROTECT
+Resolved ID: GOO_PPE_FALL_PROTECT
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Fall protection
+PR Form Key: PR_GOO_PPE_FALL_PROTECT_V1
+PR Rule Pack: rules.pr.goo_ppe_fall_protect.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[49] Fire extinguishers
+Requested ID: GOO_PPE_FIRE_EXTINGU
+Resolved ID: GOO_PPE_FIRE_EXTINGU
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Fire extinguishers
+PR Form Key: PR_GOO_PPE_FIRE_EXTINGU_V1
+PR Rule Pack: rules.pr.goo_ppe_fire_extingu.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[50] First aid kits
+Requested ID: GOO_PPE_FIRST_AID_KI
+Resolved ID: GOO_PPE_FIRST_AID_KI
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: First aid kits
+PR Form Key: PR_GOO_PPE_FIRST_AID_KI_V1
+PR Rule Pack: rules.pr.goo_ppe_first_aid_ki.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[51] Gas detectors
+Requested ID: GOO_PPE_GAS_DETECTOR
+Resolved ID: GOO_PPE_GAS_DETECTOR
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Gas detectors
+PR Form Key: PR_GOO_PPE_GAS_DETECTOR_V1
+PR Rule Pack: rules.pr.goo_ppe_gas_detector.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[52] Hard hats
+Requested ID: GOO_PPE_HARD_HATS
+Resolved ID: GOO_PPE_HARD_HATS
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Hard hats
+PR Form Key: PR_GOO_PPE_HARD_HATS_V1
+PR Rule Pack: rules.pr.goo_ppe_hard_hats.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[53] Hearing protection
+Requested ID: GOO_PPE_HEARING_PROT
+Resolved ID: GOO_PPE_HEARING_PROT
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Hearing protection
+PR Form Key: PR_GOO_PPE_HEARING_PROT_V1
+PR Rule Pack: rules.pr.goo_ppe_hearing_prot.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[54] Protective clothing
+Requested ID: GOO_PPE_PROTECTIVE_C
+Resolved ID: GOO_PPE_PROTECTIVE_C
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Protective clothing
+PR Form Key: PR_GOO_PPE_PROTECTIVE_C_V1
+PR Rule Pack: rules.pr.goo_ppe_protective_c.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[55] Respirators
+Requested ID: GOO_PPE_RESPIRATORS
+Resolved ID: GOO_PPE_RESPIRATORS
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Respirators
+PR Form Key: PR_GOO_PPE_RESPIRATORS_V1
+PR Rule Pack: rules.pr.goo_ppe_respirators.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[56] Safety gloves
+Requested ID: GOO_PPE_SAFETY_GLOVE
+Resolved ID: GOO_PPE_SAFETY_GLOVE
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Safety gloves
+PR Form Key: PR_GOO_PPE_SAFETY_GLOVE_V1
+PR Rule Pack: rules.pr.goo_ppe_safety_glove.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[57] Safety shoes
+Requested ID: GOO_PPE_SAFETY_SHOES
+Resolved ID: GOO_PPE_SAFETY_SHOES
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Safety shoes
+PR Form Key: PR_GOO_PPE_SAFETY_SHOES_V1
+PR Rule Pack: rules.pr.goo_ppe_safety_shoes.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[58] Safety signage
+Requested ID: GOO_PPE_SAFETY_SIGNA
+Resolved ID: GOO_PPE_SAFETY_SIGNA
+Level 1: Goods & Materials
+Level 2: PPE & Safety Equipment
+Level 3: Safety signage
+PR Form Key: PR_GOO_PPE_SAFETY_SIGNA_V1
+PR Rule Pack: rules.pr.goo_ppe_safety_signa.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[59] Bags & liners
+Requested ID: GOO_PAC_BAGS_AND_LINER
+Resolved ID: GOO_PAC_BAGS_AND_LINER
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Bags & liners
+PR Form Key: PR_GOO_PAC_BAGS_AND_LINER_V1
+PR Rule Pack: rules.pr.goo_pac_bags_and_liner.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[60] Canteen consumables
+Requested ID: GOO_PAC_CANTEEN_CONS
+Resolved ID: GOO_PAC_CANTEEN_CONS
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Canteen consumables
+PR Form Key: PR_GOO_PAC_CANTEEN_CONS_V1
+PR Rule Pack: rules.pr.goo_pac_canteen_cons.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[61] Cartons & boxes
+Requested ID: GOO_PAC_CARTONS_AND_BO
+Resolved ID: GOO_PAC_CARTONS_AND_BO
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Cartons & boxes
+PR Form Key: PR_GOO_PAC_CARTONS_AND_BO_V1
+PR Rule Pack: rules.pr.goo_pac_cartons_and_bo.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[62] Cleaning consumables
+Requested ID: GOO_PAC_CLEANING_CON
+Resolved ID: GOO_PAC_CLEANING_CON
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Cleaning consumables
+PR Form Key: PR_GOO_PAC_CLEANING_CON_V1
+PR Rule Pack: rules.pr.goo_pac_cleaning_con.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[63] Labels & printing
+Requested ID: GOO_PAC_LABELS_AND_PRI
+Resolved ID: GOO_PAC_LABELS_AND_PRI
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Labels & printing
+PR Form Key: PR_GOO_PAC_LABELS_AND_PRI_V1
+PR Rule Pack: rules.pr.goo_pac_labels_and_pri.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[64] Office supplies
+Requested ID: GOO_PAC_OFFICE_SUPPL
+Resolved ID: GOO_PAC_OFFICE_SUPPL
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Office supplies
+PR Form Key: PR_GOO_PAC_OFFICE_SUPPL_V1
+PR Rule Pack: rules.pr.goo_pac_office_suppl.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[65] Pallets
+Requested ID: GOO_PAC_PALLETS
+Resolved ID: GOO_PAC_PALLETS
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Pallets
+PR Form Key: PR_GOO_PAC_PALLETS_V1
+PR Rule Pack: rules.pr.goo_pac_pallets.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[66] Printer consumables
+Requested ID: GOO_PAC_PRINTER_CONS
+Resolved ID: GOO_PAC_PRINTER_CONS
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Printer consumables
+PR Form Key: PR_GOO_PAC_PRINTER_CONS_V1
+PR Rule Pack: rules.pr.goo_pac_printer_cons.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[67] Stationery
+Requested ID: GOO_PAC_STATIONERY
+Resolved ID: GOO_PAC_STATIONERY
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Stationery
+PR Form Key: PR_GOO_PAC_STATIONERY_V1
+PR Rule Pack: rules.pr.goo_pac_stationery.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[68] Strapping
+Requested ID: GOO_PAC_STRAPPING
+Resolved ID: GOO_PAC_STRAPPING
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Strapping
+PR Form Key: PR_GOO_PAC_STRAPPING_V1
+PR Rule Pack: rules.pr.goo_pac_strapping.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[69] Stretch wrap & film
+Requested ID: GOO_PAC_STRETCH_WRAP
+Resolved ID: GOO_PAC_STRETCH_WRAP
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Stretch wrap & film
+PR Form Key: PR_GOO_PAC_STRETCH_WRAP_V1
+PR Rule Pack: rules.pr.goo_pac_stretch_wrap.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[70] Tapes
+Requested ID: GOO_PAC_TAPES
+Resolved ID: GOO_PAC_TAPES
+Level 1: Goods & Materials
+Level 2: Packaging & Consumables
+Level 3: Tapes
+PR Form Key: PR_GOO_PAC_TAPES_V1
+PR Rule Pack: rules.pr.goo_pac_tapes.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[71] Metrology services (outsourced)
+Requested ID: GOO_QUA_METROLOGY_SE
+Resolved ID: GOO_QUA_METROLOGY_SE
+Level 1: Goods & Materials
+Level 2: Quality & Lab
+Level 3: Metrology services (outsourced)
+PR Form Key: PR_GOO_QUA_METROLOGY_SE_V1
+PR Rule Pack: rules.pr.goo_qua_metrology_se.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[72] Micrometers & gauges
+Requested ID: GOO_QUA_MICROMETERS_
+Resolved ID: GOO_QUA_MICROMETERS_
+Level 1: Goods & Materials
+Level 2: Quality & Lab
+Level 3: Micrometers & gauges
+PR Form Key: PR_GOO_QUA_MICROMETERS__V1
+PR Rule Pack: rules.pr.goo_qua_micrometers_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[73] Sampling equipment
+Requested ID: GOO_QUA_SAMPLING_EQU
+Resolved ID: GOO_QUA_SAMPLING_EQU
+Level 1: Goods & Materials
+Level 2: Quality & Lab
+Level 3: Sampling equipment
+PR Form Key: PR_GOO_QUA_SAMPLING_EQU_V1
+PR Rule Pack: rules.pr.goo_qua_sampling_equ.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[74] Test instruments
+Requested ID: GOO_QUA_TEST_INSTRUM
+Resolved ID: GOO_QUA_TEST_INSTRUM
+Level 1: Goods & Materials
+Level 2: Quality & Lab
+Level 3: Test instruments
+PR Form Key: PR_GOO_QUA_TEST_INSTRUM_V1
+PR Rule Pack: rules.pr.goo_qua_test_instrum.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[75] Weighing scales
+Requested ID: GOO_QUA_WEIGHING_SCA
+Resolved ID: GOO_QUA_WEIGHING_SCA
+Level 1: Goods & Materials
+Level 2: Quality & Lab
+Level 3: Weighing scales
+PR Form Key: PR_GOO_QUA_WEIGHING_SCA_V1
+PR Rule Pack: rules.pr.goo_qua_weighing_sca.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[76] Adhesives & sealants
+Requested ID: GOO_RAW_ADHESIVES_AND_
+Resolved ID: GOO_RAW_ADHESIVES_AND_
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Adhesives & sealants
+PR Form Key: PR_GOO_RAW_ADHESIVES_AND__V1
+PR Rule Pack: rules.pr.goo_raw_adhesives_and_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[77] Aluminium
+Requested ID: GOO_RAW_ALUMINIUM
+Resolved ID: GOO_RAW_ALUMINIUM
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Aluminium
+PR Form Key: PR_GOO_RAW_ALUMINIUM_V1
+PR Rule Pack: rules.pr.goo_raw_aluminium.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[78] Brass/Bronze
+Requested ID: GOO_RAW_BRASS_BRONZE
+Resolved ID: GOO_RAW_BRASS_BRONZE
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Brass/Bronze
+PR Form Key: PR_GOO_RAW_BRASS_BRONZE_V1
+PR Rule Pack: rules.pr.goo_raw_brass_bronze.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[79] Cast iron
+Requested ID: GOO_RAW_CAST_IRON
+Resolved ID: GOO_RAW_CAST_IRON
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Cast iron
+PR Form Key: PR_GOO_RAW_CAST_IRON_V1
+PR Rule Pack: rules.pr.goo_raw_cast_iron.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[80] Ceramics
+Requested ID: GOO_RAW_CERAMICS
+Resolved ID: GOO_RAW_CERAMICS
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Ceramics
+PR Form Key: PR_GOO_RAW_CERAMICS_V1
+PR Rule Pack: rules.pr.goo_raw_ceramics.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[81] Composites
+Requested ID: GOO_RAW_COMPOSITES
+Resolved ID: GOO_RAW_COMPOSITES
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Composites
+PR Form Key: PR_GOO_RAW_COMPOSITES_V1
+PR Rule Pack: rules.pr.goo_raw_composites.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[82] Copper
+Requested ID: GOO_RAW_COPPER
+Resolved ID: GOO_RAW_COPPER
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Copper
+PR Form Key: PR_GOO_RAW_COPPER_V1
+PR Rule Pack: rules.pr.goo_raw_copper.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[83] Fuels & additives
+Requested ID: GOO_RAW_FUELS_AND_ADDI
+Resolved ID: GOO_RAW_FUELS_AND_ADDI
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Fuels & additives
+PR Form Key: PR_GOO_RAW_FUELS_AND_ADDI_V1
+PR Rule Pack: rules.pr.goo_raw_fuels_and_addi.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[84] Glass
+Requested ID: GOO_RAW_GLASS
+Resolved ID: GOO_RAW_GLASS
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Glass
+PR Form Key: PR_GOO_RAW_GLASS_V1
+PR Rule Pack: rules.pr.goo_raw_glass.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[85] Industrial gases
+Requested ID: GOO_RAW_INDUSTRIAL_G
+Resolved ID: GOO_RAW_INDUSTRIAL_G
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Industrial gases
+PR Form Key: PR_GOO_RAW_INDUSTRIAL_G_V1
+PR Rule Pack: rules.pr.goo_raw_industrial_g.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[86] Oils & lubricants
+Requested ID: GOO_RAW_OILS_AND_LUBRI
+Resolved ID: GOO_RAW_OILS_AND_LUBRI
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Oils & lubricants
+PR Form Key: PR_GOO_RAW_OILS_AND_LUBRI_V1
+PR Rule Pack: rules.pr.goo_raw_oils_and_lubri.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[87] Plastics (engineering)
+Requested ID: GOO_RAW_PLASTICS_EN
+Resolved ID: GOO_RAW_PLASTICS_EN
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Plastics (engineering)
+PR Form Key: PR_GOO_RAW_PLASTICS_EN_V1
+PR Rule Pack: rules.pr.goo_raw_plastics_en.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[88] Refractory materials
+Requested ID: GOO_RAW_REFRACTORY_M
+Resolved ID: GOO_RAW_REFRACTORY_M
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Refractory materials
+PR Form Key: PR_GOO_RAW_REFRACTORY_M_V1
+PR Rule Pack: rules.pr.goo_raw_refractory_m.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[89] Rubber
+Requested ID: GOO_RAW_RUBBER
+Resolved ID: GOO_RAW_RUBBER
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Rubber
+PR Form Key: PR_GOO_RAW_RUBBER_V1
+PR Rule Pack: rules.pr.goo_raw_rubber.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[90] Stainless steel
+Requested ID: GOO_RAW_STAINLESS_ST
+Resolved ID: GOO_RAW_STAINLESS_ST
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Stainless steel
+PR Form Key: PR_GOO_RAW_STAINLESS_ST_V1
+PR Rule Pack: rules.pr.goo_raw_stainless_st.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[91] Steel (bar/rod)
+Requested ID: GOO_RAW_STEEL_BAR_R
+Resolved ID: GOO_RAW_STEEL_BAR_R
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Steel (bar/rod)
+PR Form Key: PR_GOO_RAW_STEEL_BAR_R_V1
+PR Rule Pack: rules.pr.goo_raw_steel_bar_r.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[92] Steel (sheet/plate)
+Requested ID: GOO_RAW_STEEL_SHEET
+Resolved ID: GOO_RAW_STEEL_SHEET
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Steel (sheet/plate)
+PR Form Key: PR_GOO_RAW_STEEL_SHEET_V1
+PR Rule Pack: rules.pr.goo_raw_steel_sheet.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[93] Timber & plywood
+Requested ID: GOO_RAW_TIMBER_AND_PLY
+Resolved ID: GOO_RAW_TIMBER_AND_PLY
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Timber & plywood
+PR Form Key: PR_GOO_RAW_TIMBER_AND_PLY_V1
+PR Rule Pack: rules.pr.goo_raw_timber_and_ply.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[94] Welding consumables
+Requested ID: GOO_RAW_WELDING_CONS
+Resolved ID: GOO_RAW_WELDING_CONS
+Level 1: Goods & Materials
+Level 2: Raw Materials
+Level 3: Welding consumables
+PR Form Key: PR_GOO_RAW_WELDING_CONS_V1
+PR Rule Pack: rules.pr.goo_raw_welding_cons.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[95] Document courier
+Requested ID: LOG_COU_DOCUMENT_COU
+Resolved ID: LOG_COU_DOCUMENT_COU
+Level 1: Logistics & Transport
+Level 2: Courier & Parcel
+Level 3: Document courier
+PR Form Key: PR_LOG_COU_DOCUMENT_COU_V1
+PR Rule Pack: rules.pr.log_cou_document_cou.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[96] Economy courier
+Requested ID: LOG_COU_ECONOMY_COUR
+Resolved ID: LOG_COU_ECONOMY_COUR
+Level 1: Logistics & Transport
+Level 2: Courier & Parcel
+Level 3: Economy courier
+PR Form Key: PR_LOG_COU_ECONOMY_COUR_V1
+PR Rule Pack: rules.pr.log_cou_economy_cour.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[97] International courier
+Requested ID: LOG_COU_INTERNATIONA
+Resolved ID: LOG_COU_INTERNATIONA
+Level 1: Logistics & Transport
+Level 2: Courier & Parcel
+Level 3: International courier
+PR Form Key: PR_LOG_COU_INTERNATIONA_V1
+PR Rule Pack: rules.pr.log_cou_internationa.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[98] Overnight courier
+Requested ID: LOG_COU_OVERNIGHT_CO
+Resolved ID: LOG_COU_OVERNIGHT_CO
+Level 1: Logistics & Transport
+Level 2: Courier & Parcel
+Level 3: Overnight courier
+PR Form Key: PR_LOG_COU_OVERNIGHT_CO_V1
+PR Rule Pack: rules.pr.log_cou_overnight_co.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[99] Same-day courier
+Requested ID: LOG_COU_SAME_DAY_COU
+Resolved ID: LOG_COU_SAME_DAY_COU
+Level 1: Logistics & Transport
+Level 2: Courier & Parcel
+Level 3: Same-day courier
+PR Form Key: PR_LOG_COU_SAME_DAY_COU_V1
+PR Rule Pack: rules.pr.log_cou_same_day_cou.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[100] Air freight
+Requested ID: LOG_FRE_AIR_FREIGHT
+Resolved ID: LOG_FRE_AIR_FREIGHT
+Level 1: Logistics & Transport
+Level 2: Freight
+Level 3: Air freight
+PR Form Key: PR_LOG_FRE_AIR_FREIGHT_V1
+PR Rule Pack: rules.pr.log_fre_air_freight.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[101] Cold chain logistics
+Requested ID: LOG_FRE_COLD_CHAIN_L
+Resolved ID: LOG_FRE_COLD_CHAIN_L
+Level 1: Logistics & Transport
+Level 2: Freight
+Level 3: Cold chain logistics
+PR Form Key: PR_LOG_FRE_COLD_CHAIN_L_V1
+PR Rule Pack: rules.pr.log_fre_cold_chain_l.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[102] Cross-border trucking
+Requested ID: LOG_FRE_CROSS_BORDER
+Resolved ID: LOG_FRE_CROSS_BORDER
+Level 1: Logistics & Transport
+Level 2: Freight
+Level 3: Cross-border trucking
+PR Form Key: PR_LOG_FRE_CROSS_BORDER_V1
+PR Rule Pack: rules.pr.log_fre_cross_border.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[103] Customs clearing
+Requested ID: LOG_FRE_CUSTOMS_CLEA
+Resolved ID: LOG_FRE_CUSTOMS_CLEA
+Level 1: Logistics & Transport
+Level 2: Freight
+Level 3: Customs clearing
+PR Form Key: PR_LOG_FRE_CUSTOMS_CLEA_V1
+PR Rule Pack: rules.pr.log_fre_customs_clea.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[104] Rail freight
+Requested ID: LOG_FRE_RAIL_FREIGHT
+Resolved ID: LOG_FRE_RAIL_FREIGHT
+Level 1: Logistics & Transport
+Level 2: Freight
+Level 3: Rail freight
+PR Form Key: PR_LOG_FRE_RAIL_FREIGHT_V1
+PR Rule Pack: rules.pr.log_fre_rail_freight.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[105] Road freight (FTL)
+Requested ID: LOG_FRE_ROAD_FREIGHT
+Resolved ID: LOG_FRE_ROAD_FREIGHT
+Level 1: Logistics & Transport
+Level 2: Freight
+Level 3: Road freight (FTL)
+PR Form Key: PR_LOG_FRE_ROAD_FREIGHT_V1
+PR Rule Pack: rules.pr.log_fre_road_freight.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[106] Sea freight (FCL)
+Requested ID: LOG_FRE_SEA_FREIGHT_
+Resolved ID: LOG_FRE_SEA_FREIGHT_
+Level 1: Logistics & Transport
+Level 2: Freight
+Level 3: Sea freight (FCL)
+PR Form Key: PR_LOG_FRE_SEA_FREIGHT__V1
+PR Rule Pack: rules.pr.log_fre_sea_freight_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[107] Warehousing
+Requested ID: LOG_FRE_WAREHOUSING
+Resolved ID: LOG_FRE_WAREHOUSING
+Level 1: Logistics & Transport
+Level 2: Freight
+Level 3: Warehousing
+PR Form Key: PR_LOG_FRE_WAREHOUSING_V1
+PR Rule Pack: rules.pr.log_fre_warehousing.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[108] Abnormal loads
+Requested ID: LOG_SPE_ABNORMAL_LOA
+Resolved ID: LOG_SPE_ABNORMAL_LOA
+Level 1: Logistics & Transport
+Level 2: Specialised
+Level 3: Abnormal loads
+PR Form Key: PR_LOG_SPE_ABNORMAL_LOA_V1
+PR Rule Pack: rules.pr.log_spe_abnormal_loa.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[109] Crane hire logistics
+Requested ID: LOG_SPE_CRANE_HIRE_L
+Resolved ID: LOG_SPE_CRANE_HIRE_L
+Level 1: Logistics & Transport
+Level 2: Specialised
+Level 3: Crane hire logistics
+PR Form Key: PR_LOG_SPE_CRANE_HIRE_L_V1
+PR Rule Pack: rules.pr.log_spe_crane_hire_l.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[110] Hazardous goods transport
+Requested ID: LOG_SPE_HAZARDOUS_GO
+Resolved ID: LOG_SPE_HAZARDOUS_GO
+Level 1: Logistics & Transport
+Level 2: Specialised
+Level 3: Hazardous goods transport
+PR Form Key: PR_LOG_SPE_HAZARDOUS_GO_V1
+PR Rule Pack: rules.pr.log_spe_hazardous_go.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[111] Heavy machinery transport
+Requested ID: LOG_SPE_HEAVY_MACHIN
+Resolved ID: LOG_SPE_HEAVY_MACHIN
+Level 1: Logistics & Transport
+Level 2: Specialised
+Level 3: Heavy machinery transport
+PR Form Key: PR_LOG_SPE_HEAVY_MACHIN_V1
+PR Rule Pack: rules.pr.log_spe_heavy_machin.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Incoterms Optional | key=incoterms_optional | path=metadata.incoterms_optional | type=text | required=False
+- Package Details | key=package_details | path=metadata.package_details | type=text | required=False
+- Pickup Location | key=pickup_location | path=metadata.pickup_location | type=text | required=False
+- Required Dates | key=required_dates | path=metadata.required_dates | type=text | required=False
+
+[112] Building consumables
+Requested ID: MRO_FAC_BUILDING_CON
+Resolved ID: MRO_FAC_BUILDING_CON
+Level 1: MRO
+Level 2: Facilities
+Level 3: Building consumables
+PR Form Key: PR_MRO_FAC_BUILDING_CON_V1
+PR Rule Pack: rules.pr.mro_fac_building_con.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[113] Flooring materials
+Requested ID: MRO_FAC_FLOORING_MAT
+Resolved ID: MRO_FAC_FLOORING_MAT
+Level 1: MRO
+Level 2: Facilities
+Level 3: Flooring materials
+PR Form Key: PR_MRO_FAC_FLOORING_MAT_V1
+PR Rule Pack: rules.pr.mro_fac_flooring_mat.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[114] HVAC parts
+Requested ID: MRO_FAC_HVAC_PARTS
+Resolved ID: MRO_FAC_HVAC_PARTS
+Level 1: MRO
+Level 2: Facilities
+Level 3: HVAC parts
+PR Form Key: PR_MRO_FAC_HVAC_PARTS_V1
+PR Rule Pack: rules.pr.mro_fac_hvac_parts.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[115] Locks & hardware
+Requested ID: MRO_FAC_LOCKS_AND_HARD
+Resolved ID: MRO_FAC_LOCKS_AND_HARD
+Level 1: MRO
+Level 2: Facilities
+Level 3: Locks & hardware
+PR Form Key: PR_MRO_FAC_LOCKS_AND_HARD_V1
+PR Rule Pack: rules.pr.mro_fac_locks_and_hard.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[116] Paints & coatings
+Requested ID: MRO_FAC_PAINTS_AND_COA
+Resolved ID: MRO_FAC_PAINTS_AND_COA
+Level 1: MRO
+Level 2: Facilities
+Level 3: Paints & coatings
+PR Form Key: PR_MRO_FAC_PAINTS_AND_COA_V1
+PR Rule Pack: rules.pr.mro_fac_paints_and_coa.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[117] Plumbing materials
+Requested ID: MRO_FAC_PLUMBING_MAT
+Resolved ID: MRO_FAC_PLUMBING_MAT
+Level 1: MRO
+Level 2: Facilities
+Level 3: Plumbing materials
+PR Form Key: PR_MRO_FAC_PLUMBING_MAT_V1
+PR Rule Pack: rules.pr.mro_fac_plumbing_mat.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[118] Waste handling equipment
+Requested ID: MRO_FAC_WASTE_HANDLI
+Resolved ID: MRO_FAC_WASTE_HANDLI
+Level 1: MRO
+Level 2: Facilities
+Level 3: Waste handling equipment
+PR Form Key: PR_MRO_FAC_WASTE_HANDLI_V1
+PR Rule Pack: rules.pr.mro_fac_waste_handli.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[119] Water treatment chemicals
+Requested ID: MRO_FAC_WATER_TREATM
+Resolved ID: MRO_FAC_WATER_TREATM
+Level 1: MRO
+Level 2: Facilities
+Level 3: Water treatment chemicals
+PR Form Key: PR_MRO_FAC_WATER_TREATM_V1
+PR Rule Pack: rules.pr.mro_fac_water_treatm.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[120] Compressor oil
+Requested ID: MRO_LUB_COMPRESSOR_O
+Resolved ID: MRO_LUB_COMPRESSOR_O
+Level 1: MRO
+Level 2: Lubrication
+Level 3: Compressor oil
+PR Form Key: PR_MRO_LUB_COMPRESSOR_O_V1
+PR Rule Pack: rules.pr.mro_lub_compressor_o.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[121] Cutting fluids
+Requested ID: MRO_LUB_CUTTING_FLUI
+Resolved ID: MRO_LUB_CUTTING_FLUI
+Level 1: MRO
+Level 2: Lubrication
+Level 3: Cutting fluids
+PR Form Key: PR_MRO_LUB_CUTTING_FLUI_V1
+PR Rule Pack: rules.pr.mro_lub_cutting_flui.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[122] Gear oil
+Requested ID: MRO_LUB_GEAR_OIL
+Resolved ID: MRO_LUB_GEAR_OIL
+Level 1: MRO
+Level 2: Lubrication
+Level 3: Gear oil
+PR Form Key: PR_MRO_LUB_GEAR_OIL_V1
+PR Rule Pack: rules.pr.mro_lub_gear_oil.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[123] Grease
+Requested ID: MRO_LUB_GREASE
+Resolved ID: MRO_LUB_GREASE
+Level 1: MRO
+Level 2: Lubrication
+Level 3: Grease
+PR Form Key: PR_MRO_LUB_GREASE_V1
+PR Rule Pack: rules.pr.mro_lub_grease.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[124] Hydraulic oil
+Requested ID: MRO_LUB_HYDRAULIC_OI
+Resolved ID: MRO_LUB_HYDRAULIC_OI
+Level 1: MRO
+Level 2: Lubrication
+Level 3: Hydraulic oil
+PR Form Key: PR_MRO_LUB_HYDRAULIC_OI_V1
+PR Rule Pack: rules.pr.mro_lub_hydraulic_oi.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[125] Lubrication systems
+Requested ID: MRO_LUB_LUBRICATION_
+Resolved ID: MRO_LUB_LUBRICATION_
+Level 1: MRO
+Level 2: Lubrication
+Level 3: Lubrication systems
+PR Form Key: PR_MRO_LUB_LUBRICATION__V1
+PR Rule Pack: rules.pr.mro_lub_lubrication_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[126] Emergency lighting
+Requested ID: MRO_SAF_EMERGENCY_LI
+Resolved ID: MRO_SAF_EMERGENCY_LI
+Level 1: MRO
+Level 2: Safety Systems
+Level 3: Emergency lighting
+PR Form Key: PR_MRO_SAF_EMERGENCY_LI_V1
+PR Rule Pack: rules.pr.mro_saf_emergency_li.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[127] Fire detection systems
+Requested ID: MRO_SAF_FIRE_DETECTI
+Resolved ID: MRO_SAF_FIRE_DETECTI
+Level 1: MRO
+Level 2: Safety Systems
+Level 3: Fire detection systems
+PR Form Key: PR_MRO_SAF_FIRE_DETECTI_V1
+PR Rule Pack: rules.pr.mro_saf_fire_detecti.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[128] Fire suppression systems
+Requested ID: MRO_SAF_FIRE_SUPPRES
+Resolved ID: MRO_SAF_FIRE_SUPPRES
+Level 1: MRO
+Level 2: Safety Systems
+Level 3: Fire suppression systems
+PR Form Key: PR_MRO_SAF_FIRE_SUPPRES_V1
+PR Rule Pack: rules.pr.mro_saf_fire_suppres.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[129] Machine guarding
+Requested ID: MRO_SAF_MACHINE_GUAR
+Resolved ID: MRO_SAF_MACHINE_GUAR
+Level 1: MRO
+Level 2: Safety Systems
+Level 3: Machine guarding
+PR Form Key: PR_MRO_SAF_MACHINE_GUAR_V1
+PR Rule Pack: rules.pr.mro_saf_machine_guar.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[130] Safety interlocks
+Requested ID: MRO_SAF_SAFETY_INTER
+Resolved ID: MRO_SAF_SAFETY_INTER
+Level 1: MRO
+Level 2: Safety Systems
+Level 3: Safety interlocks
+PR Form Key: PR_MRO_SAF_SAFETY_INTER_V1
+PR Rule Pack: rules.pr.mro_saf_safety_inter.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[131] Boiler spares
+Requested ID: MRO_SPA_BOILER_SPARE
+Resolved ID: MRO_SPA_BOILER_SPARE
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Boiler spares
+PR Form Key: PR_MRO_SPA_BOILER_SPARE_V1
+PR Rule Pack: rules.pr.mro_spa_boiler_spare.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[132] Compressor spares
+Requested ID: MRO_SPA_COMPRESSOR_S
+Resolved ID: MRO_SPA_COMPRESSOR_S
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Compressor spares
+PR Form Key: PR_MRO_SPA_COMPRESSOR_S_V1
+PR Rule Pack: rules.pr.mro_spa_compressor_s.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[133] Conveyor spares
+Requested ID: MRO_SPA_CONVEYOR_SPA
+Resolved ID: MRO_SPA_CONVEYOR_SPA
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Conveyor spares
+PR Form Key: PR_MRO_SPA_CONVEYOR_SPA_V1
+PR Rule Pack: rules.pr.mro_spa_conveyor_spa.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[134] Electrical spares
+Requested ID: MRO_SPA_ELECTRICAL_S
+Resolved ID: MRO_SPA_ELECTRICAL_S
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Electrical spares
+PR Form Key: PR_MRO_SPA_ELECTRICAL_S_V1
+PR Rule Pack: rules.pr.mro_spa_electrical_s.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[135] Gearbox spares
+Requested ID: MRO_SPA_GEARBOX_SPAR
+Resolved ID: MRO_SPA_GEARBOX_SPAR
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Gearbox spares
+PR Form Key: PR_MRO_SPA_GEARBOX_SPAR_V1
+PR Rule Pack: rules.pr.mro_spa_gearbox_spar.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[136] Hydraulic spares
+Requested ID: MRO_SPA_HYDRAULIC_SP
+Resolved ID: MRO_SPA_HYDRAULIC_SP
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Hydraulic spares
+PR Form Key: PR_MRO_SPA_HYDRAULIC_SP_V1
+PR Rule Pack: rules.pr.mro_spa_hydraulic_sp.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[137] Instrumentation spares
+Requested ID: MRO_SPA_INSTRUMENTAT
+Resolved ID: MRO_SPA_INSTRUMENTAT
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Instrumentation spares
+PR Form Key: PR_MRO_SPA_INSTRUMENTAT_V1
+PR Rule Pack: rules.pr.mro_spa_instrumentat.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[138] Machine spares (OEM)
+Requested ID: MRO_SPA_MACHINE_SPAR
+Resolved ID: MRO_SPA_MACHINE_SPAR
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Machine spares (OEM)
+PR Form Key: PR_MRO_SPA_MACHINE_SPAR_V1
+PR Rule Pack: rules.pr.mro_spa_machine_spar.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[139] Motor spares
+Requested ID: MRO_SPA_MOTOR_SPARES
+Resolved ID: MRO_SPA_MOTOR_SPARES
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Motor spares
+PR Form Key: PR_MRO_SPA_MOTOR_SPARES_V1
+PR Rule Pack: rules.pr.mro_spa_motor_spares.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[140] Pneumatic spares
+Requested ID: MRO_SPA_PNEUMATIC_SP
+Resolved ID: MRO_SPA_PNEUMATIC_SP
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Pneumatic spares
+PR Form Key: PR_MRO_SPA_PNEUMATIC_SP_V1
+PR Rule Pack: rules.pr.mro_spa_pneumatic_sp.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[141] Pump spares
+Requested ID: MRO_SPA_PUMP_SPARES
+Resolved ID: MRO_SPA_PUMP_SPARES
+Level 1: MRO
+Level 2: Spare Parts
+Level 3: Pump spares
+PR Form Key: PR_MRO_SPA_PUMP_SPARES_V1
+PR Rule Pack: rules.pr.mro_spa_pump_spares.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[142] Calibration equipment
+Requested ID: MRO_TOO_CALIBRATION_
+Resolved ID: MRO_TOO_CALIBRATION_
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Calibration equipment
+PR Form Key: PR_MRO_TOO_CALIBRATION__V1
+PR Rule Pack: rules.pr.mro_too_calibration_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[143] Compressors
+Requested ID: MRO_TOO_COMPRESSORS
+Resolved ID: MRO_TOO_COMPRESSORS
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Compressors
+PR Form Key: PR_MRO_TOO_COMPRESSORS_V1
+PR Rule Pack: rules.pr.mro_too_compressors.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[144] Generators
+Requested ID: MRO_TOO_GENERATORS
+Resolved ID: MRO_TOO_GENERATORS
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Generators
+PR Form Key: PR_MRO_TOO_GENERATORS_V1
+PR Rule Pack: rules.pr.mro_too_generators.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[145] Hand tools
+Requested ID: MRO_TOO_HAND_TOOLS
+Resolved ID: MRO_TOO_HAND_TOOLS
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Hand tools
+PR Form Key: PR_MRO_TOO_HAND_TOOLS_V1
+PR Rule Pack: rules.pr.mro_too_hand_tools.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[146] Industrial vacuum equipment
+Requested ID: MRO_TOO_INDUSTRIAL_V
+Resolved ID: MRO_TOO_INDUSTRIAL_V
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Industrial vacuum equipment
+PR Form Key: PR_MRO_TOO_INDUSTRIAL_V_V1
+PR Rule Pack: rules.pr.mro_too_industrial_v.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[147] Lifting equipment
+Requested ID: MRO_TOO_LIFTING_EQUI
+Resolved ID: MRO_TOO_LIFTING_EQUI
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Lifting equipment
+PR Form Key: PR_MRO_TOO_LIFTING_EQUI_V1
+PR Rule Pack: rules.pr.mro_too_lifting_equi.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[148] Measuring tools
+Requested ID: MRO_TOO_MEASURING_TO
+Resolved ID: MRO_TOO_MEASURING_TO
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Measuring tools
+PR Form Key: PR_MRO_TOO_MEASURING_TO_V1
+PR Rule Pack: rules.pr.mro_too_measuring_to.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[149] Power tools
+Requested ID: MRO_TOO_POWER_TOOLS
+Resolved ID: MRO_TOO_POWER_TOOLS
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Power tools
+PR Form Key: PR_MRO_TOO_POWER_TOOLS_V1
+PR Rule Pack: rules.pr.mro_too_power_tools.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[150] Pumps (general)
+Requested ID: MRO_TOO_PUMPS_GENER
+Resolved ID: MRO_TOO_PUMPS_GENER
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Pumps (general)
+PR Form Key: PR_MRO_TOO_PUMPS_GENER_V1
+PR Rule Pack: rules.pr.mro_too_pumps_gener.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[151] Torque tools
+Requested ID: MRO_TOO_TORQUE_TOOLS
+Resolved ID: MRO_TOO_TORQUE_TOOLS
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Torque tools
+PR Form Key: PR_MRO_TOO_TORQUE_TOOLS_V1
+PR Rule Pack: rules.pr.mro_too_torque_tools.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[152] Welding machines
+Requested ID: MRO_TOO_WELDING_MACH
+Resolved ID: MRO_TOO_WELDING_MACH
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Welding machines
+PR Form Key: PR_MRO_TOO_WELDING_MACH_V1
+PR Rule Pack: rules.pr.mro_too_welding_mach.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[153] Workshop equipment
+Requested ID: MRO_TOO_WORKSHOP_EQU
+Resolved ID: MRO_TOO_WORKSHOP_EQU
+Level 1: MRO
+Level 2: Tools & Equipment
+Level 3: Workshop equipment
+PR Form Key: PR_MRO_TOO_WORKSHOP_EQU_V1
+PR Rule Pack: rules.pr.mro_too_workshop_equ.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[154] Boilers & steam
+Requested ID: MRO_UTI_BOILERS_AND_ST
+Resolved ID: MRO_UTI_BOILERS_AND_ST
+Level 1: MRO
+Level 2: Utilities
+Level 3: Boilers & steam
+PR Form Key: PR_MRO_UTI_BOILERS_AND_ST_V1
+PR Rule Pack: rules.pr.mro_uti_boilers_and_st.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[155] Chillers
+Requested ID: MRO_UTI_CHILLERS
+Resolved ID: MRO_UTI_CHILLERS
+Level 1: MRO
+Level 2: Utilities
+Level 3: Chillers
+PR Form Key: PR_MRO_UTI_CHILLERS_V1
+PR Rule Pack: rules.pr.mro_uti_chillers.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[156] Compressed air systems
+Requested ID: MRO_UTI_COMPRESSED_A
+Resolved ID: MRO_UTI_COMPRESSED_A
+Level 1: MRO
+Level 2: Utilities
+Level 3: Compressed air systems
+PR Form Key: PR_MRO_UTI_COMPRESSED_A_V1
+PR Rule Pack: rules.pr.mro_uti_compressed_a.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[157] Generators (service spares)
+Requested ID: MRO_UTI_GENERATORS_
+Resolved ID: MRO_UTI_GENERATORS_
+Level 1: MRO
+Level 2: Utilities
+Level 3: Generators (service spares)
+PR Form Key: PR_MRO_UTI_GENERATORS__V1
+PR Rule Pack: rules.pr.mro_uti_generators_.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[158] Water pumps
+Requested ID: MRO_UTI_WATER_PUMPS
+Resolved ID: MRO_UTI_WATER_PUMPS
+Level 1: MRO
+Level 2: Utilities
+Level 3: Water pumps
+PR Form Key: PR_MRO_UTI_WATER_PUMPS_V1
+PR Rule Pack: rules.pr.mro_uti_water_pumps.global.v1
+Dynamic Fields:
+- Delivery Location | key=delivery_location | path=metadata.delivery_location | type=text | required=False
+- Item Name | key=item_name | path=metadata.item_name | type=text | required=False
+- Qty | key=qty | path=metadata.qty | type=number | required=False
+- Spec Json | key=spec_json | path=metadata.spec_json | type=textarea | required=False
+- Uom | key=uom | path=metadata.uom | type=text | required=False
+
+[159] Incident investigation
+Requested ID: SER_HSE_INCIDENT_INV
+Resolved ID: SER_HSE_INCIDENT_INV
+Level 1: Services
+Level 2: HSE Services
+Level 3: Incident investigation
+PR Form Key: PR_SER_HSE_INCIDENT_INV_V1
+PR Rule Pack: rules.pr.ser_hse_incident_inv.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[160] Medical surveillance (site)
+Requested ID: SER_HSE_MEDICAL_SURV
+Resolved ID: SER_HSE_MEDICAL_SURV
+Level 1: Services
+Level 2: HSE Services
+Level 3: Medical surveillance (site)
+PR Form Key: PR_SER_HSE_MEDICAL_SURV_V1
+PR Rule Pack: rules.pr.ser_hse_medical_surv.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[161] PPE fit testing
+Requested ID: SER_HSE_PPE_FIT_TEST
+Resolved ID: SER_HSE_PPE_FIT_TEST
+Level 1: Services
+Level 2: HSE Services
+Level 3: PPE fit testing
+PR Form Key: PR_SER_HSE_PPE_FIT_TEST_V1
+PR Rule Pack: rules.pr.ser_hse_ppe_fit_test.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[162] Risk assessments
+Requested ID: SER_HSE_RISK_ASSESSM
+Resolved ID: SER_HSE_RISK_ASSESSM
+Level 1: Services
+Level 2: HSE Services
+Level 3: Risk assessments
+PR Form Key: PR_SER_HSE_RISK_ASSESSM_V1
+PR Rule Pack: rules.pr.ser_hse_risk_assessm.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[163] Safety training
+Requested ID: SER_HSE_SAFETY_TRAIN
+Resolved ID: SER_HSE_SAFETY_TRAIN
+Level 1: Services
+Level 2: HSE Services
+Level 3: Safety training
+PR Form Key: PR_SER_HSE_SAFETY_TRAIN_V1
+PR Rule Pack: rules.pr.ser_hse_safety_train.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[164] 3PL management
+Requested ID: SER_LOG_3PL_MANAGEME
+Resolved ID: SER_LOG_3PL_MANAGEME
+Level 1: Services
+Level 2: Logistics Services
+Level 3: 3PL management
+PR Form Key: PR_SER_LOG_3PL_MANAGEME_V1
+PR Rule Pack: rules.pr.ser_log_3pl_manageme.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[165] Customs brokerage
+Requested ID: SER_LOG_CUSTOMS_BROK
+Resolved ID: SER_LOG_CUSTOMS_BROK
+Level 1: Services
+Level 2: Logistics Services
+Level 3: Customs brokerage
+PR Form Key: PR_SER_LOG_CUSTOMS_BROK_V1
+PR Rule Pack: rules.pr.ser_log_customs_brok.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[166] Fleet maintenance services
+Requested ID: SER_LOG_FLEET_MAINTE
+Resolved ID: SER_LOG_FLEET_MAINTE
+Level 1: Services
+Level 2: Logistics Services
+Level 3: Fleet maintenance services
+PR Form Key: PR_SER_LOG_FLEET_MAINTE_V1
+PR Rule Pack: rules.pr.ser_log_fleet_mainte.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[167] Route planning services
+Requested ID: SER_LOG_ROUTE_PLANNI
+Resolved ID: SER_LOG_ROUTE_PLANNI
+Level 1: Services
+Level 2: Logistics Services
+Level 3: Route planning services
+PR Form Key: PR_SER_LOG_ROUTE_PLANNI_V1
+PR Rule Pack: rules.pr.ser_log_route_planni.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[168] Electrical compliance testing
+Requested ID: SER_TES_ELECTRICAL_C
+Resolved ID: SER_TES_ELECTRICAL_C
+Level 1: Services
+Level 2: Testing & Inspection
+Level 3: Electrical compliance testing
+PR Form Key: PR_SER_TES_ELECTRICAL_C_V1
+PR Rule Pack: rules.pr.ser_tes_electrical_c.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[169] ISO audits
+Requested ID: SER_TES_ISO_AUDITS
+Resolved ID: SER_TES_ISO_AUDITS
+Level 1: Services
+Level 2: Testing & Inspection
+Level 3: ISO audits
+PR Form Key: PR_SER_TES_ISO_AUDITS_V1
+PR Rule Pack: rules.pr.ser_tes_iso_audits.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[170] Lifting equipment inspection
+Requested ID: SER_TES_LIFTING_EQUI
+Resolved ID: SER_TES_LIFTING_EQUI
+Level 1: Services
+Level 2: Testing & Inspection
+Level 3: Lifting equipment inspection
+PR Form Key: PR_SER_TES_LIFTING_EQUI_V1
+PR Rule Pack: rules.pr.ser_tes_lifting_equi.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[171] NDT inspection
+Requested ID: SER_TES_NDT_INSPECTI
+Resolved ID: SER_TES_NDT_INSPECTI
+Level 1: Services
+Level 2: Testing & Inspection
+Level 3: NDT inspection
+PR Form Key: PR_SER_TES_NDT_INSPECTI_V1
+PR Rule Pack: rules.pr.ser_tes_ndt_inspecti.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[172] Pressure vessel inspection
+Requested ID: SER_TES_PRESSURE_VES
+Resolved ID: SER_TES_PRESSURE_VES
+Level 1: Services
+Level 2: Testing & Inspection
+Level 3: Pressure vessel inspection
+PR Form Key: PR_SER_TES_PRESSURE_VES_V1
+PR Rule Pack: rules.pr.ser_tes_pressure_ves.global.v1
+Dynamic Fields:
+- Location | key=location | path=metadata.location | type=text | required=False
+- Quantity Measure | key=quantity_measure | path=metadata.quantity_measure | type=number | required=False
+- Service Desc | key=service_desc | path=metadata.service_desc | type=text | required=False
+- Unit | key=unit | path=metadata.unit | type=text | required=False
+- Unit Rate | key=unit_rate | path=metadata.unit_rate | type=number | required=False
+
+[173] Building construction
+Requested ID: WOR_CON_BUILDING_CON
+Resolved ID: WOR_CON_BUILDING_CON
+Level 1: Works / Projects
+Level 2: Construction & Civil
+Level 3: Building construction
+PR Form Key: PR_WOR_CON_BUILDING_CON_V1
+PR Rule Pack: rules.pr.wor_con_building_con.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[174] Civil works
+Requested ID: WOR_CON_CIVIL_WORKS
+Resolved ID: WOR_CON_CIVIL_WORKS
+Level 1: Works / Projects
+Level 2: Construction & Civil
+Level 3: Civil works
+PR Form Key: PR_WOR_CON_CIVIL_WORKS_V1
+PR Rule Pack: rules.pr.wor_con_civil_works.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[175] Concrete works
+Requested ID: WOR_CON_CONCRETE_WOR
+Resolved ID: WOR_CON_CONCRETE_WOR
+Level 1: Works / Projects
+Level 2: Construction & Civil
+Level 3: Concrete works
+PR Form Key: PR_WOR_CON_CONCRETE_WOR_V1
+PR Rule Pack: rules.pr.wor_con_concrete_wor.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[176] Fencing
+Requested ID: WOR_CON_FENCING
+Resolved ID: WOR_CON_FENCING
+Level 1: Works / Projects
+Level 2: Construction & Civil
+Level 3: Fencing
+PR Form Key: PR_WOR_CON_FENCING_V1
+PR Rule Pack: rules.pr.wor_con_fencing.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[177] Renovations
+Requested ID: WOR_CON_RENOVATIONS
+Resolved ID: WOR_CON_RENOVATIONS
+Level 1: Works / Projects
+Level 2: Construction & Civil
+Level 3: Renovations
+PR Form Key: PR_WOR_CON_RENOVATIONS_V1
+PR Rule Pack: rules.pr.wor_con_renovations.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[178] Road works
+Requested ID: WOR_CON_ROAD_WORKS
+Resolved ID: WOR_CON_ROAD_WORKS
+Level 1: Works / Projects
+Level 2: Construction & Civil
+Level 3: Road works
+PR Form Key: PR_WOR_CON_ROAD_WORKS_V1
+PR Rule Pack: rules.pr.wor_con_road_works.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[179] Roofing
+Requested ID: WOR_CON_ROOFING
+Resolved ID: WOR_CON_ROOFING
+Level 1: Works / Projects
+Level 2: Construction & Civil
+Level 3: Roofing
+PR Form Key: PR_WOR_CON_ROOFING_V1
+PR Rule Pack: rules.pr.wor_con_roofing.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[180] Steel erection
+Requested ID: WOR_CON_STEEL_ERECTI
+Resolved ID: WOR_CON_STEEL_ERECTI
+Level 1: Works / Projects
+Level 2: Construction & Civil
+Level 3: Steel erection
+PR Form Key: PR_WOR_CON_STEEL_ERECTI_V1
+PR Rule Pack: rules.pr.wor_con_steel_erecti.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[181] Mezzanine floors
+Requested ID: WOR_FIT_MEZZANINE_FL
+Resolved ID: WOR_FIT_MEZZANINE_FL
+Level 1: Works / Projects
+Level 2: Fit-out
+Level 3: Mezzanine floors
+PR Form Key: PR_WOR_FIT_MEZZANINE_FL_V1
+PR Rule Pack: rules.pr.wor_fit_mezzanine_fl.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[182] Office fit-out
+Requested ID: WOR_FIT_OFFICE_FIT_O
+Resolved ID: WOR_FIT_OFFICE_FIT_O
+Level 1: Works / Projects
+Level 2: Fit-out
+Level 3: Office fit-out
+PR Form Key: PR_WOR_FIT_OFFICE_FIT_O_V1
+PR Rule Pack: rules.pr.wor_fit_office_fit_o.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[183] Racking installation
+Requested ID: WOR_FIT_RACKING_INST
+Resolved ID: WOR_FIT_RACKING_INST
+Level 1: Works / Projects
+Level 2: Fit-out
+Level 3: Racking installation
+PR Form Key: PR_WOR_FIT_RACKING_INST_V1
+PR Rule Pack: rules.pr.wor_fit_racking_inst.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[184] Workshop fit-out
+Requested ID: WOR_FIT_WORKSHOP_FIT
+Resolved ID: WOR_FIT_WORKSHOP_FIT
+Level 1: Works / Projects
+Level 2: Fit-out
+Level 3: Workshop fit-out
+PR Form Key: PR_WOR_FIT_WORKSHOP_FIT_V1
+PR Rule Pack: rules.pr.wor_fit_workshop_fit.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[185] Automation installation
+Requested ID: WOR_IND_AUTOMATION_I
+Resolved ID: WOR_IND_AUTOMATION_I
+Level 1: Works / Projects
+Level 2: Industrial Projects
+Level 3: Automation installation
+PR Form Key: PR_WOR_IND_AUTOMATION_I_V1
+PR Rule Pack: rules.pr.wor_ind_automation_i.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[186] Electrical installation (project)
+Requested ID: WOR_IND_ELECTRICAL_I
+Resolved ID: WOR_IND_ELECTRICAL_I
+Level 1: Works / Projects
+Level 2: Industrial Projects
+Level 3: Electrical installation (project)
+PR Form Key: PR_WOR_IND_ELECTRICAL_I_V1
+PR Rule Pack: rules.pr.wor_ind_electrical_i.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[187] Equipment commissioning
+Requested ID: WOR_IND_EQUIPMENT_CO
+Resolved ID: WOR_IND_EQUIPMENT_CO
+Level 1: Works / Projects
+Level 2: Industrial Projects
+Level 3: Equipment commissioning
+PR Form Key: PR_WOR_IND_EQUIPMENT_CO_V1
+PR Rule Pack: rules.pr.wor_ind_equipment_co.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[188] Plant installation
+Requested ID: WOR_IND_PLANT_INSTAL
+Resolved ID: WOR_IND_PLANT_INSTAL
+Level 1: Works / Projects
+Level 2: Industrial Projects
+Level 3: Plant installation
+PR Form Key: PR_WOR_IND_PLANT_INSTAL_V1
+PR Rule Pack: rules.pr.wor_ind_plant_instal.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[189] Process piping installation
+Requested ID: WOR_IND_PROCESS_PIPI
+Resolved ID: WOR_IND_PROCESS_PIPI
+Level 1: Works / Projects
+Level 2: Industrial Projects
+Level 3: Process piping installation
+PR Form Key: PR_WOR_IND_PROCESS_PIPI_V1
+PR Rule Pack: rules.pr.wor_ind_process_pipi.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[190] Shutdown projects
+Requested ID: WOR_IND_SHUTDOWN_PRO
+Resolved ID: WOR_IND_SHUTDOWN_PRO
+Level 1: Works / Projects
+Level 2: Industrial Projects
+Level 3: Shutdown projects
+PR Form Key: PR_WOR_IND_SHUTDOWN_PRO_V1
+PR Rule Pack: rules.pr.wor_ind_shutdown_pro.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[191] Turnkey project (EPC)
+Requested ID: WOR_IND_TURNKEY_PROJ
+Resolved ID: WOR_IND_TURNKEY_PROJ
+Level 1: Works / Projects
+Level 2: Industrial Projects
+Level 3: Turnkey project (EPC)
+PR Form Key: PR_WOR_IND_TURNKEY_PROJ_V1
+PR Rule Pack: rules.pr.wor_ind_turnkey_proj.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[192] Concrete foundations
+Requested ID: WOR_INF_CONCRETE_FOU
+Resolved ID: WOR_INF_CONCRETE_FOU
+Level 1: Works / Projects
+Level 2: Infrastructure
+Level 3: Concrete foundations
+PR Form Key: PR_WOR_INF_CONCRETE_FOU_V1
+PR Rule Pack: rules.pr.wor_inf_concrete_fou.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[193] Drainage
+Requested ID: WOR_INF_DRAINAGE
+Resolved ID: WOR_INF_DRAINAGE
+Level 1: Works / Projects
+Level 2: Infrastructure
+Level 3: Drainage
+PR Form Key: PR_WOR_INF_DRAINAGE_V1
+PR Rule Pack: rules.pr.wor_inf_drainage.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[194] Electrical substation works
+Requested ID: WOR_INF_ELECTRICAL_S
+Resolved ID: WOR_INF_ELECTRICAL_S
+Level 1: Works / Projects
+Level 2: Infrastructure
+Level 3: Electrical substation works
+PR Form Key: PR_WOR_INF_ELECTRICAL_S_V1
+PR Rule Pack: rules.pr.wor_inf_electrical_s.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[195] Solar installation
+Requested ID: WOR_INF_SOLAR_INSTAL
+Resolved ID: WOR_INF_SOLAR_INSTAL
+Level 1: Works / Projects
+Level 2: Infrastructure
+Level 3: Solar installation
+PR Form Key: PR_WOR_INF_SOLAR_INSTAL_V1
+PR Rule Pack: rules.pr.wor_inf_solar_instal.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+[196] Water reticulation
+Requested ID: WOR_INF_WATER_RETICU
+Resolved ID: WOR_INF_WATER_RETICU
+Level 1: Works / Projects
+Level 2: Infrastructure
+Level 3: Water reticulation
+PR Form Key: PR_WOR_INF_WATER_RETICU_V1
+PR Rule Pack: rules.pr.wor_inf_water_reticu.global.v1
+Dynamic Fields:
+- Boq Sow | key=boq_sow | path=metadata.boq_sow | type=text | required=False
+- Milestones | key=milestones | path=metadata.milestones | type=text | required=False
+- Retention Optional | key=retention_optional | path=metadata.retention_optional | type=text | required=False
+- Site Conditions | key=site_conditions | path=metadata.site_conditions | type=text | required=False
+- Timeline | key=timeline | path=metadata.timeline | type=text | required=False
+
+
+Total service families listed: 5
+Total services listed: 241

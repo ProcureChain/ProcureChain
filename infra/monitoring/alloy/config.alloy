@@ -1,0 +1,68 @@
+logging {
+  level = "info"
+  format = "logfmt"
+}
+
+loki.write "default" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}
+
+local.file_match "nginx_logs" {
+  path_targets = [
+    {"__path__" = "/var/log/nginx/access.log", job = "nginx", log_type = "access", host = "dev-vps"},
+    {"__path__" = "/var/log/nginx/error.log", job = "nginx", log_type = "error", host = "dev-vps"},
+  ]
+}
+
+loki.process "nginx_logs" {
+  forward_to = [loki.write.default.receiver]
+
+  stage.json {
+    expressions = {
+      remote_addr = "remote_addr",
+      method = "method",
+      uri = "uri",
+      status = "status",
+      request_time = "request_time",
+      upstream_response_time = "upstream_response_time",
+      host_name = "host",
+    }
+  }
+
+  stage.labels {
+    values = {
+      method = "method",
+      status = "status",
+      host_name = "host_name",
+    }
+  }
+}
+
+loki.source.file "nginx_logs" {
+  targets    = local.file_match.nginx_logs.targets
+  forward_to = [loki.process.nginx_logs.receiver]
+}
+
+loki.source.journal "procurechain_api" {
+  path       = "/var/log/journal"
+  matches    = "_SYSTEMD_UNIT=procurechain-api-dev.service"
+  forward_to = [loki.write.default.receiver]
+  labels = {
+    job     = "systemd",
+    service = "procurechain-api",
+    host    = "dev-vps",
+  }
+}
+
+loki.source.journal "procurechain_web" {
+  path       = "/var/log/journal"
+  matches    = "_SYSTEMD_UNIT=procurechain-web-dev.service"
+  forward_to = [loki.write.default.receiver]
+  labels = {
+    job     = "systemd",
+    service = "procurechain-web",
+    host    = "dev-vps",
+  }
+}

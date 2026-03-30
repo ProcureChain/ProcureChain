@@ -1,0 +1,1874 @@
+[
+  {
+    "id": "GOO_RAW_STEEL_SHEET",
+    "name": "Steel (sheet/plate)",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Steel (sheet/plate)",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_STEEL_BAR_R",
+    "name": "Steel (bar/rod)",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Steel (bar/rod)",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_STAINLESS_ST",
+    "name": "Stainless steel",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Stainless steel",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_ALUMINIUM",
+    "name": "Aluminium",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Aluminium",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_COPPER",
+    "name": "Copper",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Copper",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_BRASS_BRONZE",
+    "name": "Brass/Bronze",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Brass/Bronze",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_CAST_IRON",
+    "name": "Cast iron",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Cast iron",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_PLASTICS_EN",
+    "name": "Plastics (engineering)",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Plastics (engineering)",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_RUBBER",
+    "name": "Rubber",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Rubber",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_TIMBER_AND_PLY",
+    "name": "Timber & plywood",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Timber & plywood",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_GLASS",
+    "name": "Glass",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Glass",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_CERAMICS",
+    "name": "Ceramics",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Ceramics",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_COMPOSITES",
+    "name": "Composites",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Composites",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_REFRACTORY_M",
+    "name": "Refractory materials",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Refractory materials",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_OILS_AND_LUBRI",
+    "name": "Oils & lubricants",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Oils & lubricants",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_FUELS_AND_ADDI",
+    "name": "Fuels & additives",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Fuels & additives",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_INDUSTRIAL_G",
+    "name": "Industrial gases",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Industrial gases",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_WELDING_CONS",
+    "name": "Welding consumables",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Welding consumables",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_RAW_ADHESIVES_AND_",
+    "name": "Adhesives & sealants",
+    "level1": "Goods & Materials",
+    "level2": "Raw Materials",
+    "level3": "Adhesives & sealants",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_CABLES_AND_WIR",
+    "name": "Cables & wiring",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Cables & wiring",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_CABLE_MANAGE",
+    "name": "Cable management",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Cable management",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_SWITCHGEAR_AND",
+    "name": "Switchgear & breakers",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Switchgear & breakers",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_PANELS_AND_ENC",
+    "name": "Panels & enclosures",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Panels & enclosures",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_MOTORS",
+    "name": "Motors",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Motors",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_DRIVES_VSDS",
+    "name": "Drives/VSDs",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Drives/VSDs",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_SENSORS_PRO",
+    "name": "Sensors (proximity/photo)",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Sensors (proximity/photo)",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_PLC_AND_CONTRO",
+    "name": "PLC & controllers",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "PLC & controllers",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_HMI_AND_SCADA_",
+    "name": "HMI & SCADA hardware",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "HMI & SCADA hardware",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_INSTRUMENTAT",
+    "name": "Instrumentation",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Instrumentation",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_LIGHTING",
+    "name": "Lighting",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Lighting",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_BATTERIES_AND_",
+    "name": "Batteries & UPS",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Batteries & UPS",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_TRANSFORMERS",
+    "name": "Transformers",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Transformers",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_EARTHING_AND_L",
+    "name": "Earthing & lightning protection",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Earthing & lightning protection",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_CONDUITS_AND_T",
+    "name": "Conduits & trunking",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Conduits & trunking",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_ELE_CONNECTORS_AND",
+    "name": "Connectors & terminals",
+    "level1": "Goods & Materials",
+    "level2": "Electrical & Automation",
+    "level3": "Connectors & terminals",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_FASTENERS",
+    "name": "Fasteners",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Fasteners",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_BEARINGS",
+    "name": "Bearings",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Bearings",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_SEALS_AND_GASK",
+    "name": "Seals & gaskets",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Seals & gaskets",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_BELTS_AND_PULL",
+    "name": "Belts & pulleys",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Belts & pulleys",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_CHAINS_AND_SPR",
+    "name": "Chains & sprockets",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Chains & sprockets",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_GEARBOXES",
+    "name": "Gearboxes",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Gearboxes",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_COUPLINGS",
+    "name": "Couplings",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Couplings",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_HYDRAULICS_",
+    "name": "Hydraulics (hoses/fittings)",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Hydraulics (hoses/fittings)",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_PNEUMATICS_",
+    "name": "Pneumatics (fittings)",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Pneumatics (fittings)",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_VALVES_PROC",
+    "name": "Valves (process)",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Valves (process)",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_PIPES_AND_FITT",
+    "name": "Pipes & fittings",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Pipes & fittings",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_STRUCTURAL_S",
+    "name": "Structural steel",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Structural steel",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_SHEET_METAL",
+    "name": "Sheet metal",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Sheet metal",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_MEC_FABRICATION_",
+    "name": "Fabrication parts",
+    "level1": "Goods & Materials",
+    "level2": "Mechanical Components",
+    "level3": "Fabrication parts",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_CARTONS_AND_BO",
+    "name": "Cartons & boxes",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Cartons & boxes",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_STRETCH_WRAP",
+    "name": "Stretch wrap & film",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Stretch wrap & film",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_BAGS_AND_LINER",
+    "name": "Bags & liners",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Bags & liners",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_LABELS_AND_PRI",
+    "name": "Labels & printing",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Labels & printing",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_PALLETS",
+    "name": "Pallets",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Pallets",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_STRAPPING",
+    "name": "Strapping",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Strapping",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_TAPES",
+    "name": "Tapes",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Tapes",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_CLEANING_CON",
+    "name": "Cleaning consumables",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Cleaning consumables",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_OFFICE_SUPPL",
+    "name": "Office supplies",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Office supplies",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_STATIONERY",
+    "name": "Stationery",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Stationery",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_PRINTER_CONS",
+    "name": "Printer consumables",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Printer consumables",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PAC_CANTEEN_CONS",
+    "name": "Canteen consumables",
+    "level1": "Goods & Materials",
+    "level2": "Packaging & Consumables",
+    "level3": "Canteen consumables",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_SAFETY_GLOVE",
+    "name": "Safety gloves",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Safety gloves",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_SAFETY_SHOES",
+    "name": "Safety shoes",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Safety shoes",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_HARD_HATS",
+    "name": "Hard hats",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Hard hats",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_EYE_PROTECTI",
+    "name": "Eye protection",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Eye protection",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_HEARING_PROT",
+    "name": "Hearing protection",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Hearing protection",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_RESPIRATORS",
+    "name": "Respirators",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Respirators",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_PROTECTIVE_C",
+    "name": "Protective clothing",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Protective clothing",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_FALL_PROTECT",
+    "name": "Fall protection",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Fall protection",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_FIRE_EXTINGU",
+    "name": "Fire extinguishers",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Fire extinguishers",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_FIRST_AID_KI",
+    "name": "First aid kits",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "First aid kits",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_SAFETY_SIGNA",
+    "name": "Safety signage",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Safety signage",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_PPE_GAS_DETECTOR",
+    "name": "Gas detectors",
+    "level1": "Goods & Materials",
+    "level2": "PPE & Safety Equipment",
+    "level3": "Gas detectors",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_HAND_TOOLS",
+    "name": "Hand tools",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Hand tools",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_POWER_TOOLS",
+    "name": "Power tools",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Power tools",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_TORQUE_TOOLS",
+    "name": "Torque tools",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Torque tools",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_MEASURING_TO",
+    "name": "Measuring tools",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Measuring tools",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_CALIBRATION_",
+    "name": "Calibration equipment",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Calibration equipment",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_WORKSHOP_EQU",
+    "name": "Workshop equipment",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Workshop equipment",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_LIFTING_EQUI",
+    "name": "Lifting equipment",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Lifting equipment",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_WELDING_MACH",
+    "name": "Welding machines",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Welding machines",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_COMPRESSORS",
+    "name": "Compressors",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Compressors",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_GENERATORS",
+    "name": "Generators",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Generators",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_PUMPS_GENER",
+    "name": "Pumps (general)",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Pumps (general)",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_TOO_INDUSTRIAL_V",
+    "name": "Industrial vacuum equipment",
+    "level1": "MRO",
+    "level2": "Tools & Equipment",
+    "level3": "Industrial vacuum equipment",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_MACHINE_SPAR",
+    "name": "Machine spares (OEM)",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Machine spares (OEM)",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_CONVEYOR_SPA",
+    "name": "Conveyor spares",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Conveyor spares",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_BOILER_SPARE",
+    "name": "Boiler spares",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Boiler spares",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_COMPRESSOR_S",
+    "name": "Compressor spares",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Compressor spares",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_PUMP_SPARES",
+    "name": "Pump spares",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Pump spares",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_MOTOR_SPARES",
+    "name": "Motor spares",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Motor spares",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_GEARBOX_SPAR",
+    "name": "Gearbox spares",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Gearbox spares",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_ELECTRICAL_S",
+    "name": "Electrical spares",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Electrical spares",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_INSTRUMENTAT",
+    "name": "Instrumentation spares",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Instrumentation spares",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_HYDRAULIC_SP",
+    "name": "Hydraulic spares",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Hydraulic spares",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SPA_PNEUMATIC_SP",
+    "name": "Pneumatic spares",
+    "level1": "MRO",
+    "level2": "Spare Parts",
+    "level3": "Pneumatic spares",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_FAC_PLUMBING_MAT",
+    "name": "Plumbing materials",
+    "level1": "MRO",
+    "level2": "Facilities",
+    "level3": "Plumbing materials",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_FAC_HVAC_PARTS",
+    "name": "HVAC parts",
+    "level1": "MRO",
+    "level2": "Facilities",
+    "level3": "HVAC parts",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_FAC_BUILDING_CON",
+    "name": "Building consumables",
+    "level1": "MRO",
+    "level2": "Facilities",
+    "level3": "Building consumables",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_FAC_PAINTS_AND_COA",
+    "name": "Paints & coatings",
+    "level1": "MRO",
+    "level2": "Facilities",
+    "level3": "Paints & coatings",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_FAC_FLOORING_MAT",
+    "name": "Flooring materials",
+    "level1": "MRO",
+    "level2": "Facilities",
+    "level3": "Flooring materials",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_FAC_LOCKS_AND_HARD",
+    "name": "Locks & hardware",
+    "level1": "MRO",
+    "level2": "Facilities",
+    "level3": "Locks & hardware",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_FAC_WATER_TREATM",
+    "name": "Water treatment chemicals",
+    "level1": "MRO",
+    "level2": "Facilities",
+    "level3": "Water treatment chemicals",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_FAC_WASTE_HANDLI",
+    "name": "Waste handling equipment",
+    "level1": "MRO",
+    "level2": "Facilities",
+    "level3": "Waste handling equipment",
+    "archetype": "A"
+  },
+  {
+    "id": "SER_MEA_CLEANING_M\u00b2",
+    "name": "Cleaning (m\u00b2 based)",
+    "level1": "Services",
+    "level2": "Measurable Services",
+    "level3": "Cleaning (m\u00b2 based)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MEA_PAINTING_M\u00b2",
+    "name": "Painting (m\u00b2 based)",
+    "level1": "Services",
+    "level2": "Measurable Services",
+    "level3": "Painting (m\u00b2 based)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MEA_WASTE_REMOVA",
+    "name": "Waste removal (volume/weight)",
+    "level1": "Services",
+    "level2": "Measurable Services",
+    "level3": "Waste removal (volume/weight)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MEA_PEST_CONTROL",
+    "name": "Pest control (site based)",
+    "level1": "Services",
+    "level2": "Measurable Services",
+    "level3": "Pest control (site based)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MEA_SECURITY_GUA",
+    "name": "Security guarding (hours)",
+    "level1": "Services",
+    "level2": "Measurable Services",
+    "level3": "Security guarding (hours)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MEA_TRANSPORT_P",
+    "name": "Transport (per km)",
+    "level1": "Services",
+    "level2": "Measurable Services",
+    "level3": "Transport (per km)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MEA_EQUIPMENT_HI",
+    "name": "Equipment hire (daily/weekly)",
+    "level1": "Services",
+    "level2": "Measurable Services",
+    "level3": "Equipment hire (daily/weekly)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MEA_CATERING_PE",
+    "name": "Catering (per head)",
+    "level1": "Services",
+    "level2": "Measurable Services",
+    "level3": "Catering (per head)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MEA_LAUNDRY_KG",
+    "name": "Laundry (kg)",
+    "level1": "Services",
+    "level2": "Measurable Services",
+    "level3": "Laundry (kg)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_LAB_SKILLED_TECH",
+    "name": "Skilled technicians",
+    "level1": "Services",
+    "level2": "Labour / Manpower",
+    "level3": "Skilled technicians",
+    "archetype": "C"
+  },
+  {
+    "id": "SER_LAB_ARTISANS",
+    "name": "Artisans",
+    "level1": "Services",
+    "level2": "Labour / Manpower",
+    "level3": "Artisans",
+    "archetype": "C"
+  },
+  {
+    "id": "SER_LAB_WELDERS",
+    "name": "Welders",
+    "level1": "Services",
+    "level2": "Labour / Manpower",
+    "level3": "Welders",
+    "archetype": "C"
+  },
+  {
+    "id": "SER_LAB_ELECTRICIANS",
+    "name": "Electricians",
+    "level1": "Services",
+    "level2": "Labour / Manpower",
+    "level3": "Electricians",
+    "archetype": "C"
+  },
+  {
+    "id": "SER_LAB_FITTERS_AND_TU",
+    "name": "Fitters & turners",
+    "level1": "Services",
+    "level2": "Labour / Manpower",
+    "level3": "Fitters & turners",
+    "archetype": "C"
+  },
+  {
+    "id": "SER_LAB_RIGGERS",
+    "name": "Riggers",
+    "level1": "Services",
+    "level2": "Labour / Manpower",
+    "level3": "Riggers",
+    "archetype": "C"
+  },
+  {
+    "id": "SER_LAB_OPERATORS_M",
+    "name": "Operators (machine)",
+    "level1": "Services",
+    "level2": "Labour / Manpower",
+    "level3": "Operators (machine)",
+    "archetype": "C"
+  },
+  {
+    "id": "SER_LAB_GENERAL_LABO",
+    "name": "General labour",
+    "level1": "Services",
+    "level2": "Labour / Manpower",
+    "level3": "General labour",
+    "archetype": "C"
+  },
+  {
+    "id": "SER_LAB_SUPERVISORS_",
+    "name": "Supervisors (site)",
+    "level1": "Services",
+    "level2": "Labour / Manpower",
+    "level3": "Supervisors (site)",
+    "archetype": "C"
+  },
+  {
+    "id": "SER_PRO_ENGINEERING_",
+    "name": "Engineering consulting",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "Engineering consulting",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_PRO_PROJECT_MANA",
+    "name": "Project management",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "Project management",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_PRO_LEGAL_SERVIC",
+    "name": "Legal services",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "Legal services",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_PRO_ACCOUNTING_AND",
+    "name": "Accounting & tax",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "Accounting & tax",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_PRO_HR_CONSULTIN",
+    "name": "HR consulting",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "HR consulting",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_PRO_TRAINING_SER",
+    "name": "Training services",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "Training services",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_PRO_QUALITY_CONS",
+    "name": "Quality consulting",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "Quality consulting",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_PRO_SAFETY_CONSU",
+    "name": "Safety consulting",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "Safety consulting",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_PRO_ENVIRONMENTA",
+    "name": "Environmental consulting",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "Environmental consulting",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_PRO_IT_CONSULTIN",
+    "name": "IT consulting",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "IT consulting",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_PRO_CUSTOM_SOFTW",
+    "name": "Custom software development",
+    "level1": "Services",
+    "level2": "Professional & Advisory",
+    "level3": "Custom software development",
+    "archetype": "D"
+  },
+  {
+    "id": "SER_MAI_ELECTRICAL_M",
+    "name": "Electrical maintenance (SLA)",
+    "level1": "Services",
+    "level2": "Maintenance & SLA",
+    "level3": "Electrical maintenance (SLA)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MAI_MECHANICAL_M",
+    "name": "Mechanical maintenance (SLA)",
+    "level1": "Services",
+    "level2": "Maintenance & SLA",
+    "level3": "Mechanical maintenance (SLA)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MAI_HVAC_MAINTEN",
+    "name": "HVAC maintenance (SLA)",
+    "level1": "Services",
+    "level2": "Maintenance & SLA",
+    "level3": "HVAC maintenance (SLA)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MAI_FIRE_SYSTEMS",
+    "name": "Fire systems maintenance",
+    "level1": "Services",
+    "level2": "Maintenance & SLA",
+    "level3": "Fire systems maintenance",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MAI_CALIBRATION_",
+    "name": "Calibration services",
+    "level1": "Services",
+    "level2": "Maintenance & SLA",
+    "level3": "Calibration services",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MAI_ASSET_CONDIT",
+    "name": "Asset condition monitoring",
+    "level1": "Services",
+    "level2": "Maintenance & SLA",
+    "level3": "Asset condition monitoring",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MAI_IT_SUPPORT_",
+    "name": "IT support (SLA)",
+    "level1": "Services",
+    "level2": "Maintenance & SLA",
+    "level3": "IT support (SLA)",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_MAI_SECURITY_SYS",
+    "name": "Security systems maintenance",
+    "level1": "Services",
+    "level2": "Maintenance & SLA",
+    "level3": "Security systems maintenance",
+    "archetype": "B"
+  },
+  {
+    "id": "WOR_CON_CIVIL_WORKS",
+    "name": "Civil works",
+    "level1": "Works / Projects",
+    "level2": "Construction & Civil",
+    "level3": "Civil works",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_CON_BUILDING_CON",
+    "name": "Building construction",
+    "level1": "Works / Projects",
+    "level2": "Construction & Civil",
+    "level3": "Building construction",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_CON_RENOVATIONS",
+    "name": "Renovations",
+    "level1": "Works / Projects",
+    "level2": "Construction & Civil",
+    "level3": "Renovations",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_CON_ROAD_WORKS",
+    "name": "Road works",
+    "level1": "Works / Projects",
+    "level2": "Construction & Civil",
+    "level3": "Road works",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_CON_CONCRETE_WOR",
+    "name": "Concrete works",
+    "level1": "Works / Projects",
+    "level2": "Construction & Civil",
+    "level3": "Concrete works",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_CON_STEEL_ERECTI",
+    "name": "Steel erection",
+    "level1": "Works / Projects",
+    "level2": "Construction & Civil",
+    "level3": "Steel erection",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_CON_ROOFING",
+    "name": "Roofing",
+    "level1": "Works / Projects",
+    "level2": "Construction & Civil",
+    "level3": "Roofing",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_CON_FENCING",
+    "name": "Fencing",
+    "level1": "Works / Projects",
+    "level2": "Construction & Civil",
+    "level3": "Fencing",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_IND_PLANT_INSTAL",
+    "name": "Plant installation",
+    "level1": "Works / Projects",
+    "level2": "Industrial Projects",
+    "level3": "Plant installation",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_IND_EQUIPMENT_CO",
+    "name": "Equipment commissioning",
+    "level1": "Works / Projects",
+    "level2": "Industrial Projects",
+    "level3": "Equipment commissioning",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_IND_SHUTDOWN_PRO",
+    "name": "Shutdown projects",
+    "level1": "Works / Projects",
+    "level2": "Industrial Projects",
+    "level3": "Shutdown projects",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_IND_PROCESS_PIPI",
+    "name": "Process piping installation",
+    "level1": "Works / Projects",
+    "level2": "Industrial Projects",
+    "level3": "Process piping installation",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_IND_ELECTRICAL_I",
+    "name": "Electrical installation (project)",
+    "level1": "Works / Projects",
+    "level2": "Industrial Projects",
+    "level3": "Electrical installation (project)",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_IND_AUTOMATION_I",
+    "name": "Automation installation",
+    "level1": "Works / Projects",
+    "level2": "Industrial Projects",
+    "level3": "Automation installation",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_IND_TURNKEY_PROJ",
+    "name": "Turnkey project (EPC)",
+    "level1": "Works / Projects",
+    "level2": "Industrial Projects",
+    "level3": "Turnkey project (EPC)",
+    "archetype": "E"
+  },
+  {
+    "id": "LOG_COU_SAME_DAY_COU",
+    "name": "Same-day courier",
+    "level1": "Logistics & Transport",
+    "level2": "Courier & Parcel",
+    "level3": "Same-day courier",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_COU_OVERNIGHT_CO",
+    "name": "Overnight courier",
+    "level1": "Logistics & Transport",
+    "level2": "Courier & Parcel",
+    "level3": "Overnight courier",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_COU_ECONOMY_COUR",
+    "name": "Economy courier",
+    "level1": "Logistics & Transport",
+    "level2": "Courier & Parcel",
+    "level3": "Economy courier",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_COU_INTERNATIONA",
+    "name": "International courier",
+    "level1": "Logistics & Transport",
+    "level2": "Courier & Parcel",
+    "level3": "International courier",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_COU_DOCUMENT_COU",
+    "name": "Document courier",
+    "level1": "Logistics & Transport",
+    "level2": "Courier & Parcel",
+    "level3": "Document courier",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_FRE_ROAD_FREIGHT",
+    "name": "Road freight (FTL)",
+    "level1": "Logistics & Transport",
+    "level2": "Freight",
+    "level3": "Road freight (FTL)",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_FRE_SEA_FREIGHT_",
+    "name": "Sea freight (FCL)",
+    "level1": "Logistics & Transport",
+    "level2": "Freight",
+    "level3": "Sea freight (FCL)",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_FRE_AIR_FREIGHT",
+    "name": "Air freight",
+    "level1": "Logistics & Transport",
+    "level2": "Freight",
+    "level3": "Air freight",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_FRE_RAIL_FREIGHT",
+    "name": "Rail freight",
+    "level1": "Logistics & Transport",
+    "level2": "Freight",
+    "level3": "Rail freight",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_FRE_CROSS_BORDER",
+    "name": "Cross-border trucking",
+    "level1": "Logistics & Transport",
+    "level2": "Freight",
+    "level3": "Cross-border trucking",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_FRE_CUSTOMS_CLEA",
+    "name": "Customs clearing",
+    "level1": "Logistics & Transport",
+    "level2": "Freight",
+    "level3": "Customs clearing",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_FRE_WAREHOUSING",
+    "name": "Warehousing",
+    "level1": "Logistics & Transport",
+    "level2": "Freight",
+    "level3": "Warehousing",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_FRE_COLD_CHAIN_L",
+    "name": "Cold chain logistics",
+    "level1": "Logistics & Transport",
+    "level2": "Freight",
+    "level3": "Cold chain logistics",
+    "archetype": "G"
+  },
+  {
+    "id": "GOO_CHE_ACIDS",
+    "name": "Acids",
+    "level1": "Goods & Materials",
+    "level2": "Chemicals & Process",
+    "level3": "Acids",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_CHE_ALKALIS",
+    "name": "Alkalis",
+    "level1": "Goods & Materials",
+    "level2": "Chemicals & Process",
+    "level3": "Alkalis",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_CHE_SOLVENTS",
+    "name": "Solvents",
+    "level1": "Goods & Materials",
+    "level2": "Chemicals & Process",
+    "level3": "Solvents",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_CHE_COOLANTS",
+    "name": "Coolants",
+    "level1": "Goods & Materials",
+    "level2": "Chemicals & Process",
+    "level3": "Coolants",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_CHE_COATINGS",
+    "name": "Coatings",
+    "level1": "Goods & Materials",
+    "level2": "Chemicals & Process",
+    "level3": "Coatings",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_CHE_RESINS",
+    "name": "Resins",
+    "level1": "Goods & Materials",
+    "level2": "Chemicals & Process",
+    "level3": "Resins",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_CHE_CATALYSTS",
+    "name": "Catalysts",
+    "level1": "Goods & Materials",
+    "level2": "Chemicals & Process",
+    "level3": "Catalysts",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_CHE_WATER_TREATM",
+    "name": "Water treatment chemicals",
+    "level1": "Goods & Materials",
+    "level2": "Chemicals & Process",
+    "level3": "Water treatment chemicals",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_CHE_LABORATORY_R",
+    "name": "Laboratory reagents",
+    "level1": "Goods & Materials",
+    "level2": "Chemicals & Process",
+    "level3": "Laboratory reagents",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_CHE_CLEANING_CHE",
+    "name": "Cleaning chemicals",
+    "level1": "Goods & Materials",
+    "level2": "Chemicals & Process",
+    "level3": "Cleaning chemicals",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_INS_PRESSURE_INS",
+    "name": "Pressure instruments",
+    "level1": "Goods & Materials",
+    "level2": "Instrumentation",
+    "level3": "Pressure instruments",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_INS_TEMPERATURE_",
+    "name": "Temperature instruments",
+    "level1": "Goods & Materials",
+    "level2": "Instrumentation",
+    "level3": "Temperature instruments",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_INS_FLOW_INSTRUM",
+    "name": "Flow instruments",
+    "level1": "Goods & Materials",
+    "level2": "Instrumentation",
+    "level3": "Flow instruments",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_INS_LEVEL_INSTRU",
+    "name": "Level instruments",
+    "level1": "Goods & Materials",
+    "level2": "Instrumentation",
+    "level3": "Level instruments",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_INS_ANALYTICAL_I",
+    "name": "Analytical instruments",
+    "level1": "Goods & Materials",
+    "level2": "Instrumentation",
+    "level3": "Analytical instruments",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_INS_CALIBRATION_",
+    "name": "Calibration kits",
+    "level1": "Goods & Materials",
+    "level2": "Instrumentation",
+    "level3": "Calibration kits",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_QUA_LAB_CONSUMAB",
+    "name": "Lab consumables",
+    "level1": "Goods & Materials",
+    "level2": "Quality & Lab",
+    "level3": "Lab consumables",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_QUA_SAMPLING_EQU",
+    "name": "Sampling equipment",
+    "level1": "Goods & Materials",
+    "level2": "Quality & Lab",
+    "level3": "Sampling equipment",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_QUA_TEST_INSTRUM",
+    "name": "Test instruments",
+    "level1": "Goods & Materials",
+    "level2": "Quality & Lab",
+    "level3": "Test instruments",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_QUA_MICROMETERS_",
+    "name": "Micrometers & gauges",
+    "level1": "Goods & Materials",
+    "level2": "Quality & Lab",
+    "level3": "Micrometers & gauges",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_QUA_WEIGHING_SCA",
+    "name": "Weighing scales",
+    "level1": "Goods & Materials",
+    "level2": "Quality & Lab",
+    "level3": "Weighing scales",
+    "archetype": "A"
+  },
+  {
+    "id": "GOO_QUA_METROLOGY_SE",
+    "name": "Metrology services (outsourced)",
+    "level1": "Goods & Materials",
+    "level2": "Quality & Lab",
+    "level3": "Metrology services (outsourced)",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_LUB_GREASE",
+    "name": "Grease",
+    "level1": "MRO",
+    "level2": "Lubrication",
+    "level3": "Grease",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_LUB_HYDRAULIC_OI",
+    "name": "Hydraulic oil",
+    "level1": "MRO",
+    "level2": "Lubrication",
+    "level3": "Hydraulic oil",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_LUB_GEAR_OIL",
+    "name": "Gear oil",
+    "level1": "MRO",
+    "level2": "Lubrication",
+    "level3": "Gear oil",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_LUB_COMPRESSOR_O",
+    "name": "Compressor oil",
+    "level1": "MRO",
+    "level2": "Lubrication",
+    "level3": "Compressor oil",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_LUB_CUTTING_FLUI",
+    "name": "Cutting fluids",
+    "level1": "MRO",
+    "level2": "Lubrication",
+    "level3": "Cutting fluids",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_LUB_LUBRICATION_",
+    "name": "Lubrication systems",
+    "level1": "MRO",
+    "level2": "Lubrication",
+    "level3": "Lubrication systems",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SAF_FIRE_DETECTI",
+    "name": "Fire detection systems",
+    "level1": "MRO",
+    "level2": "Safety Systems",
+    "level3": "Fire detection systems",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SAF_FIRE_SUPPRES",
+    "name": "Fire suppression systems",
+    "level1": "MRO",
+    "level2": "Safety Systems",
+    "level3": "Fire suppression systems",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SAF_EMERGENCY_LI",
+    "name": "Emergency lighting",
+    "level1": "MRO",
+    "level2": "Safety Systems",
+    "level3": "Emergency lighting",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SAF_SAFETY_INTER",
+    "name": "Safety interlocks",
+    "level1": "MRO",
+    "level2": "Safety Systems",
+    "level3": "Safety interlocks",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_SAF_MACHINE_GUAR",
+    "name": "Machine guarding",
+    "level1": "MRO",
+    "level2": "Safety Systems",
+    "level3": "Machine guarding",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_UTI_BOILERS_AND_ST",
+    "name": "Boilers & steam",
+    "level1": "MRO",
+    "level2": "Utilities",
+    "level3": "Boilers & steam",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_UTI_COMPRESSED_A",
+    "name": "Compressed air systems",
+    "level1": "MRO",
+    "level2": "Utilities",
+    "level3": "Compressed air systems",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_UTI_WATER_PUMPS",
+    "name": "Water pumps",
+    "level1": "MRO",
+    "level2": "Utilities",
+    "level3": "Water pumps",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_UTI_CHILLERS",
+    "name": "Chillers",
+    "level1": "MRO",
+    "level2": "Utilities",
+    "level3": "Chillers",
+    "archetype": "A"
+  },
+  {
+    "id": "MRO_UTI_GENERATORS_",
+    "name": "Generators (service spares)",
+    "level1": "MRO",
+    "level2": "Utilities",
+    "level3": "Generators (service spares)",
+    "archetype": "A"
+  },
+  {
+    "id": "SER_LOG_3PL_MANAGEME",
+    "name": "3PL management",
+    "level1": "Services",
+    "level2": "Logistics Services",
+    "level3": "3PL management",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_LOG_ROUTE_PLANNI",
+    "name": "Route planning services",
+    "level1": "Services",
+    "level2": "Logistics Services",
+    "level3": "Route planning services",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_LOG_FLEET_MAINTE",
+    "name": "Fleet maintenance services",
+    "level1": "Services",
+    "level2": "Logistics Services",
+    "level3": "Fleet maintenance services",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_LOG_CUSTOMS_BROK",
+    "name": "Customs brokerage",
+    "level1": "Services",
+    "level2": "Logistics Services",
+    "level3": "Customs brokerage",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_TES_NDT_INSPECTI",
+    "name": "NDT inspection",
+    "level1": "Services",
+    "level2": "Testing & Inspection",
+    "level3": "NDT inspection",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_TES_PRESSURE_VES",
+    "name": "Pressure vessel inspection",
+    "level1": "Services",
+    "level2": "Testing & Inspection",
+    "level3": "Pressure vessel inspection",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_TES_ELECTRICAL_C",
+    "name": "Electrical compliance testing",
+    "level1": "Services",
+    "level2": "Testing & Inspection",
+    "level3": "Electrical compliance testing",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_TES_LIFTING_EQUI",
+    "name": "Lifting equipment inspection",
+    "level1": "Services",
+    "level2": "Testing & Inspection",
+    "level3": "Lifting equipment inspection",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_TES_ISO_AUDITS",
+    "name": "ISO audits",
+    "level1": "Services",
+    "level2": "Testing & Inspection",
+    "level3": "ISO audits",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_HSE_RISK_ASSESSM",
+    "name": "Risk assessments",
+    "level1": "Services",
+    "level2": "HSE Services",
+    "level3": "Risk assessments",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_HSE_INCIDENT_INV",
+    "name": "Incident investigation",
+    "level1": "Services",
+    "level2": "HSE Services",
+    "level3": "Incident investigation",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_HSE_SAFETY_TRAIN",
+    "name": "Safety training",
+    "level1": "Services",
+    "level2": "HSE Services",
+    "level3": "Safety training",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_HSE_PPE_FIT_TEST",
+    "name": "PPE fit testing",
+    "level1": "Services",
+    "level2": "HSE Services",
+    "level3": "PPE fit testing",
+    "archetype": "B"
+  },
+  {
+    "id": "SER_HSE_MEDICAL_SURV",
+    "name": "Medical surveillance (site)",
+    "level1": "Services",
+    "level2": "HSE Services",
+    "level3": "Medical surveillance (site)",
+    "archetype": "B"
+  },
+  {
+    "id": "WOR_INF_DRAINAGE",
+    "name": "Drainage",
+    "level1": "Works / Projects",
+    "level2": "Infrastructure",
+    "level3": "Drainage",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_INF_WATER_RETICU",
+    "name": "Water reticulation",
+    "level1": "Works / Projects",
+    "level2": "Infrastructure",
+    "level3": "Water reticulation",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_INF_ELECTRICAL_S",
+    "name": "Electrical substation works",
+    "level1": "Works / Projects",
+    "level2": "Infrastructure",
+    "level3": "Electrical substation works",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_INF_SOLAR_INSTAL",
+    "name": "Solar installation",
+    "level1": "Works / Projects",
+    "level2": "Infrastructure",
+    "level3": "Solar installation",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_INF_CONCRETE_FOU",
+    "name": "Concrete foundations",
+    "level1": "Works / Projects",
+    "level2": "Infrastructure",
+    "level3": "Concrete foundations",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_FIT_OFFICE_FIT_O",
+    "name": "Office fit-out",
+    "level1": "Works / Projects",
+    "level2": "Fit-out",
+    "level3": "Office fit-out",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_FIT_WORKSHOP_FIT",
+    "name": "Workshop fit-out",
+    "level1": "Works / Projects",
+    "level2": "Fit-out",
+    "level3": "Workshop fit-out",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_FIT_RACKING_INST",
+    "name": "Racking installation",
+    "level1": "Works / Projects",
+    "level2": "Fit-out",
+    "level3": "Racking installation",
+    "archetype": "E"
+  },
+  {
+    "id": "WOR_FIT_MEZZANINE_FL",
+    "name": "Mezzanine floors",
+    "level1": "Works / Projects",
+    "level2": "Fit-out",
+    "level3": "Mezzanine floors",
+    "archetype": "E"
+  },
+  {
+    "id": "LOG_SPE_ABNORMAL_LOA",
+    "name": "Abnormal loads",
+    "level1": "Logistics & Transport",
+    "level2": "Specialised",
+    "level3": "Abnormal loads",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_SPE_HAZARDOUS_GO",
+    "name": "Hazardous goods transport",
+    "level1": "Logistics & Transport",
+    "level2": "Specialised",
+    "level3": "Hazardous goods transport",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_SPE_CRANE_HIRE_L",
+    "name": "Crane hire logistics",
+    "level1": "Logistics & Transport",
+    "level2": "Specialised",
+    "level3": "Crane hire logistics",
+    "archetype": "G"
+  },
+  {
+    "id": "LOG_SPE_HEAVY_MACHIN",
+    "name": "Heavy machinery transport",
+    "level1": "Logistics & Transport",
+    "level2": "Specialised",
+    "level3": "Heavy machinery transport",
+    "archetype": "G"
+  }
+]

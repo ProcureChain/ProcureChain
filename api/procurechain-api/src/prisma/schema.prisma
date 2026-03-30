@@ -1,0 +1,1084 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id        String       @id
+  name      String
+  createdAt DateTime     @default(now())
+  companies Company[]
+  users     User[]
+  audits    AuditEvent[]
+
+  partnerAccess TenantPartnerAccess[]
+  procurementPolicies TenantProcurementPolicy[]
+  sodRules SoDPolicyRule[]
+  coiDeclarations COIDeclaration[]
+  retentionPolicies RetentionPolicy[]
+  retentionRuns RetentionRunLog[]
+  govExports GovernmentExport[]
+}
+
+model Company {
+  id        String   @id
+  tenantId  String
+  name      String
+  createdAt DateTime @default(now())
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  procurementPolicies TenantProcurementPolicy[]
+  sodRules SoDPolicyRule[]
+  coiDeclarations COIDeclaration[]
+  retentionPolicies RetentionPolicy[]
+  retentionRuns RetentionRunLog[]
+  govExports GovernmentExport[]
+}
+
+model User {
+  id        String   @id
+  tenantId  String
+  companyId String
+  email     String?
+  roles     String[] @default([])
+  createdAt DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+}
+
+model AuditEvent {
+  id String   @id @default(uuid())
+  ts DateTime @default(now())
+
+  tenantId   String
+  companyId  String
+  actor      String?
+  eventType  String
+  entityType String?
+  entityId   String?
+  payload    Json?
+  prevEventHash String?
+  eventHash String?
+  immutable Boolean @default(true)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId, companyId, ts])
+  @@index([eventType, ts])
+}
+
+enum ExportType {
+  TENDER_REGISTER
+  BID_OPENING_RECORD
+  EVALUATION_PACK
+  AWARD_REPORT_NOTICE
+  COI_REGISTER
+  RETENTION_LOG
+}
+
+enum ExportFormat {
+  CSV
+  PDF
+}
+
+model GovernmentExport {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  tenantId String
+  companyId String
+
+  exportType ExportType
+  format ExportFormat
+  contentHash String
+  rowCount Int @default(0)
+  payload Json?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId, createdAt])
+  @@index([exportType, createdAt])
+}
+
+model RetentionPolicy {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId String
+  companyId String
+
+  auditRetentionDays Int @default(2555)
+  enforceImmutability Boolean @default(true)
+  allowPurge Boolean @default(false)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, companyId])
+  @@index([tenantId, companyId])
+}
+
+model RetentionRunLog {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  tenantId String
+  companyId String
+  cutoffTs DateTime
+  eligibleCount Int @default(0)
+  purgedCount Int @default(0)
+  mode String @default("CHECK_ONLY")
+  summary Json?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId, createdAt])
+}
+
+enum PRStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  RETURNED
+  APPROVED
+  CONVERTED_TO_RFQ
+  CLOSED
+  REJECTED
+}
+
+model Subcategory {
+  id        String   @id
+  name      String
+  level1    String
+  level2    String
+  level3    String
+  archetype String
+  createdAt DateTime @default(now())
+
+  supplierTags SupplierTaxonomyTag[]
+  ruleFormConfig SubcategoryRuleFormConfig?
+  ruleFormOverlays SubcategoryRuleFormOverlay[]
+
+  @@index([level1, level2, level3])
+  @@index([archetype])
+}
+
+model SubcategoryRuleFormConfig {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subcategoryId String @unique
+
+  prFormKey String
+  rfqFormKey String
+  bidFormKey String
+
+  prRulePackKey String
+  rfqRulePackKey String
+  bidRulePackKey String
+  serviceFamily ServiceFamily @default(PROJECT)
+
+  metadata Json?
+
+  subcategory Subcategory @relation(fields: [subcategoryId], references: [id], onDelete: Cascade)
+
+  @@index([prRulePackKey])
+  @@index([rfqRulePackKey])
+  @@index([bidRulePackKey])
+}
+
+enum ServiceFamily {
+  MEASURABLE
+  LABOUR
+  PROFESSIONAL
+  MAINTENANCE
+  PROJECT
+  HYBRID
+}
+
+enum ValidationEntityType {
+  PR
+  RFQ
+  BID
+}
+
+model RulePackFieldRequirement {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  rulePackKey String
+  entityType ValidationEntityType
+  fieldPath String
+  required Boolean @default(true)
+  message String?
+  condition Json?
+
+  @@unique([rulePackKey, entityType, fieldPath])
+  @@index([rulePackKey, entityType, required])
+}
+
+model SubcategoryRuleFormOverlay {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subcategoryId String
+  countryCode String
+
+  prFormKey String?
+  rfqFormKey String?
+  bidFormKey String?
+
+  prRulePackKey String?
+  rfqRulePackKey String?
+  bidRulePackKey String?
+
+  metadata Json?
+
+  subcategory Subcategory @relation(fields: [subcategoryId], references: [id], onDelete: Cascade)
+
+  @@unique([subcategoryId, countryCode])
+  @@index([countryCode])
+}
+
+model PurchaseRequisition {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+
+  requesterId String? // later: from auth user mapping
+  title       String
+  description String?
+  currency    String  @default("ZAR")
+
+  costCentre String?
+  department String?
+
+  subcategoryId String?
+  archetype     String?
+  status        PRStatus @default(DRAFT)
+  metadata      Json?
+  editedAfterApprovalAt DateTime?
+  lastEditedAt          DateTime?
+  lastEditSource        String?
+
+  rfq RFQ?
+  purchaseOrders PurchaseOrder[]
+
+  // lightweight approval info for v1
+  approvalChain Json?
+  submittedAt   DateTime?
+
+  lines PurchaseRequisitionLine[]
+  documents PurchaseRequisitionDocument[]
+
+  @@index([tenantId, companyId, createdAt])
+  @@index([status, createdAt])
+  @@index([subcategoryId])
+}
+
+model PurchaseRequisitionLine {
+  id        String   @id @default(uuid())
+  prId      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  description String
+  quantity    Int     @default(1)
+
+  uom   String?
+  notes String?
+
+  pr PurchaseRequisition @relation(fields: [prId], references: [id], onDelete: Cascade)
+
+  @@index([prId, createdAt])
+}
+
+model PurchaseRequisitionDocument {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+  prId      String
+
+  fieldKey     String?
+  label        String?
+  originalName String
+  mimeType     String?
+  sizeBytes    Int?
+  storagePath  String
+
+  pr PurchaseRequisition @relation(fields: [prId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId, prId, createdAt])
+  @@index([prId, fieldKey])
+}
+
+model ApprovalRule {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  tenantId  String
+  companyId String
+
+  name     String
+  isActive Boolean @default(true)
+
+  // Matching criteria (nullable = wildcard)
+  archetype  String?
+  minAmount  Decimal? @db.Decimal(18, 2)
+  maxAmount  Decimal? @db.Decimal(18, 2)
+  costCentre String?
+  department String?
+
+  // Output: ordered approval chain
+  chain Json
+
+  priority Int @default(100) // lower = higher priority
+
+  @@index([tenantId, companyId, isActive, priority])
+}
+
+model Supplier {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+
+  name               String
+  legalName          String?
+  registrationNumber String?
+  vatNumber          String?
+  taxNumber          String?
+
+  status String @default("ACTIVE") // ACTIVE | INACTIVE | BLOCKED (string for v1)
+
+  email   String?
+  phone   String?
+  website String?
+
+  address1   String?
+  address2   String?
+  city       String?
+  province   String?
+  postalCode String?
+  country    String? @default("ZA")
+
+  notes String?
+
+  externalRef       String?
+  paymentTerms      String?
+  leadTimeDays      Int?
+  preferredCurrency String? @default("ZAR")
+  isPreferred       Boolean @default(false)
+  profileScore      Int @default(70)
+  complianceScore   Int @default(70)
+  deliveryScore     Int @default(70)
+  qualityScore      Int @default(70)
+  riskScore         Int @default(70)
+
+  rfqs RFQSupplier[]
+  awards RFQAward[]
+  bids Bid[]
+  coiDeclarations COIDeclaration[]
+  deliveryNotes DeliveryNote[]
+  invoices Invoice[]
+
+  // Relations
+  contacts SupplierContact[]
+  tags     SupplierTaxonomyTag[]
+
+  @@index([tenantId, companyId, name])
+  @@index([status])
+}
+
+model SupplierContact {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  supplierId String
+  name       String
+  email      String?
+  phone      String?
+  role       String? // Sales, Accounts, Support etc.
+  isPrimary  Boolean @default(false)
+
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+
+  @@index([supplierId, isPrimary])
+}
+
+model SupplierTaxonomyTag {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  supplierId    String
+  subcategoryId String // canonical taxonomy code (Subcategory.id)
+
+  supplier    Supplier    @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  subcategory Subcategory @relation(fields: [subcategoryId], references: [id], onDelete: Cascade)
+
+  @@unique([supplierId, subcategoryId])
+  @@index([subcategoryId])
+}
+
+enum RFQStatus {
+  DRAFT
+  RELEASED
+  OPEN
+  AWARDED
+  CLOSED
+}
+
+enum RFQReleaseMode {
+  PRIVATE
+  LOCAL
+  GLOBAL
+  PUBLIC
+}
+
+enum RFQCommercialApprovalStatus {
+  PENDING
+  INFO_REQUESTED
+  APPROVED
+  REJECTED
+}
+
+enum ProcurementMethod {
+  LOW_VALUE_QUOTATION
+  LIMITED_TENDER
+  OPEN_TENDER
+  EMERGENCY_DIRECT
+}
+
+enum ProcurementBand {
+  LOW
+  MID
+  HIGH
+  EMERGENCY
+}
+
+enum SoDAction {
+  RFQ_RELEASE
+  RFQ_OPEN
+  RFQ_AWARD
+  COI_REVIEW
+  BID_EVALUATE
+  BID_RECOMMEND
+}
+
+enum COIStatus {
+  PENDING
+  APPROVED
+  BLOCKED
+}
+
+model RFQ {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+
+  prId String              @unique
+  pr   PurchaseRequisition @relation(fields: [prId], references: [id], onDelete: Restrict)
+
+  status   RFQStatus @default(DRAFT)
+  commercialApprovalStatus RFQCommercialApprovalStatus @default(PENDING)
+  commercialApprovalComment String?
+  commercialApprovedAt DateTime?
+  commercialApprovedBy String?
+  releaseMode RFQReleaseMode @default(PRIVATE)
+  releasedAt DateTime?
+  openedAt DateTime?
+  closedAt DateTime?
+  procurementBand ProcurementBand?
+  procurementMethod ProcurementMethod?
+  budgetAmount Decimal? @db.Decimal(18, 2)
+  currency String?
+  paymentTerms String?
+  taxIncluded Boolean?
+  priceValidityDays Int?
+  isEmergency Boolean @default(false)
+  emergencyJustification String?
+
+  // simple metadata
+  title String?
+  notes String?
+
+  suppliers RFQSupplier[]
+  supplierForms RFQSupplierFormAssignment[]
+  bids Bid[]
+  award     RFQAward?
+  purchaseOrders PurchaseOrder[]
+  coiDeclarations COIDeclaration[]
+
+  @@index([tenantId, companyId, createdAt])
+  @@index([status, createdAt])
+}
+
+model SupplierFormTemplate {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+
+  name        String
+  description String?
+  fields      Json
+  isReusable  Boolean @default(true)
+  isActive    Boolean @default(true)
+  createdBy   String?
+
+  assignments RFQSupplierFormAssignment[]
+
+  @@index([tenantId, companyId, createdAt])
+  @@index([tenantId, companyId, isReusable, isActive, createdAt])
+}
+
+model RFQSupplierFormAssignment {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  tenantId  String
+  companyId String
+
+  rfqId      String
+  templateId String
+  isRequired Boolean @default(true)
+  metadata   Json?
+
+  rfq      RFQ                  @relation(fields: [rfqId], references: [id], onDelete: Cascade)
+  template SupplierFormTemplate @relation(fields: [templateId], references: [id], onDelete: Restrict)
+
+  @@unique([rfqId, templateId])
+  @@index([tenantId, companyId, rfqId, createdAt])
+}
+
+model TenantProcurementPolicy {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId String
+  companyId String
+
+  lowThreshold Decimal @db.Decimal(18, 2) @default(10000)
+  midThreshold Decimal @db.Decimal(18, 2) @default(100000)
+
+  lowMethod ProcurementMethod @default(LOW_VALUE_QUOTATION)
+  midMethod ProcurementMethod @default(LIMITED_TENDER)
+  highMethod ProcurementMethod @default(OPEN_TENDER)
+  emergencyMethod ProcurementMethod @default(EMERGENCY_DIRECT)
+  emergencyEnabled Boolean @default(true)
+  requireEmergencyJustification Boolean @default(true)
+
+  metadata Json?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, companyId])
+  @@index([tenantId, companyId])
+}
+
+model SoDPolicyRule {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId String
+  companyId String
+
+  action SoDAction
+  allowedRoles String[] @default([])
+  blockedRoles String[] @default([])
+  isActive Boolean @default(true)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, companyId, action])
+  @@index([tenantId, companyId, isActive])
+}
+
+model COIDeclaration {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId String
+  companyId String
+
+  rfqId String
+  supplierId String?
+  declaredBy String
+  reason String
+
+  status COIStatus @default(PENDING)
+  reviewedBy String?
+  reviewNotes String?
+  reviewedAt DateTime?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  rfq RFQ @relation(fields: [rfqId], references: [id], onDelete: Cascade)
+  supplier Supplier? @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, companyId, rfqId, status])
+  @@index([supplierId])
+}
+
+model RFQAward {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+
+  rfqId      String @unique
+  supplierId String
+  bidId String? @unique
+
+  overrideReason String
+  notes          String?
+  awardedAt      DateTime @default(now())
+
+  rfq      RFQ      @relation(fields: [rfqId], references: [id], onDelete: Cascade)
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  bid      Bid?     @relation(fields: [bidId], references: [id], onDelete: SetNull)
+  purchaseOrder PurchaseOrder?
+
+  @@index([tenantId, companyId, awardedAt])
+  @@index([supplierId])
+}
+
+enum BidStatus {
+  DRAFT
+  SUBMITTED
+  OPENED
+  UNDER_EVALUATION
+  SHORTLISTED
+  REJECTED
+  AWARD_RECOMMENDED
+  CLOSED
+}
+
+enum BidCriterion {
+  PRICE
+  DELIVERY
+  COMPLIANCE
+  RISK
+}
+
+model Bid {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId String
+  companyId String
+
+  rfqId String
+  supplierId String
+
+  status BidStatus @default(DRAFT)
+  version Int @default(1)
+
+  payload Json?
+  documents Json?
+  notes String?
+  currency String @default("ZAR")
+  totalBidValue Decimal? @db.Decimal(18,2)
+
+  submittedAt DateTime?
+  openedAt DateTime?
+  closedAt DateTime?
+  isLate Boolean @default(false)
+
+  finalScore Decimal? @db.Decimal(8,2)
+  recommended Boolean @default(false)
+  recommendationReason String?
+  evaluationSummary Json?
+
+  rfq RFQ @relation(fields: [rfqId], references: [id], onDelete: Cascade)
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  scores BidScore[]
+  award RFQAward?
+
+  @@unique([rfqId, supplierId])
+  @@index([tenantId, companyId, rfqId, status])
+  @@index([supplierId, status])
+}
+
+model BidScore {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bidId String
+  evaluatorId String
+  criterion BidCriterion
+  score Decimal @db.Decimal(6,2)
+  weight Decimal @db.Decimal(6,2)
+  notes String?
+
+  bid Bid @relation(fields: [bidId], references: [id], onDelete: Cascade)
+
+  @@unique([bidId, evaluatorId, criterion])
+  @@index([bidId, evaluatorId])
+}
+
+enum POStatus {
+  DRAFT
+  RELEASED
+  ACCEPTED
+  CHANGE_REQUESTED
+  CLOSED
+}
+
+model PurchaseOrder {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+
+  poNumber String
+  status   POStatus @default(DRAFT)
+
+  // Sprint 3 scope: commercial-only PO baseline.
+  commercialOnly Boolean @default(true)
+  currency       String  @default("ZAR")
+  committedAmount Decimal @db.Decimal(18, 2)
+  terms          String?
+  notes          String?
+
+  awardId String @unique
+  rfqId   String
+  prId    String
+
+  releasedAt DateTime?
+  acceptedAt DateTime?
+  closedAt   DateTime?
+
+  award RFQAward            @relation(fields: [awardId], references: [id], onDelete: Restrict)
+  rfq   RFQ                 @relation(fields: [rfqId], references: [id], onDelete: Restrict)
+  pr    PurchaseRequisition @relation(fields: [prId], references: [id], onDelete: Restrict)
+
+  changeRequests POChangeRequest[]
+  invoices       InvoiceSnapshot[]
+  deliveryNotes  DeliveryNote[]
+  liveInvoices   Invoice[]
+
+  @@unique([tenantId, companyId, poNumber])
+  @@index([tenantId, companyId, createdAt])
+  @@index([status, createdAt])
+}
+
+model POChangeRequest {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  poId String
+  reason String
+  proposedTerms String?
+  requestedBy String?
+  status String @default("OPEN")
+
+  po PurchaseOrder @relation(fields: [poId], references: [id], onDelete: Cascade)
+
+  @@index([poId, createdAt])
+}
+
+enum InvoiceSourceSystem {
+  ERP
+  QUICKBOOKS
+  MANUAL
+}
+
+enum InvoiceMatchStatus {
+  MISSING_INVOICE
+  MATCH
+  UNDER_INVOICED
+  OVER_INVOICED
+}
+
+enum DeliveryNoteStatus {
+  RECEIVED
+  DISPUTED
+}
+
+enum InvoiceLifecycleStatus {
+  DRAFT
+  SUBMITTED_TO_ORG
+  UNDER_REVIEW
+  SIGNED
+  PAID
+  CLOSED
+}
+
+model InvoiceSnapshot {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  syncedAt  DateTime @default(now())
+
+  tenantId  String
+  companyId String
+
+  externalInvoiceId String
+  invoiceNumber     String?
+  sourceSystem      InvoiceSourceSystem @default(MANUAL)
+
+  poId String?
+  poNumber String?
+
+  currency String @default("ZAR")
+  totalAmount Decimal @db.Decimal(18, 2)
+  invoiceDate DateTime?
+  status String?
+
+  rawPayload Json?
+
+  purchaseOrder PurchaseOrder? @relation(fields: [poId], references: [id], onDelete: SetNull)
+
+  @@unique([tenantId, companyId, externalInvoiceId])
+  @@index([tenantId, companyId, syncedAt])
+  @@index([poId])
+  @@index([poNumber])
+}
+
+model DeliveryNote {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+
+  poId String
+  supplierId String
+
+  noteNumber String
+  deliveryDate DateTime
+  receivedBy String?
+  remarks String?
+  documentUrl String?
+  documentPath String?
+  documentName String?
+  status DeliveryNoteStatus @default(RECEIVED)
+
+  purchaseOrder PurchaseOrder @relation(fields: [poId], references: [id], onDelete: Cascade)
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  invoices Invoice[]
+
+  @@unique([tenantId, companyId, noteNumber])
+  @@index([tenantId, companyId, poId, createdAt])
+  @@index([supplierId, deliveryDate])
+}
+
+model Invoice {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+
+  poId String
+  supplierId String
+  deliveryNoteId String?
+
+  invoiceNumber String
+  templateVersion String @default("v1")
+  currency String @default("ZAR")
+  subtotal Decimal @db.Decimal(18,2)
+  taxAmount Decimal @db.Decimal(18,2)
+  totalAmount Decimal @db.Decimal(18,2)
+  taxIncluded Boolean @default(true)
+  issueDate DateTime @default(now())
+  dueDate DateTime?
+  status InvoiceLifecycleStatus @default(DRAFT)
+  buyerDetails Json?
+  supplierDetails Json?
+  lineItems Json?
+  notes String?
+  sourceDocumentPath String?
+  sourceDocumentName String?
+  signedDocumentPath String?
+  signedDocumentName String?
+  submittedAt DateTime?
+  submittedBy String?
+  reviewedAt DateTime?
+  reviewedBy String?
+  paidAt DateTime?
+  signedAt DateTime?
+
+  purchaseOrder PurchaseOrder @relation(fields: [poId], references: [id], onDelete: Restrict)
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  deliveryNote DeliveryNote? @relation(fields: [deliveryNoteId], references: [id], onDelete: SetNull)
+  signature InvoiceSignature?
+  paymentProofs PaymentProof[]
+
+  @@unique([tenantId, companyId, invoiceNumber])
+  @@index([tenantId, companyId, poId, status, createdAt])
+  @@index([supplierId, issueDate])
+}
+
+model InvoiceSignature {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  tenantId  String
+  companyId String
+
+  invoiceId String @unique
+  signedBy String
+  signerRole String?
+  signatureHash String
+  signaturePayload Json?
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId, createdAt])
+}
+
+model PaymentProof {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  tenantId  String
+  companyId String
+
+  invoiceId String
+  amountPaid Decimal @db.Decimal(18,2)
+  paymentDate DateTime
+  paymentReference String?
+  popUrl String?
+  popPath String?
+  popName String?
+  notes String?
+  recordedBy String?
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId, invoiceId, createdAt])
+}
+
+model RFQSupplier {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  rfqId      String
+  supplierId String
+
+  rfq      RFQ      @relation(fields: [rfqId], references: [id], onDelete: Cascade)
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+
+  // optional skeleton fields (no business logic yet)
+  invitedAt DateTime?
+
+  @@unique([rfqId, supplierId])
+  @@index([supplierId])
+}
+
+enum PartnerAccessScope {
+  READ_ONLY
+  SUPPORT
+  IMPLEMENTATION
+}
+
+enum PartnerStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+model Partner {
+  id     String        @id @default(uuid())
+  name   String
+  status PartnerStatus @default(ACTIVE)
+
+  website String?
+  email   String?
+  phone   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users  PartnerUser[]
+  access TenantPartnerAccess[]
+
+  @@index([status])
+  @@index([name])
+}
+
+model PartnerUser {
+  id        String   @id @default(uuid())
+  partnerId String
+  email     String   @unique
+  name      String?
+  roles     String[] @default([]) // optional partner-side roles like ["ADMIN","SUPPORT"]
+  isActive  Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  partner Partner @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+
+  @@index([partnerId, isActive])
+}
+
+/**
+ * This is the boundary + scope gate.
+ * A partner can be granted access to many tenants.
+ * A tenant can grant access to many partners.
+ */
+model TenantPartnerAccess {
+  id String @id @default(uuid())
+
+  tenantId  String
+  partnerId String
+
+  scope    PartnerAccessScope
+  isActive Boolean            @default(true)
+
+  // Optional: expiry / project window (implementation engagements)
+  startsAt DateTime?
+  endsAt   DateTime?
+
+  // Optional: who granted it / why
+  grantedBy String?
+  notes     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  partner Partner @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, partnerId]) // one row per tenant↔partner (simplest & safest)
+  @@index([partnerId, isActive])
+  @@index([tenantId, isActive])
+  @@index([tenantId, scope, isActive])
+}

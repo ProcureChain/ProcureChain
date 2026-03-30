@@ -1,0 +1,1623 @@
+Live PR UOM Options Report
+Generated: 2026-03-28 UTC
+Source: live /taxonomy/pr-form-schema responses
+
+Goods & Materials > Chemicals & Process > Acids
+ID: GOO_CHE_ACIDS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal), Kilogram (kg), Pound (lb), Tonne (t)
+
+Goods & Materials > Chemicals & Process > Alkalis
+ID: GOO_CHE_ALKALIS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal), Kilogram (kg), Pound (lb), Tonne (t)
+
+Goods & Materials > Chemicals & Process > Catalysts
+ID: GOO_CHE_CATALYSTS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal), Kilogram (kg), Pound (lb), Tonne (t)
+
+Goods & Materials > Chemicals & Process > Cleaning chemicals
+ID: GOO_CHE_CLEANING_CHE
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal), Kilogram (kg), Pound (lb), Tonne (t)
+
+Goods & Materials > Chemicals & Process > Coatings
+ID: GOO_CHE_COATINGS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal), Kilogram (kg), Pound (lb), Tonne (t)
+
+Goods & Materials > Chemicals & Process > Coolants
+ID: GOO_CHE_COOLANTS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal), Kilogram (kg), Pound (lb), Tonne (t)
+
+Goods & Materials > Chemicals & Process > Laboratory reagents
+ID: GOO_CHE_LABORATORY_R
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal), Kilogram (kg), Pound (lb), Tonne (t)
+
+Goods & Materials > Chemicals & Process > Resins
+ID: GOO_CHE_RESINS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal), Kilogram (kg), Pound (lb), Tonne (t)
+
+Goods & Materials > Chemicals & Process > Solvents
+ID: GOO_CHE_SOLVENTS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal), Kilogram (kg), Pound (lb), Tonne (t)
+
+Goods & Materials > Chemicals & Process > Water treatment chemicals
+ID: GOO_CHE_WATER_TREATM
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal), Kilogram (kg), Pound (lb), Tonne (t)
+
+Goods & Materials > Electrical & Automation > Batteries & UPS
+ID: GOO_ELE_BATTERIES_AND_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Cable management
+ID: GOO_ELE_CABLE_MANAGE
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Cables & wiring
+ID: GOO_ELE_CABLES_AND_WIR
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Conduits & trunking
+ID: GOO_ELE_CONDUITS_AND_T
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Connectors & terminals
+ID: GOO_ELE_CONNECTORS_AND
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Drives/VSDs
+ID: GOO_ELE_DRIVES_VSDS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Earthing & lightning protection
+ID: GOO_ELE_EARTHING_AND_L
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > HMI & SCADA hardware
+ID: GOO_ELE_HMI_AND_SCADA_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Instrumentation
+ID: GOO_ELE_INSTRUMENTAT
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Lighting
+ID: GOO_ELE_LIGHTING
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Motors
+ID: GOO_ELE_MOTORS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Panels & enclosures
+ID: GOO_ELE_PANELS_AND_ENC
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > PLC & controllers
+ID: GOO_ELE_PLC_AND_CONTRO
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Sensors (proximity/photo)
+ID: GOO_ELE_SENSORS_PRO
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Switchgear & breakers
+ID: GOO_ELE_SWITCHGEAR_AND
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Electrical & Automation > Transformers
+ID: GOO_ELE_TRANSFORMERS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Roll
+
+Goods & Materials > Instrumentation > Analytical instruments
+ID: GOO_INS_ANALYTICAL_I
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+Goods & Materials > Instrumentation > Calibration kits
+ID: GOO_INS_CALIBRATION_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+Goods & Materials > Instrumentation > Flow instruments
+ID: GOO_INS_FLOW_INSTRUM
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+Goods & Materials > Instrumentation > Level instruments
+ID: GOO_INS_LEVEL_INSTRU
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+Goods & Materials > Instrumentation > Pressure instruments
+ID: GOO_INS_PRESSURE_INS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+Goods & Materials > Instrumentation > Temperature instruments
+ID: GOO_INS_TEMPERATURE_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+Goods & Materials > Mechanical Components > Bearings
+ID: GOO_MEC_BEARINGS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Belts & pulleys
+ID: GOO_MEC_BELTS_AND_PULL
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Chains & sprockets
+ID: GOO_MEC_CHAINS_AND_SPR
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Couplings
+ID: GOO_MEC_COUPLINGS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Fabrication parts
+ID: GOO_MEC_FABRICATION_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Fasteners
+ID: GOO_MEC_FASTENERS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Gearboxes
+ID: GOO_MEC_GEARBOXES
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Hydraulics (hoses/fittings)
+ID: GOO_MEC_HYDRAULICS_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Pipes & fittings
+ID: GOO_MEC_PIPES_AND_FITT
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Pneumatics (fittings)
+ID: GOO_MEC_PNEUMATICS_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Seals & gaskets
+ID: GOO_MEC_SEALS_AND_GASK
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Sheet metal
+ID: GOO_MEC_SHEET_METAL
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Structural steel
+ID: GOO_MEC_STRUCTURAL_S
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Mechanical Components > Valves (process)
+ID: GOO_MEC_VALVES_PROC
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft), Kilogram (kg), Pound (lb)
+
+Goods & Materials > Packaging & Consumables > Bags & liners
+ID: GOO_PAC_BAGS_AND_LINER
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Canteen consumables
+ID: GOO_PAC_CANTEEN_CONS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Cartons & boxes
+ID: GOO_PAC_CARTONS_AND_BO
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Cleaning consumables
+ID: GOO_PAC_CLEANING_CON
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Labels & printing
+ID: GOO_PAC_LABELS_AND_PRI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Office supplies
+ID: GOO_PAC_OFFICE_SUPPL
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Pallets
+ID: GOO_PAC_PALLETS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Printer consumables
+ID: GOO_PAC_PRINTER_CONS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Stationery
+ID: GOO_PAC_STATIONERY
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Strapping
+ID: GOO_PAC_STRAPPING
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Stretch wrap & film
+ID: GOO_PAC_STRETCH_WRAP
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > Packaging & Consumables > Tapes
+ID: GOO_PAC_TAPES
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Pack, Roll, Pallet
+
+Goods & Materials > PPE & Safety Equipment > Eye protection
+ID: GOO_PPE_EYE_PROTECTI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > Fall protection
+ID: GOO_PPE_FALL_PROTECT
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > Fire extinguishers
+ID: GOO_PPE_FIRE_EXTINGU
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > First aid kits
+ID: GOO_PPE_FIRST_AID_KI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > Gas detectors
+ID: GOO_PPE_GAS_DETECTOR
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > Hard hats
+ID: GOO_PPE_HARD_HATS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > Hearing protection
+ID: GOO_PPE_HEARING_PROT
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > Protective clothing
+ID: GOO_PPE_PROTECTIVE_C
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > Respirators
+ID: GOO_PPE_RESPIRATORS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > Safety gloves
+ID: GOO_PPE_SAFETY_GLOVE
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > Safety shoes
+ID: GOO_PPE_SAFETY_SHOES
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > PPE & Safety Equipment > Safety signage
+ID: GOO_PPE_SAFETY_SIGNA
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Pair, Set, Box, Pack
+
+Goods & Materials > Quality & Lab > Lab consumables
+ID: GOO_QUA_LAB_CONSUMAB
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Box, Pack
+
+Goods & Materials > Quality & Lab > Metrology services (outsourced)
+ID: GOO_QUA_METROLOGY_SE
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Box, Pack
+
+Goods & Materials > Quality & Lab > Micrometers & gauges
+ID: GOO_QUA_MICROMETERS_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Box, Pack
+
+Goods & Materials > Quality & Lab > Sampling equipment
+ID: GOO_QUA_SAMPLING_EQU
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Box, Pack
+
+Goods & Materials > Quality & Lab > Test instruments
+ID: GOO_QUA_TEST_INSTRUM
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Box, Pack
+
+Goods & Materials > Quality & Lab > Weighing scales
+ID: GOO_QUA_WEIGHING_SCA
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Box, Pack
+
+Goods & Materials > Raw Materials > Adhesives & sealants
+ID: GOO_RAW_ADHESIVES_AND_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Aluminium
+ID: GOO_RAW_ALUMINIUM
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Kilogram (kg)
+UOM Options: Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Brass/Bronze
+ID: GOO_RAW_BRASS_BRONZE
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Kilogram (kg)
+UOM Options: Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Cast iron
+ID: GOO_RAW_CAST_IRON
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Kilogram (kg)
+UOM Options: Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Ceramics
+ID: GOO_RAW_CERAMICS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Kilogram (kg)
+UOM Options: Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Composites
+ID: GOO_RAW_COMPOSITES
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Kilogram (kg)
+UOM Options: Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Copper
+ID: GOO_RAW_COPPER
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Kilogram (kg)
+UOM Options: Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Fuels & additives
+ID: GOO_RAW_FUELS_AND_ADDI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Glass
+ID: GOO_RAW_GLASS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Industrial gases
+ID: GOO_RAW_INDUSTRIAL_G
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Oils & lubricants
+ID: GOO_RAW_OILS_AND_LUBRI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Plastics (engineering)
+ID: GOO_RAW_PLASTICS_EN
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Refractory materials
+ID: GOO_RAW_REFRACTORY_M
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Rubber
+ID: GOO_RAW_RUBBER
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Stainless steel
+ID: GOO_RAW_STAINLESS_ST
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Kilogram (kg)
+UOM Options: Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Steel (bar/rod)
+ID: GOO_RAW_STEEL_BAR_R
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Kilogram (kg)
+UOM Options: Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Goods & Materials > Raw Materials > Steel (sheet/plate)
+ID: GOO_RAW_STEEL_SHEET
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Square metre (m2)
+UOM Options: Square metre (m2), Square foot (ft2), Each (EA)
+
+Goods & Materials > Raw Materials > Timber & plywood
+ID: GOO_RAW_TIMBER_AND_PLY
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Metre (m)
+UOM Options: Metre (m), Foot (ft), Each (EA)
+
+Goods & Materials > Raw Materials > Welding consumables
+ID: GOO_RAW_WELDING_CONS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Kilogram (kg), Tonne (t), Pound (lb), Metre (m), Foot (ft)
+
+Logistics & Transport > Courier & Parcel > Document courier
+ID: LOG_COU_DOCUMENT_COU
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Courier & Parcel > Economy courier
+ID: LOG_COU_ECONOMY_COUR
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Courier & Parcel > International courier
+ID: LOG_COU_INTERNATIONA
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Courier & Parcel > Overnight courier
+ID: LOG_COU_OVERNIGHT_CO
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Courier & Parcel > Same-day courier
+ID: LOG_COU_SAME_DAY_COU
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Freight > Air freight
+ID: LOG_FRE_AIR_FREIGHT
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Freight > Cold chain logistics
+ID: LOG_FRE_COLD_CHAIN_L
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Freight > Cross-border trucking
+ID: LOG_FRE_CROSS_BORDER
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Freight > Customs clearing
+ID: LOG_FRE_CUSTOMS_CLEA
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Freight > Rail freight
+ID: LOG_FRE_RAIL_FREIGHT
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Freight > Road freight (FTL)
+ID: LOG_FRE_ROAD_FREIGHT
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Freight > Sea freight (FCL)
+ID: LOG_FRE_SEA_FREIGHT_
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Freight > Warehousing
+ID: LOG_FRE_WAREHOUSING
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Specialised > Abnormal loads
+ID: LOG_SPE_ABNORMAL_LOA
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Specialised > Crane hire logistics
+ID: LOG_SPE_CRANE_HIRE_L
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Specialised > Hazardous goods transport
+ID: LOG_SPE_HAZARDOUS_GO
+UOM Field: none
+UOM Options: none
+
+Logistics & Transport > Specialised > Heavy machinery transport
+ID: LOG_SPE_HEAVY_MACHIN
+UOM Field: none
+UOM Options: none
+
+MRO > Facilities > Building consumables
+ID: MRO_FAC_BUILDING_CON
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Roll, Metre (m), Foot (ft), Square metre (m2), Square foot (ft2), Litre (L), Gallon (gal)
+
+MRO > Facilities > Flooring materials
+ID: MRO_FAC_FLOORING_MAT
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Square metre (m2)
+UOM Options: Square metre (m2), Square foot (ft2), Each (EA)
+
+MRO > Facilities > HVAC parts
+ID: MRO_FAC_HVAC_PARTS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Roll, Metre (m), Foot (ft), Square metre (m2), Square foot (ft2), Litre (L), Gallon (gal)
+
+MRO > Facilities > Locks & hardware
+ID: MRO_FAC_LOCKS_AND_HARD
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Box, Roll, Metre (m), Foot (ft), Square metre (m2), Square foot (ft2), Litre (L), Gallon (gal)
+
+MRO > Facilities > Paints & coatings
+ID: MRO_FAC_PAINTS_AND_COA
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Gallon (gal)
+
+MRO > Facilities > Plumbing materials
+ID: MRO_FAC_PLUMBING_MAT
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Metre (m)
+UOM Options: Metre (m), Foot (ft), Each (EA)
+
+MRO > Facilities > Waste handling equipment
+ID: MRO_FAC_WASTE_HANDLI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Facilities > Water treatment chemicals
+ID: MRO_FAC_WATER_TREATM
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Gallon (gal), Kilogram (kg), Pound (lb)
+
+MRO > Lubrication > Compressor oil
+ID: MRO_LUB_COMPRESSOR_O
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal)
+
+MRO > Lubrication > Cutting fluids
+ID: MRO_LUB_CUTTING_FLUI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal)
+
+MRO > Lubrication > Gear oil
+ID: MRO_LUB_GEAR_OIL
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal)
+
+MRO > Lubrication > Grease
+ID: MRO_LUB_GREASE
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal)
+
+MRO > Lubrication > Hydraulic oil
+ID: MRO_LUB_HYDRAULIC_OI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal)
+
+MRO > Lubrication > Lubrication systems
+ID: MRO_LUB_LUBRICATION_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Millilitre (ml)
+UOM Options: Millilitre (ml), Litre (L), Kilolitre (kL), Gallon (gal)
+
+MRO > Safety Systems > Emergency lighting
+ID: MRO_SAF_EMERGENCY_LI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft)
+
+MRO > Safety Systems > Fire detection systems
+ID: MRO_SAF_FIRE_DETECTI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft)
+
+MRO > Safety Systems > Fire suppression systems
+ID: MRO_SAF_FIRE_SUPPRES
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft)
+
+MRO > Safety Systems > Machine guarding
+ID: MRO_SAF_MACHINE_GUAR
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft)
+
+MRO > Safety Systems > Safety interlocks
+ID: MRO_SAF_SAFETY_INTER
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Metre (m), Foot (ft)
+
+MRO > Spare Parts > Boiler spares
+ID: MRO_SPA_BOILER_SPARE
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Spare Parts > Compressor spares
+ID: MRO_SPA_COMPRESSOR_S
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Spare Parts > Conveyor spares
+ID: MRO_SPA_CONVEYOR_SPA
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Spare Parts > Electrical spares
+ID: MRO_SPA_ELECTRICAL_S
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Spare Parts > Gearbox spares
+ID: MRO_SPA_GEARBOX_SPAR
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Spare Parts > Hydraulic spares
+ID: MRO_SPA_HYDRAULIC_SP
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Spare Parts > Instrumentation spares
+ID: MRO_SPA_INSTRUMENTAT
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Spare Parts > Machine spares (OEM)
+ID: MRO_SPA_MACHINE_SPAR
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Spare Parts > Motor spares
+ID: MRO_SPA_MOTOR_SPARES
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Spare Parts > Pneumatic spares
+ID: MRO_SPA_PNEUMATIC_SP
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Spare Parts > Pump spares
+ID: MRO_SPA_PUMP_SPARES
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Pair
+
+MRO > Tools & Equipment > Calibration equipment
+ID: MRO_TOO_CALIBRATION_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Compressors
+ID: MRO_TOO_COMPRESSORS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Generators
+ID: MRO_TOO_GENERATORS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Hand tools
+ID: MRO_TOO_HAND_TOOLS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Industrial vacuum equipment
+ID: MRO_TOO_INDUSTRIAL_V
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Lifting equipment
+ID: MRO_TOO_LIFTING_EQUI
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Measuring tools
+ID: MRO_TOO_MEASURING_TO
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Power tools
+ID: MRO_TOO_POWER_TOOLS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Pumps (general)
+ID: MRO_TOO_PUMPS_GENER
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Torque tools
+ID: MRO_TOO_TORQUE_TOOLS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Welding machines
+ID: MRO_TOO_WELDING_MACH
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Tools & Equipment > Workshop equipment
+ID: MRO_TOO_WORKSHOP_EQU
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set
+
+MRO > Utilities > Boilers & steam
+ID: MRO_UTI_BOILERS_AND_ST
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Litre (L), Gallon (gal)
+
+MRO > Utilities > Chillers
+ID: MRO_UTI_CHILLERS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Litre (L), Gallon (gal)
+
+MRO > Utilities > Compressed air systems
+ID: MRO_UTI_COMPRESSED_A
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Litre (L), Gallon (gal)
+
+MRO > Utilities > Generators (service spares)
+ID: MRO_UTI_GENERATORS_
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Litre (L), Gallon (gal)
+
+MRO > Utilities > Water pumps
+ID: MRO_UTI_WATER_PUMPS
+UOM Field: metadata.uom (UOM)
+UOM Policy Field: metadata.uom
+UOM Locked: no
+UOM Default: Each (EA)
+UOM Options: Each (EA), Set, Litre (L), Gallon (gal)
+
+Services > HSE Services > Incident investigation
+ID: SER_HSE_INCIDENT_INV
+UOM Field: none
+UOM Options: none
+
+Services > HSE Services > Medical surveillance (site)
+ID: SER_HSE_MEDICAL_SURV
+UOM Field: none
+UOM Options: none
+
+Services > HSE Services > PPE fit testing
+ID: SER_HSE_PPE_FIT_TEST
+UOM Field: none
+UOM Options: none
+
+Services > HSE Services > Risk assessments
+ID: SER_HSE_RISK_ASSESSM
+UOM Field: none
+UOM Options: none
+
+Services > HSE Services > Safety training
+ID: SER_HSE_SAFETY_TRAIN
+UOM Field: none
+UOM Options: none
+
+Services > Labour / Manpower > Artisans
+ID: SER_LAB_ARTISANS
+UOM Field: none
+UOM Options: none
+
+Services > Labour / Manpower > Electricians
+ID: SER_LAB_ELECTRICIANS
+UOM Field: none
+UOM Options: none
+
+Services > Labour / Manpower > Fitters & turners
+ID: SER_LAB_FITTERS_AND_TU
+UOM Field: none
+UOM Options: none
+
+Services > Labour / Manpower > General labour
+ID: SER_LAB_GENERAL_LABO
+UOM Field: none
+UOM Options: none
+
+Services > Labour / Manpower > Operators (machine)
+ID: SER_LAB_OPERATORS_M
+UOM Field: none
+UOM Options: none
+
+Services > Labour / Manpower > Riggers
+ID: SER_LAB_RIGGERS
+UOM Field: none
+UOM Options: none
+
+Services > Labour / Manpower > Skilled technicians
+ID: SER_LAB_SKILLED_TECH
+UOM Field: none
+UOM Options: none
+
+Services > Labour / Manpower > Supervisors (site)
+ID: SER_LAB_SUPERVISORS_
+UOM Field: none
+UOM Options: none
+
+Services > Labour / Manpower > Welders
+ID: SER_LAB_WELDERS
+UOM Field: none
+UOM Options: none
+
+Services > Logistics Services > 3PL management
+ID: SER_LOG_3PL_MANAGEME
+UOM Field: none
+UOM Options: none
+
+Services > Logistics Services > Customs brokerage
+ID: SER_LOG_CUSTOMS_BROK
+UOM Field: none
+UOM Options: none
+
+Services > Logistics Services > Fleet maintenance services
+ID: SER_LOG_FLEET_MAINTE
+UOM Field: none
+UOM Options: none
+
+Services > Logistics Services > Route planning services
+ID: SER_LOG_ROUTE_PLANNI
+UOM Field: none
+UOM Options: none
+
+Services > Maintenance & SLA > Asset condition monitoring
+ID: SER_MAI_ASSET_CONDIT
+UOM Field: none
+UOM Options: none
+
+Services > Maintenance & SLA > Calibration services
+ID: SER_MAI_CALIBRATION_
+UOM Field: none
+UOM Options: none
+
+Services > Maintenance & SLA > Electrical maintenance (SLA)
+ID: SER_MAI_ELECTRICAL_M
+UOM Field: none
+UOM Options: none
+
+Services > Maintenance & SLA > Fire systems maintenance
+ID: SER_MAI_FIRE_SYSTEMS
+UOM Field: none
+UOM Options: none
+
+Services > Maintenance & SLA > HVAC maintenance (SLA)
+ID: SER_MAI_HVAC_MAINTEN
+UOM Field: none
+UOM Options: none
+
+Services > Maintenance & SLA > IT support (SLA)
+ID: SER_MAI_IT_SUPPORT_
+UOM Field: none
+UOM Options: none
+
+Services > Maintenance & SLA > Mechanical maintenance (SLA)
+ID: SER_MAI_MECHANICAL_M
+UOM Field: none
+UOM Options: none
+
+Services > Maintenance & SLA > Security systems maintenance
+ID: SER_MAI_SECURITY_SYS
+UOM Field: none
+UOM Options: none
+
+Services > Measurable Services > Catering (per head)
+ID: SER_MEA_CATERING_PE
+UOM Field: none
+UOM Options: none
+
+Services > Measurable Services > Cleaning (m² based)
+ID: SER_MEA_CLEANING_M²
+UOM Field: metadata.unit (UOM)
+UOM Policy Field: metadata.unit
+UOM Locked: no
+UOM Default: Square metre (m2)
+UOM Options: Square metre (m2), Square foot (ft2)
+
+Services > Measurable Services > Equipment hire (daily/weekly)
+ID: SER_MEA_EQUIPMENT_HI
+UOM Field: metadata.unit (UOM)
+UOM Policy Field: metadata.unit
+UOM Locked: no
+UOM Default: Day
+UOM Options: Day, Week, Month
+
+Services > Measurable Services > Laundry (kg)
+ID: SER_MEA_LAUNDRY_KG
+UOM Field: metadata.unit (UOM)
+UOM Policy Field: metadata.unit
+UOM Locked: no
+UOM Default: Kilogram (kg)
+UOM Options: Kilogram (kg), Pound (lb)
+
+Services > Measurable Services > Painting (m² based)
+ID: SER_MEA_PAINTING_M²
+UOM Field: metadata.unit (UOM)
+UOM Policy Field: metadata.unit
+UOM Locked: no
+UOM Default: Square metre (m2)
+UOM Options: Square metre (m2), Square foot (ft2)
+
+Services > Measurable Services > Pest control (site based)
+ID: SER_MEA_PEST_CONTROL
+UOM Field: none
+UOM Options: none
+
+Services > Measurable Services > Security guarding (hours)
+ID: SER_MEA_SECURITY_GUA
+UOM Field: metadata.unit (UOM)
+UOM Policy Field: metadata.unit
+UOM Locked: no
+UOM Default: Hour
+UOM Options: Hour, Day, Shift
+
+Services > Measurable Services > Transport (per km)
+ID: SER_MEA_TRANSPORT_P
+UOM Field: metadata.unit (UOM)
+UOM Policy Field: metadata.unit
+UOM Locked: no
+UOM Default: Kilometre (km)
+UOM Options: Kilometre (km), Mile (mi)
+
+Services > Measurable Services > Waste removal (volume/weight)
+ID: SER_MEA_WASTE_REMOVA
+UOM Field: metadata.unit (UOM)
+UOM Policy Field: metadata.unit
+UOM Locked: no
+UOM Default: Kilogram (kg)
+UOM Options: Kilogram (kg), Tonne (t), Pound (lb)
+
+Services > Professional & Advisory > Accounting & tax
+ID: SER_PRO_ACCOUNTING_AND
+UOM Field: none
+UOM Options: none
+
+Services > Professional & Advisory > Custom software development
+ID: SER_PRO_CUSTOM_SOFTW
+UOM Field: none
+UOM Options: none
+
+Services > Professional & Advisory > Engineering consulting
+ID: SER_PRO_ENGINEERING_
+UOM Field: none
+UOM Options: none
+
+Services > Professional & Advisory > Environmental consulting
+ID: SER_PRO_ENVIRONMENTA
+UOM Field: none
+UOM Options: none
+
+Services > Professional & Advisory > HR consulting
+ID: SER_PRO_HR_CONSULTIN
+UOM Field: none
+UOM Options: none
+
+Services > Professional & Advisory > IT consulting
+ID: SER_PRO_IT_CONSULTIN
+UOM Field: none
+UOM Options: none
+
+Services > Professional & Advisory > Legal services
+ID: SER_PRO_LEGAL_SERVIC
+UOM Field: none
+UOM Options: none
+
+Services > Professional & Advisory > Project management
+ID: SER_PRO_PROJECT_MANA
+UOM Field: none
+UOM Options: none
+
+Services > Professional & Advisory > Quality consulting
+ID: SER_PRO_QUALITY_CONS
+UOM Field: none
+UOM Options: none
+
+Services > Professional & Advisory > Safety consulting
+ID: SER_PRO_SAFETY_CONSU
+UOM Field: none
+UOM Options: none
+
+Services > Professional & Advisory > Training services
+ID: SER_PRO_TRAINING_SER
+UOM Field: none
+UOM Options: none
+
+Services > Testing & Inspection > Electrical compliance testing
+ID: SER_TES_ELECTRICAL_C
+UOM Field: none
+UOM Options: none
+
+Services > Testing & Inspection > ISO audits
+ID: SER_TES_ISO_AUDITS
+UOM Field: none
+UOM Options: none
+
+Services > Testing & Inspection > Lifting equipment inspection
+ID: SER_TES_LIFTING_EQUI
+UOM Field: none
+UOM Options: none
+
+Services > Testing & Inspection > NDT inspection
+ID: SER_TES_NDT_INSPECTI
+UOM Field: none
+UOM Options: none
+
+Services > Testing & Inspection > Pressure vessel inspection
+ID: SER_TES_PRESSURE_VES
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Construction & Civil > Building construction
+ID: WOR_CON_BUILDING_CON
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Construction & Civil > Civil works
+ID: WOR_CON_CIVIL_WORKS
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Construction & Civil > Concrete works
+ID: WOR_CON_CONCRETE_WOR
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Construction & Civil > Fencing
+ID: WOR_CON_FENCING
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Construction & Civil > Renovations
+ID: WOR_CON_RENOVATIONS
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Construction & Civil > Road works
+ID: WOR_CON_ROAD_WORKS
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Construction & Civil > Roofing
+ID: WOR_CON_ROOFING
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Construction & Civil > Steel erection
+ID: WOR_CON_STEEL_ERECTI
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Fit-out > Mezzanine floors
+ID: WOR_FIT_MEZZANINE_FL
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Fit-out > Office fit-out
+ID: WOR_FIT_OFFICE_FIT_O
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Fit-out > Racking installation
+ID: WOR_FIT_RACKING_INST
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Fit-out > Workshop fit-out
+ID: WOR_FIT_WORKSHOP_FIT
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Industrial Projects > Automation installation
+ID: WOR_IND_AUTOMATION_I
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Industrial Projects > Electrical installation (project)
+ID: WOR_IND_ELECTRICAL_I
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Industrial Projects > Equipment commissioning
+ID: WOR_IND_EQUIPMENT_CO
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Industrial Projects > Plant installation
+ID: WOR_IND_PLANT_INSTAL
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Industrial Projects > Process piping installation
+ID: WOR_IND_PROCESS_PIPI
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Industrial Projects > Shutdown projects
+ID: WOR_IND_SHUTDOWN_PRO
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Industrial Projects > Turnkey project (EPC)
+ID: WOR_IND_TURNKEY_PROJ
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Infrastructure > Concrete foundations
+ID: WOR_INF_CONCRETE_FOU
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Infrastructure > Drainage
+ID: WOR_INF_DRAINAGE
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Infrastructure > Electrical substation works
+ID: WOR_INF_ELECTRICAL_S
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Infrastructure > Solar installation
+ID: WOR_INF_SOLAR_INSTAL
+UOM Field: none
+UOM Options: none
+
+Works / Projects > Infrastructure > Water reticulation
+ID: WOR_INF_WATER_RETICU
+UOM Field: none
+UOM Options: none
+
+Total subcategories: 234
+Subcategories with UOM policy: 149

@@ -1,0 +1,76 @@
+ProcureChain Subcategories With Explicit metadata.unit Field
+Generated: 2026-03-27 UTC
+Rule: includes only explicit field path metadata.unit
+Excludes: metadata.uom
+
+Count: 7
+
+[1] Cleaning (m² based)
+Requested ID: SER_MEA_CLEANING_M²
+Resolved ID: SER_MEA_CLEANING_M²
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Cleaning (m² based)
+PR Form Key: PR_SER_MEA_CLEANING_M²_V1
+PR Rule Pack: rules.pr.ser_mea_cleaning_m².global.v1
+Field: metadata.unit
+
+[2] Equipment hire (daily/weekly)
+Requested ID: SER_MEA_EQUIPMENT_HI
+Resolved ID: SER_MEA_EQUIPMENT_HI
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Equipment hire (daily/weekly)
+PR Form Key: PR_SER_MEA_EQUIPMENT_HI_V1
+PR Rule Pack: rules.pr.ser_mea_equipment_hi.global.v1
+Field: metadata.unit
+
+[3] Laundry (kg)
+Requested ID: SER_MEA_LAUNDRY_KG
+Resolved ID: SER_MEA_LAUNDRY_KG
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Laundry (kg)
+PR Form Key: PR_SER_MEA_LAUNDRY_KG_V1
+PR Rule Pack: rules.pr.ser_mea_laundry_kg.global.v1
+Field: metadata.unit
+
+[4] Painting (m² based)
+Requested ID: SER_MEA_PAINTING_M²
+Resolved ID: SER_MEA_PAINTING_M²
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Painting (m² based)
+PR Form Key: PR_SER_MEA_PAINTING_M²_V1
+PR Rule Pack: rules.pr.ser_mea_painting_m².global.v1
+Field: metadata.unit
+
+[5] Security guarding (hours)
+Requested ID: SER_MEA_SECURITY_GUA
+Resolved ID: SER_MEA_SECURITY_GUA
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Security guarding (hours)
+PR Form Key: PR_SER_MEA_SECURITY_GUA_V1
+PR Rule Pack: rules.pr.ser_mea_security_gua.global.v1
+Field: metadata.unit
+
+[6] Transport (per km)
+Requested ID: SER_MEA_TRANSPORT_P
+Resolved ID: SER_MEA_TRANSPORT_P
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Transport (per km)
+PR Form Key: PR_SER_MEA_TRANSPORT_P_V1
+PR Rule Pack: rules.pr.ser_mea_transport_p.global.v1
+Field: metadata.unit
+
+[7] Waste removal (volume/weight)
+Requested ID: SER_MEA_WASTE_REMOVA
+Resolved ID: SER_MEA_WASTE_REMOVA
+Level 1: Services
+Level 2: Measurable Services
+Level 3: Waste removal (volume/weight)
+PR Form Key: PR_SER_MEA_WASTE_REMOVA_V1
+PR Rule Pack: rules.pr.ser_mea_waste_remova.global.v1
+Field: metadata.unit

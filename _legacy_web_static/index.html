@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProcureChain Control Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb bg-orb-a"></div>
+    <div class="bg-orb bg-orb-b"></div>
+
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">ProcureChain V1.2</p>
+        <h1>Control Deck</h1>
+      </div>
+      <div class="status" id="apiStatus">API: unknown</div>
+    </header>
+
+    <main>
+      <section class="card config-card reveal">
+        <h2>Connection</h2>
+        <div class="grid grid-4">
+          <label>Base URL
+            <input id="baseUrl" value="http://127.0.0.1:8080" />
+          </label>
+          <label>Tenant
+            <input id="tenantId" value="dev-tenant" />
+          </label>
+          <label>Company
+            <input id="companyId" value="dev-company" />
+          </label>
+          <label>User
+            <input id="userId" value="dev-user" />
+          </label>
+        </div>
+        <label>Roles (comma-separated)
+          <input id="roles" value="PROCUREMENT_MANAGER" />
+        </label>
+        <div class="actions">
+          <button id="btnHealth">Check Health</button>
+          <button class="ghost" id="btnSaveConfig">Save Config</button>
+        </div>
+      </section>
+
+      <section class="card reveal">
+        <h2>Sprint Flow</h2>
+        <p class="muted">Run end-to-end: PR → RFQ → Award + Governance checks.</p>
+        <div class="grid grid-2">
+          <label>Subcategory
+            <input id="subcategoryId" value="FAC-SRV-MNT-001" />
+          </label>
+          <label>Supplier Name
+            <input id="supplierName" value="Frontend Smoke Supplier" />
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnRunFlow">Run PR/RFQ/Award Flow</button>
+        </div>
+      </section>
+
+      <section class="card reveal">
+        <h2>Policy & Compliance</h2>
+        <div class="actions wrap">
+          <button id="btnGetPolicy">Get Procurement Policy</button>
+          <button id="btnSetPolicy">Set Strict Policy</button>
+          <button id="btnListSod">List SoD Rules</button>
+          <button id="btnGetRetention">Get Retention Policy</button>
+          <button id="btnRunRetention">Run Retention Check</button>
+          <button id="btnAuditEvidence">Verify Audit Evidence</button>
+        </div>
+      </section>
+
+      <section class="card reveal">
+        <h2>Government Exports</h2>
+        <div class="grid grid-3">
+          <label>Export Type
+            <select id="exportType">
+              <option value="tender_register">TENDER_REGISTER</option>
+              <option value="bid_opening_record">BID_OPENING_RECORD</option>
+              <option value="evaluation_pack">EVALUATION_PACK</option>
+              <option value="award_report_notice">AWARD_REPORT_NOTICE</option>
+              <option value="coi_register">COI_REGISTER</option>
+              <option value="retention_log">RETENTION_LOG</option>
+            </select>
+          </label>
+          <label>Format
+            <select id="exportFormat">
+              <option value="CSV">CSV</option>
+              <option value="PDF">PDF</option>
+            </select>
+          </label>
+          <div class="actions end">
+            <button id="btnExport">Generate Export</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card reveal">
+        <h2>API Log</h2>
+        <pre id="log"></pre>
+      </section>
+    </main>
+
+    <footer>
+      <span>ProcureChain Frontend Probe</span>
+      <span id="lastUpdated">last updated: never</span>
+    </footer>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
