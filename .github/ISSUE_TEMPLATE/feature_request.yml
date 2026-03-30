@@ -1,0 +1,34 @@
+name: Feature request
+description: Propose a product, workflow, or platform improvement
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: Start with the business or operational problem, not the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed approach
+      description: Describe the workflow, API, or UI change you want.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List the conditions that would make this done.
+      placeholder: |
+        - users can ...
+        - the system validates ...
+        - audit events record ...
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies or constraints
+      description: Mention policies, data model changes, migration work, or rollout concerns.

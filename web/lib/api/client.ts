@@ -88,6 +88,9 @@ export async function apiRequest<T>(
   let response: Response;
   try {
     const isFormData = typeof FormData !== "undefined" && init?.body instanceof FormData;
+    // The backend expects tenant, company, and actor context on every business
+    // request. Centralising that here keeps page-level code focused on the
+    // workflow instead of rebuilding headers for every call.
     const baseHeaders: Record<string, string> = {
       "x-request-id": requestId,
       "x-tenant-id": init?.tenantId ?? runtimeConfig.tenantId,
@@ -96,6 +99,9 @@ export async function apiRequest<T>(
       "x-user-roles": runtimeConfig.actorRoles.join(","),
     };
     if (runtimeConfig.isSupplierPortal && runtimeConfig.supplierId) {
+      // Supplier users run through the same API surface, but the backend needs
+      // an explicit partner context to separate supplier actions from internal
+      // buyer actions.
       baseHeaders["x-partner-id"] = runtimeConfig.supplierId;
       baseHeaders["x-partner-user-id"] = runtimeConfig.actorId;
     }
@@ -135,6 +141,9 @@ export async function apiRequest<T>(
   }
 
   if (response.status === 204) {
+    // A few mutation endpoints deliberately return no body. Returning
+    // `undefined` keeps the generic contract honest without forcing callers
+    // to special-case empty responses.
     return undefined as T;
   }
 

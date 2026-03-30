@@ -24,6 +24,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     if (exception instanceof HttpException) {
       const payload = exception.getResponse();
+      // Nest can hand back either a plain string or a structured validation
+      // payload. Normalise both shapes here so the frontend only has to deal
+      // with one error contract.
       if (typeof payload === 'string') {
         message = payload;
       } else if (payload && typeof payload === 'object') {
@@ -41,6 +44,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
       }
     }
 
+    // Keep this response shape stable. The frontend error helpers rely on it
+    // for request-id display, inline validation details, and operator support.
     res.status(status).json({
       statusCode: status,
       code: HttpStatus[status] ?? 'ERROR',

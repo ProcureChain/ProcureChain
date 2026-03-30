@@ -1,0 +1,43 @@
+name: Bug report
+description: Report a defect in the product or delivery workflow
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the problem in plain language.
+      placeholder: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the exact route, actor role, and data used if relevant.
+      placeholder: |
+        1. Open ...
+        2. Create ...
+        3. Submit ...
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Explain who is blocked and whether there is a workaround.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, branch, deployment, or local setup details
+      placeholder: local / staging / production
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Paste request ids, screenshots, logs, or error messages if available.

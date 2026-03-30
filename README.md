@@ -72,6 +72,7 @@ Real env files and uploaded artifacts are excluded from git by default.
 - Frontend: [docs/technical/frontend.md](/opt/procurechain/docs/technical/frontend.md)
 - Backend: [docs/technical/backend.md](/opt/procurechain/docs/technical/backend.md)
 - GitHub publishing: [docs/technical/github-setup.md](/opt/procurechain/docs/technical/github-setup.md)
+- Contribution guide: [CONTRIBUTING.md](/opt/procurechain/CONTRIBUTING.md)
 
 ## GitHub Setup
 

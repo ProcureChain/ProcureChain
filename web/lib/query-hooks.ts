@@ -136,6 +136,8 @@ export const queryKeys = {
   deliveryNotes: (poId: string) => ["finance", "delivery-notes", poId] as const,
   liveInvoices: (poId: string) => ["finance", "live-invoices", poId] as const,
   liveInvoice: (invoiceId: string) => ["finance", "live-invoice", invoiceId] as const,
+  // Include the current data source in every cache key so mock and live data
+  // never bleed into the same React Query cache entry during development.
   mode: runtimeConfig.useMockApi ? "mock" : "live",
 };
 
@@ -174,6 +176,10 @@ const readApi = runtimeConfig.useMockApi
       getLiveInvoice,
     }
   : liveApi;
+
+// Keep reads and writes behind the same switching layer. That lets the app run
+// in mock mode for unfinished flows without scattering `if (mock)` checks
+// across route components and forms.
 const actionApi = runtimeConfig.useMockApi
   ? {
       createRequisition,
@@ -279,6 +285,10 @@ export function useCreateRequisition() {
   return useMutation({
     mutationFn: (payload: Omit<Requisition, "id" | "prNumber" | "createdAt" | "updatedAt">) => actionApi.createRequisition(payload),
     onSuccess: (created) => {
+      // Requisition creation feeds multiple screens at once: list views,
+      // detail screens, and audit history. Invalidate the shared collections
+      // and seed the detail cache with the returned object to avoid an extra
+      // round-trip when routing to the new record.
       queryClient.invalidateQueries({ queryKey: queryKeys.requisitions });
       queryClient.invalidateQueries({ queryKey: queryKeys.audit });
       queryClient.setQueryData(queryKeys.requisition(created.id), created);

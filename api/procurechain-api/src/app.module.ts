@@ -20,6 +20,9 @@ import { MetricsModule } from './common/metrics.module';
 
 @Module({
   imports: [
+    // Keep the module list grouped by platform concerns first and business
+    // domains second. It makes startup wiring easier to scan when a new
+    // feature module is added.
     PrismaModule,
     HealthModule,
     AuditModule,

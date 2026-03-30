@@ -34,6 +34,10 @@ import {
   LocationSuggestion,
 } from "@/lib/types";
 
+// These raw types mirror backend DTOs closely. We keep them separate from the
+// frontend domain types so UI code is not forced to understand transport-level
+// quirks such as nullable strings, nested payload fragments, or timestamp
+// formatting details.
 type RawPR = {
   id: string;
   createdAt: string;
