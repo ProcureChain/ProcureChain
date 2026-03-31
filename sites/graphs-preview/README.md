@@ -30,12 +30,13 @@ http://localhost:8081
 
 ## Recommended Hosting
 
-If `dev.procurechain.co.za` is reserved for this mock preview only, point the web server root at this folder.
+Mount this site under the existing development domain at:
 
-If `dev.procurechain.co.za` already serves another application, use a separate host such as:
+```text
+https://dev.procurechain.co.za/mock/graphical_dash/
+```
 
-- `mock.dev.procurechain.co.za`
-- `graphs.dev.procurechain.co.za`
+This keeps the preview on the same domain while staying outside the main application. The route should be served directly by Nginx, not by Next.js.
 
 ## Deployment Shape
 
@@ -46,6 +47,8 @@ sudo mkdir -p /var/www/graphs-preview
 sudo cp index.html graphs.js /var/www/graphs-preview/
 ```
 
-Then apply the Nginx host config from:
+Then add the Nginx location config from:
 
 `/opt/procurechain/deploy/nginx/graphs-preview.conf`
+
+That config is intended to be pasted into the existing `server_name dev.procurechain.co.za` block.
