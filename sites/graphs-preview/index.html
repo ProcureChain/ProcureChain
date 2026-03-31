@@ -123,7 +123,10 @@
 
       async function loadPreview() {
         try {
-          const response = await fetch("./graphs.js");
+          const assetBase = window.location.pathname.startsWith("/mock/graphical_dash")
+            ? "/mock/graphical_dash/"
+            : "./";
+          const response = await fetch(`${assetBase}graphs.js`);
           if (!response.ok) {
             throw new Error(`Failed to load graphs.js (${response.status})`);
           }
