@@ -47,8 +47,12 @@ sudo mkdir -p /var/www/graphs-preview
 sudo cp index.html graphs.js /var/www/graphs-preview/
 ```
 
-Then add the Nginx location config from:
+Then apply the full Nginx server-block example from:
 
 `/opt/procurechain/deploy/nginx/graphs-preview.conf`
 
-That config is intended to be pasted into the existing `server_name dev.procurechain.co.za` block.
+The example assumes:
+
+- `dev.procurechain.co.za` proxies the main app to `127.0.0.1:3000`
+- `/mock/graphical_dash/` is served from `/var/www/graphs-preview/`
+- TLS certificates exist under `/etc/letsencrypt/live/dev.procurechain.co.za/`
