@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 import { SESSION_COOKIE_KEYS } from "@/lib/session";
 
-const PUBLIC_PATHS = ["/login"];
+const PUBLIC_PATHS = ["/login", "/graphs"];
 const SUPPLIER_ALLOWED_PATHS = ["/dashboard", "/supplier"];
 
 export function proxy(request: NextRequest) {
