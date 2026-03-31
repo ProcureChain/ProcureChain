@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>graphs.js Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        background: #e2e8f0;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      #status {
+        max-width: 720px;
+        margin: 40px auto;
+        padding: 16px 20px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.92);
+        color: #0f172a;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="status">Loading `graphs.js` preview...</div>
+    <div id="root"></div>
+
+    <script>
+      const makeIcon = (path) =>
+        function Icon({ className = "" }) {
+          return React.createElement(
+            "svg",
+            {
+              viewBox: "0 0 24 24",
+              fill: "none",
+              stroke: "currentColor",
+              strokeWidth: 2,
+              className,
+            },
+            React.createElement("path", {
+              d: path,
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+            })
+          );
+        };
+
+      window.icons = {
+        Activity: makeIcon("M3 12h4l3-7 4 14 3-7h4"),
+        AlertTriangle: makeIcon("M12 3 2 21h20L12 3zm0 6v5m0 4h.01"),
+        BadgeCheck: makeIcon("m9 12 2 2 4-4M12 3l2.5 2 3.3-.5.5 3.3 2 2.5-2 2.5-.5 3.3-3.3-.5L12 21l-2.5-2-3.3.5-.5-3.3-2-2.5 2-2.5.5-3.3 3.3.5L12 3z"),
+        Banknote: makeIcon("M3 7h18v10H3zM7 12h.01M17 12h.01M12 9c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3 1.3-3 3-3z"),
+        BarChart3: makeIcon("M4 20V10M12 20V4M20 20v-7"),
+        Briefcase: makeIcon("M9 6V4h6v2M3 9h18v10H3zM3 11l9 4 9-4"),
+        Clock3: makeIcon("M12 6v6l4 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"),
+        FileCheck2: makeIcon("M14 2H6a2 2 0 0 0-2 2v16l4-2 4 2 4-2 4 2V8l-6-6zm-5 11 2 2 4-4"),
+        ShieldCheck: makeIcon("m9 12 2 2 4-4M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6l7-3z"),
+        TrendingUp: makeIcon("M3 17l6-6 4 4 7-7M14 8h6v6"),
+        Wallet: makeIcon("M3 7h18v10H3zM16 12h4M5 7V5h12v2"),
+      };
+
+      window.ReactEChartsCore = function ReactEChartsCore({ option, style, className = "" }) {
+        const ref = React.useRef(null);
+        const chartRef = React.useRef(null);
+
+        React.useEffect(() => {
+          if (!ref.current) return undefined;
+
+          const chart =
+            window.echarts.getInstanceByDom(ref.current) || window.echarts.init(ref.current);
+          chartRef.current = chart;
+
+          const resize = () => {
+            if (chartRef.current) {
+              chartRef.current.resize();
+            }
+          };
+
+          chart.setOption(option || {}, true);
+
+          const observer =
+            typeof ResizeObserver !== "undefined"
+              ? new ResizeObserver(() => resize())
+              : null;
+
+          if (observer) {
+            observer.observe(ref.current);
+          }
+
+          const timeouts = [0, 80, 220].map((delay) =>
+            window.setTimeout(() => resize(), delay)
+          );
+
+          window.addEventListener("load", resize);
+          window.addEventListener("resize", resize);
+
+          return () => {
+            timeouts.forEach((timeoutId) => window.clearTimeout(timeoutId));
+            window.removeEventListener("load", resize);
+            window.removeEventListener("resize", resize);
+            if (observer) {
+              observer.disconnect();
+            }
+            if (chartRef.current) {
+              chartRef.current.dispose();
+              chartRef.current = null;
+            }
+          };
+        }, [option]);
+
+        return React.createElement("div", {
+          ref,
+          className,
+          style: { width: "100%", minHeight: 240, ...style },
+        });
+      };
+
+      async function loadPreview() {
+        try {
+          const response = await fetch("./graphs.js");
+          if (!response.ok) {
+            throw new Error(`Failed to load graphs.js (${response.status})`);
+          }
+
+          let source = await response.text();
+          source = source.replace(/^["']use client["'];\s*/m, "");
+          source = source.replace(/import[\s\S]*?from\s+["'][^"']+["'];\s*/g, "");
+          source = source.replace(/echarts\.use\(\[[\s\S]*?\]\);\s*/m, "");
+          source = source.replace(
+            /export default function\s+([A-Za-z0-9_]+)/,
+            "function $1"
+          );
+
+          source = `
+            const { useMemo, useState } = React;
+            const ReactEChartsCore = window.ReactEChartsCore;
+            const echarts = window.echarts;
+            const {
+              Activity,
+              AlertTriangle,
+              BadgeCheck,
+              Banknote,
+              BarChart3,
+              Briefcase,
+              Clock3,
+              FileCheck2,
+              ShieldCheck,
+              TrendingUp,
+              Wallet,
+            } = window.icons;
+            ${source}
+            window.App = ProcureChainAnalyticsPreview;
+          `;
+
+          const compiled = Babel.transform(source, { presets: ["react"] }).code;
+          window.eval(compiled);
+
+          const status = document.getElementById("status");
+          if (status) {
+            status.remove();
+          }
+
+          const root = ReactDOM.createRoot(document.getElementById("root"));
+          root.render(React.createElement(window.App));
+        } catch (error) {
+          const status = document.getElementById("status");
+          if (status) {
+            status.textContent = `Preview failed: ${error.message}`;
+          }
+          console.error(error);
+        }
+      }
+
+      loadPreview();
+    </script>
+  </body>
+</html>
