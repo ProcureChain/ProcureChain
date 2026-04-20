@@ -16,6 +16,9 @@ import {
   InvoiceSignature,
   InvoiceSnapshot,
   PaymentProof,
+  OrganizationProfile,
+  SupplierPortalProfile,
+  SupplierVerificationDocument,
   PoInvoiceValidation,
   ProcurementPolicy,
   PurchaseOrder,
@@ -32,6 +35,7 @@ import {
   TaxonomySubcategory,
   PrFormSchema,
   LocationSuggestion,
+  WorkflowThreadResponse,
 } from "@/lib/types";
 
 // These raw types mirror backend DTOs closely. We keep them separate from the
@@ -86,6 +90,8 @@ type RawAudit = {
   payload?: Record<string, unknown> | null;
 };
 
+type RawWorkflowThreadResponse = WorkflowThreadResponse;
+
 type RawTaxonomySubcategory = {
   id: string;
   name: string;
@@ -93,6 +99,8 @@ type RawTaxonomySubcategory = {
   level2: string;
   level3: string;
   archetype: string;
+  isCustom?: boolean;
+  inheritsFromSubcategoryId?: string | null;
 };
 
 type RawRulesValidate = {
@@ -117,6 +125,8 @@ type RawSupplier = {
   updatedAt: string;
   contacts?: Array<{ id: string; name: string; email: string; phone?: string | null }>;
   tags?: Array<{ subcategoryId?: string | null }>;
+  onboardingProfile?: SupplierPortalProfile["onboardingProfile"];
+  documents?: SupplierVerificationDocument[];
 };
 
 type RawRfq = {
@@ -135,6 +145,21 @@ type RawRfq = {
   priceValidityDays?: number | null;
   procurementMethod?: string | null;
   procurementBand?: string | null;
+  pr?: {
+    title?: string | null;
+    subcategoryId?: string | null;
+    description?: string | null;
+    department?: string | null;
+    costCentre?: string | null;
+    metadata?: Record<string, unknown> | null;
+    lines?: Array<{
+      id: string;
+      description: string;
+      quantity: number;
+      uom?: string | null;
+      notes?: string | null;
+    }>;
+  } | null;
   suppliers?: Array<{
     id: string;
     supplierId: string;
@@ -169,6 +194,8 @@ type RawBid = {
   rfqId: string;
   supplierId: string;
   status: Bid["status"];
+  createdAt?: string | null;
+  updatedAt?: string | null;
   currency?: string | null;
   totalBidValue?: string | number | null;
   finalScore?: string | number | null;
@@ -390,7 +417,7 @@ const mapPR = (pr: RawPR, lines: RequisitionLine[] = []): Requisition => ({
         : undefined,
   justification: pr.description ?? undefined,
   status: pr.status,
-  currentApprover: pr.status === "SUBMITTED" || pr.status === "UNDER_REVIEW" ? "Pending Approver" : "-",
+  currentApprover: undefined,
   submittedAt: pr.submittedAt ?? undefined,
   updatedAt: pr.updatedAt,
   createdAt: pr.createdAt,
@@ -428,7 +455,31 @@ export async function listTaxonomySubcategories(limit = 500): Promise<TaxonomySu
     level2: row.level2,
     level3: row.level3,
     archetype: row.archetype,
+    isCustom: row.isCustom ?? false,
+    inheritsFromSubcategoryId: row.inheritsFromSubcategoryId ?? null,
   }));
+}
+
+export async function createCustomTaxonomySubcategory(payload: {
+  level1: string;
+  level2: string;
+  level3: string;
+  baseSubcategoryId?: string;
+}) {
+  const row = await apiRequest<RawTaxonomySubcategory>("/taxonomy/subcategories/custom", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  return {
+    id: row.id,
+    name: row.name,
+    level1: row.level1,
+    level2: row.level2,
+    level3: row.level3,
+    archetype: row.archetype,
+    isCustom: row.isCustom ?? false,
+    inheritsFromSubcategoryId: row.inheritsFromSubcategoryId ?? null,
+  } satisfies TaxonomySubcategory;
 }
 
 export async function getPrDynamicFieldDefs(subcategoryId: string): Promise<DynamicFieldDef[]> {
@@ -492,6 +543,19 @@ const mapRfq = (rfq: RawRfq): Rfq => ({
   })),
   bidCount: (rfq.bids ?? []).length,
   award: rfq.award ?? undefined,
+  prTitle: rfq.pr?.title ?? undefined,
+  subcategoryId: rfq.pr?.subcategoryId ?? undefined,
+  department: rfq.pr?.department ?? undefined,
+  costCentre: rfq.pr?.costCentre ?? undefined,
+  justification: rfq.pr?.description ?? undefined,
+  prMetadata: rfq.pr?.metadata ?? undefined,
+  lines: (rfq.pr?.lines ?? []).map((line) => ({
+    id: line.id,
+    description: line.description,
+    quantity: line.quantity,
+    uom: line.uom ?? undefined,
+    notes: line.notes ?? undefined,
+  })),
   createdAt: rfq.createdAt,
   updatedAt: rfq.updatedAt,
 });
@@ -509,6 +573,8 @@ const mapBid = (bid: RawBid): Bid => ({
   recommended: Boolean(bid.recommended),
   recommendationReason: bid.recommendationReason ?? null,
   notes: bid.notes ?? null,
+  createdAt: bid.createdAt ?? null,
+  updatedAt: bid.updatedAt ?? null,
   submittedAt: bid.submittedAt ?? null,
   openedAt: bid.openedAt ?? null,
   closedAt: bid.closedAt ?? null,
@@ -879,6 +945,8 @@ export async function listSuppliers() {
       deliveryScore: row.deliveryScore == null ? undefined : Number(row.deliveryScore),
       qualityScore: row.qualityScore == null ? undefined : Number(row.qualityScore),
       riskScore: row.riskScore == null ? undefined : Number(row.riskScore),
+      onboardingProfile: row.onboardingProfile ?? null,
+      documents: row.documents ?? [],
       updatedAt: row.updatedAt,
     }),
   );
@@ -898,6 +966,34 @@ export async function getSupplier(id: string) {
     deliveryScore: row.deliveryScore == null ? undefined : Number(row.deliveryScore),
     qualityScore: row.qualityScore == null ? undefined : Number(row.qualityScore),
     riskScore: row.riskScore == null ? undefined : Number(row.riskScore),
+    onboardingProfile: row.onboardingProfile ?? null,
+    documents: row.documents ?? [],
+    updatedAt: row.updatedAt,
+  } satisfies Supplier;
+}
+
+export async function updateSupplierVerification(
+  id: string,
+  payload: { verificationStatus: "PENDING" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED"; notes?: string },
+) {
+  const row = await apiRequest<RawSupplier>(`/suppliers/${id}/verification`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+  return {
+    id: row.id,
+    name: row.name,
+    status: row.status,
+    tags: (row.tags ?? []).map((tag) => tag.subcategoryId).filter((v): v is string => Boolean(v)),
+    contacts: (row.contacts ?? []).map((c) => ({ id: c.id, name: c.name, email: c.email, phone: c.phone ?? undefined })),
+    country: row.country ?? "-",
+    profileScore: row.profileScore == null ? undefined : Number(row.profileScore),
+    complianceScore: row.complianceScore == null ? undefined : Number(row.complianceScore),
+    deliveryScore: row.deliveryScore == null ? undefined : Number(row.deliveryScore),
+    qualityScore: row.qualityScore == null ? undefined : Number(row.qualityScore),
+    riskScore: row.riskScore == null ? undefined : Number(row.riskScore),
+    onboardingProfile: row.onboardingProfile ?? null,
+    documents: row.documents ?? [],
     updatedAt: row.updatedAt,
   } satisfies Supplier;
 }
@@ -911,6 +1007,134 @@ export async function listAuditEvents(params?: { entityType?: string; entityId?:
     },
   });
   return rows.map(mapAuditRow);
+}
+
+export async function getWorkflowThread(prId: string) {
+  return apiRequest<RawWorkflowThreadResponse>(`/workflow/threads/pr/${prId}`);
+}
+
+export async function addWorkflowMessage(prId: string, payload: { message: string; authorLabel?: string }) {
+  return apiRequest(`/workflow/threads/pr/${prId}/messages`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function signupOrganization(payload: {
+  companyName: string;
+  registrationNumber?: string;
+  industry?: string;
+  country?: string;
+  companySize?: string;
+  fullName: string;
+  workEmail: string;
+  password: string;
+  phoneNumber?: string;
+  role?: string;
+  monthlyProcurementSpendRange?: string;
+  mainCategoriesPurchased?: string[];
+  numberOfSuppliersCurrentlyUsed?: string;
+  usesProcurementSystemToday?: boolean;
+}) {
+  return apiRequest<{
+    tenantId: string;
+    companyId: string;
+    userId: string;
+    email: string;
+    roles: string[];
+    verificationStatus: "PENDING" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED";
+    nextSteps: {
+      canCreatePrDraft: boolean;
+      canReleaseRfq: boolean;
+      verificationDocumentsRequired: string[];
+    };
+  }>("/auth/signup/organization", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function getOrganizationProfile() {
+  return apiRequest<OrganizationProfile>("/organization/profile");
+}
+
+export async function signupSupplier(payload: {
+  companyName: string;
+  registrationNumber?: string;
+  yearsInOperation?: number;
+  numberOfEmployees?: string;
+  regionsServed?: string[];
+  website?: string;
+  fullName?: string;
+  workEmail: string;
+  password: string;
+  phoneNumber?: string;
+  categoryIds?: string[];
+  subcategoryIds: string[];
+  completedProjects?: number;
+  maxOrderValue?: number;
+  leadTimeDays?: number;
+  certifications?: string[];
+  hasQualityControlProcess?: boolean;
+  responseTimeHours?: number;
+  dedicatedAccountManager?: boolean;
+  onTimeDeliveryRate?: number;
+  disputeHistory?: boolean;
+  pricingPosition?: "PREMIUM" | "MARKET" | "BUDGET";
+}) {
+  return apiRequest<{
+    tenantId: string;
+    companyId: string;
+    supplierId: string;
+    profileScore: number;
+    tier: "BRONZE" | "SILVER" | "GOLD";
+    verificationStatus: "PENDING" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED";
+    nextSteps: {
+      canBid: boolean;
+      documentsRequired: string[];
+    };
+  }>("/auth/signup/supplier", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function login(payload: {
+  portal: "organization" | "supplier";
+  identifier: string;
+  password: string;
+}) {
+  return apiRequest<{
+    portal: "organization" | "supplier";
+    tenantId: string;
+    companyId: string;
+    actorId: string;
+    actorName: string;
+    actorRoles: string[];
+    supplierId?: string;
+  }>("/auth/login", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function getSupplierProfile() {
+  return apiRequest<SupplierPortalProfile>("/supplier/profile");
+}
+
+export async function listSupplierDocuments() {
+  return apiRequest<SupplierVerificationDocument[]>("/supplier/documents");
+}
+
+export async function uploadSupplierDocument(payload: { fieldKey: string; label?: string; file: File }) {
+  const body = new FormData();
+  body.append("fieldKey", payload.fieldKey);
+  if (payload.label) body.append("label", payload.label);
+  body.append("file", payload.file);
+  return apiRequest<SupplierVerificationDocument>("/supplier/documents", {
+    method: "POST",
+    body,
+  });
 }
 
 export async function createRfq(payload: {
@@ -938,19 +1162,9 @@ export async function getRfq(id: string) {
   return mapRfq(rfq);
 }
 
-export async function listRfqsFromAudit(limit = 30) {
-  const events = await apiRequest<RawAudit[]>("/audit/events", { query: { limit: 300 } });
-  const ids = Array.from(
-    new Set(
-      events
-        .filter((event) => event.entityType?.toUpperCase() === "RFQ")
-        .map((event) => event.entityId)
-        .filter((id): id is string => Boolean(id)),
-    ),
-  ).slice(0, limit);
-
-  const rows = await Promise.all(ids.map((id) => getRfq(id).catch(() => null)));
-  return rows.filter((row): row is Rfq => Boolean(row));
+export async function listRfqs(limit = 100) {
+  const rfqs = await apiRequest<RawRfq[]>("/rfqs", { query: { limit } });
+  return rfqs.map(mapRfq);
 }
 
 export async function addRfqSuppliers(rfqId: string, supplierIds: string[]) {

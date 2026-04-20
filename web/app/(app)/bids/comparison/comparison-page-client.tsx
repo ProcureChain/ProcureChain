@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { formatDateTime } from "@/lib/format";
+import { formatBusinessRef, formatDateTime } from "@/lib/format";
 import { useBidsByRfq, useRfqs } from "@/lib/query-hooks";
 
 const bidStatusLabel = (status: string) => {
@@ -106,8 +106,8 @@ export function BidComparisonPageClient() {
           <CardContent className="grid gap-2 text-sm md:grid-cols-2">
             <p><span className="font-medium">Title:</span> {selectedRfq.title}</p>
             <p><span className="font-medium">Status:</span> {selectedRfq.status}</p>
-            <p><span className="font-medium">RFQ ID:</span> {selectedRfq.id}</p>
-            <p><span className="font-medium">PR ID:</span> {selectedRfq.prId}</p>
+            <p><span className="font-medium">RFQ Ref:</span> {formatBusinessRef("RFQ", selectedRfq.id)}</p>
+            <p><span className="font-medium">PR Ref:</span> {formatBusinessRef("PR", selectedRfq.prId)}</p>
             <p><span className="font-medium">Release mode:</span> {selectedRfq.releaseMode ?? "-"}</p>
             <p><span className="font-medium">Bid count:</span> {bids.length}</p>
           </CardContent>
@@ -147,7 +147,7 @@ export function BidComparisonPageClient() {
                 <tbody>
                   {bids.map((bid) => (
                     <tr key={bid.id} className="border-b align-top">
-                      <td className="px-3 py-2 font-medium">{bid.supplierName ?? bid.supplierId}</td>
+                      <td className="px-3 py-2 font-medium">{bid.supplierName ?? formatBusinessRef("SUP", bid.supplierId)}</td>
                       <td className="px-3 py-2">{bidStatusLabel(bid.status)}</td>
                       <td className="px-3 py-2">{bid.totalBidValue ?? "-"}</td>
                       <td className="px-3 py-2">{bid.currency ?? "-"}</td>

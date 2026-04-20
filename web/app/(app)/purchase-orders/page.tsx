@@ -1,17 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { MessageSquareText } from "lucide-react";
 
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
 import { EmptyState } from "@/components/common/empty-state";
 import { PageHeader } from "@/components/common/page-header";
+import { WorkflowChatSheet } from "@/components/workflow/workflow-chat-sheet";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePos } from "@/lib/query-hooks";
-import { formatDateTime, formatMoney } from "@/lib/format";
+import { formatBusinessRef, formatDateTime, formatMoney } from "@/lib/format";
+import type { PurchaseOrder } from "@/lib/types";
 
 export default function PurchaseOrdersPage() {
   const { data: pos = [], error } = usePos();
+  const [selectedPo, setSelectedPo] = useState<PurchaseOrder | null>(null);
+  const [workflowOpen, setWorkflowOpen] = useState(false);
 
   return (
     <div className="space-y-5">
@@ -61,13 +67,24 @@ export default function PurchaseOrdersPage() {
                               : "-"}
                       </td>
                       <td className="px-3 py-2">{formatMoney(po.committedAmount, po.currency)}</td>
-                      <td className="px-3 py-2 font-mono text-xs text-slate-600">{po.rfqId}</td>
-                      <td className="px-3 py-2 font-mono text-xs text-slate-600">{po.prId}</td>
+                      <td className="px-3 py-2 text-slate-600">{formatBusinessRef("RFQ", po.rfqId)}</td>
+                      <td className="px-3 py-2 text-slate-600">{formatBusinessRef("PR", po.prId)}</td>
                       <td className="px-3 py-2">{formatDateTime(po.updatedAt)}</td>
                       <td className="px-3 py-2">
                         <div className="flex flex-wrap gap-2">
                           <Button asChild size="sm" variant="outline">
                             <Link href={`/purchase-orders/${po.id}`}>Detail</Link>
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => {
+                              setSelectedPo(po);
+                              setWorkflowOpen(true);
+                            }}
+                          >
+                            <MessageSquareText className="mr-2 h-4 w-4" />
+                            Workflow Chat
                           </Button>
                           <Button asChild size="sm">
                             <Link href={`/finance?poId=${po.id}`}>Finance</Link>
@@ -82,6 +99,16 @@ export default function PurchaseOrdersPage() {
           </CardContent>
         </Card>
       )}
+
+      {selectedPo ? (
+        <WorkflowChatSheet
+          open={workflowOpen}
+          onOpenChange={setWorkflowOpen}
+          prId={selectedPo.prId}
+          rfqId={selectedPo.rfqId}
+          poId={selectedPo.id}
+        />
+      ) : null}
     </div>
   );
 }

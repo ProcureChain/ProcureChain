@@ -25,6 +25,11 @@ export const formatDateTime = (iso?: string) => {
   }).format(new Date(iso));
 };
 
+export const formatBusinessRef = (prefix: string, value?: string) => {
+  if (!value) return "-";
+  return `${prefix}-${value.slice(0, 8).toUpperCase()}`;
+};
+
 export const daysOld = (iso: string) => {
   const ms = Date.now() - new Date(iso).getTime();
   return Math.max(0, Math.floor(ms / (1000 * 60 * 60 * 24)));

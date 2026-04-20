@@ -52,7 +52,7 @@ export default function AuditPage() {
 
   return (
     <div className="space-y-5">
-      <PageHeader title="Audit Log" description="Immutable activity timeline with filters and export placeholder." actions={<Button variant="outline">Export</Button>} />
+      <PageHeader title="Audit Log" description="Immutable activity timeline with filters." />
 
       <div className="grid gap-3 rounded-xl border bg-white p-3 md:grid-cols-[1fr_220px]">
         <Input placeholder="Search action or actor" value={search} onChange={(e) => setSearch(e.target.value)} />

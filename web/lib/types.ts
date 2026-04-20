@@ -16,6 +16,7 @@ export interface RequisitionLine {
   description: string;
   quantity: number;
   uom?: string;
+  notes?: string;
 }
 
 export interface RequisitionDocument {
@@ -68,6 +69,8 @@ export interface TaxonomySubcategory {
   level2: string;
   level3: string;
   archetype: string;
+  isCustom?: boolean;
+  inheritsFromSubcategoryId?: string | null;
 }
 
 export interface LocationSuggestion {
@@ -174,6 +177,98 @@ export interface Supplier {
   deliveryScore?: number;
   qualityScore?: number;
   riskScore?: number;
+  onboardingProfile?: SupplierOnboardingProfile | null;
+  documents?: SupplierVerificationDocument[];
+  updatedAt: string;
+}
+
+export interface OrganizationProfile {
+  id: string;
+  tenantId: string;
+  companyId: string;
+  companyName?: string | null;
+  registrationNumber?: string | null;
+  industry?: string | null;
+  country?: string | null;
+  companySize?: string | null;
+  contactFullName?: string | null;
+  workEmail?: string | null;
+  phoneNumber?: string | null;
+  role?: string | null;
+  monthlyProcurementSpendRange?: string | null;
+  mainCategoriesPurchased: string[];
+  supplierCountRange?: string | null;
+  usesProcurementSystem?: boolean | null;
+  verificationStatus: "PENDING" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED";
+  verifiedAt?: string | null;
+  verifiedBy?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SupplierVerificationDocument {
+  id: string;
+  fieldKey: string;
+  label?: string | null;
+  originalName: string;
+  mimeType?: string | null;
+  sizeBytes?: number | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SupplierOnboardingProfile {
+  id: string;
+  yearsInOperation?: number | null;
+  employeeCountRange?: string | null;
+  regionsServed: string[];
+  selectedCategoryIds: string[];
+  questionnaire?: Record<string, unknown> | null;
+  scoreBreakdown?: Record<string, unknown> | null;
+  tier: "BRONZE" | "SILVER" | "GOLD";
+  verificationStatus: "PENDING" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED";
+  verifiedAt?: string | null;
+  verifiedBy?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SupplierPortalProfile {
+  id: string;
+  name: string;
+  legalName?: string | null;
+  registrationNumber?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  website?: string | null;
+  country?: string | null;
+  profileScore?: number | null;
+  complianceScore?: number | null;
+  deliveryScore?: number | null;
+  qualityScore?: number | null;
+  riskScore?: number | null;
+  contacts: Array<{
+    id: string;
+    name: string;
+    email?: string | null;
+    phone?: string | null;
+    role?: string | null;
+    isPrimary?: boolean;
+  }>;
+  tags: Array<{
+    id: string;
+    subcategoryId: string;
+    subcategory?: {
+      id: string;
+      name: string;
+      level1: string;
+      level2: string;
+      level3: string;
+    } | null;
+  }>;
+  onboardingProfile?: SupplierOnboardingProfile | null;
+  documents: SupplierVerificationDocument[];
+  createdAt: string;
   updatedAt: string;
 }
 
@@ -187,6 +282,40 @@ export interface AuditEvent {
   details: string;
   before?: Record<string, unknown>;
   after?: Record<string, unknown>;
+}
+
+export interface WorkflowThreadEntryMessage {
+  id: string;
+  type: "message";
+  at: string;
+  authorLabel: string;
+  authorId?: string | null;
+  message: string;
+}
+
+export interface WorkflowThreadEntryEvent {
+  id: string;
+  type: "event";
+  at: string;
+  authorLabel: string;
+  entityType: string;
+  entityId?: string | null;
+  eventType: string;
+  payload?: Record<string, unknown> | null;
+}
+
+export type WorkflowThreadEntry = WorkflowThreadEntryMessage | WorkflowThreadEntryEvent;
+
+export interface WorkflowThread {
+  id: string;
+  prId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface WorkflowThreadResponse {
+  thread: WorkflowThread;
+  entries: WorkflowThreadEntry[];
 }
 
 export interface DashboardKpi {
@@ -230,6 +359,13 @@ export interface Rfq {
   suppliers: RfqSupplierLink[];
   bidCount: number;
   award?: { bidId: string; supplierId: string; overrideReason: string };
+  prTitle?: string;
+  subcategoryId?: string;
+  department?: string;
+  costCentre?: string;
+  justification?: string;
+  prMetadata?: Record<string, unknown>;
+  lines: RequisitionLine[];
   createdAt: string;
   updatedAt: string;
 }
@@ -277,6 +413,8 @@ export interface Bid {
   recommended?: boolean;
   recommendationReason?: string | null;
   notes?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   submittedAt?: string | null;
   openedAt?: string | null;
   closedAt?: string | null;

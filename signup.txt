@@ -1,0 +1,161 @@
+�
+� 1. ORGANIZATION SIGN-UP (BUYERS)
+Goal: frictionless onboarding → fast activation → PR creation ASAP
+This aligns with your system principle: 👉 “PR submission in under 60 seconds”
+So onboarding must be lightweight upfront, heavy later (progressive profiling).
+✅ Step 1: Basic Account Creation (Website Form)
+Core Fields (MVP)
+Keep this clean + minimal:
+Company Info
+Company Name
+Registration Number
+Industry (dropdown aligned to your taxonomy)
+Country
+Company Size (1–10, 10–50, etc.)
+User Info
+Full Name
+Work Email
+Phone Number
+Role (Procurement / Finance / Operations / Other)
+Procurement Snapshot (VERY IMPORTANT for AI later)
+Monthly procurement spend range
+Main categories purchased (multi-select from your taxonomy)
+Number of suppliers currently used
+Do you use a procurement system today? (Yes/No)
+👉 This is powerful because:
+Feeds AI orchestration layer later (recommend suppliers, savings)
+Helps segment enterprise vs SME immediately
+✅ Step 2: Instant Account Creation
+After submit:
+Create tenant
+Assign default roles
+Auto-create buyer profile
+👉 Keep this instant (no waiting)
+✅ Step 3: Verification Layer (Post-Signup)
+Required Documents (upload after login):
+Company Registration Certificate
+Tax/VAT Certificate
+Bank Confirmation Letter
+This aligns with your compliance + audit model
+UX Tip:
+👉 Don’t block usage — allow limited actions:
+Can create PR (draft)
+Cannot release RFQ until verified
+🧠 AI Opportunity (MVP → V2)
+Auto-classify company into procurement archetypes
+Suggest:
+Default approval flows
+Supplier categories
+Budget setup
+2. SUPPLIER SIGN-UP (MORE ADVANCED)
+Goal: build a scored, structured supplier intelligence layer
+This is strategic differentiation.
+✅ Step 1: Basic Supplier Profile
+Company Details
+Company Name
+Registration Number
+Years in operation
+Number of employees
+Regions served
+Website
+Capability Mapping (VERY IMPORTANT)
+Select categories (max 2 as per your model)
+Select subcategories (mapped to your taxonomy)
+👉 This should link directly to your canonical structure
+✅ Step 2: Supplier Scoring Questionnaire (5–10 Questions)
+This is where you build your AI-ready supplier scorecard
+Categories of Questions
+1. Experience
+Years of experience in selected category
+Number of completed projects
+2. Capacity
+Max order size / project value
+Lead time capability
+3. Quality & Compliance
+Certifications (ISO, etc.)
+Quality control processes
+4. Customer Service
+Response time (hours/days)
+Dedicated account manager? (Yes/No)
+5. Reliability
+On-time delivery rate (self-declared %)
+Dispute history (Yes/No)
+6. Pricing Competitiveness
+Positioning: Premium / Market / Budget
+🧠 Scoring Logic (VERY IMPORTANT)
+Create a weighted score:
+Experience
+Category
+20%
+Weight
+Capacity
+Quality/Compliance
+Reliability
+Customer Service
+Pricing
+👉 Output:
+Supplier Score (0–100)
+Tier (Bronze / Silver / Gold)
+✅ Step 3: Document Upload (Verification)
+Mandatory (aligned with your system rules):
+Company Registration
+Tax/VAT Certificate
+Bank Confirmation
+Insurance (optional but strong signal)
+👉 This matches your supplier compliance requirements
+✅ Step 4: Approval Flow
+Two modes (configurable):
+Auto-approved (MVP)
+Admin review (future)
+15%
+25%
+20%
+10%
+10%
+�
+� 3. POST-ONBOARDING INTELLIGENCE (KEY 
+DIFFERENTIATOR)
+Once supplier is live:
+System should automatically track:
+RFQ participation
+Win rate
+Response time
+Delivery performance
+👉 This feeds: Supplier Performance Engine
+⚡ 4. PRODUCT ARCHITECTURE VIEW
+Data Model (Simplified)
+Organization
+org_id
+procurement_profile
+verification_status
+Supplier
+supplier_id
+category_mapping
+score
+documents
+performance_metrics
+🚀 5. MVP vs FUTURE (VERY IMPORTANT FOR 
+YOU)
+MVP (What you should build NOW)
+Basic buyer form
+Basic supplier form
+Static scoring (rule-based)
+Manual verification
+Simple supplier score display
+V2 (AI-Driven)
+AI scoring (based on real performance)
+Supplier ranking engine in RFQs
+Fraud detection
+Auto-verification (document OCR + validation)
+Dynamic supplier recommendations
+🔥 6. STRATEGIC INSIGHT (CO-FOUNDER 
+ADVICE)
+What you’re building here is NOT just onboarding.
+👉 You are building: The foundation of your procurement intelligence graph
+If you get this right:
+Supplier scoring becomes your moat
+Buyer-supplier matching becomes automated
+You can monetize:
+Supplier ranking
+Premium visibility
+Verified supplier badges

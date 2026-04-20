@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useState } from "react";
+import { MessageSquareText } from "lucide-react";
 
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
 import { PageHeader } from "@/components/common/page-header";
+import { WorkflowChatSheet } from "@/components/workflow/workflow-chat-sheet";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useBid } from "@/lib/query-hooks";
+import { formatBusinessRef } from "@/lib/format";
+import { useBid, useRfq } from "@/lib/query-hooks";
 
 const bidStatusLabel = (status: string) => {
   switch (status) {
@@ -31,6 +35,8 @@ const bidStatusLabel = (status: string) => {
 export default function BidDetailPage() {
   const params = useParams<{ id: string }>();
   const { data: bid, error } = useBid(params.id);
+  const { data: rfq } = useRfq(bid?.rfqId ?? "");
+  const [workflowOpen, setWorkflowOpen] = useState(false);
 
   if (error) return <ApiErrorAlert error={error} />;
   if (!bid) return <div className="rounded-xl border bg-white p-8 text-sm text-slate-500">Loading bid...</div>;
@@ -38,10 +44,16 @@ export default function BidDetailPage() {
   return (
     <div className="space-y-5">
       <PageHeader
-        title={`Bid ${bid.id}`}
-        description={`RFQ ${bid.rfqId} • Supplier ${bid.supplierName ?? bid.supplierId} • ${bidStatusLabel(bid.status)}`}
+        title={formatBusinessRef("BID", bid.id)}
+        description={`${formatBusinessRef("RFQ", bid.rfqId)} • Supplier ${bid.supplierName ?? formatBusinessRef("SUP", bid.supplierId)} • ${bidStatusLabel(bid.status)}`}
         actions={
           <div className="flex gap-2">
+            {rfq?.prId ? (
+              <Button variant="outline" onClick={() => setWorkflowOpen(true)}>
+                <MessageSquareText className="mr-2 h-4 w-4" />
+                Workflow Chat
+              </Button>
+            ) : null}
             <Button asChild variant="outline">
               <Link href={`/bids?rfqId=${bid.rfqId}`}>Back to Bid List</Link>
             </Button>
@@ -57,7 +69,7 @@ export default function BidDetailPage() {
           <CardTitle>Bid Review</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm">
-          <p>Supplier: {bid.supplierName ?? bid.supplierId}</p>
+          <p>Supplier: {bid.supplierName ?? formatBusinessRef("SUP", bid.supplierId)}</p>
           <p>Supplier score: {bid.supplierProfileScore ?? "-"}</p>
           <p>Status: {bidStatusLabel(bid.status)}</p>
           <p>Total value: {bid.totalBidValue ?? 0} {bid.currency ?? ""}</p>
@@ -75,6 +87,15 @@ export default function BidDetailPage() {
           Review the supplier response here, then return to the RFQ page to select the winning supplier and award the RFQ.
         </CardContent>
       </Card>
+
+      {rfq?.prId ? (
+        <WorkflowChatSheet
+          open={workflowOpen}
+          onOpenChange={setWorkflowOpen}
+          prId={rfq.prId}
+          rfqId={bid.rfqId}
+        />
+      ) : null}
     </div>
   );
 }

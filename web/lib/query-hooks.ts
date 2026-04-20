@@ -35,6 +35,7 @@ import {
   listInvoices,
   listPos,
   listRequisitions,
+  listRfqs,
   listRfqsFromAudit,
   listRetentionRuns,
   listSoDRules,
@@ -61,6 +62,9 @@ import {
   getPrDynamicFieldDefs,
   getPrFormSchema,
   getLocationSuggestions,
+  getOrganizationProfile,
+  getSupplierProfile,
+  getWorkflowThread,
   listSupplierFormTemplates,
   createSupplierFormTemplate,
   listRfqSupplierForms,
@@ -69,13 +73,20 @@ import {
   listDeliveryNotes,
   createLiveInvoiceFromTemplate,
   createSupplierInvoice,
+  createCustomTaxonomySubcategory,
+  listSupplierDocuments,
+  login,
   listLiveInvoices,
   getLiveInvoice,
   markLiveInvoicePaid,
   reviewLiveInvoice,
   signLiveInvoice,
+  signupSupplier,
   submitSupplierInvoice,
+  uploadSupplierDocument,
   uploadSignedInvoice,
+  updateSupplierVerification,
+  addWorkflowMessage,
 } from "@/lib/api/mock-api";
 import { runtimeConfig } from "@/lib/runtime-config";
 import {
@@ -88,6 +99,9 @@ import {
   GovernanceGeneratedExport,
   InvoiceSnapshot,
   LiveInvoice,
+  OrganizationProfile,
+  SupplierPortalProfile,
+  SupplierVerificationDocument,
   PoInvoiceValidation,
   ProcurementPolicy,
   PurchaseOrder,
@@ -102,6 +116,7 @@ import {
   LocationSuggestion,
   SupplierFormTemplate,
   TaxonomySubcategory,
+  WorkflowThreadResponse,
 } from "@/lib/types";
 
 export const queryKeys = {
@@ -136,6 +151,10 @@ export const queryKeys = {
   deliveryNotes: (poId: string) => ["finance", "delivery-notes", poId] as const,
   liveInvoices: (poId: string) => ["finance", "live-invoices", poId] as const,
   liveInvoice: (invoiceId: string) => ["finance", "live-invoice", invoiceId] as const,
+  workflowThread: (prId: string) => ["workflow", "thread", prId] as const,
+  organizationProfile: ["organization", "profile"] as const,
+  supplierProfile: ["supplier", "profile"] as const,
+  supplierDocuments: ["supplier", "documents"] as const,
   // Include the current data source in every cache key so mock and live data
   // never bleed into the same React Query cache entry during development.
   mode: runtimeConfig.useMockApi ? "mock" : "live",
@@ -149,6 +168,7 @@ const readApi = runtimeConfig.useMockApi
       listSuppliers,
       getSupplier,
       listAuditEvents,
+      listRfqs,
       listRfqsFromAudit,
       getRfq,
       listBidsByRfq,
@@ -166,9 +186,15 @@ const readApi = runtimeConfig.useMockApi
       listRetentionRuns,
       verifyAuditEvidence,
       listTaxonomySubcategories,
+      createCustomTaxonomySubcategory,
       getPrDynamicFieldDefs,
       getPrFormSchema,
       getLocationSuggestions,
+      getOrganizationProfile,
+      getSupplierProfile,
+      listSupplierDocuments,
+      login,
+      getWorkflowThread,
       listSupplierFormTemplates,
       listRfqSupplierForms,
       listDeliveryNotes,
@@ -215,6 +241,7 @@ const actionApi = runtimeConfig.useMockApi
       runRetention,
       createSupplierFormTemplate,
       attachRfqSupplierForm,
+      signupSupplier,
       createDeliveryNote,
       createLiveInvoiceFromTemplate,
       createSupplierInvoice,
@@ -222,7 +249,12 @@ const actionApi = runtimeConfig.useMockApi
       reviewLiveInvoice,
       signLiveInvoice,
       submitSupplierInvoice,
+      uploadSupplierDocument,
       uploadSignedInvoice,
+      updateSupplierVerification,
+      login,
+      createCustomTaxonomySubcategory,
+      addWorkflowMessage,
     }
   : {
       createRequisition: liveApi.createRequisition,
@@ -265,7 +297,15 @@ const actionApi = runtimeConfig.useMockApi
       reviewLiveInvoice: liveApi.reviewLiveInvoice,
       signLiveInvoice: liveApi.signLiveInvoice,
       submitSupplierInvoice: liveApi.submitSupplierInvoice,
+      signupSupplier: liveApi.signupSupplier,
+      login: liveApi.login,
+      uploadSupplierDocument: liveApi.uploadSupplierDocument,
       uploadSignedInvoice: liveApi.uploadSignedInvoice,
+      updateSupplierVerification: liveApi.updateSupplierVerification,
+      getSupplierProfile: liveApi.getSupplierProfile,
+      listSupplierDocuments: liveApi.listSupplierDocuments,
+      addWorkflowMessage: liveApi.addWorkflowMessage,
+      createCustomTaxonomySubcategory: liveApi.createCustomTaxonomySubcategory,
     };
 
 export function useRequisitions() {
@@ -388,10 +428,111 @@ export function useRequisitionDocumentUpload() {
   });
 }
 
+export function useWorkflowThread(prId: string) {
+  return useQuery<WorkflowThreadResponse>({
+    queryKey: [...queryKeys.workflowThread(prId), queryKeys.mode],
+    queryFn: () => readApi.getWorkflowThread(prId) as Promise<WorkflowThreadResponse>,
+    enabled: Boolean(prId),
+  });
+}
+
+export function useOrganizationProfile(enabled = true) {
+  return useQuery<OrganizationProfile>({
+    queryKey: [...queryKeys.organizationProfile, queryKeys.mode],
+    queryFn: () => readApi.getOrganizationProfile() as Promise<OrganizationProfile>,
+    enabled,
+  });
+}
+
+export function useSupplierProfile(enabled = true) {
+  return useQuery<SupplierPortalProfile>({
+    queryKey: [...queryKeys.supplierProfile, queryKeys.mode],
+    queryFn: () => readApi.getSupplierProfile() as Promise<SupplierPortalProfile>,
+    enabled,
+  });
+}
+
+export function useSupplierDocuments(enabled = true) {
+  return useQuery<SupplierVerificationDocument[]>({
+    queryKey: [...queryKeys.supplierDocuments, queryKeys.mode],
+    queryFn: () => readApi.listSupplierDocuments() as Promise<SupplierVerificationDocument[]>,
+    enabled,
+  });
+}
+
+export function useSupplierSignup() {
+  return useMutation({
+    mutationFn: (payload: {
+      companyName: string;
+      registrationNumber?: string;
+      yearsInOperation?: number;
+      numberOfEmployees?: string;
+      regionsServed?: string[];
+      website?: string;
+      fullName?: string;
+      workEmail: string;
+      password: string;
+      phoneNumber?: string;
+      categoryIds?: string[];
+      subcategoryIds: string[];
+      completedProjects?: number;
+      maxOrderValue?: number;
+      leadTimeDays?: number;
+      certifications?: string[];
+      hasQualityControlProcess?: boolean;
+      responseTimeHours?: number;
+      dedicatedAccountManager?: boolean;
+      onTimeDeliveryRate?: number;
+      disputeHistory?: boolean;
+      pricingPosition?: "PREMIUM" | "MARKET" | "BUDGET";
+    }) => actionApi.signupSupplier(payload),
+  });
+}
+
+export function useLoginAction() {
+  return useMutation({
+    mutationFn: (payload: { portal: "organization" | "supplier"; identifier: string; password: string }) =>
+      actionApi.login(payload),
+  });
+}
+
+export function useSupplierDocumentAction() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { fieldKey: string; label?: string; file: File }) => actionApi.uploadSupplierDocument(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.supplierDocuments });
+      queryClient.invalidateQueries({ queryKey: queryKeys.supplierProfile });
+    },
+  });
+}
+
+export function useWorkflowMessageAction() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ prId, message, authorLabel }: { prId: string; message: string; authorLabel?: string }) =>
+      actionApi.addWorkflowMessage(prId, { message, authorLabel }),
+    onSuccess: (_result, variables) => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.workflowThread(variables.prId) });
+    },
+  });
+}
+
 export function useTaxonomySubcategories() {
   return useQuery({
     queryKey: [...queryKeys.subcategories, queryKeys.mode],
     queryFn: () => readApi.listTaxonomySubcategories(),
+  });
+}
+
+export function useCreateCustomTaxonomySubcategory() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { level1: string; level2: string; level3: string; baseSubcategoryId?: string }) =>
+      actionApi.createCustomTaxonomySubcategory(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.subcategories });
+    },
   });
 }
 
@@ -506,7 +647,26 @@ export function useSuppliers() {
 }
 
 export function useSupplier(id: string) {
-  return useQuery({ queryKey: [...queryKeys.supplier(id), queryKeys.mode], queryFn: () => readApi.getSupplier(id) });
+  return useQuery({
+    queryKey: [...queryKeys.supplier(id), queryKeys.mode],
+    queryFn: () => readApi.getSupplier(id),
+    enabled: Boolean(id),
+  });
+}
+
+export function useSupplierVerificationAction() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { id: string; verificationStatus: "PENDING" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED"; notes?: string }) =>
+      actionApi.updateSupplierVerification(payload.id, { verificationStatus: payload.verificationStatus, notes: payload.notes }),
+    onSuccess: (updated) => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.suppliers });
+      if (updated?.id) {
+        queryClient.setQueryData(queryKeys.supplier(updated.id), updated);
+      }
+      queryClient.invalidateQueries({ queryKey: queryKeys.supplierProfile });
+    },
+  });
 }
 
 export function useAuditEvents(params?: { entityType?: string; entityId?: string; limit?: number }) {
@@ -524,7 +684,7 @@ export function useAuditEvents(params?: { entityType?: string; entityId?: string
 export function useRfqs() {
   return useQuery<Rfq[]>({
     queryKey: [...queryKeys.rfqs, queryKeys.mode],
-    queryFn: () => readApi.listRfqsFromAudit() as Promise<Rfq[]>,
+    queryFn: () => readApi.listRfqs() as Promise<Rfq[]>,
   });
 }
 
@@ -602,15 +762,28 @@ export function useBid(id: string) {
 export function useBidAction() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (payload: { type: "upsert" | "submit" | "open" | "evaluate" | "recommend" | "transition"; bidId?: string; rfqId?: string; supplierId?: string; totalBidValue?: number; reason?: string; status?: "SHORTLISTED" | "REJECTED" | "CLOSED" }) => {
+    mutationFn: async (payload: {
+      type: "upsert" | "submit" | "open" | "evaluate" | "recommend" | "transition";
+      bidId?: string;
+      rfqId?: string;
+      supplierId?: string;
+      totalBidValue?: number;
+      reason?: string;
+      status?: "SHORTLISTED" | "REJECTED" | "CLOSED";
+      notes?: string;
+      payload?: Record<string, unknown>;
+      documents?: Record<string, unknown>;
+      currency?: string;
+    }) => {
       if (payload.type === "upsert") {
         return actionApi.upsertBid({
           rfqId: payload.rfqId ?? "",
           supplierId: payload.supplierId ?? "",
           totalBidValue: payload.totalBidValue,
-          currency: "ZAR",
-          payload: { compliance: { supplier_documents: true } },
-          documents: { proposal: "doc-frontend" },
+          currency: payload.currency ?? "ZAR",
+          notes: payload.notes,
+          payload: payload.payload ?? { compliance: { supplier_documents: true } },
+          documents: payload.documents ?? {},
         });
       }
       if (!payload.bidId) throw new Error("bidId is required");

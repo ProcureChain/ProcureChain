@@ -1,0 +1,2 @@
+ALTER TABLE "RFQ"
+ADD COLUMN IF NOT EXISTS "localCountryCode" TEXT;

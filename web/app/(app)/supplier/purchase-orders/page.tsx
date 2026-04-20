@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { formatDateTime, formatMoney } from "@/lib/format";
+import { formatBusinessRef, formatDateTime, formatMoney } from "@/lib/format";
 import { usePoAction, usePos } from "@/lib/query-hooks";
 import { runtimeConfig } from "@/lib/runtime-config";
 import type { PurchaseOrder } from "@/lib/types";
@@ -91,7 +91,7 @@ export default function SupplierPurchaseOrdersPage() {
                       <td className="px-3 py-2 font-medium">{po.poNumber}</td>
                       <td className="px-3 py-2">{po.status}</td>
                       <td className="px-3 py-2">{formatMoney(po.committedAmount, po.currency)}</td>
-                      <td className="px-3 py-2 font-mono text-xs text-slate-600">{po.rfqId}</td>
+                      <td className="px-3 py-2 text-slate-600">{formatBusinessRef("RFQ", po.rfqId)}</td>
                       <td className="px-3 py-2">{formatDateTime(po.updatedAt)}</td>
                       <td className="px-3 py-2">
                         <div className="flex flex-wrap gap-2">

@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
 import { PageHeader } from "@/components/common/page-header";
 import { PermissionNote } from "@/components/common/permission-note";
-import { RequesterQuerySheet } from "@/components/rfq/requester-query-sheet";
+import { WorkflowChatSheet } from "@/components/workflow/workflow-chat-sheet";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -17,7 +17,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useBidsByRfq, useRfq, useRfqAction, useRfqSupplierForms, useSupplierFormAction, useSupplierFormTemplates, useSuppliers } from "@/lib/query-hooks";
+import { formatBusinessRef } from "@/lib/format";
+import { useBidsByRfq, useOrganizationProfile, useRfq, useRfqAction, useRfqSupplierForms, useSupplierFormAction, useSupplierFormTemplates, useSuppliers } from "@/lib/query-hooks";
 import { runtimeConfig } from "@/lib/runtime-config";
 import { canPerformAction, permissionHint } from "@/lib/roles";
 
@@ -46,6 +47,7 @@ export default function RfqDetailPage() {
   const { data: rfq, error } = useRfq(params.id);
   const { data: suppliers = [] } = useSuppliers();
   const { data: bids = [] } = useBidsByRfq(params.id);
+  const organizationProfile = useOrganizationProfile(!runtimeConfig.isSupplierPortal);
   const { data: formTemplates = [] } = useSupplierFormTemplates();
   const { data: attachedForms = [] } = useRfqSupplierForms(params.id);
   const action = useRfqAction();
@@ -61,7 +63,9 @@ export default function RfqDetailPage() {
   const [selectedTemplateId, setSelectedTemplateId] = useState("");
   const [queryOpen, setQueryOpen] = useState(false);
 
-  const canRelease = rfq?.status === "DRAFT" && canPerformAction("RFQ_RELEASE");
+  const orgVerificationStatus = organizationProfile.data?.verificationStatus;
+  const orgVerified = orgVerificationStatus === "VERIFIED";
+  const canRelease = rfq?.status === "DRAFT" && canPerformAction("RFQ_RELEASE") && orgVerified;
   const canOpen = rfq?.status === "RELEASED" && canPerformAction("RFQ_OPEN");
   const canAward = rfq?.status === "OPEN" && canPerformAction("RFQ_AWARD");
   const canClose = rfq?.status === "OPEN" || rfq?.status === "AWARDED";
@@ -127,18 +131,19 @@ export default function RfqDetailPage() {
     <div className="space-y-5">
       <PageHeader
         title={`${rfq.title}`}
-        description={`RFQ ${rfq.id} • PR ${rfq.prId} • Status ${rfq.status}${rfq.releaseMode ? ` • ${rfq.releaseMode} release` : ""}`}
+        description={`${formatBusinessRef("RFQ", rfq.id)} • ${formatBusinessRef("PR", rfq.prId)} • Status ${rfq.status}${rfq.releaseMode ? ` • ${rfq.releaseMode} release` : ""}`}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => setQueryOpen(true)}>
               <MessageSquareText className="mr-2 h-4 w-4" />
-              Query Requester
+              Workflow Chat
             </Button>
             <Button asChild><Link href={`/bids?rfqId=${rfq.id}`}>Manage Bids</Link></Button>
           </div>
         }
       />
       {action.error ? <ApiErrorAlert error={action.error} /> : null}
+      {organizationProfile.error ? <ApiErrorAlert error={organizationProfile.error} /> : null}
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
@@ -163,6 +168,12 @@ export default function RfqDetailPage() {
           </CardHeader>
           <CardContent className="space-y-2">
             {!canPerformAction("RFQ_RELEASE") ? <PermissionNote message={permissionHint("RFQ_RELEASE")} /> : null}
+            {!orgVerified ? (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+                RFQ release is blocked until the organization verification status is <span className="font-semibold">VERIFIED</span>.
+                Current status: <span className="font-semibold">{orgVerificationStatus ?? "MISSING_PROFILE"}</span>.
+              </div>
+            ) : null}
             <div className="space-y-1">
               <Label htmlFor="release-mode">Release mode</Label>
               <Select value={releaseMode} onValueChange={(value) => setReleaseMode(value as "PRIVATE" | "LOCAL" | "GLOBAL")}>
@@ -225,7 +236,7 @@ export default function RfqDetailPage() {
               Add Suppliers
             </Button>
             <div className="text-xs text-slate-500">
-              Known suppliers: {suppliers.map((s) => `${s.name} (${s.id.slice(0, 8)})`).join(" • ") || "none"}
+              Known suppliers: {suppliers.map((s) => s.name).join(" • ") || "none"}
             </div>
           </CardContent>
         </Card>
@@ -380,7 +391,7 @@ export default function RfqDetailPage() {
             {rfq.suppliers.length ? (
               rfq.suppliers.map((link) => (
                 <p key={link.id}>
-                  {link.supplierName} ({link.supplierId})
+                  {link.supplierName ?? formatBusinessRef("SUP", link.supplierId)}
                 </p>
               ))
             ) : (
@@ -398,7 +409,7 @@ export default function RfqDetailPage() {
               bids.map((bid) => (
                 <div key={bid.id} className="flex items-center justify-between rounded border p-2">
                   <p>
-                    {bid.id} • {supplierLookup.get(bid.supplierId) ?? bid.supplierId} • {bidStatusLabel(bid.status)}
+                    {formatBusinessRef("BID", bid.id)} • {supplierLookup.get(bid.supplierId) ?? formatBusinessRef("SUP", bid.supplierId)} • {bidStatusLabel(bid.status)}
                   </p>
                   <div className="flex items-center gap-2">
                     <Button
@@ -425,7 +436,7 @@ export default function RfqDetailPage() {
         </Card>
       </div>
 
-      <RequesterQuerySheet
+      <WorkflowChatSheet
         open={queryOpen}
         onOpenChange={setQueryOpen}
         prId={rfq.prId}

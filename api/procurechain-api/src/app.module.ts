@@ -16,6 +16,8 @@ import { ComplianceModule } from './compliance/compliance.module';
 import { GovernanceModule } from './governance/governance.module';
 import { BidModule } from './bid/bid.module';
 import { MetricsModule } from './common/metrics.module';
+import { WorkflowModule } from './workflow/workflow.module';
+import { OnboardingModule } from './onboarding/onboarding.module';
 
 
 @Module({
@@ -38,6 +40,8 @@ import { MetricsModule } from './common/metrics.module';
     GovernanceModule,
     BidModule,
     MetricsModule,
+    WorkflowModule,
+    OnboardingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

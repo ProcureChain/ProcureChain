@@ -8,6 +8,7 @@ import { ApprovalService } from './approval.service';
 import { CreatePRDocumentDto, CreatePRDto, UpdatePRDto } from './pr.dto';
 import { PRStatus, Prisma } from '@prisma/client';
 import { RulesService } from '../rules/rules.service';
+import { WorkflowService } from '../workflow/workflow.service';
 
 type UploadedBinary = {
   originalname: string;
@@ -25,6 +26,7 @@ export class PRService {
     private readonly audit: AuditService,
     private readonly approvals: ApprovalService,
     private readonly rules: RulesService,
+    private readonly workflow: WorkflowService,
   ) {}
 
   private readonly allowedTransitions: Record<PRStatus, PRStatus[]> = {
@@ -196,6 +198,8 @@ export class PRService {
         metadataKeys: dto.metadata ? Object.keys(dto.metadata) : [],
       },
     });
+
+    await this.workflow.ensureThread(ctx, pr.id);
 
     return pr;
   }

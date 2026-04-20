@@ -4,9 +4,10 @@ import { BidService } from './bid.service';
 import { AuditModule } from '../audit/audit.module';
 import { RulesModule } from '../rules/rules.module';
 import { PolicyModule } from '../policy/policy.module';
+import { TaxonomyModule } from '../taxonomy/taxonomy.module';
 
 @Module({
-  imports: [AuditModule, RulesModule, PolicyModule],
+  imports: [AuditModule, RulesModule, PolicyModule, TaxonomyModule],
   controllers: [BidController],
   providers: [BidService],
   exports: [BidService],

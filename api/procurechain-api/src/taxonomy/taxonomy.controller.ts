@@ -1,6 +1,7 @@
-import { BadRequestException, Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { TenantGuard } from '../common/tenant.guard';
 import { TaxonomyService } from './taxonomy.service';
+import { CreateCustomSubcategoryDto } from './taxonomy.dto';
 
 @Controller('taxonomy')
 @UseGuards(TenantGuard)
@@ -9,17 +10,24 @@ export class TaxonomyController {
 
   @Get('subcategories')
   async subcategories(
+    @Req() req: any,
     @Query('q') q?: string,
     @Query('archetype') archetype?: string,
     @Query('limit') limit?: string,
     @Query('canonicalOnly') canonicalOnly?: string,
   ) {
     return this.taxonomy.subcategories(
+      req.ctx,
       q,
       archetype,
       limit ? Number(limit) : 100,
       canonicalOnly === 'true',
     );
+  }
+
+  @Post('subcategories/custom')
+  async createCustomSubcategory(@Req() req: any, @Body() dto: CreateCustomSubcategoryDto) {
+    return this.taxonomy.createCustomSubcategory(req.ctx, dto);
   }
 
   @Get('effective-config')

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ColumnDef } from "@tanstack/react-table";
 import { toast } from "sonner";
 
@@ -19,6 +20,7 @@ import { canPerformAction, permissionHint } from "@/lib/roles";
 import { ApprovalAction, ApprovalTask } from "@/lib/types";
 
 export default function ApprovalsPage() {
+  const router = useRouter();
   const { data = [], error } = useApprovalTasks();
   const approveAction = useApprovalAction();
 
@@ -59,6 +61,7 @@ export default function ApprovalsPage() {
     setConfirmOpen(false);
     setSelected(null);
     setComment("");
+    router.push("/requisitions");
   };
 
   return (

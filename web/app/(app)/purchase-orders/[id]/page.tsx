@@ -3,10 +3,12 @@
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { MessageSquareText } from "lucide-react";
 
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
 import { PageHeader } from "@/components/common/page-header";
 import { PermissionNote } from "@/components/common/permission-note";
+import { WorkflowChatSheet } from "@/components/workflow/workflow-chat-sheet";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -18,7 +20,7 @@ import {
   downloadLiveInvoicePdf,
   previewLiveInvoiceDocument,
 } from "@/lib/api/live-api";
-import { formatDateTime, formatMoney } from "@/lib/format";
+import { formatBusinessRef, formatDateTime, formatMoney } from "@/lib/format";
 import { useDeliveryNotes, useFinanceAction, useLiveInvoices, usePo, usePoAction } from "@/lib/query-hooks";
 import { canPerformAction, permissionHint } from "@/lib/roles";
 import { runtimeConfig } from "@/lib/runtime-config";
@@ -42,6 +44,7 @@ export default function PurchaseOrderDetailPage() {
   const [paymentReference, setPaymentReference] = useState("");
   const [paymentAmount, setPaymentAmount] = useState("");
   const [paymentProofFile, setPaymentProofFile] = useState<File | null>(null);
+  const [workflowOpen, setWorkflowOpen] = useState(false);
 
   if (error) return <ApiErrorAlert error={error} />;
   if (!po) return <div className="rounded-xl border bg-white p-8 text-sm text-slate-500">Loading purchase order...</div>;
@@ -111,6 +114,12 @@ export default function PurchaseOrderDetailPage() {
       <PageHeader
         title={`PO ${po.poNumber}`}
         description={`Status ${po.status} • ${formatMoney(po.committedAmount, po.currency)} • Supplier ${po.supplierName ?? "-"}`}
+        actions={
+          <Button variant="outline" onClick={() => setWorkflowOpen(true)}>
+            <MessageSquareText className="mr-2 h-4 w-4" />
+            Workflow Chat
+          </Button>
+        }
       />
 
       {action.error ? <ApiErrorAlert error={action.error} /> : null}
@@ -153,8 +162,8 @@ export default function PurchaseOrderDetailPage() {
           <CardTitle>PO Summary</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-2 text-sm md:grid-cols-2">
-          <p>RFQ: {po.rfqId}</p>
-          <p>PR: {po.prId}</p>
+          <p>RFQ: {formatBusinessRef("RFQ", po.rfqId)}</p>
+          <p>PR: {formatBusinessRef("PR", po.prId)}</p>
           <p>Terms: {po.terms ?? "-"}</p>
           <p>Notes: {po.notes ?? "-"}</p>
           <p>Commercial-only: {po.commercialOnly ? "Yes" : "No"}</p>
@@ -402,6 +411,14 @@ export default function PurchaseOrderDetailPage() {
           </div>
         </DialogContent>
       </Dialog>
+
+      <WorkflowChatSheet
+        open={workflowOpen}
+        onOpenChange={setWorkflowOpen}
+        prId={po.prId}
+        rfqId={po.rfqId}
+        poId={po.id}
+      />
     </div>
   );
 }

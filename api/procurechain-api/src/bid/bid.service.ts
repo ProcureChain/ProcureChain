@@ -4,6 +4,7 @@ import { AuditService } from '../audit/audit.service';
 import { PolicyService } from '../policy/policy.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { RulesService } from '../rules/rules.service';
+import { TaxonomyService } from '../taxonomy/taxonomy.service';
 import type { BidStatusDto, EvaluateBidDto, RecommendBidDto, UpsertBidDto } from './bid.dto';
 
 type Ctx = {
@@ -29,6 +30,7 @@ export class BidService {
     private readonly audit: AuditService,
     private readonly rules: RulesService,
     private readonly policy: PolicyService,
+    private readonly taxonomy: TaxonomyService,
   ) {}
 
   private readonly allowedTransitions: Record<BidStatus, BidStatus[]> = {
@@ -86,11 +88,104 @@ export class BidService {
     return bid;
   }
 
+  private async assertSupplierVerified(ctx: Ctx, supplierId: string) {
+    const profile = await this.prisma.supplierOnboardingProfile.findUnique({
+      where: { supplierId },
+      select: {
+        tenantId: true,
+        companyId: true,
+        verificationStatus: true,
+      },
+    });
+
+    if (!profile || profile.tenantId !== ctx.tenantId || profile.companyId !== ctx.companyId) {
+      throw new BadRequestException('Supplier onboarding profile is required before bid submission');
+    }
+
+    if (profile.verificationStatus !== 'VERIFIED') {
+      throw new BadRequestException(
+        `Supplier must be VERIFIED before submitting bids. Current status: ${profile.verificationStatus}`,
+      );
+    }
+  }
+
+  private async getSupplierEligibilityContext(ctx: Ctx, supplierId: string) {
+    const supplier = await this.prisma.supplier.findFirst({
+      where: {
+        id: supplierId,
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        status: 'ACTIVE',
+      },
+      include: {
+        tags: {
+          select: {
+            subcategoryId: true,
+          },
+        },
+      },
+    });
+
+    if (!supplier) {
+      throw new NotFoundException('Supplier not found');
+    }
+
+    return {
+      supplierId: supplier.id,
+      country: (supplier.country ?? '').toUpperCase(),
+      tagIds: new Set(supplier.tags.map((tag) => tag.subcategoryId)),
+    };
+  }
+
+  private isSupplierEligibleForRfq(
+    rfq: {
+      releaseMode: 'PRIVATE' | 'LOCAL' | 'GLOBAL' | 'PUBLIC';
+      localCountryCode: string | null;
+      suppliers: Array<{ supplierId: string }>;
+      pr: { subcategoryId: string | null };
+    },
+    supplier: {
+      supplierId: string;
+      country: string;
+      tagIds: Set<string>;
+    },
+  ) {
+    if (rfq.releaseMode === 'PRIVATE') {
+      return rfq.suppliers.some((entry) => entry.supplierId === supplier.supplierId);
+    }
+
+    const subcategoryId = rfq.pr.subcategoryId;
+    if (!subcategoryId) {
+      return false;
+    }
+
+    const canonicalId = this.taxonomy.normalizeAppendixCSubcategoryId(subcategoryId);
+    const categoryIds = [subcategoryId, canonicalId];
+    const hasCategoryAccess = categoryIds.some((categoryId) => supplier.tagIds.has(categoryId));
+    if (!hasCategoryAccess) {
+      return false;
+    }
+
+    if (rfq.releaseMode === 'LOCAL') {
+      const rfqCountry = (rfq.localCountryCode ?? 'ZA').toUpperCase();
+      return supplier.country === rfqCountry;
+    }
+
+    return rfq.releaseMode === 'GLOBAL' || rfq.releaseMode === 'PUBLIC';
+  }
+
   async upsertDraft(ctx: Ctx, dto: UpsertBidDto) {
     const supplierId = this.requireSupplierId(ctx);
     const rfq = await this.prisma.rFQ.findFirst({
       where: { id: dto.rfqId, tenantId: ctx.tenantId, companyId: ctx.companyId },
-      include: { pr: true },
+      include: {
+        pr: true,
+        suppliers: {
+          select: {
+            supplierId: true,
+          },
+        },
+      },
     });
     if (!rfq) throw new NotFoundException('RFQ not found');
     if (!['RELEASED', 'OPEN'].includes(rfq.status)) {
@@ -105,7 +200,10 @@ export class BidService {
       where: { rfqId: rfq.id, supplierId: dto.supplierId },
     });
     if (!link) {
-      throw new BadRequestException('Supplier is not linked to this RFQ');
+      const supplier = await this.getSupplierEligibilityContext(ctx, dto.supplierId);
+      if (!this.isSupplierEligibleForRfq(rfq, supplier)) {
+        throw new BadRequestException('Supplier is not eligible for this RFQ');
+      }
     }
 
     const totalBidValue = dto.totalBidValue == null ? undefined : new Prisma.Decimal(dto.totalBidValue);
@@ -168,6 +266,7 @@ export class BidService {
   async submit(ctx: Ctx, id: string) {
     const bid = await this.getScoped(ctx, id);
     this.assertTransition(bid.status, 'SUBMITTED');
+    await this.assertSupplierVerified(ctx, bid.supplierId);
 
     const subcategoryId = bid.rfq.pr.subcategoryId;
     if (!subcategoryId) {

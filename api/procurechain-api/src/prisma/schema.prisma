@@ -14,6 +14,11 @@ model Tenant {
   companies Company[]
   users     User[]
   audits    AuditEvent[]
+  customSubcategories Subcategory[]
+  organizationProfiles  OrganizationProfile[]
+  organizationDocuments OrganizationDocument[]
+  supplierOnboardingProfiles SupplierOnboardingProfile[]
+  supplierDocuments SupplierDocument[]
 
   partnerAccess TenantPartnerAccess[]
   procurementPolicies TenantProcurementPolicy[]
@@ -30,6 +35,11 @@ model Company {
   name      String
   createdAt DateTime @default(now())
   tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  customSubcategories Subcategory[]
+  organizationProfile  OrganizationProfile?
+  organizationDocuments OrganizationDocument[]
+  supplierOnboardingProfiles SupplierOnboardingProfile[]
+  supplierDocuments SupplierDocument[]
   procurementPolicies TenantProcurementPolicy[]
   sodRules SoDPolicyRule[]
   coiDeclarations COIDeclaration[]
@@ -43,10 +53,84 @@ model User {
   tenantId  String
   companyId String
   email     String?
+  passwordHash String?
   roles     String[] @default([])
   createdAt DateTime @default(now())
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
+}
+
+enum OrganizationVerificationStatus {
+  PENDING
+  UNDER_REVIEW
+  VERIFIED
+  REJECTED
+}
+
+model OrganizationProfile {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String   @unique
+
+  registrationNumber            String?
+  industry                      String?
+  country                       String? @default("ZA")
+  companySize                   String?
+  contactFullName               String?
+  workEmail                     String?
+  phoneNumber                   String?
+  role                          String?
+  monthlyProcurementSpendRange  String?
+  mainCategoriesPurchased       String[] @default([])
+  supplierCountRange            String?
+  usesProcurementSystem         Boolean?
+  verificationStatus            OrganizationVerificationStatus @default(PENDING)
+  verifiedAt                    DateTime?
+  verifiedBy                    String?
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId])
+  @@index([verificationStatus, createdAt])
+}
+
+model OrganizationDocument {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+
+  fieldKey     String
+  label        String?
+  originalName String
+  mimeType     String?
+  sizeBytes    Int?
+  storagePath  String
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId, createdAt])
+  @@index([companyId, fieldKey])
+}
+
+enum SupplierVerificationStatus {
+  PENDING
+  UNDER_REVIEW
+  VERIFIED
+  REJECTED
+}
+
+enum SupplierTier {
+  BRONZE
+  SILVER
+  GOLD
 }
 
 model AuditEvent {
@@ -159,7 +243,16 @@ model Subcategory {
   level2    String
   level3    String
   archetype String
+  tenantId  String?
+  companyId String?
+  isCustom  Boolean  @default(false)
+  inheritsFromSubcategoryId String?
   createdAt DateTime @default(now())
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  inheritsFromSubcategory Subcategory? @relation("SubcategoryInheritance", fields: [inheritsFromSubcategoryId], references: [id], onDelete: SetNull)
+  inheritedSubcategories Subcategory[] @relation("SubcategoryInheritance")
 
   supplierTags SupplierTaxonomyTag[]
   ruleFormConfig SubcategoryRuleFormConfig?
@@ -167,6 +260,7 @@ model Subcategory {
 
   @@index([level1, level2, level3])
   @@index([archetype])
+  @@index([tenantId, companyId, isCustom, level1, level2])
 }
 
 model SubcategoryRuleFormConfig {
@@ -282,10 +376,52 @@ model PurchaseRequisition {
 
   lines PurchaseRequisitionLine[]
   documents PurchaseRequisitionDocument[]
+  workflowThread WorkflowThread?
 
   @@index([tenantId, companyId, createdAt])
   @@index([status, createdAt])
   @@index([subcategoryId])
+}
+
+enum WorkflowMessageType {
+  USER
+}
+
+model WorkflowThread {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+  prId      String   @unique
+
+  pr PurchaseRequisition @relation(fields: [prId], references: [id], onDelete: Cascade)
+  messages WorkflowMessage[]
+
+  @@index([tenantId, companyId, createdAt])
+  @@index([prId])
+}
+
+model WorkflowMessage {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+  threadId  String
+  prId      String
+
+  authorId    String?
+  authorLabel String
+  message     String
+  messageType WorkflowMessageType @default(USER)
+
+  thread WorkflowThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId, prId, createdAt])
+  @@index([threadId, createdAt])
 }
 
 model PurchaseRequisitionLine {
@@ -369,6 +505,7 @@ model Supplier {
   status String @default("ACTIVE") // ACTIVE | INACTIVE | BLOCKED (string for v1)
 
   email   String?
+  passwordHash String?
   phone   String?
   website String?
 
@@ -402,9 +539,63 @@ model Supplier {
   // Relations
   contacts SupplierContact[]
   tags     SupplierTaxonomyTag[]
+  onboardingProfile SupplierOnboardingProfile?
+  documents SupplierDocument[]
 
   @@index([tenantId, companyId, name])
   @@index([status])
+}
+
+model SupplierOnboardingProfile {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+  supplierId String @unique
+
+  yearsInOperation  Int?
+  employeeCountRange String?
+  regionsServed      String[] @default([])
+  selectedCategoryIds String[] @default([])
+  questionnaire      Json?
+  scoreBreakdown     Json?
+  tier               SupplierTier @default(BRONZE)
+  verificationStatus SupplierVerificationStatus @default(PENDING)
+  verifiedAt         DateTime?
+  verifiedBy         String?
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company  Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId, createdAt])
+  @@index([verificationStatus, tier, createdAt])
+}
+
+model SupplierDocument {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+  supplierId String
+
+  fieldKey     String
+  label        String?
+  originalName String
+  mimeType     String?
+  sizeBytes    Int?
+  storagePath  String
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company  Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId, supplierId, createdAt])
+  @@index([supplierId, fieldKey])
 }
 
 model SupplierContact {
@@ -506,6 +697,7 @@ model RFQ {
   commercialApprovedAt DateTime?
   commercialApprovedBy String?
   releaseMode RFQReleaseMode @default(PRIVATE)
+  localCountryCode String?
   releasedAt DateTime?
   openedAt DateTime?
   closedAt DateTime?

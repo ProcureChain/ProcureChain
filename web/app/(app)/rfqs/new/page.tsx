@@ -14,8 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { formatDateTime } from "@/lib/format";
-import { useCreateRfq, useRequisitions, useRfqs } from "@/lib/query-hooks";
+import { formatBusinessRef, formatDateTime } from "@/lib/format";
+import { useCreateRfq, useRequisitions, useRfqs, useTaxonomySubcategories } from "@/lib/query-hooks";
 
 const currencyOptions = ["ZAR", "USD", "EUR", "GBP"];
 const paymentTermsOptions = ["IMMEDIATE", "NET_7", "NET_15", "NET_30", "NET_60", "NET_90"];
@@ -25,6 +25,7 @@ export default function NewRfqPage() {
   const router = useRouter();
   const { data: requisitions = [], error: requisitionsError, isLoading: reqLoading } = useRequisitions();
   const { data: rfqs = [], error: rfqError } = useRfqs();
+  const { data: taxonomy = [] } = useTaxonomySubcategories();
   const createRfq = useCreateRfq();
 
   const [prId, setPrId] = useState<string | null>(null);
@@ -51,6 +52,11 @@ export default function NewRfqPage() {
   );
   const existingRfqPrIds = useMemo(() => new Set(rfqs.map((row) => row.prId)), [rfqs]);
   const selectedPr = approvedPrs.find((pr) => pr.id === prId) ?? null;
+  const subcategoryLabel =
+    taxonomy.find((subcategory) => subcategory.id === selectedPr?.subcategoryId)?.level3 ??
+    taxonomy.find((subcategory) => subcategory.id === selectedPr?.subcategoryId)?.name ??
+    selectedPr?.subcategoryId ??
+    "-";
   const alreadyConverted = selectedPr ? existingRfqPrIds.has(selectedPr.id) : false;
   const isReady = Boolean(selectedPr && rfqTitle.trim() && paymentTerms && currency && taxIncluded && priceValidityDays && Number(budget) > 0);
 
@@ -98,7 +104,7 @@ export default function NewRfqPage() {
       priceValidityDays: Number(priceValidityDays),
       notes: commercialNotes,
     });
-    toast.success("RFQ created", { description: created.id });
+    toast.success("RFQ created", { description: formatBusinessRef("RFQ", created.id) });
     router.push(`/rfqs/${created.id}`);
   };
 
@@ -129,7 +135,7 @@ export default function NewRfqPage() {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="text-lg font-semibold">{selectedPr.title}</p>
-                    <p className="text-sm text-slate-500">{selectedPr.id}</p>
+                    <p className="text-sm text-slate-500">{formatBusinessRef("PR", selectedPr.id)}</p>
                   </div>
                   <div className="flex gap-2">
                     <Badge variant="secondary">{selectedPr.status}</Badge>
@@ -143,7 +149,7 @@ export default function NewRfqPage() {
                   <p><span className="font-medium">Cost centre:</span> {selectedPr.costCenter}</p>
                   <p><span className="font-medium">Updated:</span> {formatDateTime(selectedPr.updatedAt)}</p>
                   <p><span className="font-medium">Needed by:</span> {selectedPr.neededBy || "-"}</p>
-                  <p><span className="font-medium">Subcategory:</span> {selectedPr.subcategoryId ?? "-"}</p>
+                  <p><span className="font-medium">Subcategory:</span> {subcategoryLabel}</p>
                   <p className="md:col-span-2"><span className="font-medium">Justification:</span> {selectedPr.justification || "-"}</p>
                 </div>
                 {selectedPr.lineItems.length > 0 ? (

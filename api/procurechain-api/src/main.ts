@@ -9,6 +9,13 @@ import { MetricsService } from './common/metrics.service';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const metricsService = app.get(MetricsService);
+  const publicPaths = new Set([
+    '/metrics',
+    '/health',
+    '/auth/login',
+    '/auth/signup/organization',
+    '/auth/signup/supplier',
+  ]);
 
   // CORS (dev/staging)
   app.enableCors({
@@ -28,7 +35,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   app.use((req: Request & { ctx?: any }, _res: Response, next: NextFunction) => {
-    if (req.path === '/metrics') {
+    if (publicPaths.has(req.path)) {
       return next();
     }
 
