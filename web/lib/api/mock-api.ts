@@ -12,6 +12,7 @@ import {
   InvoiceSignature,
   InvoiceSnapshot,
   LiveInvoice,
+  OrganizationProfile,
   PaymentProof,
   PoInvoiceValidation,
   ProcurementPolicy,
@@ -24,9 +25,13 @@ import {
   Rfq,
   SoDRule,
   SupplierFormTemplate,
+  SupplierPortalProfile,
+  SupplierVerificationDocument,
   TaxonomySubcategory,
   PrFormSchema,
   LocationSuggestion,
+  WorkflowThreadResponse,
+  WorkflowThreadEntry,
 } from "@/lib/types";
 import { daysOld } from "@/lib/format";
 import { runtimeConfig } from "@/lib/runtime-config";
@@ -68,6 +73,9 @@ let retentionPolicy: RetentionPolicy = {
   allowPurge: false,
 };
 let retentionRuns: RetentionRunLog[] = [];
+let workflowMessages: Array<{ id: string; prId: string; at: string; authorLabel: string; message: string }> = [];
+let supplierVerificationDocuments: SupplierVerificationDocument[] = [];
+let supplierVerificationStatusById = new Map<string, "PENDING" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED">();
 
 const mockSubcategories: TaxonomySubcategory[] = [
   {
@@ -96,9 +104,128 @@ const mockSubcategories: TaxonomySubcategory[] = [
   },
 ];
 
+function getMockSupplierVerificationStatus(supplierId: string) {
+  return supplierVerificationStatusById.get(supplierId) ?? "VERIFIED";
+}
+
+function buildMockSupplierProfile(supplierId: string): SupplierPortalProfile {
+  const supplier = suppliers.find((entry) => entry.id === supplierId) ?? suppliers[0];
+  const status = getMockSupplierVerificationStatus(supplier.id);
+  const now = new Date().toISOString();
+  return {
+    id: supplier.id,
+    name: supplier.name,
+    legalName: supplier.name,
+    registrationNumber: "MOCK-SUP-001",
+    email: supplier.contacts[0]?.email ?? `${supplier.name}@example.com`,
+    phone: supplier.contacts[0]?.phone ?? null,
+    website: "https://mock-supplier.local",
+    country: supplier.country,
+    profileScore: supplier.profileScore ?? null,
+    complianceScore: supplier.complianceScore ?? null,
+    deliveryScore: supplier.deliveryScore ?? null,
+    qualityScore: supplier.qualityScore ?? null,
+    riskScore: supplier.riskScore ?? null,
+    contacts: supplier.contacts.map((contact, index) => ({
+      id: contact.id,
+      name: contact.name,
+      email: contact.email ?? null,
+      phone: contact.phone ?? null,
+      role: index === 0 ? "Primary Contact" : "Contact",
+      isPrimary: index === 0,
+    })),
+    tags: supplier.tags.map((subcategoryId, index) => {
+      const subcategory = mockSubcategories.find((row) => row.id === subcategoryId) ?? null;
+      return {
+        id: `tag-${index + 1}`,
+        subcategoryId,
+        subcategory: subcategory
+          ? {
+              id: subcategory.id,
+              name: subcategory.name,
+              level1: subcategory.level1,
+              level2: subcategory.level2,
+              level3: subcategory.level3,
+            }
+          : null,
+      };
+    }),
+    onboardingProfile: {
+      id: `onboard-${supplier.id}`,
+      yearsInOperation: 6,
+      employeeCountRange: "11-50",
+      regionsServed: ["Gauteng", "Western Cape"],
+      selectedCategoryIds: ["IT", "Services"],
+      questionnaire: {
+        completedProjects: 18,
+        maxOrderValue: 900000,
+        leadTimeDays: 7,
+        certifications: ["ISO 9001"],
+        hasQualityControlProcess: true,
+        responseTimeHours: 8,
+        dedicatedAccountManager: true,
+        onTimeDeliveryRate: 94,
+        disputeHistory: false,
+        pricingPosition: "MARKET",
+      },
+      scoreBreakdown: {
+        experience: 72,
+        capacity: 68,
+        qualityCompliance: 81,
+        reliability: 90,
+        customerService: 84,
+        pricingCompetitiveness: 75,
+      },
+      tier: supplier.profileScore && supplier.profileScore >= 80 ? "GOLD" : supplier.profileScore && supplier.profileScore >= 65 ? "SILVER" : "BRONZE",
+      verificationStatus: status,
+      verifiedAt: status === "VERIFIED" ? now : null,
+      verifiedBy: status === "VERIFIED" ? "mock" : null,
+      createdAt: now,
+      updatedAt: now,
+    },
+    documents: supplierVerificationDocuments.filter((document) => document.id.startsWith(`${supplier.id}:`) || (document as any).supplierId === supplier.id),
+    createdAt: now,
+    updatedAt: now,
+  };
+}
+
 export async function listTaxonomySubcategories(): Promise<TaxonomySubcategory[]> {
   await delay();
   return mockSubcategories;
+}
+
+export async function createCustomTaxonomySubcategory(payload: {
+  level1: string;
+  level2: string;
+  level3: string;
+  baseSubcategoryId?: string;
+}): Promise<TaxonomySubcategory> {
+  await delay();
+  const existing = mockSubcategories.find(
+    (subcategory) =>
+      subcategory.level1 === payload.level1 &&
+      subcategory.level2 === payload.level2 &&
+      subcategory.level3.toLowerCase() === payload.level3.trim().toLowerCase(),
+  );
+  if (existing) return existing;
+
+  const base =
+    (payload.baseSubcategoryId ? mockSubcategories.find((subcategory) => subcategory.id === payload.baseSubcategoryId) : undefined) ??
+    mockSubcategories.find((subcategory) => subcategory.level1 === payload.level1 && subcategory.level2 === payload.level2) ??
+    mockSubcategories[0];
+
+  const created: TaxonomySubcategory = {
+    id: crypto.randomUUID(),
+    name: payload.level3.trim(),
+    level1: payload.level1,
+    level2: payload.level2,
+    level3: payload.level3.trim(),
+    archetype: base.archetype,
+    isCustom: true,
+    inheritsFromSubcategoryId: base.id,
+  };
+  mockSubcategories.push(created);
+  return created;
 }
 
 export async function getPrDynamicFieldDefs(_subcategoryId: string): Promise<DynamicFieldDef[]> {
@@ -431,12 +558,26 @@ export async function applyApprovalAction(requisitionId: string, action: Approva
 
 export async function listSuppliers() {
   await delay();
-  return suppliers;
+  return suppliers.map((supplier) => {
+    const profile = buildMockSupplierProfile(supplier.id);
+    return {
+      ...supplier,
+      onboardingProfile: profile.onboardingProfile,
+      documents: profile.documents,
+    };
+  });
 }
 
 export async function getSupplier(id: string) {
   await delay();
-  return suppliers.find((s) => s.id === id) ?? null;
+  const supplier = suppliers.find((s) => s.id === id);
+  if (!supplier) return null;
+  const profile = buildMockSupplierProfile(supplier.id);
+  return {
+    ...supplier,
+    onboardingProfile: profile.onboardingProfile,
+    documents: profile.documents,
+  };
 }
 
 export async function listAuditEvents(params?: { entityType?: string; entityId?: string; limit?: number }) {
@@ -447,7 +588,197 @@ export async function listAuditEvents(params?: { entityType?: string; entityId?:
     .slice(0, params?.limit ?? auditStore.length);
 }
 
+export async function getWorkflowThread(prId: string): Promise<WorkflowThreadResponse> {
+  await delay();
+  const entries: WorkflowThreadEntry[] = [
+    ...auditStore
+      .filter((event) => event.entityId === prId || (event.after && typeof event.after.prId === "string" && event.after.prId === prId))
+      .map((event) => ({
+        id: `audit:${event.id}`,
+        type: "event" as const,
+        at: event.at,
+        authorLabel: event.actor,
+        entityType: event.entityType,
+        entityId: event.entityId,
+        eventType: event.action,
+        payload: event.after ?? null,
+      })),
+    ...workflowMessages
+      .filter((entry) => entry.prId === prId)
+      .map((entry) => ({
+        id: `message:${entry.id}`,
+        type: "message" as const,
+        at: entry.at,
+        authorLabel: entry.authorLabel,
+        message: entry.message,
+      })),
+  ].sort((a, b) => new Date(a.at).getTime() - new Date(b.at).getTime());
+
+  return {
+    thread: {
+      id: `thread-${prId}`,
+      prId,
+      createdAt: entries[0]?.at ?? new Date().toISOString(),
+      updatedAt: entries.at(-1)?.at ?? new Date().toISOString(),
+    },
+    entries,
+  };
+}
+
+export async function getOrganizationProfile(): Promise<OrganizationProfile> {
+  await delay();
+  return {
+    id: "mock-org-profile",
+    tenantId: runtimeConfig.tenantId,
+    companyId: runtimeConfig.companyId,
+    companyName: runtimeConfig.portal === "supplier" ? "Supplier Test Company" : "Dev Company",
+    registrationNumber: "DEV-REG-001",
+    industry: "General",
+    country: "ZA",
+    companySize: "11-50",
+    contactFullName: runtimeConfig.actorName,
+    workEmail: "dev-org@procurechain.local",
+    phoneNumber: "+27000000000",
+    role: "Procurement",
+    monthlyProcurementSpendRange: "Demo",
+    mainCategoriesPurchased: [],
+    supplierCountRange: "Demo",
+    usesProcurementSystem: true,
+    verificationStatus: "VERIFIED",
+    verifiedAt: new Date().toISOString(),
+    verifiedBy: "mock",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+export async function signupSupplier(payload: {
+  companyName: string;
+  workEmail: string;
+  password: string;
+  fullName?: string;
+  subcategoryIds: string[];
+}) {
+  await delay();
+  const supplierId = crypto.randomUUID();
+  supplierVerificationStatusById.set(supplierId, "PENDING");
+  return {
+    tenantId: runtimeConfig.tenantId,
+    companyId: runtimeConfig.companyId,
+    supplierId,
+    profileScore: 68,
+    tier: "SILVER" as const,
+    verificationStatus: "PENDING" as const,
+    nextSteps: {
+      canBid: true,
+      documentsRequired: [
+        "company_registration_certificate",
+        "tax_vat_certificate",
+        "bank_confirmation_letter",
+      ],
+    },
+  };
+}
+
+export async function login(payload: { portal: "organization" | "supplier"; identifier: string; password: string }) {
+  await delay();
+  if (payload.portal === "organization") {
+    const actorName = payload.identifier.includes("@")
+      ? payload.identifier.split("@")[0]
+      : "Organization User";
+    return {
+      portal: "organization" as const,
+      tenantId: runtimeConfig.tenantId,
+      companyId: runtimeConfig.companyId,
+      actorId: "mock-org-user",
+      actorName,
+      actorRoles: ["SUPERADMIN", "PROCUREMENT_OFFICER"],
+    };
+  }
+
+  const supplier =
+    suppliers.find((entry) => entry.contacts.some((contact) => (contact.email ?? "").toLowerCase() === payload.identifier.toLowerCase())) ??
+    suppliers.find((entry) => entry.name.toLowerCase() === payload.identifier.toLowerCase()) ??
+    suppliers[0];
+
+  return {
+    portal: "supplier" as const,
+    tenantId: runtimeConfig.tenantId,
+    companyId: runtimeConfig.companyId,
+    actorId: `supplier-${supplier.id}`,
+    actorName: supplier.contacts[0]?.name ?? supplier.name,
+    actorRoles: ["SUPPLIER"],
+    supplierId: supplier.id,
+  };
+}
+
+export async function getSupplierProfile(): Promise<SupplierPortalProfile> {
+  await delay();
+  const supplierId = runtimeConfig.supplierId ?? suppliers[0]?.id;
+  return buildMockSupplierProfile(supplierId!);
+}
+
+export async function listSupplierDocuments(): Promise<SupplierVerificationDocument[]> {
+  await delay();
+  const supplierId = runtimeConfig.supplierId ?? suppliers[0]?.id;
+  return supplierVerificationDocuments.filter((document) => (document as SupplierVerificationDocument & { supplierId?: string }).supplierId === supplierId);
+}
+
+export async function uploadSupplierDocument(payload: { fieldKey: string; label?: string; file: File }) {
+  await delay();
+  const supplierId = runtimeConfig.supplierId ?? suppliers[0]?.id;
+  supplierVerificationStatusById.set(supplierId!, "UNDER_REVIEW");
+  const document = {
+    id: crypto.randomUUID(),
+    fieldKey: payload.fieldKey,
+    label: payload.label ?? null,
+    originalName: payload.file.name,
+    mimeType: payload.file.type || null,
+    sizeBytes: payload.file.size || null,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    supplierId,
+  } as SupplierVerificationDocument & { supplierId: string };
+  supplierVerificationDocuments = [document, ...supplierVerificationDocuments];
+  return document;
+}
+
+export async function updateSupplierVerification(
+  id: string,
+  payload: { verificationStatus: "PENDING" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED"; notes?: string },
+) {
+  await delay();
+  supplierVerificationStatusById.set(id, payload.verificationStatus);
+  const supplier = suppliers.find((entry) => entry.id === id);
+  if (!supplier) {
+    throw new Error("Supplier not found");
+  }
+  const profile = buildMockSupplierProfile(supplier.id);
+  return {
+    ...supplier,
+    onboardingProfile: profile.onboardingProfile,
+    documents: profile.documents,
+  };
+}
+
+export async function addWorkflowMessage(prId: string, payload: { message: string; authorLabel?: string }) {
+  await delay();
+  workflowMessages.push({
+    id: crypto.randomUUID(),
+    prId,
+    at: new Date().toISOString(),
+    authorLabel: payload.authorLabel ?? runtimeConfig.actorName,
+    message: payload.message,
+  });
+  return { ok: true };
+}
+
 export async function listRfqsFromAudit() {
+  await delay();
+  return rfqStore;
+}
+
+export async function listRfqs() {
   await delay();
   return rfqStore;
 }
@@ -476,6 +807,7 @@ export async function createRfq(payload: {
     priceValidityDays: payload.priceValidityDays,
     suppliers: [],
     bidCount: 0,
+    lines: [],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -657,6 +989,13 @@ export async function upsertBid(payload: { rfqId: string; supplierId: string; to
 
 export async function submitBid(id: string) {
   await delay();
+  const bid = bidStore.find((entry) => entry.id === id);
+  if (bid) {
+    const verificationStatus = getMockSupplierVerificationStatus(bid.supplierId);
+    if (verificationStatus !== "VERIFIED") {
+      throw new Error(`Supplier must be VERIFIED before submitting bids. Current status: ${verificationStatus}`);
+    }
+  }
   bidStore = bidStore.map((bid) => (bid.id === id ? { ...bid, status: "SUBMITTED", submittedAt: new Date().toISOString() } : bid));
   return bidStore.find((bid) => bid.id === id) ?? null;
 }

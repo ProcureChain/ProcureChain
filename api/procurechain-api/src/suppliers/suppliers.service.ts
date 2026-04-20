@@ -16,6 +16,7 @@ type AnyCtx = {
   actorType?: 'USER' | 'PARTNER';
   partnerId?: string;
   partnerUserId?: string;
+  userId?: string;
 };
 
 @Injectable()
@@ -31,6 +32,10 @@ export class SuppliersService {
   // -----------------------------
   private isPartnerCtx(ctx: AnyCtx) {
     return ctx.actorType === 'PARTNER';
+  }
+
+  private isSupplierSelfCtx(ctx: AnyCtx, supplierId?: string) {
+    return this.isPartnerCtx(ctx) && !!ctx.partnerId && !!supplierId && ctx.partnerId === supplierId;
   }
 
   /**
@@ -134,20 +139,78 @@ export class SuppliersService {
       },
       orderBy: { createdAt: 'desc' },
       take: Math.max(1, Math.min(limit, 200)),
-      include: { contacts: true, tags: { include: { subcategory: true } } },
+      include: {
+        contacts: true,
+        tags: { include: { subcategory: true } },
+        onboardingProfile: true,
+        documents: {
+          orderBy: { createdAt: 'desc' },
+        },
+      },
     });
   }
 
   async get(ctx: AnyCtx, id: string) {
-    await this.enforceReadAccess(ctx);
+    if (!this.isSupplierSelfCtx(ctx, id)) {
+      await this.enforceReadAccess(ctx);
+    }
 
     const supplier = await this.prisma.supplier.findFirst({
       where: { id, tenantId: ctx.tenantId, companyId: ctx.companyId },
-      include: { contacts: true, tags: { include: { subcategory: true } } },
+      include: {
+        contacts: true,
+        tags: { include: { subcategory: true } },
+        onboardingProfile: true,
+        documents: {
+          orderBy: { createdAt: 'desc' },
+        },
+      },
     });
 
     if (!supplier) throw new NotFoundException('Supplier not found');
     return supplier;
+  }
+
+  async updateVerification(
+    ctx: AnyCtx,
+    id: string,
+    dto: { verificationStatus: 'PENDING' | 'UNDER_REVIEW' | 'VERIFIED' | 'REJECTED'; notes?: string },
+  ) {
+    await this.enforceWriteAccess(ctx);
+    const supplier = await this.get(ctx, id);
+    const verificationStatus = dto.verificationStatus;
+    if (!['PENDING', 'UNDER_REVIEW', 'VERIFIED', 'REJECTED'].includes(verificationStatus)) {
+      throw new BadRequestException('Invalid verificationStatus');
+    }
+
+    const onboardingProfile = supplier.onboardingProfile;
+    if (!onboardingProfile) {
+      throw new NotFoundException('Supplier onboarding profile not found');
+    }
+
+    await this.prisma.supplierOnboardingProfile.update({
+      where: { supplierId: id },
+      data: {
+        verificationStatus,
+        verifiedAt: verificationStatus === 'VERIFIED' ? new Date() : null,
+        verifiedBy: verificationStatus === 'VERIFIED' ? (ctx.userId ?? 'dev-user') : null,
+      },
+    });
+
+    await this.audit.record({
+      tenantId: ctx.tenantId,
+      companyId: ctx.companyId,
+      actor: this.isPartnerCtx(ctx) ? `partner:${ctx.partnerId ?? ctx.partnerUserId ?? 'unknown'}` : (ctx.userId ?? 'dev-user'),
+      eventType: 'SUPPLIER_VERIFICATION_STATUS_UPDATED',
+      entityType: 'Supplier',
+      entityId: id,
+      payload: {
+        verificationStatus,
+        notes: dto.notes?.trim() || null,
+      },
+    });
+
+    return this.get(ctx, id);
   }
 
   async update(ctx: AnyCtx, id: string, dto: UpdateSupplierDto) {

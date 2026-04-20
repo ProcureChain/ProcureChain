@@ -35,6 +35,15 @@ export class SuppliersController {
     return this.suppliers.get(req.ctx, id);
   }
 
+  @Patch(':id/verification')
+  updateVerification(
+    @Req() req: any,
+    @Param('id') id: string,
+    @Body() dto: { verificationStatus: 'PENDING' | 'UNDER_REVIEW' | 'VERIFIED' | 'REJECTED'; notes?: string },
+  ) {
+    return this.suppliers.updateVerification(req.ctx, id, dto);
+  }
+
   @Post(':id/contacts')
   addContact(@Req() req: any, @Param('id') id: string, @Body() dto: AddSupplierContactDto) {
     return this.suppliers.addContact(req.ctx, id, dto);

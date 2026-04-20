@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { formatBusinessRef } from "@/lib/format";
 import { useRfq, useSupplierFormAction } from "@/lib/query-hooks";
 import { SupplierFormField } from "@/lib/types";
 
@@ -98,7 +99,7 @@ export default function NewRfqSupplierFormPage() {
         </CardHeader>
         <CardContent className="text-sm text-slate-700">
           <p><span className="font-medium">RFQ:</span> {rfq.title}</p>
-          <p><span className="font-medium">RFQ ID:</span> {rfq.id}</p>
+          <p><span className="font-medium">RFQ Ref:</span> {formatBusinessRef("RFQ", rfq.id)}</p>
           <p><span className="font-medium">Planned release mode:</span> {releaseMode}</p>
         </CardContent>
       </Card>

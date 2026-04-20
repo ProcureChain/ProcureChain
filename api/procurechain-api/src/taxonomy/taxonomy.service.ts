@@ -1,8 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { ServiceFamily, ValidationEntityType } from '@prisma/client';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma, ServiceFamily, ValidationEntityType } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import fs from 'fs';
 import path from 'path';
+import { randomUUID } from 'crypto';
+import { CreateCustomSubcategoryDto } from './taxonomy.dto';
 
 @Injectable()
 export class TaxonomyService {
@@ -94,6 +96,21 @@ export class TaxonomyService {
     'FAC-SRV-MNT-001',
   ]);
 
+  private readonly consultingServiceIds = new Set([
+    'PRO-SRV-CON-001',
+    'SER_PRO_ACCOUNTING_AND',
+    'SER_PRO_CUSTOM_SOFTW',
+    'SER_PRO_ENGINEERING_',
+    'SER_PRO_ENVIRONMENTA',
+    'SER_PRO_HR_CONSULTIN',
+    'SER_PRO_IT_CONSULTIN',
+    'SER_PRO_LEGAL_SERVIC',
+    'SER_PRO_PROJECT_MANA',
+    'SER_PRO_QUALITY_CONS',
+    'SER_PRO_SAFETY_CONSU',
+    'SER_PRO_TRAINING_SER',
+  ]);
+
   private readonly projectTimelineDocumentSubcategoryIds = new Set([
     'WOR_CON_BUILDING_CON',
     'WOR_CON_CIVIL_WORKS',
@@ -120,6 +137,24 @@ export class TaxonomyService {
     'WOR_INF_WATER_RETICU',
   ]);
 
+  private readonly standardIncoterms = [
+    'EXW',
+    'FCA',
+    'FAS',
+    'FOB',
+    'CFR',
+    'CIF',
+    'CPT',
+    'CIP',
+    'DPU',
+    'DAP',
+    'DDP',
+  ];
+
+  private readonly standardSeniorityOptions = ['Junior', 'Mid-level', 'Senior', 'Expert'];
+
+  private readonly standardTimelineOptions = ['1-3 months', '4-7 months', '8-12 months', '12+ months'];
+
   private shouldKeepDynamicField(
     requestedSubcategoryId: string,
     subcategory: { id: string },
@@ -135,8 +170,19 @@ export class TaxonomyService {
       return false;
     }
     if (
-      this.projectTimelineDocumentSubcategoryIds.has(requestedSubcategoryId)
-      && ['metadata.boq_sow', 'metadata.retention_optional'].includes(fieldPath)
+      [
+        'metadata.boq_sow',
+        'metadata.retention_optional',
+        'metadata.required_dates',
+        'metadata.incoterms_optional',
+        'metadata.deliverables',
+      ].includes(fieldPath)
+    ) {
+      return false;
+    }
+    if (
+      this.consultingServiceIds.has(requestedSubcategoryId)
+      && ['metadata.milestones', 'metadata.milestones_optional'].includes(fieldPath)
     ) {
       return false;
     }
@@ -436,21 +482,55 @@ export class TaxonomyService {
     return this.humanizeFieldKey(fieldKey);
   }
 
-  private resolveDynamicFieldOverrides(requestedSubcategoryId: string) {
-    const consultingServiceIds = new Set([
-      'PRO-SRV-CON-001',
-      'SER_PRO_ACCOUNTING_AND',
-      'SER_PRO_ENGINEERING_',
-      'SER_PRO_ENVIRONMENTA',
-      'SER_PRO_HR_CONSULTIN',
-      'SER_PRO_IT_CONSULTIN',
-      'SER_PRO_LEGAL_SERVIC',
-      'SER_PRO_PROJECT_MANA',
-      'SER_PRO_QUALITY_CONS',
-      'SER_PRO_SAFETY_CONSU',
-      'SER_PRO_TRAINING_SER',
-    ]);
+  private normalizeDynamicFieldDefinition<T extends {
+    path: string;
+    key: string;
+    label: string;
+    inputType?: string;
+    required: boolean;
+    section: string;
+    message?: string;
+    options?: string[];
+  }>(field: T) {
+    if (field.key === 'incoterms') {
+      return {
+        ...field,
+        inputType: 'select',
+        options: [...this.standardIncoterms],
+      };
+    }
 
+    if (field.key === 'seniority') {
+      return {
+        ...field,
+        inputType: 'select',
+        options: [...this.standardSeniorityOptions],
+      };
+    }
+
+    if (field.key === 'timeline') {
+      return {
+        ...field,
+        inputType: 'select',
+        options: [...this.standardTimelineOptions],
+      };
+    }
+
+    if (['milestone_list', 'milestones', 'milestones_optional'].includes(field.key)) {
+      return {
+        ...field,
+        path: 'metadata.milestone_list',
+        key: 'milestone_list',
+        label: 'Milestone List',
+        inputType: 'milestones',
+        message: 'Add each milestone with a description and target date.',
+      };
+    }
+
+    return field;
+  }
+
+  private resolveDynamicFieldOverrides(requestedSubcategoryId: string) {
     if (
       [
         'SER_LAB_ARTISANS',
@@ -495,9 +575,10 @@ export class TaxonomyService {
             path: 'metadata.seniority',
             key: 'seniority',
             label: 'Seniority',
-            inputType: 'text',
+            inputType: 'select',
             required: true,
             section: 'subcategory',
+            options: [...this.standardSeniorityOptions],
           },
           {
             path: 'metadata.end_date',
@@ -515,7 +596,7 @@ export class TaxonomyService {
       };
     }
 
-    if (consultingServiceIds.has(requestedSubcategoryId)) {
+    if (this.consultingServiceIds.has(requestedSubcategoryId)) {
       if (requestedSubcategoryId === 'PRO-SRV-CON-001') {
         return {
           fields: [
@@ -747,7 +828,7 @@ export class TaxonomyService {
             inputType: 'select',
             required: true,
             section: 'subcategory',
-            options: ['Expert', 'Senior', 'Mid', 'Junior'],
+            options: [...this.standardSeniorityOptions],
           },
           {
             path: 'metadata.supporting_documents',
@@ -882,9 +963,10 @@ export class TaxonomyService {
             path: 'metadata.incoterms',
             key: 'incoterms',
             label: 'Incoterms',
-            inputType: 'text',
+            inputType: 'select',
             required: true,
             section: 'subcategory',
+            options: [...this.standardIncoterms],
           },
           {
             path: 'metadata.supporting_document',
@@ -965,9 +1047,10 @@ export class TaxonomyService {
             path: 'metadata.incoterms',
             key: 'incoterms',
             label: 'Incoterms',
-            inputType: 'text',
+            inputType: 'select',
             required: true,
             section: 'subcategory',
+            options: [...this.standardIncoterms],
           },
         ],
         lineBindings: {
@@ -1077,7 +1160,7 @@ export class TaxonomyService {
           inputType: 'select',
           required: true,
           section: 'subcategory',
-          options: ['1-3 months', '4-7', '8-12', '12+'],
+          options: [...this.standardTimelineOptions],
         },
         {
           path: 'metadata.compliance',
@@ -1099,21 +1182,41 @@ export class TaxonomyService {
     }
 
     if (
-      [
-        'PRO-SRV-CON-001',
-        'SER_PRO_ACCOUNTING_AND',
-        'SER_PRO_ENGINEERING_',
-        'SER_PRO_ENVIRONMENTA',
-        'SER_PRO_HR_CONSULTIN',
-        'SER_PRO_IT_CONSULTIN',
-        'SER_PRO_LEGAL_SERVIC',
-        'SER_PRO_PROJECT_MANA',
-        'SER_PRO_QUALITY_CONS',
-        'SER_PRO_SAFETY_CONSU',
-        'SER_PRO_TRAINING_SER',
-      ].includes(requestedSubcategoryId)
+      this.consultingServiceIds.has(requestedSubcategoryId)
     ) {
       return [
+        {
+          path: 'metadata.deliverables_reports',
+          key: 'deliverables_reports',
+          label: 'Deliverables: Reports',
+          inputType: 'checkbox',
+          required: false,
+          section: 'subcategory',
+        },
+        {
+          path: 'metadata.deliverables_dashboards',
+          key: 'deliverables_dashboards',
+          label: 'Deliverables: Dashboards',
+          inputType: 'checkbox',
+          required: false,
+          section: 'subcategory',
+        },
+        {
+          path: 'metadata.deliverables_workshops',
+          key: 'deliverables_workshops',
+          label: 'Deliverables: Workshops',
+          inputType: 'checkbox',
+          required: false,
+          section: 'subcategory',
+        },
+        {
+          path: 'metadata.deliverables_other',
+          key: 'deliverables_other',
+          label: 'Deliverables: Other',
+          inputType: 'checkbox',
+          required: false,
+          section: 'subcategory',
+        },
         {
           path: 'metadata.milestone_list',
           key: 'milestone_list',
@@ -1121,7 +1224,7 @@ export class TaxonomyService {
           inputType: 'milestones',
           required: true,
           section: 'subcategory',
-          message: 'Add each milestone with text and target date.',
+          message: 'Add each milestone with a description and target date.',
         },
         {
           path: 'metadata.team_profile',
@@ -1138,7 +1241,7 @@ export class TaxonomyService {
           inputType: 'select',
           required: true,
           section: 'subcategory',
-          options: ['1-3 months', '4-7 months', '8-12 months', '+12 months'],
+          options: [...this.standardTimelineOptions],
         },
       ];
     }
@@ -1307,32 +1410,103 @@ export class TaxonomyService {
     };
   }
 
-  async subcategories(q?: string, archetype?: string, limit = 100, canonicalOnly = false) {
-    const where: any = {};
-    if (archetype) where.archetype = archetype;
-    if (canonicalOnly) {
-      const { mappingIds } = this.loadCanonicalIds();
-      where.id = { in: mappingIds };
-    }
-    if (q) {
-      const qFilter = [
-        { id: { contains: q, mode: 'insensitive' } },
-        { name: { contains: q, mode: 'insensitive' } },
-        { level1: { contains: q, mode: 'insensitive' } },
-        { level2: { contains: q, mode: 'insensitive' } },
-        { level3: { contains: q, mode: 'insensitive' } },
-      ];
-      if (where.id) {
-        where.AND = [{ OR: qFilter }];
-      } else {
-        where.OR = qFilter;
-      }
-    }
+  async subcategories(ctx: any, q?: string, archetype?: string, limit = 100, canonicalOnly = false) {
+    const qFilter: Prisma.SubcategoryWhereInput | undefined = q
+      ? {
+          OR: [
+            { id: { contains: q, mode: Prisma.QueryMode.insensitive } },
+            { name: { contains: q, mode: Prisma.QueryMode.insensitive } },
+            { level1: { contains: q, mode: Prisma.QueryMode.insensitive } },
+            { level2: { contains: q, mode: Prisma.QueryMode.insensitive } },
+            { level3: { contains: q, mode: Prisma.QueryMode.insensitive } },
+          ],
+        }
+      : undefined;
+    const { mappingIds } = canonicalOnly ? this.loadCanonicalIds() : { mappingIds: [] as string[] };
 
     return this.prisma.subcategory.findMany({
-      where,
-      orderBy: { name: 'asc' },
+      where: {
+        OR: [
+          {
+            tenantId: null,
+            companyId: null,
+            ...(archetype ? { archetype } : {}),
+            ...(canonicalOnly ? { id: { in: mappingIds } } : {}),
+            ...(qFilter ?? {}),
+          },
+          {
+            tenantId: ctx.tenantId,
+            companyId: ctx.companyId,
+            isCustom: true,
+            ...(archetype ? { archetype } : {}),
+            ...(qFilter ?? {}),
+          },
+        ],
+      },
+      orderBy: [{ level1: 'asc' }, { level2: 'asc' }, { level3: 'asc' }],
       take: Math.max(1, Math.min(limit, 500)),
+    });
+  }
+
+  async createCustomSubcategory(ctx: any, dto: CreateCustomSubcategoryDto) {
+    const level1 = dto.level1.trim();
+    const level2 = dto.level2.trim();
+    const level3 = dto.level3.trim();
+    if (!level1 || !level2 || !level3) {
+      throw new BadRequestException('level1, level2, and level3 are required');
+    }
+
+    const duplicate = await this.prisma.subcategory.findFirst({
+      where: {
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        isCustom: true,
+        level1,
+        level2,
+        level3: { equals: level3, mode: 'insensitive' },
+      },
+    });
+    if (duplicate) {
+      return duplicate;
+    }
+
+    const inheritedBase =
+      (dto.baseSubcategoryId?.trim()
+        ? await this.prisma.subcategory.findFirst({
+            where: {
+              id: dto.baseSubcategoryId.trim(),
+              level1,
+              level2,
+            },
+          })
+        : null) ??
+      (await this.prisma.subcategory.findFirst({
+        where: {
+          tenantId: null,
+          companyId: null,
+          level1,
+          level2,
+        },
+        orderBy: { name: 'asc' },
+      }));
+
+    if (!inheritedBase) {
+      throw new BadRequestException('No existing level 1 / level 2 category path found for this custom level 3 category');
+    }
+
+    return this.prisma.subcategory.create({
+      data: {
+        id: `CUS_${randomUUID()}`,
+        name: level3,
+        level1,
+        level2,
+        level3,
+        archetype: inheritedBase.archetype,
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        isCustom: true,
+        inheritsFromSubcategoryId: inheritedBase.id,
+      },
     });
   }
 
@@ -1348,12 +1522,26 @@ export class TaxonomyService {
     });
 
     if (!subcategory) throw new NotFoundException('Subcategory not found');
-    if (!subcategory.ruleFormConfig) {
+
+    const effectiveSubcategory =
+      subcategory.isCustom && subcategory.inheritsFromSubcategoryId
+        ? await this.prisma.subcategory.findUnique({
+            where: { id: subcategory.inheritsFromSubcategoryId },
+            include: {
+              ruleFormConfig: true,
+              ruleFormOverlays: country
+                ? { where: { countryCode: country.toUpperCase() }, take: 1 }
+                : false,
+            },
+          })
+        : subcategory;
+
+    if (!effectiveSubcategory?.ruleFormConfig) {
       throw new NotFoundException('No rule/form configuration found for subcategory');
     }
 
-    const base = subcategory.ruleFormConfig;
-    const overlay = country ? subcategory.ruleFormOverlays[0] ?? null : null;
+    const base = effectiveSubcategory.ruleFormConfig;
+    const overlay = country ? effectiveSubcategory.ruleFormOverlays[0] ?? null : null;
 
     return {
       subcategory: {
@@ -1365,7 +1553,8 @@ export class TaxonomyService {
         level3: subcategory.level3,
       },
       country: country?.toUpperCase() ?? null,
-      resolvedFrom: overlay ? 'country_overlay' : 'base',
+      resolvedFrom: subcategory.isCustom ? 'custom_inherited' : overlay ? 'country_overlay' : 'base',
+      effectiveSubcategoryId: effectiveSubcategory.id,
       keys: {
         prFormKey: overlay?.prFormKey ?? base.prFormKey,
         rfqFormKey: overlay?.rfqFormKey ?? base.rfqFormKey,
@@ -1386,7 +1575,7 @@ export class TaxonomyService {
     const effective = await this.resolveEffectiveConfig(resolvedSubcategoryId, country);
     const displayedSubcategory = this.resolveDisplayedSubcategory(subcategoryId, effective.subcategory);
     const config = await this.prisma.subcategoryRuleFormConfig.findUnique({
-      where: { subcategoryId: resolvedSubcategoryId },
+      where: { subcategoryId: effective.effectiveSubcategoryId },
       select: { serviceFamily: true },
     });
 
@@ -1412,7 +1601,7 @@ export class TaxonomyService {
 
     const metadataFieldOverrides = this.resolveDynamicFieldOverrides(subcategoryId);
 
-    const baseMetadataFields = metadataFieldOverrides?.fields ?? fieldRows.map((r) => {
+    const baseMetadataFields = (metadataFieldOverrides?.fields ?? fieldRows.map((r) => {
       const key = r.fieldPath.startsWith('metadata.') ? r.fieldPath.slice('metadata.'.length) : r.fieldPath;
       return {
         path: r.fieldPath,
@@ -1423,9 +1612,10 @@ export class TaxonomyService {
         section: 'subcategory',
         message: r.message ?? undefined,
       };
-    });
+    })).map((field) => this.normalizeDynamicFieldDefinition(field));
 
     const metadataFields = [...this.resolveAdditionalDynamicFields(subcategoryId), ...baseMetadataFields]
+      .map((field) => this.normalizeDynamicFieldDefinition(field))
       .filter((field, index, fields) => fields.findIndex((candidate) => candidate.path === field.path) === index)
       .filter((field) => {
       if (coreFieldBindings.neededBy.includes(field.path as any)) {

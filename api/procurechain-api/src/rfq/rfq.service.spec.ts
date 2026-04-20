@@ -50,7 +50,7 @@ describe('RfqService lifecycle + award', () => {
     expect(policy.assertActionAllowed).toHaveBeenCalledWith(ctx, 'RFQ_RELEASE');
     expect(prisma.rFQ.update).toHaveBeenCalledWith({
       where: { id: 'rfq1' },
-      data: { status: 'RELEASED', releaseMode: 'PRIVATE', releasedAt: expect.any(Date) },
+      data: { status: 'RELEASED', releaseMode: 'PRIVATE', localCountryCode: null, releasedAt: expect.any(Date) },
     });
     expect(out.status).toBe('RELEASED');
   });
@@ -94,19 +94,6 @@ describe('RfqService lifecycle + award', () => {
     );
   });
 
-  it('blocks direct RELEASED -> AWARDED', async () => {
-    jest.spyOn(service as any, 'getScoped').mockResolvedValue({
-      id: 'rfq1',
-      status: 'RELEASED',
-      suppliers: [{ supplierId: 's1' }],
-      bids: [],
-    });
-
-    await expect(
-      service.award(ctx, 'rfq1', { bidId: 'b1', supplierId: 's1', overrideReason: 'best value' }),
-    ).rejects.toThrow(BadRequestException);
-  });
-
   it('requires overrideReason on award', async () => {
     jest.spyOn(service as any, 'getScoped').mockResolvedValue({
       id: 'rfq1',
@@ -138,9 +125,20 @@ describe('RfqService lifecycle + award', () => {
       });
 
     const tx = {
-      rFQAward: { upsert: jest.fn() },
+      rFQAward: { upsert: jest.fn().mockResolvedValue({ id: 'award1' }) },
       rFQ: { update: jest.fn() },
-      bid: { update: jest.fn(), updateMany: jest.fn() },
+      bid: {
+        update: jest.fn().mockResolvedValue({
+          id: 'b1',
+          rfqId: 'rfq1',
+          supplierId: 's1',
+          status: 'CLOSED',
+          currency: 'ZAR',
+          totalBidValue: new Prisma.Decimal(1000),
+        }),
+        updateMany: jest.fn().mockResolvedValue({ count: 0 }),
+      },
+      purchaseOrder: { findUnique: jest.fn().mockResolvedValue({ id: 'po-existing' }) },
     };
     prisma.$transaction.mockImplementation(async (cb: any) => cb(tx));
 
@@ -224,6 +222,70 @@ describe('RfqService lifecycle + award', () => {
     expect(tx.bid.update).toHaveBeenCalledWith({
       where: { id: 'b1' },
       data: expect.objectContaining({ status: 'CLOSED', recommended: true }),
+    });
+    expect(tx.purchaseOrder.create).toHaveBeenCalled();
+    expect(out.status).toBe('AWARDED');
+  });
+
+  it('allows direct RELEASED -> AWARDED for the live bids workflow', async () => {
+    const getScopedSpy = jest.spyOn(service as any, 'getScoped');
+    getScopedSpy
+      .mockResolvedValueOnce({
+        id: 'rfq1',
+        tenantId: 't1',
+        companyId: 'c1',
+        status: 'RELEASED',
+        prId: 'pr1',
+        pr: { id: 'pr1', currency: 'ZAR' },
+        suppliers: [{ supplierId: 's1', supplier: { id: 's1' } }],
+        bids: [{ id: 'b1', supplierId: 's1', status: 'SUBMITTED' }],
+        supplierForms: [],
+        award: null,
+        currency: 'ZAR',
+        paymentTerms: 'NET_30',
+      })
+      .mockResolvedValueOnce({
+        id: 'rfq1',
+        status: 'AWARDED',
+        suppliers: [{ supplierId: 's1' }],
+        bids: [{ id: 'b1', supplierId: 's1', status: 'CLOSED' }],
+        award: { bidId: 'b1', supplierId: 's1', overrideReason: 'selected from released RFQ' },
+      });
+
+    const tx = {
+      rFQAward: { upsert: jest.fn().mockResolvedValue({ id: 'award1' }) },
+      rFQ: { update: jest.fn().mockResolvedValue({ id: 'rfq1', status: 'AWARDED' }) },
+      bid: {
+        update: jest.fn().mockResolvedValue({
+          id: 'b1',
+          rfqId: 'rfq1',
+          supplierId: 's1',
+          status: 'CLOSED',
+          currency: 'ZAR',
+          totalBidValue: new Prisma.Decimal(2500),
+        }),
+        updateMany: jest.fn().mockResolvedValue({ count: 0 }),
+      },
+      purchaseOrder: {
+        findUnique: jest.fn().mockResolvedValue(null),
+        create: jest.fn().mockResolvedValue({
+          id: 'po1',
+          poNumber: 'PO-1',
+          status: 'DRAFT',
+        }),
+      },
+    };
+    prisma.$transaction.mockImplementation(async (cb: any) => cb(tx));
+
+    const out = await service.award(ctx, 'rfq1', {
+      bidId: 'b1',
+      supplierId: 's1',
+      overrideReason: 'selected from released RFQ',
+    });
+
+    expect(tx.rFQ.update).toHaveBeenCalledWith({
+      where: { id: 'rfq1' },
+      data: { status: 'AWARDED' },
     });
     expect(tx.purchaseOrder.create).toHaveBeenCalled();
     expect(out.status).toBe('AWARDED');

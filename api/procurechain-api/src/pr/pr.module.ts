@@ -5,10 +5,11 @@ import { ApprovalService } from './approval.service';
 import { AuditModule } from '../audit/audit.module';
 import { PRLinesController } from './pr.lines.controller';
 import { RulesModule } from '../rules/rules.module';
+import { WorkflowModule } from '../workflow/workflow.module';
 
 
 @Module({
-  imports: [AuditModule, RulesModule],
+  imports: [AuditModule, RulesModule, WorkflowModule],
   controllers: [PRController, PRLinesController],
   providers: [PRService, ApprovalService],
 })

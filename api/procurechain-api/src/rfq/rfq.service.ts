@@ -29,7 +29,7 @@ export class RfqService {
 
   private readonly allowedTransitions: Record<RFQStatus, RFQStatus[]> = {
     DRAFT: ['RELEASED'],
-    RELEASED: ['OPEN'],
+    RELEASED: ['OPEN', 'AWARDED', 'CLOSED'],
     OPEN: ['AWARDED', 'CLOSED'],
     AWARDED: ['CLOSED'],
     CLOSED: [],
@@ -98,6 +98,71 @@ export class RfqService {
     }
   }
 
+  private async getSupplierEligibilityContext(ctx: any, supplierId: string) {
+    const supplier = await this.prisma.supplier.findFirst({
+      where: {
+        id: supplierId,
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        status: 'ACTIVE',
+      },
+      include: {
+        tags: {
+          select: {
+            subcategoryId: true,
+          },
+        },
+      },
+    });
+
+    if (!supplier) {
+      throw new NotFoundException('Supplier not found');
+    }
+
+    return {
+      supplierId: supplier.id,
+      country: (supplier.country ?? '').toUpperCase(),
+      tagIds: new Set(supplier.tags.map((tag) => tag.subcategoryId)),
+    };
+  }
+
+  private isSupplierEligibleForRfq(
+    rfq: {
+      releaseMode: RFQReleaseMode;
+      localCountryCode: string | null;
+      suppliers: Array<{ supplierId: string }>;
+      pr: { subcategoryId: string | null };
+    },
+    supplier: {
+      supplierId: string;
+      country: string;
+      tagIds: Set<string>;
+    },
+  ) {
+    if (rfq.releaseMode === 'PRIVATE') {
+      return rfq.suppliers.some((entry) => entry.supplierId === supplier.supplierId);
+    }
+
+    const subcategoryId = rfq.pr.subcategoryId;
+    if (!subcategoryId) {
+      return false;
+    }
+
+    const canonicalId = this.taxonomy.normalizeAppendixCSubcategoryId(subcategoryId);
+    const categoryIds = [subcategoryId, canonicalId];
+    const hasCategoryAccess = categoryIds.some((categoryId) => supplier.tagIds.has(categoryId));
+    if (!hasCategoryAccess) {
+      return false;
+    }
+
+    if (rfq.releaseMode === 'LOCAL') {
+      const rfqCountry = (rfq.localCountryCode ?? 'ZA').toUpperCase();
+      return supplier.country === rfqCountry;
+    }
+
+    return rfq.releaseMode === 'GLOBAL';
+  }
+
   private async getScoped(ctx: any, id: string) {
     const supplierId = this.requireSupplierId(ctx);
     const rfq = await this.prisma.rFQ.findFirst({
@@ -105,10 +170,13 @@ export class RfqService {
         id,
         tenantId: ctx.tenantId,
         companyId: ctx.companyId,
-        ...(supplierId ? { suppliers: { some: { supplierId } } } : {}),
       },
       include: {
-        pr: true,
+        pr: {
+          include: {
+            lines: true,
+          },
+        },
         suppliers: { include: { supplier: true } },
         supplierForms: {
           include: {
@@ -122,19 +190,28 @@ export class RfqService {
     });
 
     if (!rfq) throw new NotFoundException('RFQ not found');
+    if (supplierId) {
+      const supplier = await this.getSupplierEligibilityContext(ctx, supplierId);
+      if (!this.isSupplierEligibleForRfq(rfq, supplier)) {
+        throw new NotFoundException('RFQ not found');
+      }
+    }
     return rfq;
   }
 
   async list(ctx: any, limit = 100) {
     const supplierId = this.requireSupplierId(ctx);
-    return this.prisma.rFQ.findMany({
+    const rfqs = await this.prisma.rFQ.findMany({
       where: {
         tenantId: ctx.tenantId,
         companyId: ctx.companyId,
-        ...(supplierId ? { suppliers: { some: { supplierId } } } : {}),
       },
       include: {
-        pr: true,
+        pr: {
+          include: {
+            lines: true,
+          },
+        },
         suppliers: { include: { supplier: true } },
         supplierForms: {
           include: {
@@ -148,6 +225,13 @@ export class RfqService {
       orderBy: { updatedAt: 'desc' },
       take: Math.max(1, Math.min(limit, 200)),
     });
+
+    if (!supplierId) {
+      return rfqs;
+    }
+
+    const supplier = await this.getSupplierEligibilityContext(ctx, supplierId);
+    return rfqs.filter((rfq) => this.isSupplierEligibleForRfq(rfq, supplier));
   }
 
   async listSupplierFormTemplates(ctx: any, limit = 100) {
@@ -416,6 +500,18 @@ export class RfqService {
     await this.policy.assertActionAllowed(ctx, 'RFQ_RELEASE');
     const rfq = await this.getScoped(ctx, id);
     this.assertTransition(rfq.status, 'RELEASED');
+    const organizationProfile = await this.prisma.organizationProfile.findUnique({
+      where: { companyId: ctx.companyId },
+      select: { tenantId: true, verificationStatus: true },
+    });
+    if (!organizationProfile || organizationProfile.tenantId !== ctx.tenantId) {
+      throw new BadRequestException('Organization verification profile is required before releasing RFQs');
+    }
+    if (organizationProfile.verificationStatus !== 'VERIFIED') {
+      throw new BadRequestException(
+        `Organization must be VERIFIED before releasing RFQs. Current status: ${organizationProfile.verificationStatus}`,
+      );
+    }
 
     const requestedReleaseMode: RFQReleaseMode = dto?.releaseMode ?? 'PRIVATE';
     const releaseMode: RFQReleaseMode = requestedReleaseMode === 'PUBLIC' ? 'GLOBAL' : requestedReleaseMode;
@@ -475,7 +571,12 @@ export class RfqService {
 
     const updated = await this.prisma.rFQ.update({
       where: { id: rfq.id },
-      data: { status: 'RELEASED', releaseMode, releasedAt: new Date() },
+      data: {
+        status: 'RELEASED',
+        releaseMode,
+        localCountryCode: isLocalMode ? (dto?.localCountryCode?.trim() || 'ZA').toUpperCase() : null,
+        releasedAt: new Date(),
+      },
     });
 
     await this.audit.record({

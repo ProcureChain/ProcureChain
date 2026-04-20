@@ -6,17 +6,17 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { ArrowRight, ClipboardList, Layers3, ListChecks } from "lucide-react";
 
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
 import { LocationAutocompleteField } from "@/components/forms/location-autocomplete-field";
-import { PageHeader } from "@/components/common/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { runtimeConfig } from "@/lib/runtime-config";
-import { useAuditEvents, useCreateDraftRequisition, usePrFormSchema, useRequisition, useRequisitionDocumentUpload, useSubmitDraftRequisition, useTaxonomySubcategories, useUpdateRequisition } from "@/lib/query-hooks";
+import { useAuditEvents, useCreateCustomTaxonomySubcategory, useCreateDraftRequisition, usePrFormSchema, useRequisition, useRequisitionDocumentUpload, useSubmitDraftRequisition, useTaxonomySubcategories, useUpdateRequisition } from "@/lib/query-hooks";
 import { LocationSuggestion, PrFormSchemaField } from "@/lib/types";
 
 const lineSchema = z.object({
@@ -77,6 +77,66 @@ function formatDynamicValue(value: unknown) {
   return String(value);
 }
 
+function WizardHero({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <section className="overflow-hidden rounded-[32px] border border-[var(--border)] bg-[linear-gradient(135deg,#2D334A_0%,#444A74_100%)] text-white shadow-[var(--shadow-lg)]">
+      <div className="px-6 py-7 lg:px-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Purchase Requisition</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white">{title}</h1>
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-[#E1E7FF]">{description}</p>
+      </div>
+    </section>
+  );
+}
+
+function StepChip({
+  number,
+  title,
+  active,
+  complete,
+}: {
+  number: number;
+  title: string;
+  active: boolean;
+  complete: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-2xl border px-4 py-3 ${
+        active
+          ? "border-[var(--primary)] bg-[var(--portal-org-bg)]"
+          : complete
+            ? "border-[var(--border)] bg-[var(--surface-muted)]"
+            : "border-[var(--border)] bg-white"
+      }`}
+    >
+      <div className="flex items-center gap-3">
+        <div
+          className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ${
+            active
+              ? "bg-[var(--primary)] text-white"
+              : complete
+                ? "bg-[var(--secondary)] text-white"
+                : "bg-[var(--surface-muted)] text-[var(--text-secondary)]"
+          }`}
+        >
+          {number}
+        </div>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">Step {number}</p>
+          <p className="text-sm font-semibold text-[var(--text-primary)]">{title}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function NewRequisitionPage() {
   const [editId, setEditId] = useState<string | null>(null);
   const [editSource, setEditSource] = useState<string | null>(null);
@@ -85,6 +145,7 @@ export default function NewRequisitionPage() {
   const [syncCategoryFieldsToFirstLine, setSyncCategoryFieldsToFirstLine] = useState(true);
   const [selectedLevel1, setSelectedLevel1] = useState("");
   const [selectedLevel2, setSelectedLevel2] = useState("");
+  const [customLevel3Name, setCustomLevel3Name] = useState("");
   const [supportingFiles, setSupportingFiles] = useState<File[]>([]);
   const [dynamicDocumentFiles, setDynamicDocumentFiles] = useState<Record<string, File | null>>({});
   const router = useRouter();
@@ -93,6 +154,7 @@ export default function NewRequisitionPage() {
   const submitDraftReq = useSubmitDraftRequisition();
   const uploadDocument = useRequisitionDocumentUpload();
   const subcategories = useTaxonomySubcategories();
+  const createCustomSubcategory = useCreateCustomTaxonomySubcategory();
   const existingReq = useRequisition(editId ?? "");
   const { data: existingAudit = [] } = useAuditEvents(
     editId ? { entityType: "PurchaseRequisition", entityId: editId, limit: 50 } : undefined,
@@ -282,6 +344,35 @@ export default function NewRequisitionPage() {
     if (description) form.setValue("lines.0.description", description, { shouldDirty: true });
     if (qty != null) form.setValue("lines.0.quantity", qty, { shouldDirty: true });
     if (uom) form.setValue("lines.0.uom", uom, { shouldDirty: true });
+  };
+
+  const createCustomLevel3Category = async () => {
+    if (!selectedLevel1 || !selectedLevel2) {
+      toast.error("Select level 1 and level 2 first");
+      return;
+    }
+    const level3 = customLevel3Name.trim();
+    if (!level3) {
+      toast.error("Enter a level 3 category name");
+      return;
+    }
+
+    try {
+      const created = await createCustomSubcategory.mutateAsync({
+        level1: selectedLevel1,
+        level2: selectedLevel2,
+        level3,
+        baseSubcategoryId: level3Options[0]?.id,
+      });
+      form.setValue("subcategoryId", created.id, { shouldDirty: true, shouldValidate: true });
+      form.setValue("metadata", {});
+      form.clearErrors(["subcategoryId", "metadata"]);
+      setCustomLevel3Name("");
+      toast.success("Custom level 3 category created");
+    } catch (error) {
+      console.error(error);
+      toast.error("Could not create custom level 3 category");
+    }
   };
 
   const syncNeededByToMetadata = (value: string) => {
@@ -580,14 +671,14 @@ export default function NewRequisitionPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
+      <WizardHero
         title={editId ? "Edit Requisition" : "Create Requisition"}
         description={
           editId
             ? editSource === "rfq"
-              ? "Resume the PR wizard from RFQ. Saved changes will be tracked in audit."
+              ? "Resume the PR wizard from RFQ. Saved changes remain tracked in audit and RFQ visibility."
               : "Resume the full PR wizard with the saved draft state."
-            : "Three-step guided submission with policy-safe defaults."
+            : "Three-step guided submission with policy-safe defaults and live document checks."
         }
       />
       {existingReq.error ? <ApiErrorAlert error={existingReq.error} /> : null}
@@ -598,10 +689,10 @@ export default function NewRequisitionPage() {
       {submitDraftReq.error ? <ApiErrorAlert error={submitDraftReq.error} /> : null}
       {uploadDocument.error ? <ApiErrorAlert error={uploadDocument.error} /> : null}
       {subcategories.isLoading ? (
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">Loading category taxonomy...</div>
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 shadow-[var(--shadow-sm)]">Loading category taxonomy...</div>
       ) : null}
       {editId && existingReq.isLoading ? (
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">Loading draft requisition...</div>
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 shadow-[var(--shadow-sm)]">Loading draft requisition...</div>
       ) : null}
       {existingReq.data?.status === "RETURNED" ? (
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
@@ -620,9 +711,18 @@ export default function NewRequisitionPage() {
         </div>
       ) : null}
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Step {step} of 3</CardTitle>
+      <section className="grid gap-4 lg:grid-cols-3">
+        <StepChip number={1} title="Requisition Basics" active={step === 1} complete={step > 1} />
+        <StepChip number={2} title="Line Items" active={step === 2} complete={step > 2} />
+        <StepChip number={3} title="Review & Submit" active={step === 3} complete={false} />
+      </section>
+
+      <Card className="rounded-3xl border-[var(--border)] bg-white shadow-[var(--shadow-sm)]">
+        <CardHeader className="border-b border-[var(--border)] pb-4">
+          <CardTitle className="flex items-center gap-2 text-[var(--text-primary)]">
+            {step === 1 ? <Layers3 className="h-5 w-5 text-[var(--secondary)]" /> : step === 2 ? <ListChecks className="h-5 w-5 text-[var(--secondary)]" /> : <ClipboardList className="h-5 w-5 text-[var(--secondary)]" />}
+            Step {step} of 3
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -707,10 +807,32 @@ export default function NewRequisitionPage() {
                               </option>
                                 {level3Options.map((s) => (
                                   <option key={s.id} value={s.id}>
-                                    {s.level3} ({s.id})
+                                    {s.level3}{s.isCustom ? " (Custom)" : ""}
                                   </option>
                                 ))}
                               </select>
+                              <div className="mt-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
+                                <p className="text-xs font-medium uppercase tracking-[0.12em] text-slate-500">Need a new level 3 category?</p>
+                                <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+                                  <Input
+                                    value={customLevel3Name}
+                                    onChange={(event) => setCustomLevel3Name(event.target.value)}
+                                    placeholder={selectedLevel2 ? "Create custom level 3 under this level 2" : "Select level 2 first"}
+                                    disabled={!selectedLevel1 || !selectedLevel2 || createCustomSubcategory.isPending}
+                                  />
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    disabled={!selectedLevel1 || !selectedLevel2 || !customLevel3Name.trim() || createCustomSubcategory.isPending}
+                                    onClick={() => void createCustomLevel3Category()}
+                                  >
+                                    {createCustomSubcategory.isPending ? "Creating..." : "Add Level 3"}
+                                  </Button>
+                                </div>
+                                <p className="mt-2 text-xs text-slate-500">
+                                  Custom categories are level 3 only and inherit the existing level 1 / level 2 workflow structure.
+                                </p>
+                              </div>
                             </div>
                           </FormControl>
                         </div>
@@ -819,48 +941,8 @@ export default function NewRequisitionPage() {
                       )}
                     />
                   </div>
-                  <div className="md:col-span-2 space-y-3 rounded-lg border border-dashed p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium">Category-specific required fields</p>
-                        <p className="text-xs text-slate-600">
-                          Loaded from Appendix C rule-pack field catalog for the selected Level 3 subcategory.
-                        </p>
-                      </div>
-                      {formSchemaQuery.isFetching ? <p className="text-xs text-slate-500">Loading…</p> : null}
-                    </div>
-                    {activeFormSchema ? (
-                      <div className="rounded-md bg-slate-50 p-3 text-xs text-slate-700">
-                        <div>PR Form Key: <span className="font-medium">{activeFormSchema.keys.prFormKey}</span></div>
-                        <div>PR Rule Pack: <span className="font-medium">{activeFormSchema.validation.rulePackKey}</span></div>
-                        <div>Service Family: <span className="font-medium">{activeFormSchema.serviceFamily}</span></div>
-                        <div>
-                          UOM Policy:{" "}
-                          <span className="font-medium">
-                            {activeFormSchema.uomPolicy
-                              ? `${activeFormSchema.uomPolicy.options.join(", ") || "free"}${activeFormSchema.uomPolicy.locked ? " (locked)" : ""}`
-                              : "not configured"}
-                          </span>
-                        </div>
-                        <div>
-                          Fields: <span className="font-medium">{activeFormSchema.validation.fieldCount ?? dynamicFields.length}</span>
-                          {" • "}
-                          Required: <span className="font-medium">{activeFormSchema.validation.requiredFieldCount}</span>
-                        </div>
-                        <div className="mt-2 border-t border-slate-200 pt-2">
-                          <div className="mb-1 font-medium">Line Bindings (UAT debug)</div>
-                          <div>
-                            Description: <span className="font-mono">{(activeFormSchema.lineBindings?.description ?? []).join(" -> ") || "-"}</span>
-                          </div>
-                          <div>
-                            Quantity: <span className="font-mono">{(activeFormSchema.lineBindings?.quantity ?? []).join(" -> ") || "-"}</span>
-                          </div>
-                          <div>
-                            UOM: <span className="font-mono">{(activeFormSchema.lineBindings?.uom ?? []).join(" -> ") || "-"}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ) : null}
+                  <div className="md:col-span-2 space-y-3">
+                    {formSchemaQuery.isFetching ? <p className="text-xs text-slate-500">Loading category fields…</p> : null}
                     {!selectedSubcategoryId ? (
                       <div className="rounded-md bg-slate-50 p-3 text-sm text-slate-600">
                         Select a Level 3 subcategory first. Category-specific fields only appear after a subcategory is chosen.
@@ -1271,8 +1353,8 @@ export default function NewRequisitionPage() {
                   </div>
 
                   <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-                    <Card>
-                      <CardHeader>
+                    <Card className="rounded-3xl border-[var(--border)] bg-white shadow-none">
+                      <CardHeader className="border-b border-[var(--border)] pb-4">
                         <CardTitle>PR Review</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4 text-sm">
@@ -1309,20 +1391,20 @@ export default function NewRequisitionPage() {
                       </CardContent>
                     </Card>
 
-                    <Card>
-                      <CardHeader>
+                    <Card className="rounded-3xl border-[var(--border)] bg-white shadow-none">
+                      <CardHeader className="border-b border-[var(--border)] pb-4">
                         <CardTitle>Category Data</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3 text-sm">
-                        <div className="rounded-lg bg-slate-50 p-3">
+                        <div className="rounded-2xl bg-[var(--surface-muted)] p-4">
                           <p className="text-slate-500">Form key</p>
                           <p className="font-medium">{activeFormSchema?.keys.prFormKey ?? "-"}</p>
                         </div>
-                        <div className="rounded-lg bg-slate-50 p-3">
+                        <div className="rounded-2xl bg-[var(--surface-muted)] p-4">
                           <p className="text-slate-500">Rule pack</p>
                           <p className="font-medium break-all">{activeFormSchema?.validation.rulePackKey ?? "-"}</p>
                         </div>
-                        <div className="rounded-lg bg-slate-50 p-3">
+                        <div className="rounded-2xl bg-[var(--surface-muted)] p-4">
                           <p className="text-slate-500">Dynamic fields completed</p>
                           <p className="font-medium">{populatedDynamicFields.length}/{dynamicFields.length}</p>
                         </div>
@@ -1330,13 +1412,13 @@ export default function NewRequisitionPage() {
                     </Card>
                   </div>
 
-                  <Card>
-                    <CardHeader>
+                  <Card className="rounded-3xl border-[var(--border)] bg-white shadow-none">
+                    <CardHeader className="border-b border-[var(--border)] pb-4">
                       <CardTitle>Line Items</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       {lines.map((line, index) => (
-                        <div key={`${line.description}-${index}`} className="rounded-lg border p-4">
+                        <div key={`${line.description}-${index}`} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
                           <div className="grid gap-3 md:grid-cols-[1fr_120px_140px] text-sm">
                             <div>
                               <p className="text-slate-500">Description</p>
@@ -1356,8 +1438,8 @@ export default function NewRequisitionPage() {
                     </CardContent>
                   </Card>
 
-                  <Card>
-                    <CardHeader>
+                  <Card className="rounded-3xl border-[var(--border)] bg-white shadow-none">
+                    <CardHeader className="border-b border-[var(--border)] pb-4">
                       <CardTitle>Category-Specific Fields</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3 text-sm">
@@ -1366,7 +1448,7 @@ export default function NewRequisitionPage() {
                       ) : (
                         <div className="grid gap-3 md:grid-cols-2">
                           {populatedDynamicFields.map((field) => (
-                            <div key={field.path} className="rounded-lg border p-3">
+                            <div key={field.path} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
                               <p className="text-slate-500">{field.label}</p>
                               <p className="font-medium break-words whitespace-pre-wrap">
                                 {formatDynamicValue(field.value)}
@@ -1378,13 +1460,13 @@ export default function NewRequisitionPage() {
                     </CardContent>
                   </Card>
 
-                  <Card>
-                    <CardHeader>
+                  <Card className="rounded-3xl border-[var(--border)] bg-white shadow-none">
+                    <CardHeader className="border-b border-[var(--border)] pb-4">
                       <CardTitle>Documents</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3 text-sm">
                       <div
-                        className={`rounded-lg border p-3 ${
+                        className={`rounded-2xl border p-4 ${
                           pendingRequiredDocumentCount > 0
                             ? "border-amber-200 bg-amber-50 text-amber-900"
                             : "border-emerald-200 bg-emerald-50 text-emerald-900"
@@ -1400,7 +1482,7 @@ export default function NewRequisitionPage() {
                         </p>
                       </div>
                       {requiredDocumentFields.length > 0 ? (
-                        <div className="space-y-2 rounded-lg border border-slate-200 bg-slate-50 p-3">
+                        <div className="space-y-2 rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
                           <p className="font-medium">Required before submit</p>
                           {requiredDocumentFields.map((field) => {
                             const satisfied = Boolean(dynamicDocumentFiles[field.key]) || hasExistingDocumentForField(field.key);
@@ -1420,13 +1502,13 @@ export default function NewRequisitionPage() {
                       ) : (
                         <div className="space-y-2">
                           {existingDocuments.map((document) => (
-                            <div key={document.id} className="rounded-lg border p-3">
+                            <div key={document.id} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
                               <p className="font-medium">{document.label ?? document.name}</p>
                               <p className="text-slate-500">{document.name}</p>
                             </div>
                           ))}
                           {supportingFiles.map((file) => (
-                            <div key={`supporting-${file.name}`} className="rounded-lg border p-3">
+                            <div key={`supporting-${file.name}`} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
                               <p className="font-medium">Supporting Document</p>
                               <p className="text-slate-500">{file.name}</p>
                             </div>
@@ -1436,7 +1518,7 @@ export default function NewRequisitionPage() {
                             .map(([fieldKey, file]) => {
                               const definition = dynamicFields.find((field) => field.key === fieldKey);
                               return (
-                                <div key={`dynamic-${fieldKey}`} className="rounded-lg border p-3">
+                                <div key={`dynamic-${fieldKey}`} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
                                   <p className="font-medium">{definition?.label ?? fieldKey}</p>
                                   <p className="text-slate-500">{file?.name}</p>
                                 </div>
@@ -1450,7 +1532,7 @@ export default function NewRequisitionPage() {
               )}
 
               <div className="flex items-center justify-between pt-4">
-                <Button type="button" variant="outline" disabled={step === 1} onClick={() => setStep((s) => Math.max(1, s - 1))}>
+                <Button type="button" variant="outline" className="rounded-full" disabled={step === 1} onClick={() => setStep((s) => Math.max(1, s - 1))}>
                   Back
                 </Button>
                 {step < 3 ? (
@@ -1458,13 +1540,15 @@ export default function NewRequisitionPage() {
                     <Button
                       type="button"
                       variant="outline"
+                      className="rounded-full"
                       disabled={createDraftReq.isPending || updateReq.isPending || submitDraftReq.isPending || uploadDocument.isPending}
                       onClick={() => void saveDraftPartial()}
                     >
                       Save draft
                     </Button>
-                    <Button type="button" onClick={nextStep}>
+                    <Button type="button" className="rounded-full" onClick={nextStep}>
                       Next
+                      <ArrowRight className="h-4 w-4" />
                     </Button>
                   </div>
                 ) : (
@@ -1473,6 +1557,7 @@ export default function NewRequisitionPage() {
                       <Button
                         type="button"
                         variant="outline"
+                        className="rounded-full"
                         disabled={createDraftReq.isPending || updateReq.isPending || submitDraftReq.isPending || uploadDocument.isPending}
                         onClick={() => void saveDraft()}
                       >
@@ -1482,6 +1567,7 @@ export default function NewRequisitionPage() {
                       <Button
                         type="button"
                         variant="outline"
+                        className="rounded-full"
                         disabled={createDraftReq.isPending || submitDraftReq.isPending || uploadDocument.isPending}
                         onClick={() => void saveDraft()}
                       >
@@ -1492,6 +1578,7 @@ export default function NewRequisitionPage() {
                       <div className="flex flex-col items-end gap-1">
                         <Button
                           type="button"
+                          className="rounded-full"
                           disabled={createDraftReq.isPending || updateReq.isPending || submitDraftReq.isPending || uploadDocument.isPending}
                           onClick={() => void (editId ? submitEditedDraft() : submitRequisition())}
                         >

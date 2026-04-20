@@ -3,8 +3,9 @@ import type { NextRequest } from "next/server";
 
 import { SESSION_COOKIE_KEYS } from "@/lib/session";
 
-const PUBLIC_PATHS = ["/login", "/graphs"];
+const PUBLIC_PATHS = ["/login", "/signup", "/graphs"];
 const SUPPLIER_ALLOWED_PATHS = ["/dashboard", "/supplier"];
+const DEMO_BLOCKED_PATHS = ["/finance", "/approvals", "/compliance", "/governance"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -37,6 +38,15 @@ export function proxy(request: NextRequest) {
   if (portal === "supplier") {
     const allowed = SUPPLIER_ALLOWED_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));
     if (!allowed) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/dashboard";
+      return NextResponse.redirect(url);
+    }
+  }
+
+  if (portal !== "supplier") {
+    const blocked = DEMO_BLOCKED_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));
+    if (blocked) {
       const url = request.nextUrl.clone();
       url.pathname = "/dashboard";
       return NextResponse.redirect(url);

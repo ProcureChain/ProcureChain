@@ -53,10 +53,10 @@ export const runtimeConfig = {
     return baseConfig.apiBaseUrl;
   },
   get tenantId() {
-    return baseConfig.tenantId;
+    return sessionOverride()?.tenantId ?? baseConfig.tenantId;
   },
   get companyId() {
-    return baseConfig.companyId;
+    return sessionOverride()?.companyId ?? baseConfig.companyId;
   },
   get actorId() {
     return sessionOverride()?.actorId ?? baseConfig.actorId;
