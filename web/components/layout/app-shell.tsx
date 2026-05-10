@@ -3,16 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  BarChart3,
   Bell,
   FileSearch,
   FileText,
   LayoutDashboard,
   Menu,
-  Scale,
   ScrollText,
   PackageCheck,
   Settings,
-  Shield,
   Truck,
 } from "lucide-react";
 
@@ -28,18 +27,18 @@ import { cn } from "@/lib/utils";
 
 const organizationNav = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/requisitions", label: "Requisitions", icon: FileSearch },
   { href: "/rfqs", label: "RFx", icon: FileText },
   { href: "/purchase-orders", label: "Purchase Orders", icon: PackageCheck },
+  { href: "/invoices", label: "Invoices", icon: ScrollText },
   { href: "/suppliers", label: "Suppliers", icon: Truck },
-  { href: "/audit", label: "Audit", icon: Shield },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 const supplierNav = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/supplier/rfqs", label: "RFx", icon: FileText },
-  { href: "/supplier/bids", label: "Bids", icon: Scale },
   { href: "/supplier/purchase-orders", label: "Purchase Orders", icon: PackageCheck },
   { href: "/supplier/invoices", label: "Invoices", icon: ScrollText },
   { href: "/supplier/profile", label: "Profile", icon: Settings },
@@ -50,19 +49,18 @@ function Sidebar() {
   const nav = runtimeConfig.isSupplierPortal ? supplierNav : organizationNav;
   const portalLabel = runtimeConfig.isSupplierPortal ? "test_supplier" : "test_org";
   const portalSubLabel = runtimeConfig.isSupplierPortal ? "Supplier Test User" : "Organization Test User";
-  const portalBadgeClass = runtimeConfig.isSupplierPortal
-    ? "border-[var(--portal-supplier-accent)]/20 bg-[var(--portal-supplier-bg)] text-[var(--portal-supplier-accent)]"
-    : "border-[var(--portal-org-accent)]/20 bg-[var(--portal-org-bg)] text-[var(--portal-org-accent)]";
+  const portalBadgeClass =
+    "border-white/20 bg-white/12 text-white";
 
   return (
-    <aside className="flex h-full flex-col border-r border-[var(--border)] bg-[var(--surface-background)]">
-      <div className="flex h-16 items-center gap-3 border-b border-[var(--border)] px-5">
-        <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-[var(--border)] bg-white p-1 shadow-[var(--shadow-sm)]">
+    <aside className="flex h-full flex-col border-r border-white/10 bg-[var(--primary)] text-white">
+      <div className="flex h-16 items-center gap-3 border-b border-white/10 px-5">
+        <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-white/25 bg-white p-1 shadow-[var(--shadow-sm)]">
           <BrandLogo variant="mark" imageClassName="max-h-8 w-auto" priority />
         </div>
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-[var(--text-primary)]">{portalLabel}</p>
-          <p className="text-xs text-[var(--text-muted)]">{portalSubLabel}</p>
+          <p className="text-sm font-semibold text-white">{portalLabel}</p>
+          <p className="text-xs text-white/70">{portalSubLabel}</p>
         </div>
         <Badge variant="outline" className={cn("ml-auto hidden rounded-md text-[10px] md:inline-flex", portalBadgeClass)}>
           {runtimeConfig.isSupplierPortal ? "Supplier Portal" : "Org Portal"}
@@ -78,8 +76,8 @@ function Sidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition",
                 active
-                  ? "bg-[var(--primary)] text-white shadow-sm"
-                  : "text-[var(--text-secondary)] hover:bg-[var(--muted)] hover:text-[var(--text-primary)]",
+                  ? "bg-white text-[var(--primary)] shadow-sm"
+                  : "text-white/80 hover:bg-white/12 hover:text-white",
               )}
             >
               <item.icon className="h-4 w-4" />
@@ -104,8 +102,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   if (!hydrated) {
     return (
       <div className="min-h-screen bg-[var(--background)]">
-        <div className="grid min-h-screen md:grid-cols-[248px_1fr]">
-          <div className="hidden border-r border-[var(--border)] bg-[var(--surface-background)] md:block" />
+      <div className="grid min-h-screen md:grid-cols-[248px_1fr]">
+          <div className="hidden border-r border-white/10 bg-[var(--primary)] md:block" />
           <div>
             <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-[var(--border)] bg-[var(--surface-background)] px-4 md:px-6" />
             <main className="mx-auto w-full max-w-[1400px] p-4 md:p-6">{children}</main>
@@ -129,7 +127,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <Menu className="h-4 w-4" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="p-0">
+              <SheetContent side="left" className="border-white/10 bg-[var(--primary)] p-0">
                 <Sidebar />
               </SheetContent>
             </Sheet>

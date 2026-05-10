@@ -61,7 +61,7 @@ function DashboardHero({
       <div className="flex flex-col gap-6 px-6 py-7 lg:flex-row lg:items-end lg:justify-between lg:px-8">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">{eyebrow}</p>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-white">{title}</h1>
+          <h1 className="mt-3 text-2xl font-bold tracking-tight text-white">{title}</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-[#dfe4ff]">{description}</p>
         </div>
         {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
@@ -364,7 +364,7 @@ function InsightsRail({
   insights: string[];
 }) {
   return (
-    <Card className="rounded-3xl border-0 bg-[linear-gradient(180deg,#2D334A_0%,#202840_100%)] text-white shadow-[var(--shadow-md)]">
+    <Card className="rounded-3xl border-0 bg-[linear-gradient(180deg,#2D334A_0%,#202840_100%)] text-white shadow-[var(--shadow-md)] xl:sticky xl:top-20 xl:self-start">
       <CardContent className="p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
@@ -463,53 +463,42 @@ function DonutBreakdown({
   );
 }
 
-function SavingsCard({
-  percent,
-  trend,
+function TopSuppliersCard({
+  rows,
   period,
   onPeriodChange,
+  currency,
 }: {
-  percent: number;
-  trend: number[];
+  rows: Array<{ supplier: string; spend: number }>;
   period: AnalyticsPeriod;
   onPeriodChange: (period: AnalyticsPeriod) => void;
+  currency: string;
 }) {
-  const line = buildSparkline(trend);
+  const topRows = rows.slice(0, 5);
   return (
     <Card className="rounded-3xl border-[var(--border)] bg-white shadow-[var(--shadow-sm)]">
       <CardContent className="p-5">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)]">Savings & Competition</h3>
+            <h3 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)]">Top 5 Suppliers by Spend</h3>
           </div>
           <PeriodToggle period={period} onChange={onPeriodChange} />
         </div>
-        <div className="mt-6 flex items-start justify-between gap-4">
-          <div>
-            <p className="text-sm text-[var(--text-muted)]">Estimated Savings</p>
-            <p className="mt-2 text-4xl font-semibold tracking-tight text-[var(--text-primary)]">{percent}%</p>
-          </div>
-          <div className="rounded-full bg-[#EEF2FF] p-2 text-[#444A74]">
-            <TrendingUp className="h-4 w-4" />
-          </div>
-        </div>
         <div className="mt-5 rounded-3xl bg-[var(--surface-muted)] p-3">
-          <svg viewBox={`0 0 ${line.width} ${line.height}`} className="h-28 w-full">
-            <polyline
-              fill="none"
-              stroke="#7180C7"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              points={line.points}
-            />
-          </svg>
-        </div>
-        <div className="mt-5 flex items-center justify-between">
-          <Button variant="ghost" className="rounded-full text-[var(--text-secondary)] hover:bg-[var(--surface-muted)]">
-            View Reports
-          </Button>
-          <Button className="rounded-full bg-[var(--primary)] px-5 hover:bg-[var(--secondary)]">View Reports</Button>
+          {topRows.length > 0 ? (
+            <div className="space-y-3">
+              {topRows.map((row, idx) => (
+                <div key={`${row.supplier}-${idx}`} className="flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-[var(--text-primary)]">{row.supplier}</p>
+                  </div>
+                  <p className="shrink-0 text-sm font-semibold text-[var(--text-secondary)]">{formatMoney(row.spend, currency)}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-[var(--text-muted)]">No supplier spend in selected period.</p>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -789,17 +778,6 @@ function SupplierDashboard({ rfqs, pos }: { rfqs: Rfq[]; pos: PurchaseOrder[] })
         </ModulePanel>
 
         <ModulePanel
-          icon={<ClipboardList className="h-5 w-5" />}
-          title="Bids Module"
-          description="Create draft bids and submit them against supplier-assigned RFx only."
-          metrics={<WorkMetric label="Draft / Submitted" value={`${draftBidCount} / ${submittedBidCount}`} />}
-        >
-          <Button asChild variant="outline" size="sm">
-            <Link href="/supplier/bids">Open Bid Worklist</Link>
-          </Button>
-        </ModulePanel>
-
-        <ModulePanel
           icon={<Handshake className="h-5 w-5" />}
           title="PO Actions"
           description="Accept released POs or send back a structured change request."
@@ -822,119 +800,94 @@ function SupplierDashboard({ rfqs, pos }: { rfqs: Rfq[]; pos: PurchaseOrder[] })
         </ModulePanel>
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-3">
-        <DashboardSection title="RFx and Bids" description="Start responses, refine draft bids, and submit supplier offers.">
-          <div className="space-y-3">
-            {openRfqs.slice(0, 6).map((rfq) => {
-              const bid = bidMap.get(rfq.id);
-              return (
-                <div key={rfq.id} className="rounded-lg border border-[var(--border)] bg-[var(--surface-muted)] p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <p className="font-semibold text-[var(--text-primary)]">{rfq.title}</p>
-                    <Badge variant="outline" className="status-submitted rounded-md px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]">
-                      {rfq.status}
-                    </Badge>
-                  </div>
-                  <div className="mt-3 flex items-center justify-between text-xs text-[var(--text-muted)]">
-                    <span>{rfq.status}</span>
-                    <span>{formatDateTime(rfq.updatedAt)}</span>
-                  </div>
-                  <p className="mt-3 text-xs font-medium uppercase tracking-[0.12em] text-[var(--text-muted)]">Current bid</p>
-                  <p className="mt-1 text-sm text-[var(--text-primary)]">{bid?.status ?? "Not started"}</p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    <Button size="sm" variant="outline" onClick={() => openBidEditor(rfq)}>
-                      {bid ? "Edit Draft Bid" : "Create Draft Bid"}
-                    </Button>
-                    {bid?.status === "DRAFT" ? (
-                      <Button size="sm" onClick={() => submitBid(rfq.id)}>
-                        Submit Bid
-                      </Button>
-                    ) : null}
-                  </div>
-                </div>
-              );
-            })}
-            {!openRfqs.length ? <p className="text-sm text-[var(--text-muted)]">No open RFx available for this supplier.</p> : null}
-          </div>
-        </DashboardSection>
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <WorkMetric label="Conversion Rate" value={`${openRfqs.length ? Math.round((submittedBidCount / openRfqs.length) * 100) : 0}%`} tone="accent" />
+        <WorkMetric label="PO Acceptance" value={`${awaitingResponse.length ? Math.round((acceptedPos.length / Math.max(awaitingResponse.length + acceptedPos.length, 1)) * 100) : 100}%`} />
+        <WorkMetric label="Invoice Forwarded" value={`${invoicesReadyToCreate ? Math.round((invoicesSubmitted / Math.max(invoicesReadyToCreate, 1)) * 100) : 0}%`} />
+        <WorkMetric label="Total PO Value" value={formatMoney(supplierPos.reduce((sum, po) => sum + po.committedAmount, 0), "ZAR")} />
+      </section>
 
-        <DashboardSection title="PO Response" description="Review purchase orders issued to this supplier and respond with acceptance or change requests.">
-          <div className="space-y-3">
-            {supplierPos.slice(0, 6).map((po) => (
-              <div key={po.id} className="rounded-lg border border-[var(--border)] bg-[var(--surface-muted)] p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <p className="font-semibold text-[var(--text-primary)]">{po.poNumber}</p>
+      <section className="grid gap-4 xl:grid-cols-2">
+        <DashboardSection title="PO Response" description="Review issued purchase orders and respond quickly.">
+          <div className="overflow-hidden rounded-xl border border-[var(--border)]">
+            <div className="hidden grid-cols-[1fr_.9fr_1fr] bg-[var(--surface-muted)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)] lg:grid">
+              <span>PO</span>
+              <span>Status</span>
+              <span className="text-right">Action</span>
+            </div>
+            <div className="divide-y divide-[var(--border)]">
+              {supplierPos.slice(0, 6).map((po) => (
+                <div key={po.id} className="space-y-3 px-4 py-3 lg:grid lg:grid-cols-[1fr_.9fr_1fr] lg:items-center lg:gap-2 lg:space-y-0">
+                  <div>
+                    <p className="text-sm font-semibold text-[var(--text-primary)]">{po.poNumber}</p>
+                    <p className="text-xs text-[var(--text-muted)]">{formatDateTime(po.updatedAt)}</p>
+                  </div>
                   <Badge
                     variant="outline"
-                    className={`rounded-md px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
-                      po.status === "ACCEPTED"
-                        ? "status-approved"
-                        : po.status === "CHANGE_REQUESTED"
-                          ? "status-review"
-                          : "status-submitted"
+                    className={`w-fit rounded-md px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+                      po.status === "ACCEPTED" ? "status-approved" : po.status === "CHANGE_REQUESTED" ? "status-review" : "status-submitted"
                     }`}
                   >
                     {po.status}
                   </Badge>
+                  <div className="flex flex-wrap justify-start gap-2 lg:justify-end">
+                    {po.status === "RELEASED" || po.status === "CHANGE_REQUESTED" ? (
+                      <>
+                        <Button size="sm" className="h-8 px-3" onClick={() => acceptPo(po.id)}>
+                          Accept
+                        </Button>
+                        <Button size="sm" className="h-8 px-3" variant="outline" onClick={() => openChangeDialog(po)}>
+                          Change
+                        </Button>
+                      </>
+                    ) : (
+                      <p className="text-xs font-medium text-[var(--status-approved-fg)]">No action</p>
+                    )}
+                  </div>
                 </div>
-                <div className="mt-3 flex items-center justify-between text-xs text-[var(--text-muted)]">
-                  <span>{po.status}</span>
-                  <span>{formatDateTime(po.updatedAt)}</span>
-                </div>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {po.status === "RELEASED" || po.status === "CHANGE_REQUESTED" ? (
-                    <>
-                      <Button size="sm" onClick={() => acceptPo(po.id)}>
-                        Accept PO
-                      </Button>
-                      <Button size="sm" variant="outline" onClick={() => openChangeDialog(po)}>
-                        Request Change
-                      </Button>
-                    </>
-                  ) : null}
-                  {po.status === "ACCEPTED" ? (
-                    <p className="text-xs font-medium text-[var(--status-approved-fg)]">Accepted. Waiting for organisation delivery note upload.</p>
-                  ) : null}
-                </div>
-              </div>
-            ))}
-            {!supplierPos.length ? <p className="text-sm text-[var(--text-muted)]">No purchase orders assigned to this supplier.</p> : null}
+              ))}
+              {!supplierPos.length ? <p className="px-4 py-6 text-sm text-[var(--text-muted)]">No purchase orders assigned to this supplier.</p> : null}
+            </div>
           </div>
         </DashboardSection>
 
-        <DashboardSection title="Supplier Invoicing" description="Create invoice drafts once delivery notes exist and forward them to the organisation for review.">
-          <div className="space-y-3">
-            {acceptedPos.slice(0, 6).map((po) => {
-              const deliveryNotes = deliveryMap.get(po.id) ?? [];
-              const invoices = invoiceMap.get(po.id) ?? [];
-              const draftInvoice = invoices.find((invoice) => invoice.status === "DRAFT");
-              const submittedInvoice = invoices.find((invoice) => invoice.status !== "DRAFT");
-
-              return (
-                <div key={po.id} className="rounded-lg border border-[var(--border)] bg-[var(--surface-muted)] p-4">
-                  <p className="font-semibold text-[var(--text-primary)]">{po.poNumber}</p>
-                  <div className="mt-3 text-xs text-[var(--text-muted)]">
-                    Delivery notes: {deliveryNotes.length} • Invoice status: {submittedInvoice?.status ?? draftInvoice?.status ?? "Not started"}
+        <DashboardSection title="Supplier Invoicing" description="Create and forward invoices after delivery-note upload.">
+          <div className="overflow-hidden rounded-xl border border-[var(--border)]">
+            <div className="hidden grid-cols-[1fr_1.2fr_1fr] bg-[var(--surface-muted)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)] lg:grid">
+              <span>PO</span>
+              <span>Invoice State</span>
+              <span className="text-right">Action</span>
+            </div>
+            <div className="divide-y divide-[var(--border)]">
+              {acceptedPos.slice(0, 6).map((po) => {
+                const deliveryNotes = deliveryMap.get(po.id) ?? [];
+                const invoices = invoiceMap.get(po.id) ?? [];
+                const draftInvoice = invoices.find((invoice) => invoice.status === "DRAFT");
+                const submittedInvoice = invoices.find((invoice) => invoice.status !== "DRAFT");
+                return (
+                  <div key={po.id} className="space-y-3 px-4 py-3 lg:grid lg:grid-cols-[1fr_1.2fr_1fr] lg:items-center lg:gap-2 lg:space-y-0">
+                    <div>
+                      <p className="text-sm font-semibold text-[var(--text-primary)]">{po.poNumber}</p>
+                      <p className="text-xs text-[var(--text-muted)]">DN: {deliveryNotes.length}</p>
+                    </div>
+                    <p className="text-sm text-[var(--text-primary)]">{submittedInvoice?.status ?? draftInvoice?.status ?? "Not started"}</p>
+                    <div className="flex flex-wrap justify-start gap-2 lg:justify-end">
+                      {!draftInvoice && !submittedInvoice ? (
+                        <Button size="sm" className="h-8 px-3" variant="outline" disabled={deliveryNotes.length < 1} onClick={() => openInvoiceDialog(po)}>
+                          Create
+                        </Button>
+                      ) : null}
+                      {draftInvoice ? (
+                        <Button size="sm" className="h-8 px-3" onClick={() => submitInvoice(draftInvoice.id)}>
+                          Forward
+                        </Button>
+                      ) : null}
+                    </div>
                   </div>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {!draftInvoice && !submittedInvoice ? (
-                      <Button size="sm" variant="outline" disabled={deliveryNotes.length < 1} onClick={() => openInvoiceDialog(po)}>
-                        Create Invoice Draft
-                      </Button>
-                    ) : null}
-                    {draftInvoice ? (
-                      <Button size="sm" onClick={() => submitInvoice(draftInvoice.id)}>
-                        Forward To Organisation
-                      </Button>
-                    ) : null}
-                  </div>
-                  {deliveryNotes.length < 1 ? (
-                    <p className="mt-2 text-xs font-medium text-[var(--status-review-fg)]">Waiting for organisation delivery note upload.</p>
-                  ) : null}
-                </div>
-              );
-            })}
-            {!acceptedPos.length ? <p className="text-sm text-[var(--text-muted)]">No accepted POs ready for invoicing.</p> : null}
+                );
+              })}
+              {!acceptedPos.length ? <p className="px-4 py-6 text-sm text-[var(--text-muted)]">No accepted POs ready for invoicing.</p> : null}
+            </div>
           </div>
         </DashboardSection>
       </section>
@@ -1061,6 +1014,26 @@ function OrganizationDashboard() {
 
   const rfqById = new Map(rfqs.map((rfq) => [rfq.id, rfq]));
   const reqById = new Map(reqs.map((req) => [req.id, req]));
+  const budgetVarianceTotals = pos.reduce(
+    (acc, po) => {
+      const rfqBudget = rfqById.get(po.rfqId)?.budgetAmount;
+      if (rfqBudget == null || rfqBudget <= 0) return acc;
+      const variance = po.committedAmount - rfqBudget;
+      if (variance > 0) acc.overBudgetSpend += variance;
+      else if (variance < 0) acc.underBudgetSpend += Math.abs(variance);
+      return acc;
+    },
+    { overBudgetSpend: 0, underBudgetSpend: 0 },
+  );
+  const overBudgetSpend = budgetVarianceTotals.overBudgetSpend;
+  const underBudgetSpend = budgetVarianceTotals.underBudgetSpend;
+  const cumulativeVariance = overBudgetSpend - underBudgetSpend;
+  const cumulativeVarianceLabel =
+    cumulativeVariance > 0
+      ? "Cumulative Over Budget"
+      : cumulativeVariance < 0
+        ? "Cumulative Savings"
+        : "On Budget";
   const categoryPos = pos.filter((po) => isWithinAnalyticsPeriod(po.createdAt, categoryPeriod));
   const categorySpendRows = Object.values(
     categoryPos.reduce<Record<string, { label: string; spend: number; poCount: number; rfqCount: Set<string> }>>((acc, po) => {
@@ -1116,12 +1089,18 @@ function OrganizationDashboard() {
     { label: "Logistics", value: intelligenceCategorySpendRows.find((x) => x.label === "Logistics")?.spend ?? 0, color: "#F1C75B" },
   ].filter((segment) => segment.value > 0);
 
-  const savingsPos = pos.filter((po) => isWithinAnalyticsPeriod(po.createdAt, savingsPeriod));
-  const savingsRfqs = rfqs.filter((rfq) => isWithinAnalyticsPeriod(rfq.createdAt, savingsPeriod));
-  const savingsSpend = savingsPos.reduce((sum, po) => sum + po.committedAmount, 0);
-  const savingsBudget = savingsRfqs.reduce((sum, rfq) => sum + (rfq.budgetAmount ?? 0), 0);
-  const savingsRate = savingsBudget > 0 ? Math.max(0, Math.round(((savingsBudget - savingsSpend) / savingsBudget) * 100)) : 0;
-  const savingsSeries = buildPeriodSpendSeries(pos, savingsPeriod);
+  const supplierSpendRows = Object.values(
+    pos
+      .filter((po) => isWithinAnalyticsPeriod(po.createdAt, savingsPeriod))
+      .reduce<Record<string, { supplier: string; spend: number }>>((acc, po) => {
+        const supplier = po.supplierName?.trim() || "Unassigned supplier";
+        if (!acc[supplier]) {
+          acc[supplier] = { supplier, spend: 0 };
+        }
+        acc[supplier].spend += po.committedAmount;
+        return acc;
+      }, {}),
+  ).sort((a, b) => b.spend - a.spend);
 
   const workflowMetrics = [
     { label: "PRs Under Review", value: pending, note: `${returned} delayed`, color: "#526FB6" },
@@ -1150,7 +1129,7 @@ function OrganizationDashboard() {
       <section className="rounded-[32px] border border-[var(--border)] bg-white p-6 shadow-[var(--shadow-lg)]">
         <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
           <div>
-            <h1 className="text-4xl font-semibold tracking-tight text-[var(--text-primary)]">Dashboard</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">Dashboard</h1>
             <p className="mt-2 text-base text-[var(--text-muted)]">Procurement Overview - April 2026</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -1174,22 +1153,22 @@ function OrganizationDashboard() {
             sparkline={totalSpendSeries}
           />
           <SmallTrendCard
-            label="Active RFQs"
-            value={String(activeRfqs)}
-            hint={`${awardedRfqs} awarded`}
-            accent="blue"
+            label="Overbudget Spend"
+            value={formatMoney(overBudgetSpend, pos[0]?.currency ?? "ZAR")}
+            hint="Total committed above RFQ budgets"
+            accent={overBudgetSpend > 0 ? "red" : "blue"}
           />
           <SmallTrendCard
-            label="POs Awaiting Acceptance"
-            value={String(awaitingAcceptance)}
-            hint={`${awaitingAcceptance > 0 ? "Pending" : "Clear"} supplier response`}
-            accent={awaitingAcceptance > 0 ? "red" : "blue"}
+            label="Underbudget Spend"
+            value={formatMoney(underBudgetSpend, pos[0]?.currency ?? "ZAR")}
+            hint="Total savings below RFQ budgets"
+            accent={underBudgetSpend > 0 ? "blue" : "amber"}
           />
           <SmallTrendCard
-            label="Spend Variance"
-            value={`${savingsRate}%`}
-            hint={savingsBudget > 0 ? "vs current budget pool" : "Awaiting RFQ budgets"}
-            accent="amber"
+            label="Cumulative Variance"
+            value={formatMoney(Math.abs(cumulativeVariance), pos[0]?.currency ?? "ZAR")}
+            hint={cumulativeVarianceLabel}
+            accent={cumulativeVariance > 0 ? "red" : cumulativeVariance < 0 ? "blue" : "amber"}
           />
         </section>
 
@@ -1253,11 +1232,11 @@ function OrganizationDashboard() {
             onPeriodChange={setIntelligencePeriod}
           />
 
-          <SavingsCard
-            percent={savingsRate}
-            trend={savingsSeries.length > 1 ? savingsSeries : [0, 0, 0, 0, 0, 0]}
+          <TopSuppliersCard
+            rows={supplierSpendRows}
             period={savingsPeriod}
             onPeriodChange={setSavingsPeriod}
+            currency={pos[0]?.currency ?? "ZAR"}
           />
         </section>
       </section>

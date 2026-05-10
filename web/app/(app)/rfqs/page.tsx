@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, MessageSquareText, PencilLine, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, CalendarClock, CheckCircle2, CircleDollarSign, Clock3, MessageSquareText, PencilLine, ReceiptText, ShieldCheck, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
@@ -198,15 +198,68 @@ export default function RfqsPage() {
       )}
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Create RFQ from Approved PR</CardTitle>
+        <Card className="overflow-hidden rounded-[28px] border-[var(--border)] bg-white shadow-[var(--shadow-md)]">
+          <CardHeader className="border-b border-[var(--border)] bg-[linear-gradient(135deg,#FFFFFF_0%,#F4F7FF_100%)] pb-5">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                  <Sparkles className="h-4 w-4 text-[var(--secondary)]" />
+                  RFQ Conversion
+                </div>
+                <CardTitle className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">Create RFQ</CardTitle>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--text-secondary)]">
+                  Set the commercial controls and launch a supplier-facing RFQ from an approved requisition.
+                </p>
+              </div>
+              <Badge
+                variant="outline"
+                className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${
+                  isCommercialComplete && !selectedPrAlreadyConverted
+                    ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                    : "border-[var(--border)] bg-white text-[var(--text-secondary)]"
+                }`}
+              >
+                {isCommercialComplete && !selectedPrAlreadyConverted ? "Commercial Setup Complete" : "Commercial Setup Required"}
+              </Badge>
+            </div>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-5 p-6">
+            <div className="rounded-3xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">Selected Approved PR</p>
+                  <p className="mt-2 text-lg font-semibold text-[var(--text-primary)]">{selectedPr?.title ?? "Choose an approved PR to continue"}</p>
+                  <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                    {selectedPr ? formatBusinessRef("PR", selectedPr.id) : "No PR selected"}
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  {selectedPr ? <Badge variant="secondary">{selectedPr.status}</Badge> : null}
+                  {selectedPr?.editedAfterApprovalAt ? (
+                    <Badge variant="outline" className="rounded-full border-[var(--border)] bg-white text-[var(--text-secondary)]">
+                      Edited
+                    </Badge>
+                  ) : null}
+                  {selectedPrAlreadyConverted ? (
+                    <Badge variant="outline" className="rounded-full border-amber-200 bg-amber-50 text-amber-700">
+                      Already Converted
+                    </Badge>
+                  ) : selectedPr ? (
+                    <Badge variant="outline" className="rounded-full border-emerald-200 bg-emerald-50 text-emerald-700">
+                      Ready For RFQ
+                    </Badge>
+                  ) : null}
+                </div>
+              </div>
+              {selectedPrAlreadyConverted ? (
+                <p className="mt-3 text-xs text-amber-700">This PR already has an RFQ. Choose a different PR.</p>
+              ) : null}
+            </div>
+
             <div className="space-y-1">
               <Label htmlFor="approved-pr-id">Approved PR</Label>
               <Select value={selectedPr?.id ?? ""} onValueChange={(id) => setSelectedPrId(id)}>
-                <SelectTrigger id="approved-pr-id">
+                <SelectTrigger id="approved-pr-id" className="h-12 rounded-2xl border-[var(--border)] bg-white">
                   <SelectValue placeholder="Select approved PR" />
                 </SelectTrigger>
                 <SelectContent>
@@ -217,115 +270,230 @@ export default function RfqsPage() {
                   ))}
                 </SelectContent>
               </Select>
-              {selectedPrAlreadyConverted ? (
-                <p className="text-xs text-amber-700">This PR already has an RFQ. Choose a different PR.</p>
-              ) : null}
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="rfq-title">RFQ title</Label>
-              <Input id="rfq-title" value={rfqTitle} onChange={(e) => setRfqTitle(e.target.value)} placeholder="RFQ title" />
-            </div>
-            <div className="grid gap-3 md:grid-cols-2">
-              <div className="space-y-1">
-                <Label>Payment terms</Label>
-                <Select value={paymentTerms} onValueChange={setPaymentTerms}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select terms" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {paymentTermsOptions.map((option) => (
-                      <SelectItem key={option} value={option}>
-                        {option.replace("_", " ")}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+
+            <div className="rounded-3xl border border-[var(--border)] bg-white p-4 shadow-[var(--shadow-sm)]">
+              <div className="flex items-center gap-2">
+                <ReceiptText className="h-4 w-4 text-[var(--secondary)]" />
+                <p className="text-sm font-semibold text-[var(--text-primary)]">Commercial Terms</p>
               </div>
-              <div className="space-y-1">
-                <Label>Currency</Label>
-                <Select value={currency} onValueChange={setCurrency}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select currency" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {currencyOptions.map((option) => (
-                      <SelectItem key={option} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-1">
-                <Label>Tax</Label>
-                <Select value={taxIncluded} onValueChange={setTaxIncluded}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Tax included?" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="YES">Yes</SelectItem>
-                    <SelectItem value="NO">No</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-1">
-                <Label>Price validity</Label>
-                <Select value={priceValidityDays} onValueChange={setPriceValidityDays}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select validity" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {priceValidityOptions.map((days) => (
-                      <SelectItem key={days} value={String(days)}>
-                        {days} days
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                <div className="space-y-1">
+                  <Label htmlFor="rfq-title">RFQ title</Label>
+                  <Input id="rfq-title" value={rfqTitle} onChange={(e) => setRfqTitle(e.target.value)} placeholder="RFQ title" className="h-12 rounded-2xl" />
+                </div>
+                <div className="space-y-1">
+                  <Label>Payment terms</Label>
+                  <Select value={paymentTerms} onValueChange={setPaymentTerms}>
+                    <SelectTrigger className="h-12 rounded-2xl border-[var(--border)] bg-white">
+                      <SelectValue placeholder="Select terms" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {paymentTermsOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option.replace("_", " ")}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-1">
+                  <Label>Currency</Label>
+                  <Select value={currency} onValueChange={setCurrency}>
+                    <SelectTrigger className="h-12 rounded-2xl border-[var(--border)] bg-white">
+                      <SelectValue placeholder="Select currency" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {currencyOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-1">
+                  <Label>Tax</Label>
+                  <Select value={taxIncluded} onValueChange={setTaxIncluded}>
+                    <SelectTrigger className="h-12 rounded-2xl border-[var(--border)] bg-white">
+                      <SelectValue placeholder="Tax included?" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="YES">Yes</SelectItem>
+                      <SelectItem value="NO">No</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="rfq-budget">Budget ({currency})</Label>
-              <Input
-                id="rfq-budget"
-                type="number"
-                min={0}
-                step="0.01"
-                value={budget}
-                onChange={(e) => setBudget(e.target.value)}
-                placeholder="0.00"
-              />
+
+            <div className="rounded-3xl border border-[var(--border)] bg-white p-4 shadow-[var(--shadow-sm)]">
+              <div className="flex items-center gap-2">
+                <CircleDollarSign className="h-4 w-4 text-[var(--secondary)]" />
+                <p className="text-sm font-semibold text-[var(--text-primary)]">Budget & Validity</p>
+              </div>
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                <div className="space-y-1">
+                  <Label>Price validity</Label>
+                  <Select value={priceValidityDays} onValueChange={setPriceValidityDays}>
+                    <SelectTrigger className="h-12 rounded-2xl border-[var(--border)] bg-white">
+                      <SelectValue placeholder="Select validity" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {priceValidityOptions.map((days) => (
+                        <SelectItem key={days} value={String(days)}>
+                          {days} days
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="rfq-budget">Budget ({currency})</Label>
+                  <Input
+                    id="rfq-budget"
+                    type="number"
+                    min={0}
+                    step="0.01"
+                    value={budget}
+                    onChange={(e) => setBudget(e.target.value)}
+                    placeholder="0.00"
+                    className="h-12 rounded-2xl"
+                  />
+                </div>
+              </div>
             </div>
-            <Button
-              disabled={!selectedPr || !isCommercialComplete || selectedPrAlreadyConverted || createRfq.isPending}
-              onClick={submitCreate}
-            >
-              Create RFQ
-            </Button>
+
+            <div className="rounded-3xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
+              <div className="grid gap-3 md:grid-cols-2">
+                <div className="rounded-2xl bg-white p-4">
+                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
+                    <ReceiptText className="h-4 w-4 text-[var(--secondary)]" />
+                    Payment Terms
+                  </div>
+                  <p className="mt-2 text-lg font-semibold text-[var(--text-primary)]">{paymentTerms.replaceAll("_", " ")}</p>
+                </div>
+                <div className="rounded-2xl bg-white p-4">
+                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
+                    <CalendarClock className="h-4 w-4 text-[var(--secondary)]" />
+                    Commercial Window
+                  </div>
+                  <p className="mt-2 text-lg font-semibold text-[var(--text-primary)]">{priceValidityDays} day validity</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] pt-5">
+              <p className="text-sm text-[var(--text-secondary)]">
+                {selectedPr
+                  ? "Launch the RFQ once the commercial controls below are complete."
+                  : "Choose an approved PR first, then complete the commercial controls."}
+              </p>
+              <Button
+                className="rounded-full bg-[var(--primary)] px-6 hover:bg-[var(--secondary)]"
+                disabled={!selectedPr || !isCommercialComplete || selectedPrAlreadyConverted || createRfq.isPending}
+                onClick={submitCreate}
+              >
+                {createRfq.isPending ? "Creating..." : "Create RFQ"}
+              </Button>
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Approved PR queue</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {approvedPrs.length === 0 ? (
-              <p className="text-sm text-slate-500">No approved PRs waiting for RFx conversion.</p>
-            ) : (
-              approvedPrs.slice(0, 8).map((pr) => (
-                <div key={pr.id} className="rounded-lg border p-3 text-sm">
-                  <p className="font-medium">{pr.title}</p>
-                  <p className="text-slate-500">{formatBusinessRef("PR", pr.id)}</p>
-                  <div className="mt-2 flex flex-wrap items-center gap-2">
-                    <Badge variant="secondary">{pr.status}</Badge>
-                    {existingRfqPrIds.has(pr.id) ? <Badge variant="outline">RFQ Created</Badge> : null}
-                    <Button size="sm" variant="outline" onClick={() => router.push(`/rfqs/new?prId=${pr.id}`)}>
-                      Use for RFQ
-                    </Button>
-                  </div>
+        <Card className="overflow-hidden rounded-[28px] border-[var(--border)] bg-white shadow-[var(--shadow-sm)]">
+          <CardHeader className="border-b border-[var(--border)] bg-[linear-gradient(135deg,#FFFFFF_0%,#F7F8FA_100%)] pb-5">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                  <Clock3 className="h-4 w-4 text-[var(--secondary)]" />
+                  Conversion Queue
                 </div>
-              ))
+                <CardTitle className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">Approved PR Queue</CardTitle>
+                <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
+                  Select the approved requisition that should move into RFQ creation.
+                </p>
+              </div>
+              <Badge variant="outline" className="rounded-full border-[var(--border)] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)]">
+                {approvedPrs.length} Waiting
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3 p-5">
+            {approvedPrs.length === 0 ? (
+              <div className="rounded-3xl border border-dashed border-[var(--border)] bg-[var(--surface-muted)] p-6 text-sm text-[var(--text-muted)]">
+                No approved PRs waiting for RFx conversion.
+              </div>
+            ) : (
+              approvedPrs.slice(0, 8).map((pr) => {
+                const isSelected = selectedPr?.id === pr.id;
+                const isConverted = existingRfqPrIds.has(pr.id);
+                return (
+                  <div
+                    key={pr.id}
+                    className={`rounded-3xl border p-4 text-sm transition ${
+                      isSelected
+                        ? "border-[var(--primary)] bg-[var(--portal-org-bg)] shadow-[var(--shadow-sm)]"
+                        : "border-[var(--border)] bg-white hover:border-[var(--secondary)]/40 hover:bg-[var(--surface-muted)]"
+                    }`}
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          {isSelected ? <CheckCircle2 className="h-4 w-4 text-[var(--primary)]" /> : null}
+                          <p className="font-semibold text-[var(--text-primary)]">{pr.title}</p>
+                        </div>
+                        <p className="mt-1 text-xs font-medium uppercase tracking-[0.12em] text-[var(--text-muted)]">
+                          {formatBusinessRef("PR", pr.id)}
+                        </p>
+                      </div>
+                      <Badge
+                        variant="outline"
+                        className={`rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+                          isConverted
+                            ? "border-amber-200 bg-amber-50 text-amber-700"
+                            : "border-emerald-200 bg-emerald-50 text-emerald-700"
+                        }`}
+                      >
+                        {isConverted ? "RFQ Created" : "Ready"}
+                      </Badge>
+                    </div>
+
+                    <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                      <div className="rounded-2xl bg-white/70 p-3">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">Requester</p>
+                        <p className="mt-1 font-medium text-[var(--text-primary)]">{pr.requester}</p>
+                      </div>
+                      <div className="rounded-2xl bg-white/70 p-3">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">Department</p>
+                        <p className="mt-1 font-medium text-[var(--text-primary)]">{pr.department}</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Badge variant="secondary">{pr.status}</Badge>
+                        {pr.editedAfterApprovalAt ? (
+                          <Badge variant="outline" className="rounded-full border-[var(--border)] bg-white text-[var(--text-secondary)]">
+                            Edited
+                          </Badge>
+                        ) : null}
+                      </div>
+                      <Button
+                        size="sm"
+                        variant={isSelected ? "default" : "outline"}
+                        className="rounded-full"
+                        disabled={isConverted}
+                        onClick={() => {
+                          setSelectedPrId(pr.id);
+                          setRfqTitle((current) => current || `${pr.title} RFx`);
+                        }}
+                      >
+                        {isSelected ? "Selected" : "Use for RFQ"}
+                      </Button>
+                    </div>
+                  </div>
+                );
+              })
             )}
           </CardContent>
         </Card>

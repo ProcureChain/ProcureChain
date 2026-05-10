@@ -18,4 +18,11 @@ export class AddLineDto {
   @IsString()
   notes?: string;
 
+  @IsOptional()
+  @IsString()
+  subcategoryId?: string;
+
+  @IsOptional()
+  metadata?: Record<string, unknown>;
+
 }

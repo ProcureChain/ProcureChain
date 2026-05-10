@@ -10,6 +10,7 @@ import { ApiErrorAlert } from "@/components/common/api-error-alert";
 import { BrandLogo } from "@/components/common/brand-logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { formatDomainLabel } from "@/lib/format";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -141,7 +142,7 @@ export default function OrganizationSignupPage() {
   const categoryOptions = useMemo(() => {
     const values = new Set<string>();
     for (const row of taxonomy.data ?? []) values.add(row.level1);
-    return Array.from(values).sort((a, b) => a.localeCompare(b));
+    return Array.from(values).sort((a, b) => formatDomainLabel(a).localeCompare(formatDomainLabel(b)));
   }, [taxonomy.data]);
 
   const stepErrors = useMemo(() => {
@@ -442,7 +443,7 @@ export default function OrganizationSignupPage() {
                         const active = mainCategoriesPurchased.includes(option);
                         return (
                           <Button key={option} type="button" variant={active ? "default" : "outline"} className="rounded-full" onClick={() => toggleCategory(option)}>
-                            {option}
+                            {formatDomainLabel(option)}
                           </Button>
                         );
                       })}

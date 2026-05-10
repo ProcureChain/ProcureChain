@@ -11,10 +11,15 @@ import type { Response } from 'express';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuditService } from '../audit/audit.service';
 import {
+  AcceptInviteDto,
+  ConfirmPasswordResetDto,
+  CreateOrganizationUserDto,
   LoginDto,
   OrganizationSignupDto,
   SupplierSignupDto,
   UpdateOrganizationProfileDto,
+  UpdateOrganizationUserDto,
+  UpsertOrganizationAdminSettingsDto,
   UploadOrganizationDocumentDto,
   UploadSupplierDocumentDto,
 } from './onboarding.dto';
@@ -31,6 +36,15 @@ type Ctx = {
   companyId: string;
   userId?: string;
   roles?: string[];
+};
+
+const LEGACY_ROLE_MAP: Record<string, string> = {
+  SUPERADMIN: 'ADMIN',
+  PROCUREMENT_OFFICER: 'BUYER',
+  PROCUREMENT_MANAGER: 'MANAGER',
+  COMPLIANCE_OFFICER: 'APPROVER',
+  FINANCE_MANAGER: 'APPROVER',
+  EVALUATOR: 'APPROVER',
 };
 
 @Injectable()
@@ -184,6 +198,117 @@ export class OnboardingService {
     return ctx.partnerId;
   }
 
+  private normalizeRoles(roles?: string[]) {
+    const normalized = (roles ?? [])
+      .map((role) => role.trim().toUpperCase())
+      .map((role) => LEGACY_ROLE_MAP[role] ?? role)
+      .filter(Boolean);
+    return [...new Set(normalized)];
+  }
+
+  private normalizeSettingsArray(input: unknown) {
+    if (!Array.isArray(input)) return [];
+    return input.flatMap((item) => (Array.isArray(item) ? item : [item])).filter((item) => item && typeof item === 'object');
+  }
+
+  private normalizeDepartmentIds(departmentIds?: string[]) {
+    const normalized = (departmentIds ?? [])
+      .map((departmentId) => departmentId.trim())
+      .filter(Boolean);
+    return [...new Set(normalized)];
+  }
+
+  private ensureDepartmentScopeForRoles(roles: string[], departmentIds: string[]) {
+    const requiresDepartmentScope = roles.some(
+      (role) => role !== 'ADMIN' && role !== 'EXECUTIVE',
+    );
+    if (requiresDepartmentScope && departmentIds.length === 0) {
+      throw new BadRequestException(
+        'At least one department is required for non-admin/non-executive users',
+      );
+    }
+  }
+
+  private async assertDepartmentsExist(ctx: Ctx, departmentIds: string[]) {
+    if (departmentIds.length === 0) return;
+    const settings = await this.getOrCreateOrganizationAdminSettingsRecord(ctx);
+    const validDepartmentIds = new Set(
+      this.normalizeSettingsArray(settings.departments)
+        .map((department) =>
+          typeof (department as { id?: unknown }).id === 'string'
+            ? ((department as { id: string }).id || '').trim()
+            : '',
+        )
+        .filter(Boolean),
+    );
+    const missing = departmentIds.filter((departmentId) => !validDepartmentIds.has(departmentId));
+    if (missing.length > 0) {
+      throw new BadRequestException(`Unknown department ids: ${missing.join(', ')}`);
+    }
+  }
+
+  private buildInviteUrl(token: string) {
+    const baseUrl = process.env.APP_BASE_URL?.trim() || process.env.WEB_BASE_URL?.trim() || 'https://dev.procurechain.co.za';
+    return `${baseUrl.replace(/\/$/, '')}/login?invite=${encodeURIComponent(token)}`;
+  }
+
+  private async getOrCreateOrganizationAdminSettingsRecord(ctx: Ctx) {
+    return this.prisma.organizationAdminSettings.upsert({
+      where: { companyId: ctx.companyId },
+      update: {},
+      create: {
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        departments: [],
+        costCentres: [],
+        departmentBudgets: [],
+        costCentreBudgets: [],
+        approvalRoutes: [],
+        customRoles: [],
+        userPermissionOverrides: [],
+        budgetCurrency: 'ZAR',
+      },
+    });
+  }
+
+  private async buildOrganizationAdminSettingsResponse(ctx: Ctx) {
+    const [settings, users] = await Promise.all([
+      this.getOrCreateOrganizationAdminSettingsRecord(ctx),
+      this.prisma.user.findMany({
+        where: {
+          tenantId: ctx.tenantId,
+          companyId: ctx.companyId,
+        },
+        orderBy: { createdAt: 'asc' },
+      }),
+    ]);
+
+    return {
+      users: users.map((user) => ({
+        id: user.id,
+        fullName: user.fullName?.trim() || user.email?.split('@')[0] || 'Organization User',
+        email: user.email ?? '',
+        jobTitle: user.jobTitle ?? null,
+        roles: user.roles,
+        departmentIds: user.departmentIds ?? [],
+        isActive: user.isActive,
+        createdAt: user.createdAt,
+      })),
+      settings: {
+        departments: this.normalizeSettingsArray(settings.departments),
+        costCentres: this.normalizeSettingsArray(settings.costCentres),
+        totalBudget: settings.totalBudget == null ? null : Number(settings.totalBudget),
+        budgetCurrency: settings.budgetCurrency || 'ZAR',
+        departmentBudgets: this.normalizeSettingsArray(settings.departmentBudgets),
+        costCentreBudgets: this.normalizeSettingsArray(settings.costCentreBudgets),
+        approvalRoutes: this.normalizeSettingsArray(settings.approvalRoutes),
+        customRoles: this.normalizeSettingsArray(settings.customRoles),
+        userPermissionOverrides: this.normalizeSettingsArray(settings.userPermissionOverrides),
+        updatedAt: settings.updatedAt,
+      },
+    };
+  }
+
   async signupOrganization(dto: OrganizationSignupDto) {
     const companyName = dto.companyName?.trim();
     const fullName = dto.fullName?.trim();
@@ -210,13 +335,7 @@ export class OnboardingService {
     const tenantId = randomUUID();
     const companyId = randomUUID();
     const userId = randomUUID();
-    const defaultRoles = [
-      'SUPERADMIN',
-      'PROCUREMENT_OFFICER',
-      'PROCUREMENT_MANAGER',
-      'FINANCE_MANAGER',
-      'COMPLIANCE_OFFICER',
-    ];
+    const defaultRoles = ['ADMIN', 'REQUESTER', 'APPROVER', 'BUYER', 'MANAGER', 'EXECUTIVE'];
 
     const created = await this.prisma.$transaction(async (tx) => {
       const tenant = await tx.tenant.create({
@@ -241,6 +360,8 @@ export class OnboardingService {
           companyId,
           email: workEmail,
           passwordHash: this.hashPassword(dto.password),
+          fullName,
+          jobTitle: dto.role?.trim() || null,
           roles: defaultRoles,
         },
       });
@@ -262,6 +383,19 @@ export class OnboardingService {
           supplierCountRange: dto.numberOfSuppliersCurrentlyUsed?.trim() || null,
           usesProcurementSystem: dto.usesProcurementSystemToday ?? null,
           verificationStatus: 'PENDING',
+        },
+      });
+
+      await tx.organizationAdminSettings.create({
+        data: {
+          tenantId,
+          companyId,
+          departments: [],
+          costCentres: [],
+          departmentBudgets: [],
+          costCentreBudgets: [],
+          approvalRoutes: [],
+          budgetCurrency: 'ZAR',
         },
       });
 
@@ -477,6 +611,299 @@ export class OnboardingService {
     };
   }
 
+  async getOrganizationAdminSettings(ctx: Ctx) {
+    await this.getOrganizationProfile(ctx);
+    return this.buildOrganizationAdminSettingsResponse(ctx);
+  }
+
+  async upsertOrganizationAdminSettings(ctx: Ctx, dto: UpsertOrganizationAdminSettingsDto) {
+    await this.getOrganizationProfile(ctx);
+
+    const updated = await this.prisma.organizationAdminSettings.upsert({
+      where: { companyId: ctx.companyId },
+      update: {
+        departments: dto.departments ? this.normalizeSettingsArray(dto.departments) : undefined,
+        costCentres: dto.costCentres ? this.normalizeSettingsArray(dto.costCentres) : undefined,
+        totalBudget: dto.totalBudget === undefined ? undefined : dto.totalBudget,
+        budgetCurrency: dto.budgetCurrency?.trim()?.toUpperCase() || undefined,
+        departmentBudgets: dto.departmentBudgets ? this.normalizeSettingsArray(dto.departmentBudgets) : undefined,
+        costCentreBudgets: dto.costCentreBudgets ? this.normalizeSettingsArray(dto.costCentreBudgets) : undefined,
+          approvalRoutes: dto.approvalRoutes ? this.normalizeSettingsArray(dto.approvalRoutes) : undefined,
+          customRoles: dto.customRoles ? this.normalizeSettingsArray(dto.customRoles) : undefined,
+          userPermissionOverrides: dto.userPermissionOverrides ? this.normalizeSettingsArray(dto.userPermissionOverrides) : undefined,
+      },
+      create: {
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        departments: this.normalizeSettingsArray(dto.departments),
+        costCentres: this.normalizeSettingsArray(dto.costCentres),
+        totalBudget: dto.totalBudget,
+        budgetCurrency: dto.budgetCurrency?.trim()?.toUpperCase() || 'ZAR',
+        departmentBudgets: this.normalizeSettingsArray(dto.departmentBudgets),
+        costCentreBudgets: this.normalizeSettingsArray(dto.costCentreBudgets),
+        approvalRoutes: this.normalizeSettingsArray(dto.approvalRoutes),
+        customRoles: this.normalizeSettingsArray(dto.customRoles),
+        userPermissionOverrides: this.normalizeSettingsArray(dto.userPermissionOverrides),
+      },
+    });
+
+    await this.audit.record({
+      tenantId: ctx.tenantId,
+      companyId: ctx.companyId,
+      actor: ctx.userId ?? 'dev-user',
+      eventType: 'ORG_ADMIN_SETTINGS_UPDATED',
+      entityType: 'OrganizationAdminSettings',
+      entityId: updated.id,
+      payload: {
+        updatedFields: Object.keys(dto),
+      },
+    });
+
+    return this.buildOrganizationAdminSettingsResponse(ctx);
+  }
+
+  async createOrganizationUser(ctx: Ctx, dto: CreateOrganizationUserDto) {
+    await this.getOrganizationProfile(ctx);
+    const email = this.normalizeEmail(dto.email);
+    const fullName = dto.fullName.trim();
+
+    const existing = await this.prisma.user.findFirst({
+      where: { email },
+      select: { id: true },
+    });
+    if (existing) {
+      throw new BadRequestException('A user already exists for this email');
+    }
+
+    const roles = this.normalizeRoles(dto.roles);
+    const effectiveRoles = roles.length > 0 ? roles : ['REQUESTER'];
+    const departmentIds = this.normalizeDepartmentIds(dto.departmentIds);
+    this.ensureDepartmentScopeForRoles(effectiveRoles, departmentIds);
+    await this.assertDepartmentsExist(ctx, departmentIds);
+    const inviteToken = randomUUID();
+    const created = await this.prisma.user.create({
+      data: {
+        id: randomUUID(),
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        email,
+        passwordHash: dto.password ? this.hashPassword(dto.password) : null,
+        fullName,
+        jobTitle: dto.jobTitle?.trim() || null,
+        roles: effectiveRoles,
+        departmentIds,
+        isActive: true,
+        inviteToken: dto.password ? null : inviteToken,
+        inviteSentAt: dto.password ? null : new Date(),
+      },
+    });
+
+    await this.audit.record({
+      tenantId: ctx.tenantId,
+      companyId: ctx.companyId,
+      actor: ctx.userId ?? 'dev-user',
+      eventType: 'ORG_USER_CREATED',
+      entityType: 'User',
+      entityId: created.id,
+      payload: {
+        email: created.email,
+        roles: created.roles,
+        departmentIds: created.departmentIds,
+        invited: !dto.password,
+      },
+    });
+
+    const response = await this.buildOrganizationAdminSettingsResponse(ctx);
+    return {
+      ...response,
+      invite:
+        dto.password || !created.inviteToken
+          ? null
+          : {
+              userId: created.id,
+              email: created.email,
+              token: created.inviteToken,
+              inviteUrl: this.buildInviteUrl(created.inviteToken),
+            },
+    };
+  }
+
+  async updateOrganizationUser(ctx: Ctx, userId: string, dto: UpdateOrganizationUserDto) {
+    await this.getOrganizationProfile(ctx);
+
+    const existing = await this.prisma.user.findFirst({
+      where: {
+        id: userId,
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+      },
+    });
+    if (!existing) {
+      throw new NotFoundException('Organization user not found');
+    }
+
+    const nextRoles = dto.roles
+      ? this.normalizeRoles(dto.roles)
+      : existing.roles;
+    const nextDepartmentIds = dto.departmentIds
+      ? this.normalizeDepartmentIds(dto.departmentIds)
+      : existing.departmentIds;
+    this.ensureDepartmentScopeForRoles(nextRoles, nextDepartmentIds);
+    await this.assertDepartmentsExist(ctx, nextDepartmentIds);
+
+    const updated = await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        fullName: dto.fullName?.trim() || undefined,
+        jobTitle: dto.jobTitle?.trim() || undefined,
+        isActive: dto.isActive,
+        roles: dto.roles ? this.normalizeRoles(dto.roles) : undefined,
+        departmentIds: dto.departmentIds ? this.normalizeDepartmentIds(dto.departmentIds) : undefined,
+      },
+    });
+
+    await this.audit.record({
+      tenantId: ctx.tenantId,
+      companyId: ctx.companyId,
+      actor: ctx.userId ?? 'dev-user',
+      eventType: 'ORG_USER_UPDATED',
+      entityType: 'User',
+      entityId: updated.id,
+      payload: {
+        updatedFields: Object.keys(dto),
+        roles: updated.roles,
+        departmentIds: updated.departmentIds,
+        isActive: updated.isActive,
+      },
+    });
+
+    return this.buildOrganizationAdminSettingsResponse(ctx);
+  }
+
+  async resendOrganizationUserInvite(ctx: Ctx, userId: string) {
+    await this.getOrganizationProfile(ctx);
+    const user = await this.prisma.user.findFirst({
+      where: { id: userId, tenantId: ctx.tenantId, companyId: ctx.companyId },
+    });
+    if (!user) throw new NotFoundException('Organization user not found');
+
+    const inviteToken = randomUUID();
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        inviteToken,
+        inviteSentAt: new Date(),
+      },
+    });
+
+    await this.audit.record({
+      tenantId: ctx.tenantId,
+      companyId: ctx.companyId,
+      actor: ctx.userId ?? 'dev-user',
+      eventType: 'ORG_USER_INVITE_SENT',
+      entityType: 'User',
+      entityId: userId,
+      payload: { email: user.email },
+    });
+
+    return {
+      userId,
+      email: user.email,
+      token: inviteToken,
+      inviteUrl: this.buildInviteUrl(inviteToken),
+    };
+  }
+
+  async issueOrganizationUserPasswordReset(ctx: Ctx, userId: string) {
+    await this.getOrganizationProfile(ctx);
+    const user = await this.prisma.user.findFirst({
+      where: { id: userId, tenantId: ctx.tenantId, companyId: ctx.companyId },
+    });
+    if (!user) throw new NotFoundException('Organization user not found');
+
+    const resetToken = randomUUID();
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        resetToken,
+        resetSentAt: new Date(),
+      },
+    });
+
+    await this.audit.record({
+      tenantId: ctx.tenantId,
+      companyId: ctx.companyId,
+      actor: ctx.userId ?? 'dev-user',
+      eventType: 'ORG_USER_PASSWORD_RESET_ISSUED',
+      entityType: 'User',
+      entityId: userId,
+      payload: { email: user.email },
+    });
+
+    return {
+      userId,
+      email: user.email,
+      token: resetToken,
+    };
+  }
+
+  async acceptInvite(dto: AcceptInviteDto) {
+    const user = await this.prisma.user.findFirst({
+      where: { inviteToken: dto.token.trim() },
+    });
+    if (!user) throw new NotFoundException('Invite token not found');
+
+    const updated = await this.prisma.user.update({
+      where: { id: user.id },
+      data: {
+        passwordHash: this.hashPassword(dto.password),
+        fullName: dto.fullName?.trim() || user.fullName,
+        inviteToken: null,
+        inviteAcceptedAt: new Date(),
+        isActive: true,
+      },
+    });
+
+    await this.audit.record({
+      tenantId: updated.tenantId,
+      companyId: updated.companyId,
+      actor: updated.email ?? updated.id,
+      eventType: 'ORG_USER_INVITE_ACCEPTED',
+      entityType: 'User',
+      entityId: updated.id,
+      payload: { email: updated.email },
+    });
+
+    return { success: true, email: updated.email };
+  }
+
+  async confirmPasswordReset(dto: ConfirmPasswordResetDto) {
+    const user = await this.prisma.user.findFirst({
+      where: { resetToken: dto.token.trim() },
+    });
+    if (!user) throw new NotFoundException('Reset token not found');
+
+    const updated = await this.prisma.user.update({
+      where: { id: user.id },
+      data: {
+        passwordHash: this.hashPassword(dto.password),
+        resetToken: null,
+      },
+    });
+
+    await this.audit.record({
+      tenantId: updated.tenantId,
+      companyId: updated.companyId,
+      actor: updated.email ?? updated.id,
+      eventType: 'ORG_USER_PASSWORD_RESET_CONFIRMED',
+      entityType: 'User',
+      entityId: updated.id,
+      payload: { email: updated.email },
+    });
+
+    return { success: true, email: updated.email };
+  }
+
   async login(dto: LoginDto) {
     const identifier = dto.identifier.trim().toLowerCase();
     if (!identifier) {
@@ -494,6 +921,9 @@ export class OnboardingService {
       if (!user || !this.verifyPassword(dto.password, user.passwordHash)) {
         throw new ForbiddenException('Invalid email or password');
       }
+      if (!user.isActive) {
+        throw new ForbiddenException('This user account is inactive');
+      }
 
       const profile = await this.prisma.organizationProfile.findUnique({
         where: { companyId: user.companyId },
@@ -504,6 +934,7 @@ export class OnboardingService {
       });
 
       const actorName =
+        user.fullName?.trim() ||
         profile?.contactFullName?.trim() ||
         profile?.workEmail?.split('@')[0] ||
         user.email?.split('@')[0] ||

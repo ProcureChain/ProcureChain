@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 import type { Response } from 'express';
@@ -42,6 +42,28 @@ export class PRService {
 
   private getActor(ctx: any) {
     return ctx.userId ?? 'dev-user';
+  }
+
+  private hasUnrestrictedDepartmentAccess(ctx: any) {
+    const roles = (ctx.roles ?? []).map((role: string) => String(role).toUpperCase());
+    return roles.includes('ADMIN') || roles.includes('EXECUTIVE');
+  }
+
+  private getScopedDepartmentIds(ctx: any) {
+    return Array.isArray(ctx.departmentIds)
+      ? ctx.departmentIds.map((departmentId: string) => String(departmentId).trim()).filter(Boolean)
+      : [];
+  }
+
+  private assertDepartmentAccess(ctx: any, department?: string | null) {
+    if (this.hasUnrestrictedDepartmentAccess(ctx)) return;
+    const scopedDepartmentIds = this.getScopedDepartmentIds(ctx);
+    if (scopedDepartmentIds.length === 0) {
+      throw new ForbiddenException('No department scope assigned to current user');
+    }
+    if (!department || !scopedDepartmentIds.includes(department)) {
+      throw new ForbiddenException('You do not have access to this department');
+    }
   }
 
   private assertTransition(from: PRStatus, to: PRStatus) {
@@ -115,6 +137,45 @@ export class PRService {
     }
   }
 
+  private async validateRequiredLineContent(params: {
+    ctx: any;
+    prId: string;
+    lineIndex: number;
+    subcategoryId: string;
+    title: string;
+    description?: string | null;
+    currency?: string | null;
+    costCentre?: string | null;
+    department?: string | null;
+    lineMetadata?: Record<string, unknown> | null;
+  }) {
+    const pendingDocumentFieldKeys = await this.prisma.purchaseRequisitionDocument.findMany({
+      where: {
+        tenantId: params.ctx.tenantId,
+        companyId: params.ctx.companyId,
+        prId: params.prId,
+      },
+      select: { fieldKey: true },
+    });
+
+    await this.validateRequiredContent({
+      ctx: params.ctx,
+      prId: params.prId,
+      subcategoryId: params.subcategoryId,
+      title: params.title,
+      description: params.description ?? null,
+      currency: params.currency ?? null,
+      costCentre: params.costCentre ?? null,
+      department: params.department ?? null,
+      metadata: params.lineMetadata ?? {},
+      pendingDocumentFieldKeys: pendingDocumentFieldKeys
+        .map((row) => row.fieldKey)
+        .filter((value): value is string => Boolean(value))
+        .filter((fieldKey) => fieldKey.startsWith(`line_${params.lineIndex + 1}_`))
+        .map((fieldKey) => fieldKey.replace(`line_${params.lineIndex + 1}_`, '')),
+    });
+  }
+
   private async getEditablePR(ctx: any, id: string) {
     const pr = await this.get(ctx, id);
     const hasRfq = await this.prisma.rFQ.findUnique({
@@ -168,6 +229,7 @@ export class PRService {
         metadata: dto.metadata ?? null,
       });
     }
+    this.assertDepartmentAccess(ctx, dto.department ?? null);
 
     const pr = await this.prisma.purchaseRequisition.create({
       data: {
@@ -205,8 +267,13 @@ export class PRService {
   }
 
   async list(ctx: any, limit = 50) {
+    const scopedDepartmentIds = this.getScopedDepartmentIds(ctx);
+    const departmentScopeWhere =
+      this.hasUnrestrictedDepartmentAccess(ctx) || scopedDepartmentIds.length === 0
+        ? {}
+        : { department: { in: scopedDepartmentIds } };
     return this.prisma.purchaseRequisition.findMany({
-      where: { tenantId: ctx.tenantId, companyId: ctx.companyId },
+      where: { tenantId: ctx.tenantId, companyId: ctx.companyId, ...departmentScopeWhere },
       orderBy: { createdAt: 'desc' },
       take: Math.max(1, Math.min(limit, 200)),
       include: {
@@ -227,6 +294,7 @@ export class PRService {
       },
     });
     if (!pr) throw new NotFoundException('PR not found');
+    this.assertDepartmentAccess(ctx, pr.department);
     return pr;
   }
 
@@ -237,6 +305,7 @@ export class PRService {
     const nextDescription = dto.description ?? pr.description;
     const nextCostCentre = dto.costCentre ?? pr.costCentre;
     const nextDepartment = dto.department ?? pr.department;
+    this.assertDepartmentAccess(ctx, nextDepartment);
     const nextSubcategoryId = dto.subcategoryId ?? pr.subcategoryId;
     const nextCurrency = dto.currency ?? pr.currency;
     const nextMetadata = (dto.metadata as Record<string, unknown> | undefined) ?? ((pr.metadata as Record<string, unknown> | null) ?? null);
@@ -257,6 +326,29 @@ export class PRService {
         department: nextDepartment,
         metadata: nextMetadata,
       });
+
+      const lines = await this.prisma.purchaseRequisitionLine.findMany({
+        where: { prId: pr.id },
+        orderBy: { createdAt: 'asc' },
+      });
+      for (let index = 0; index < lines.length; index += 1) {
+        const line = lines[index];
+        if (!line.subcategoryId?.trim()) {
+          throw new BadRequestException(`Line ${index + 1} subcategoryId is required`);
+        }
+        await this.validateRequiredLineContent({
+          ctx,
+          prId: pr.id,
+          lineIndex: index,
+          subcategoryId: line.subcategoryId,
+          title: nextTitle,
+          description: nextDescription,
+          currency: nextCurrency,
+          costCentre: nextCostCentre,
+          department: nextDepartment,
+          lineMetadata: (line.metadata as Record<string, unknown> | null) ?? {},
+        });
+      }
     }
 
     const now = new Date();
@@ -331,12 +423,42 @@ export class PRService {
       metadata: (pr.metadata as Record<string, unknown> | null) ?? null,
     });
 
+    const lines = await this.prisma.purchaseRequisitionLine.findMany({
+      where: { prId: pr.id },
+      orderBy: { createdAt: 'asc' },
+    });
+    for (let index = 0; index < lines.length; index += 1) {
+      const line = lines[index];
+      if (!line.subcategoryId?.trim()) {
+        throw new BadRequestException(`Line ${index + 1} subcategoryId is required`);
+      }
+      await this.validateRequiredLineContent({
+        ctx,
+        prId: pr.id,
+        lineIndex: index,
+        subcategoryId: line.subcategoryId,
+        title: pr.title,
+        description: pr.description,
+        currency: pr.currency,
+        costCentre: pr.costCentre,
+        department: pr.department,
+        lineMetadata: (line.metadata as Record<string, unknown> | null) ?? {},
+      });
+    }
+
     const subcat = await this.prisma.subcategory.findUnique({
       where: { id: subcategoryId },
     });
     if (!subcat) {
       throw new BadRequestException('Invalid subcategoryId');
     }
+
+    await this.approvals.validateOrgStructure({
+      tenantId: ctx.tenantId,
+      companyId: ctx.companyId,
+      department: pr.department,
+      costCentre: pr.costCentre,
+    });
 
     const chain = await this.approvals.buildChainFromRules({
       tenantId: ctx.tenantId,
@@ -428,10 +550,12 @@ export class PRService {
     const line = await this.prisma.purchaseRequisitionLine.create({
       data: {
         prId,
+        subcategoryId: dto.subcategoryId?.trim() || pr.subcategoryId || null,
         description: dto.description.trim(),
         quantity: qty,
         uom: dto.uom,
         notes: dto.notes,
+        metadata: (dto.metadata as Prisma.InputJsonValue | undefined) ?? undefined,
       },
     });
 

@@ -10,7 +10,7 @@ import { PageHeader } from "@/components/common/page-header";
 import { WorkflowChatSheet } from "@/components/workflow/workflow-chat-sheet";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatBusinessRef } from "@/lib/format";
+import { formatBusinessRef, formatMoney } from "@/lib/format";
 import { useBid, useRfq } from "@/lib/query-hooks";
 
 const bidStatusLabel = (status: string) => {
@@ -72,12 +72,46 @@ export default function BidDetailPage() {
           <p>Supplier: {bid.supplierName ?? formatBusinessRef("SUP", bid.supplierId)}</p>
           <p>Supplier score: {bid.supplierProfileScore ?? "-"}</p>
           <p>Status: {bidStatusLabel(bid.status)}</p>
-          <p>Total value: {bid.totalBidValue ?? 0} {bid.currency ?? ""}</p>
+          <p>Total value: {bid.totalBidValue != null ? formatMoney(bid.totalBidValue, bid.currency ?? "ZAR") : "-"}</p>
           <p>Submitted at: {bid.submittedAt ?? "-"}</p>
           <p>Documents attached: {Object.keys(bid.documents ?? {}).length}</p>
           <p>Notes: {bid.notes ?? "-"}</p>
         </CardContent>
       </Card>
+
+      {bid.lines?.length ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>Bid Line Items</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse text-sm">
+                <thead>
+                  <tr className="border-b bg-slate-50 text-left">
+                    <th className="px-3 py-2 font-medium">Description</th>
+                    <th className="px-3 py-2 font-medium">Qty</th>
+                    <th className="px-3 py-2 font-medium">UOM</th>
+                    <th className="px-3 py-2 font-medium">Unit Price</th>
+                    <th className="px-3 py-2 font-medium">Line Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bid.lines.map((line) => (
+                    <tr key={line.id} className="border-b align-top">
+                      <td className="px-3 py-2 font-medium">{line.description}</td>
+                      <td className="px-3 py-2">{line.quantity}</td>
+                      <td className="px-3 py-2">{line.uom ?? "-"}</td>
+                      <td className="px-3 py-2">{formatMoney(line.unitPrice, bid.currency ?? "ZAR")}</td>
+                      <td className="px-3 py-2">{formatMoney(line.lineTotal, bid.currency ?? "ZAR")}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      ) : null}
 
       <Card>
         <CardHeader>

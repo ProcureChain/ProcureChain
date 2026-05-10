@@ -13,10 +13,12 @@ export type ApprovalAction = "APPROVE" | "REJECT" | "REQUEST_INFO";
 
 export interface RequisitionLine {
   id: string;
+  subcategoryId?: string;
   description: string;
   quantity: number;
   uom?: string;
   notes?: string;
+  metadata?: Record<string, unknown> | null;
 }
 
 export interface RequisitionDocument {
@@ -204,6 +206,61 @@ export interface OrganizationProfile {
   verifiedBy?: string | null;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface OrganizationUser {
+  id: string;
+  fullName: string;
+  email: string;
+  jobTitle?: string | null;
+  roles: string[];
+  departmentIds: string[];
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface OrganizationDepartment {
+  id: string;
+  code: string;
+  name: string;
+  isActive: boolean;
+}
+
+export interface OrganizationCostCentre {
+  id: string;
+  code: string;
+  name: string;
+  departmentId?: string | null;
+  isActive: boolean;
+}
+
+export interface OrganizationBudgetAllocation {
+  id: string;
+  scopeId: string;
+  amount: number;
+}
+
+export interface OrganizationApprovalRoute {
+  id: string;
+  scopeType: "DEPARTMENT" | "COST_CENTRE";
+  scopeValue: string;
+  roles: string[];
+}
+
+export interface OrganizationAdminSettings {
+  users: OrganizationUser[];
+  settings: {
+    departments: OrganizationDepartment[];
+    costCentres: OrganizationCostCentre[];
+    totalBudget?: number | null;
+    budgetCurrency: string;
+    departmentBudgets: OrganizationBudgetAllocation[];
+    costCentreBudgets: OrganizationBudgetAllocation[];
+    approvalRoutes: OrganizationApprovalRoute[];
+    customRoles?: Array<{ id: string; name: string; permissions: string[] }>;
+    userPermissionOverrides?: Array<{ userId: string; permissions: string[] }>;
+    updatedAt: string;
+  };
 }
 
 export interface SupplierVerificationDocument {
@@ -398,6 +455,23 @@ export interface RfqSupplierFormAssignment {
   isRequired: boolean;
   createdAt: string;
   template: SupplierFormTemplate;
+  responses?: SupplierFormResponse[];
+}
+
+export interface SupplierFormResponse {
+  id: string;
+  rfqId: string;
+  assignmentId: string;
+  templateId: string;
+  supplierId: string;
+  response?: Record<string, unknown> | null;
+  documents?: Record<string, unknown> | null;
+  isComplete: boolean;
+  completedAt?: string | null;
+  submittedBy?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  missingFields?: Array<{ key: string; label: string }>;
 }
 
 export interface Bid {
@@ -409,6 +483,7 @@ export interface Bid {
   status: BidStatus;
   currency?: string;
   totalBidValue?: number;
+  lines?: BidLine[];
   finalScore?: number | null;
   recommended?: boolean;
   recommendationReason?: string | null;
@@ -422,6 +497,27 @@ export interface Bid {
   documents?: Record<string, unknown> | null;
 }
 
+export interface BidLine {
+  id: string;
+  prLineId: string;
+  description: string;
+  quantity: number;
+  uom?: string | null;
+  unitPrice: number;
+  lineTotal: number;
+  notes?: string | null;
+}
+
+export interface PurchaseOrderLineItem {
+  prLineId: string;
+  description: string;
+  quantity: number;
+  uom?: string | null;
+  unitPrice: number;
+  lineTotal: number;
+  notes?: string | null;
+}
+
 export type PoStatus = "DRAFT" | "RELEASED" | "ACCEPTED" | "CHANGE_REQUESTED" | "CLOSED";
 
 export interface PurchaseOrder {
@@ -430,6 +526,7 @@ export interface PurchaseOrder {
   status: PoStatus;
   currency: string;
   committedAmount: number;
+  lineItems?: PurchaseOrderLineItem[];
   commercialOnly: boolean;
   awardId: string;
   rfqId: string;

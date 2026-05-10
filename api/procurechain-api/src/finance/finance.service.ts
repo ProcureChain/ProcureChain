@@ -558,6 +558,16 @@ export class FinanceService {
   async createDeliveryNote(ctx: any, poId: string, dto: CreateDeliveryNoteDto, file?: UploadedBinary) {
     this.assertInternalOnly(ctx, 'Delivery note upload');
     const po = await this.getScopedPO(ctx, poId);
+    const manualOverride = dto.manualOverride === true;
+    const manualOverrideReason = dto.manualOverrideReason?.trim();
+    if (manualOverride) {
+      if (file) {
+        throw new BadRequestException('Manual override cannot include a delivery note file');
+      }
+      if (!manualOverrideReason) {
+        throw new BadRequestException('manualOverrideReason is required when manualOverride is true');
+      }
+    }
     const supplierId = dto.supplierId?.trim() || po.award?.supplierId;
     if (!supplierId) throw new BadRequestException('supplierId is required');
 
@@ -580,7 +590,9 @@ export class FinanceService {
         noteNumber,
         deliveryDate: dto.deliveryDate ? new Date(dto.deliveryDate) : new Date(),
         receivedBy: dto.receivedBy,
-        remarks: dto.remarks,
+        remarks: manualOverride
+          ? `${dto.remarks?.trim() ? `${dto.remarks.trim()} | ` : ''}Manual override: ${manualOverrideReason}`
+          : dto.remarks,
         documentUrl: dto.documentUrl,
       },
     });
@@ -610,6 +622,22 @@ export class FinanceService {
       },
     });
 
+    if (manualOverride) {
+      await this.audit.record({
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        actor: ctx.userId ?? 'dev-user',
+        eventType: 'DELIVERY_NOTE_MANUAL_OVERRIDE_USED',
+        entityType: 'PurchaseOrder',
+        entityId: po.id,
+        payload: {
+          deliveryNoteId: delivery.id,
+          reason: manualOverrideReason,
+          noteNumber: delivery.noteNumber,
+        },
+      });
+    }
+
     return delivery;
   }
 
@@ -634,88 +662,9 @@ export class FinanceService {
 
   async createInvoiceFromTemplate(ctx: any, poId: string, dto: CreateInvoiceFromTemplateDto) {
     this.assertInternalOnly(ctx, 'Organisation invoice creation');
-    const po = await this.getScopedPO(ctx, poId);
-    const deliveryNotes = await this.prisma.deliveryNote.findMany({
-      where: { tenantId: ctx.tenantId, companyId: ctx.companyId, poId: po.id },
-      orderBy: { createdAt: 'desc' },
-    });
-    if (deliveryNotes.length < 1) {
-      throw new BadRequestException('At least one delivery note is required before creating an invoice');
-    }
-
-    const deliveryNoteId = dto.deliveryNoteId || deliveryNotes[0].id;
-    const selectedNote = deliveryNotes.find((n) => n.id === deliveryNoteId);
-    if (!selectedNote) {
-      throw new BadRequestException('deliveryNoteId is invalid for this PO');
-    }
-
-    const taxIncluded = dto.taxIncluded ?? true;
-    const rate = (dto.taxRatePercent ?? 15) / 100;
-    const base = new Prisma.Decimal(po.committedAmount);
-    const taxAmount = taxIncluded ? base.mul(new Prisma.Decimal(rate)) : new Prisma.Decimal(0);
-    const totalAmount = taxIncluded ? base.add(taxAmount) : base;
-
-    const issueDate = new Date();
-    const invoiceNumber =
-      dto.invoiceNumber?.trim() ||
-      `INV-${issueDate.toISOString().replace(/[-:.TZ]/g, '').slice(0, 14)}-${po.poNumber.slice(-4)}`;
-
-    const invoice = await this.prisma.invoice.create({
-      data: {
-        tenantId: ctx.tenantId,
-        companyId: ctx.companyId,
-        poId: po.id,
-        supplierId: selectedNote.supplierId,
-        deliveryNoteId: selectedNote.id,
-        invoiceNumber,
-        templateVersion: 'v1',
-        currency: po.currency,
-        subtotal: base,
-        taxAmount,
-        totalAmount,
-        taxIncluded,
-        issueDate,
-        dueDate: dto.dueDate ? new Date(dto.dueDate) : undefined,
-        status: 'DRAFT',
-        buyerDetails: {
-          companyId: po.companyId,
-          tenantId: po.tenantId,
-          poNumber: po.poNumber,
-        },
-        supplierDetails: {
-          supplierId: po.award?.supplierId ?? selectedNote.supplierId,
-          supplierName: po.award?.supplier?.name ?? null,
-          supplierEmail: po.award?.supplier?.email ?? null,
-          supplierCountry: po.award?.supplier?.country ?? null,
-        },
-        lineItems: [
-          {
-            poNumber: po.poNumber,
-            description: `Invoice against PO ${po.poNumber}`,
-            amount: Number(base),
-            currency: po.currency,
-          },
-        ],
-        notes: dto.notes,
-      },
-    });
-
-    await this.audit.record({
-      tenantId: ctx.tenantId,
-      companyId: ctx.companyId,
-      actor: ctx.userId ?? 'dev-user',
-      eventType: 'INVOICE_CREATED_FROM_TEMPLATE',
-      entityType: 'Invoice',
-      entityId: invoice.id,
-      payload: {
-        poId: po.id,
-        deliveryNoteId: selectedNote.id,
-        invoiceNumber: invoice.invoiceNumber,
-        totalAmount: Number(invoice.totalAmount),
-      },
-    });
-
-    return this.getScopedInvoice(ctx, invoice.id);
+    throw new BadRequestException(
+      'Organisation-side invoice creation is disabled. Supplier must create and submit invoice first.',
+    );
   }
 
   async createSupplierInvoice(ctx: any, poId: string, dto: CreateSupplierInvoiceDto, file?: UploadedBinary) {

@@ -79,9 +79,23 @@ export class BidService {
         ...(supplierId ? { supplierId } : {}),
       },
       include: {
-        rfq: { include: { pr: true } },
+        rfq: {
+          include: {
+            pr: {
+              include: {
+                lines: true,
+              },
+            },
+          },
+        },
         supplier: true,
         scores: true,
+        lines: {
+          include: {
+            prLine: true,
+          },
+          orderBy: { createdAt: 'asc' },
+        },
       },
     });
     if (!bid) throw new NotFoundException('Bid not found');
@@ -174,12 +188,129 @@ export class BidService {
     return rfq.releaseMode === 'GLOBAL' || rfq.releaseMode === 'PUBLIC';
   }
 
+  private buildBidLineRecords(
+    rfq: {
+      id: string;
+      pr: {
+        currency: string;
+        lines: Array<{
+          id: string;
+          description: string;
+          quantity: number;
+          uom: string | null;
+          notes: string | null;
+        }>;
+      };
+    },
+    dto: UpsertBidDto,
+  ) {
+    if (!dto.lines?.length) {
+      return {
+        records: [] as Array<{
+          prLineId: string;
+          description: string;
+          quantity: number;
+          uom: string | null;
+          unitPrice: Prisma.Decimal;
+          lineTotal: Prisma.Decimal;
+          notes: string | null;
+        }>,
+        computedTotal: dto.totalBidValue == null ? undefined : new Prisma.Decimal(dto.totalBidValue),
+      };
+    }
+
+    const prLineMap = new Map(rfq.pr.lines.map((line) => [line.id, line]));
+    const seen = new Set<string>();
+    const records = dto.lines.map((line, index) => {
+      const prLine = prLineMap.get(line.prLineId);
+      if (!prLine) {
+        throw new BadRequestException(`Bid line ${index + 1} does not match any RFQ line item`);
+      }
+      if (seen.has(line.prLineId)) {
+        throw new BadRequestException(`Duplicate bid line detected for PR line ${line.prLineId}`);
+      }
+      seen.add(line.prLineId);
+
+      const quantity = line.quantity ?? prLine.quantity;
+      if (quantity <= 0) {
+        throw new BadRequestException(`Bid line ${index + 1} quantity must be greater than zero`);
+      }
+
+      const unitPriceValue = line.unitPrice ?? (line.lineTotal != null ? line.lineTotal / quantity : undefined);
+      if (unitPriceValue == null || unitPriceValue < 0) {
+        throw new BadRequestException(`Bid line ${index + 1} unit price is required`);
+      }
+
+      const unitPrice = new Prisma.Decimal(unitPriceValue);
+      const lineTotal = unitPrice.mul(quantity);
+
+      return {
+        prLineId: prLine.id,
+        description: prLine.description,
+        quantity,
+        uom: prLine.uom,
+        unitPrice,
+        lineTotal,
+        notes: line.notes?.trim() || null,
+      };
+    });
+
+    const missingLineIds = rfq.pr.lines.filter((line) => !seen.has(line.id)).map((line) => line.id);
+    if (missingLineIds.length > 0) {
+      throw new BadRequestException('Supplier bid must include pricing for every RFQ line item');
+    }
+
+    const computedTotal = records.reduce((sum, line) => sum.add(line.lineTotal), new Prisma.Decimal(0));
+    return { records, computedTotal };
+  }
+
+  private async assertRequiredSupplierFormsCompleted(ctx: Ctx, rfqId: string, supplierId: string) {
+    const requiredAssignments = await this.prisma.rFQSupplierFormAssignment.findMany({
+      where: {
+        rfqId,
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        isRequired: true,
+      },
+      include: {
+        template: true,
+        responses: {
+          where: { supplierId },
+          orderBy: { updatedAt: 'desc' },
+          take: 1,
+        },
+      },
+    });
+
+    const missing = requiredAssignments
+      .filter((assignment) => {
+        const response = assignment.responses[0];
+        return !response || response.isComplete !== true;
+      })
+      .map((assignment) => ({
+        assignmentId: assignment.id,
+        templateId: assignment.templateId,
+        templateName: assignment.template.name,
+      }));
+
+    if (missing.length > 0) {
+      throw new BadRequestException({
+        message: 'Required supplier forms must be completed before bid submission',
+        missingSupplierForms: missing,
+      });
+    }
+  }
+
   async upsertDraft(ctx: Ctx, dto: UpsertBidDto) {
     const supplierId = this.requireSupplierId(ctx);
     const rfq = await this.prisma.rFQ.findFirst({
       where: { id: dto.rfqId, tenantId: ctx.tenantId, companyId: ctx.companyId },
       include: {
-        pr: true,
+        pr: {
+          include: {
+            lines: true,
+          },
+        },
         suppliers: {
           select: {
             supplierId: true,
@@ -206,7 +337,8 @@ export class BidService {
       }
     }
 
-    const totalBidValue = dto.totalBidValue == null ? undefined : new Prisma.Decimal(dto.totalBidValue);
+    const { records: bidLines, computedTotal } = this.buildBidLineRecords(rfq, dto);
+    const totalBidValue = computedTotal;
 
     const existing = await this.prisma.bid.findFirst({
       where: {
@@ -242,13 +374,33 @@ export class BidService {
         payload: toJson(dto.payload),
         documents: toJson(dto.documents),
         notes: dto.notes,
-        currency: dto.currency,
+        currency: dto.currency ?? rfq.currency ?? rfq.pr.currency,
         totalBidValue,
       },
       include: {
         supplier: true,
+        lines: true,
       },
     });
+
+    if (dto.lines) {
+      await this.prisma.bidLine.deleteMany({ where: { bidId: bid.id } });
+      if (bidLines.length > 0) {
+        await this.prisma.bidLine.createMany({
+          data: bidLines.map((line) => ({
+            bidId: bid.id,
+            rfqId: rfq.id,
+            prLineId: line.prLineId,
+            description: line.description,
+            quantity: line.quantity,
+            uom: line.uom,
+            unitPrice: line.unitPrice,
+            lineTotal: line.lineTotal,
+            notes: line.notes,
+          })),
+        });
+      }
+    }
 
     await this.audit.record({
       tenantId: ctx.tenantId,
@@ -260,13 +412,14 @@ export class BidService {
       payload: { rfqId: rfq.id, supplierId: dto.supplierId, version: bid.version },
     });
 
-    return bid;
+    return this.getScoped(ctx, bid.id);
   }
 
   async submit(ctx: Ctx, id: string) {
     const bid = await this.getScoped(ctx, id);
     this.assertTransition(bid.status, 'SUBMITTED');
     await this.assertSupplierVerified(ctx, bid.supplierId);
+    await this.assertRequiredSupplierFormsCompleted(ctx, bid.rfqId, bid.supplierId);
 
     const subcategoryId = bid.rfq.pr.subcategoryId;
     if (!subcategoryId) {
@@ -286,13 +439,20 @@ export class BidService {
       });
     }
 
+    if (bid.rfq.pr.lines.length > 0 && bid.lines.length !== bid.rfq.pr.lines.length) {
+      throw new BadRequestException('Bid must include line pricing for every RFQ line item before submission');
+    }
+
+    const lineTotal = bid.lines.reduce((sum, line) => sum.add(line.lineTotal), new Prisma.Decimal(0));
+
     const updated = await this.prisma.bid.update({
       where: { id: bid.id },
       data: {
         status: 'SUBMITTED',
         submittedAt: new Date(),
+        totalBidValue: bid.lines.length > 0 ? lineTotal : bid.totalBidValue,
       },
-      include: { supplier: true },
+      include: { supplier: true, lines: true },
     });
 
     await this.audit.record({
@@ -482,6 +642,12 @@ export class BidService {
       include: {
         supplier: true,
         scores: true,
+        lines: {
+          include: {
+            prLine: true,
+          },
+          orderBy: { createdAt: 'asc' },
+        },
       },
       orderBy: [{ finalScore: 'desc' }, { submittedAt: 'asc' }],
     });

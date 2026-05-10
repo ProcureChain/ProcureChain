@@ -79,10 +79,20 @@ export class POService {
       include: {
         rfq: {
           include: {
-            pr: true,
+            pr: {
+              include: {
+                lines: true,
+              },
+            },
           },
         },
-        bid: true,
+        bid: {
+          include: {
+            lines: {
+              orderBy: { createdAt: 'asc' },
+            },
+          },
+        },
       },
     });
 
@@ -106,6 +116,15 @@ export class POService {
     }
 
     const committedAmount = new Prisma.Decimal(award.bid.totalBidValue);
+    const lineItems = award.bid.lines.map((line) => ({
+      prLineId: line.prLineId,
+      description: line.description,
+      quantity: line.quantity,
+      uom: line.uom,
+      unitPrice: Number(line.unitPrice),
+      lineTotal: Number(line.lineTotal),
+      notes: line.notes,
+    }));
 
     const po = await this.prisma.purchaseOrder.create({
       data: {
@@ -116,6 +135,7 @@ export class POService {
         commercialOnly: true,
         currency: award.bid.currency || award.rfq.currency || award.rfq.pr.currency,
         committedAmount,
+        lineItems,
         terms: dto.terms,
         notes: dto.notes,
         awardId: award.id,

@@ -3,11 +3,12 @@
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import { MessageSquareText } from "lucide-react";
+import { Download, MessageSquareText } from "lucide-react";
 
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
 import { PageHeader } from "@/components/common/page-header";
 import { PermissionNote } from "@/components/common/permission-note";
+import { POTemplatePreview } from "@/components/purchase-orders/po-template-preview";
 import { WorkflowChatSheet } from "@/components/workflow/workflow-chat-sheet";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,7 +22,17 @@ import {
   previewLiveInvoiceDocument,
 } from "@/lib/api/live-api";
 import { formatBusinessRef, formatDateTime, formatMoney } from "@/lib/format";
-import { useDeliveryNotes, useFinanceAction, useLiveInvoices, usePo, usePoAction } from "@/lib/query-hooks";
+import {
+  useDeliveryNotes,
+  useFinanceAction,
+  useLiveInvoices,
+  useOrganizationProfile,
+  usePo,
+  usePoAction,
+  useRequisition,
+  useRfq,
+  useSupplier,
+} from "@/lib/query-hooks";
 import { canPerformAction, permissionHint } from "@/lib/roles";
 import { runtimeConfig } from "@/lib/runtime-config";
 
@@ -32,13 +43,19 @@ export default function PurchaseOrderDetailPage() {
   const financeAction = useFinanceAction();
   const { data: deliveryNotes = [] } = useDeliveryNotes(params.id);
   const { data: liveInvoices = [] } = useLiveInvoices(params.id);
+  const { data: orgProfile } = useOrganizationProfile();
+  const { data: rfq } = useRfq(po?.rfqId ?? "");
+  const { data: requisition } = useRequisition(po?.prId ?? "");
+  const { data: supplier } = useSupplier(po?.supplierId ?? "");
 
   const [closeReason, setCloseReason] = useState("");
   const [deliveryDialogOpen, setDeliveryDialogOpen] = useState(false);
+  const [deliveryOverrideDialogOpen, setDeliveryOverrideDialogOpen] = useState(false);
   const [deliveryNoteNumber, setDeliveryNoteNumber] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
   const [receivedBy, setReceivedBy] = useState(runtimeConfig.actorName);
   const [deliveryRemarks, setDeliveryRemarks] = useState("");
+  const [deliveryOverrideReason, setDeliveryOverrideReason] = useState("");
   const [deliveryFile, setDeliveryFile] = useState<File | null>(null);
   const [reviewNotes, setReviewNotes] = useState("");
   const [paymentReference, setPaymentReference] = useState("");
@@ -109,21 +126,119 @@ export default function PurchaseOrderDetailPage() {
     setDeliveryFile(null);
   };
 
+  const proceedWithoutDeliveryNoteUpload = async () => {
+    await runFinance(
+      () =>
+        financeAction.mutateAsync({
+          type: "create-delivery-note",
+          poId: po.id,
+          noteNumber: deliveryNoteNumber || undefined,
+          deliveryDate: deliveryDate || undefined,
+          receivedBy: receivedBy || undefined,
+          remarks: deliveryRemarks || "Delivery note upload manually overridden by organisation",
+          manualOverride: true,
+          manualOverrideReason: deliveryOverrideReason,
+        }),
+      "Manual override recorded. Proceeded without file upload.",
+    );
+    setDeliveryOverrideDialogOpen(false);
+    setDeliveryDialogOpen(false);
+    setDeliveryNoteNumber("");
+    setDeliveryDate("");
+    setReceivedBy(runtimeConfig.actorName);
+    setDeliveryRemarks("");
+    setDeliveryOverrideReason("");
+    setDeliveryFile(null);
+  };
+
+  const downloadPoPdf = () => {
+    void (async () => {
+      const node = document.getElementById("po-template-printable");
+      if (!node) {
+        toast.error("PO template preview is not ready yet");
+        return;
+      }
+      try {
+        const [{ toPng }, { jsPDF }] = await Promise.all([
+          import("html-to-image"),
+          import("jspdf"),
+        ]);
+
+        const imgData = await toPng(node, {
+          cacheBust: true,
+          pixelRatio: 2,
+          backgroundColor: "#f2f2f2",
+        });
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const img = new Image();
+        img.src = imgData;
+        await new Promise<void>((resolve, reject) => {
+          img.onload = () => resolve();
+          img.onerror = () => reject(new Error("Failed to load generated PO image"));
+        });
+
+        const imgWidth = pageWidth;
+        const imgHeight = (img.height * imgWidth) / img.width;
+
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight, undefined, "FAST");
+        heightLeft -= pageHeight;
+
+        while (heightLeft > 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight, undefined, "FAST");
+          heightLeft -= pageHeight;
+        }
+
+        pdf.save(`${po.poNumber || "purchase-order"}.pdf`);
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to download PO PDF");
+      }
+    })();
+  };
+
   return (
     <div className="space-y-5">
       <PageHeader
         title={`PO ${po.poNumber}`}
         description={`Status ${po.status} • ${formatMoney(po.committedAmount, po.currency)} • Supplier ${po.supplierName ?? "-"}`}
         actions={
-          <Button variant="outline" onClick={() => setWorkflowOpen(true)}>
-            <MessageSquareText className="mr-2 h-4 w-4" />
-            Workflow Chat
-          </Button>
+          <>
+            <Button variant="outline" onClick={downloadPoPdf}>
+              <Download className="mr-2 h-4 w-4" />
+              Download PO PDF
+            </Button>
+            <Button variant="outline" onClick={() => setWorkflowOpen(true)}>
+              <MessageSquareText className="mr-2 h-4 w-4" />
+              Workflow Chat
+            </Button>
+          </>
         }
       />
 
       {action.error ? <ApiErrorAlert error={action.error} /> : null}
       {financeAction.error ? <ApiErrorAlert error={financeAction.error} /> : null}
+
+      <Card>
+        <CardHeader>
+          <CardTitle>PO Template Preview</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <POTemplatePreview
+            po={po}
+            rfq={rfq ?? undefined}
+            requisition={requisition ?? undefined}
+            organizationProfile={orgProfile ?? undefined}
+            supplier={supplier ?? undefined}
+          />
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>
@@ -170,6 +285,40 @@ export default function PurchaseOrderDetailPage() {
           <p>Accepted At: {po.acceptedAt ? formatDateTime(po.acceptedAt) : "-"}</p>
         </CardContent>
       </Card>
+
+      {po.lineItems?.length ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>Commercial Line Items</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse text-sm">
+                <thead>
+                  <tr className="border-b bg-slate-50 text-left">
+                    <th className="px-3 py-2 font-medium">Description</th>
+                    <th className="px-3 py-2 font-medium">Qty</th>
+                    <th className="px-3 py-2 font-medium">UOM</th>
+                    <th className="px-3 py-2 font-medium">Unit Price</th>
+                    <th className="px-3 py-2 font-medium">Line Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {po.lineItems.map((line) => (
+                    <tr key={`${po.id}-${line.prLineId}`} className="border-b align-top">
+                      <td className="px-3 py-2 font-medium">{line.description}</td>
+                      <td className="px-3 py-2">{line.quantity}</td>
+                      <td className="px-3 py-2">{line.uom ?? "-"}</td>
+                      <td className="px-3 py-2">{formatMoney(line.unitPrice, po.currency)}</td>
+                      <td className="px-3 py-2">{formatMoney(line.lineTotal, po.currency)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      ) : null}
 
       <Card>
         <CardHeader>
@@ -306,11 +455,11 @@ export default function PurchaseOrderDetailPage() {
                           onClick={() =>
                             runFinance(
                               () => financeAction.mutateAsync({ type: "review-live-invoice", invoiceId: invoice.id, notes: reviewNotes || undefined }),
-                              "Invoice moved to review",
+                              "Supplier invoice accepted",
                             )
                           }
                         >
-                          Move To Review
+                          Accept Received Invoice
                         </Button>
                       ) : null}
                       {invoice.status === "UNDER_REVIEW" ? (
@@ -404,8 +553,58 @@ export default function PurchaseOrderDetailPage() {
               <Button variant="outline" onClick={() => setDeliveryDialogOpen(false)} disabled={financeAction.isPending}>
                 Cancel
               </Button>
+              <Button
+                variant="outline"
+                onClick={() => setDeliveryOverrideDialogOpen(true)}
+                disabled={financeAction.isPending}
+              >
+                Proceed Without Upload
+              </Button>
               <Button onClick={createDeliveryNote} disabled={financeAction.isPending || !deliveryFile}>
                 {financeAction.isPending ? "Uploading..." : "Upload Delivery Note"}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={deliveryOverrideDialogOpen}
+        onOpenChange={(open) => {
+          if (!financeAction.isPending) setDeliveryOverrideDialogOpen(open);
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Manual Override Warning</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+              You are proceeding without uploading a delivery note document. This action is restricted to organisation users and will be written to the audit trail.
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="delivery-override-reason">Override reason (required)</Label>
+              <Input
+                id="delivery-override-reason"
+                value={deliveryOverrideReason}
+                onChange={(e) => setDeliveryOverrideReason(e.target.value)}
+                placeholder="Provide the reason for overriding delivery note upload"
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setDeliveryOverrideDialogOpen(false)}
+                disabled={financeAction.isPending}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="destructive"
+                disabled={financeAction.isPending || !deliveryOverrideReason.trim()}
+                onClick={proceedWithoutDeliveryNoteUpload}
+              >
+                Confirm Override
               </Button>
             </div>
           </div>

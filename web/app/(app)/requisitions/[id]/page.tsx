@@ -15,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { formatDate } from "@/lib/format";
+import { formatDate, formatSubcategoryLabel } from "@/lib/format";
 import { downloadRequisitionDocument } from "@/lib/api/live-api";
 import { useApprovalAction, useAuditEvents, useRequisition, useTaxonomySubcategories, useWithdrawRequisition } from "@/lib/query-hooks";
 import { canPerformAction, permissionHint } from "@/lib/roles";
@@ -51,7 +51,7 @@ function RequisitionHero({
       <div className="flex flex-col gap-5 px-6 py-7 lg:flex-row lg:items-end lg:justify-between lg:px-8">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Purchase Requisition</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight">{title}</h1>
+          <h1 className="mt-3 text-2xl font-bold tracking-tight">{title}</h1>
           <p className="mt-2 text-sm leading-6 text-[#E1E7FF]">{subtitle}</p>
         </div>
         {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
@@ -86,10 +86,11 @@ export default function RequisitionDetailPage() {
   const canWithdraw = data.status === "SUBMITTED" || data.status === "UNDER_REVIEW" || data.status === "RETURNED";
   const latestReturnedAudit = auditEvents.find((event) => event.action === "PR_INFO_REQUESTED");
   const subcategoryLabel =
-    taxonomy.find((subcategory) => subcategory.id === data.subcategoryId)?.level3 ??
-    taxonomy.find((subcategory) => subcategory.id === data.subcategoryId)?.name ??
-    data.subcategoryId ??
-    "-";
+    formatSubcategoryLabel(
+      taxonomy.find((subcategory) => subcategory.id === data.subcategoryId)?.level3 ??
+        taxonomy.find((subcategory) => subcategory.id === data.subcategoryId)?.name,
+      data.subcategoryId,
+    );
   const auditItems = auditEvents.map((event) => ({
     id: event.id,
     title: event.action,

@@ -6,16 +6,19 @@ import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
+import { BidComparisonBarChart } from "@/components/bids/bid-comparison-bar-chart";
+import { BidLineComparisonTable } from "@/components/bids/bid-line-comparison-table";
 import { EmptyState } from "@/components/common/empty-state";
 import { PageHeader } from "@/components/common/page-header";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { formatBusinessRef, formatDateTime } from "@/lib/format";
-import { useBidsByRfq, usePos, useRfqAction, useRfqs } from "@/lib/query-hooks";
+import { formatBusinessRef, formatCountryWithFlag, formatDateTime, formatMoney } from "@/lib/format";
+import { useBidsByRfq, usePos, useRfqAction, useRfqs, useSuppliers } from "@/lib/query-hooks";
 import { Bid } from "@/lib/types";
 
 const bidStatusLabel = (status: string) => {
@@ -37,6 +40,31 @@ const bidStatusLabel = (status: string) => {
   }
 };
 
+const COUNTRY_NAME_TO_CODE: Record<string, string> = {
+  angola: "AO",
+  congo: "CG",
+  ethiopia: "ET",
+  mozambique: "MZ",
+  namibia: "NA",
+  nigeria: "NG",
+  "republic of congo": "CG",
+  "south africa": "ZA",
+  "united states": "US",
+  usa: "US",
+};
+
+function countryCode(value?: string | null) {
+  const country = value?.trim();
+  if (!country) return null;
+  if (/^[A-Za-z]{2}$/.test(country)) return country.toUpperCase();
+  return COUNTRY_NAME_TO_CODE[country.toLowerCase()] ?? null;
+}
+
+function countryFlagImageUrl(code?: string) {
+  if (!code) return "";
+  return `https://flagcdn.com/24x18/${code.toLowerCase()}.png`;
+}
+
 export function BidsPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -48,6 +76,7 @@ export function BidsPageClient() {
 
   const { data: rfqs = [], error: rfqError } = useRfqs();
   const { data: bids = [], error: bidsError } = useBidsByRfq(rfqId);
+  const { data: suppliers = [] } = useSuppliers();
   const { refetch: refetchPos } = usePos();
   const rfqAction = useRfqAction();
 
@@ -59,6 +88,20 @@ export function BidsPageClient() {
     [rfqs],
   );
   const selectedRfq = comparableRfqs.find((rfq) => rfq.id === rfqId) ?? null;
+  const supplierById = useMemo(() => new Map(suppliers.map((supplier) => [supplier.id, supplier])), [suppliers]);
+  const supplierMeta = useMemo(
+    () =>
+      Object.fromEntries(
+        suppliers.map((supplier) => [
+          supplier.id,
+          {
+            countryLabel: formatCountryWithFlag(supplier.country),
+            countryCode: countryCode(supplier.country) ?? "",
+          },
+        ]),
+      ),
+    [suppliers],
+  );
 
   useEffect(() => {
     if (rfqId || comparableRfqs.length === 0) return;
@@ -157,61 +200,128 @@ export function BidsPageClient() {
           }
         />
       ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle>Bid Comparison Table</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="overflow-x-auto">
-              <table className="min-w-full border-collapse text-sm">
-                <thead>
-                  <tr className="border-b bg-slate-50 text-left">
-                    <th className="px-3 py-2 font-medium">Supplier</th>
-                    <th className="px-3 py-2 font-medium">Status</th>
-                    <th className="px-3 py-2 font-medium">Bid Value</th>
-                    <th className="px-3 py-2 font-medium">Currency</th>
-                    <th className="px-3 py-2 font-medium">Submitted</th>
-                    <th className="px-3 py-2 font-medium">Documents</th>
-                    <th className="px-3 py-2 font-medium">Supplier Score</th>
-                    <th className="px-3 py-2 font-medium">Recommendation</th>
-                    <th className="px-3 py-2 font-medium">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {bids.map((bid) => (
-                    <tr key={bid.id} className="border-b align-top">
-                      <td className="px-3 py-2 font-medium">{bid.supplierName ?? formatBusinessRef("SUP", bid.supplierId)}</td>
-                      <td className="px-3 py-2">{bidStatusLabel(bid.status)}</td>
-                      <td className="px-3 py-2">{bid.totalBidValue ?? "-"}</td>
-                      <td className="px-3 py-2">{bid.currency ?? "-"}</td>
-                      <td className="px-3 py-2">{bid.submittedAt ? formatDateTime(bid.submittedAt) : "-"}</td>
-                      <td className="px-3 py-2">{Object.keys(bid.documents ?? {}).length}</td>
-                      <td className="px-3 py-2">{bid.supplierProfileScore ?? "-"}</td>
-                      <td className="px-3 py-2">{bid.recommended ? bid.recommendationReason ?? "Recommended" : "-"}</td>
-                      <td className="px-3 py-2">
-                        <div className="flex flex-wrap gap-2">
-                          <Button asChild size="sm" variant="outline">
-                            <Link href={`/bids/${bid.id}`}>Review</Link>
-                          </Button>
-                          <Button
-                            size="sm"
-                            onClick={() => {
-                              setAwardError(null);
-                              setOverrideReason(`Award selected supplier from bids comparison for ${selectedRfq?.title ?? "RFQ"}`);
-                              setAwardCandidate(bid);
-                            }}
-                          >
-                            Award
-                          </Button>
+        <div className="space-y-5">
+          <BidComparisonBarChart bids={bids} supplierMeta={supplierMeta} />
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Supplier Scorecards</CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-4 lg:grid-cols-2">
+              {bids.map((bid) => {
+                const supplier = supplierById.get(bid.supplierId);
+                const metrics = [
+                  ["Profile", supplier?.profileScore],
+                  ["Compliance", supplier?.complianceScore],
+                  ["Delivery", supplier?.deliveryScore],
+                  ["Quality", supplier?.qualityScore],
+                  ["Risk", supplier?.riskScore],
+                ] as const;
+                return (
+                  <div key={`score-${bid.id}`} className="rounded-2xl border border-slate-200 bg-white p-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <p className="font-semibold text-slate-900">{bid.supplierName ?? formatBusinessRef("SUP", bid.supplierId)}</p>
+                        <p className="flex items-center gap-1 text-xs text-slate-500">
+                          {supplierMeta[bid.supplierId]?.countryCode ? (
+                            <img
+                              src={countryFlagImageUrl(supplierMeta[bid.supplierId]?.countryCode)}
+                              alt={supplierMeta[bid.supplierId]?.countryCode}
+                              className="h-3 w-4 rounded-[2px] object-cover"
+                            />
+                          ) : null}
+                          <span>{supplierMeta[bid.supplierId]?.countryCode || supplierMeta[bid.supplierId]?.countryLabel || "N/A"}</span>
+                        </p>
+                      </div>
+                      <Badge variant="outline" className="rounded-full">
+                        {bidStatusLabel(bid.status)}
+                      </Badge>
+                    </div>
+                    <div className="mt-3 grid grid-cols-5 gap-2">
+                      {metrics.map(([label, score]) => (
+                        <div key={`${bid.id}-${label}`} className="rounded-xl border border-slate-200 bg-slate-50 p-2 text-center">
+                          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">{label}</p>
+                          <p className="mt-1 text-sm font-semibold text-slate-900">{score ?? "N/A"}</p>
                         </div>
-                      </td>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </CardContent>
+          </Card>
+          {selectedRfq ? <BidLineComparisonTable rfq={selectedRfq} bids={bids} /> : null}
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Bid Comparison Table</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="min-w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b bg-slate-50 text-left">
+                      <th className="px-3 py-2 font-medium">Supplier</th>
+                      <th className="px-3 py-2 font-medium">Status</th>
+                      <th className="px-3 py-2 font-medium">Bid Value</th>
+                      <th className="px-3 py-2 font-medium">Currency</th>
+                      <th className="px-3 py-2 font-medium">Submitted</th>
+                      <th className="px-3 py-2 font-medium">Documents</th>
+                      <th className="px-3 py-2 font-medium">Supplier Score</th>
+                      <th className="px-3 py-2 font-medium">Recommendation</th>
+                      <th className="px-3 py-2 font-medium">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
+                  </thead>
+                  <tbody>
+                    {bids.map((bid) => (
+                      <tr key={bid.id} className="border-b align-top">
+                        <td className="px-3 py-2 font-medium">
+                          <div className="flex flex-col">
+                            <span>{bid.supplierName ?? formatBusinessRef("SUP", bid.supplierId)}</span>
+                            <span className="flex items-center gap-1 text-xs font-normal text-slate-500">
+                              {supplierMeta[bid.supplierId]?.countryCode ? (
+                                <img
+                                  src={countryFlagImageUrl(supplierMeta[bid.supplierId]?.countryCode)}
+                                  alt={supplierMeta[bid.supplierId]?.countryCode}
+                                  className="h-3 w-4 rounded-[2px] object-cover"
+                                />
+                              ) : null}
+                              <span>{supplierMeta[bid.supplierId]?.countryCode || supplierMeta[bid.supplierId]?.countryLabel || "N/A"}</span>
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-3 py-2">{bidStatusLabel(bid.status)}</td>
+                        <td className="px-3 py-2">{bid.totalBidValue != null ? formatMoney(bid.totalBidValue, bid.currency ?? "ZAR") : "-"}</td>
+                        <td className="px-3 py-2">{bid.currency ?? "-"}</td>
+                        <td className="px-3 py-2">{bid.submittedAt ? formatDateTime(bid.submittedAt) : "-"}</td>
+                        <td className="px-3 py-2">{Object.keys(bid.documents ?? {}).length}</td>
+                        <td className="px-3 py-2">{bid.supplierProfileScore ?? "-"}</td>
+                        <td className="px-3 py-2">{bid.recommended ? bid.recommendationReason ?? "Recommended" : "-"}</td>
+                        <td className="px-3 py-2">
+                          <div className="flex flex-wrap gap-2">
+                            <Button asChild size="sm" variant="outline">
+                              <Link href={`/bids/${bid.id}`}>Review</Link>
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => {
+                                setAwardError(null);
+                                setOverrideReason(`Award selected supplier from bids comparison for ${selectedRfq?.title ?? "RFQ"}`);
+                                setAwardCandidate(bid);
+                              }}
+                            >
+                              Award
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       )}
 
       <Dialog

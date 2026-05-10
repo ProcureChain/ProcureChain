@@ -76,8 +76,8 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[linear-gradient(135deg,#f7f6f1_0%,#eef4ff_48%,#e9f8f3_100%)]">
-      <div className="mx-auto flex min-h-screen max-w-6xl items-center px-6 py-10">
-        <div className="grid w-full gap-8 lg:grid-cols-[1.05fr_460px]">
+      <div className="mx-auto flex min-h-screen max-w-[1480px] items-center px-8 py-10 lg:px-10">
+        <div className="grid w-full gap-8 lg:grid-cols-[1.08fr_540px]">
           <div className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-[linear-gradient(155deg,rgba(255,255,255,0.92)_0%,rgba(243,247,255,0.94)_52%,rgba(236,248,243,0.92)_100%)] p-8 shadow-[0_24px_80px_rgba(45,51,74,0.12)] lg:p-10">
             <div className="absolute -right-10 top-8 h-40 w-40 rounded-full bg-[radial-gradient(circle,#c7dcff_0%,rgba(199,220,255,0)_72%)]" />
             <div className="absolute bottom-0 left-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,#cfeee1_0%,rgba(207,238,225,0)_72%)]" />

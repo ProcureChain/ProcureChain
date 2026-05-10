@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useQueries } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowRight, ClipboardList, Layers3, ListChecks } from "lucide-react";
 
@@ -12,14 +13,19 @@ import { ApiErrorAlert } from "@/components/common/api-error-alert";
 import { LocationAutocompleteField } from "@/components/forms/location-autocomplete-field";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { formatDomainLabel } from "@/lib/format";
 import { runtimeConfig } from "@/lib/runtime-config";
-import { useAuditEvents, useCreateCustomTaxonomySubcategory, useCreateDraftRequisition, usePrFormSchema, useRequisition, useRequisitionDocumentUpload, useSubmitDraftRequisition, useTaxonomySubcategories, useUpdateRequisition } from "@/lib/query-hooks";
+import { useAuditEvents, useCreateCustomTaxonomySubcategory, useCreateDraftRequisition, useOrganizationAdminSettings, usePrFormSchema, useRequisition, useRequisitionDocumentUpload, useSubmitDraftRequisition, useTaxonomySubcategories, useUpdateRequisition } from "@/lib/query-hooks";
 import { LocationSuggestion, PrFormSchemaField } from "@/lib/types";
+import * as liveApi from "@/lib/api/live-api";
+import * as mockApi from "@/lib/api/mock-api";
 
 const lineSchema = z.object({
+  subcategoryId: z.string().min(1, "Level 3 subcategory is required"),
   description: z.string().min(2, "Description required"),
   quantity: z.number().min(1),
   uom: z.string().optional(),
@@ -31,7 +37,6 @@ const schema = z.object({
   costCenter: z.string().min(2),
   neededBy: z.string().optional(),
   justification: z.string().min(10),
-  subcategoryId: z.string().min(1, "Subcategory is required"),
   metadata: z.record(z.string(), z.unknown()),
   lines: z.array(lineSchema).min(1, "At least one line item is required"),
 });
@@ -88,7 +93,7 @@ function WizardHero({
     <section className="overflow-hidden rounded-[32px] border border-[var(--border)] bg-[linear-gradient(135deg,#2D334A_0%,#444A74_100%)] text-white shadow-[var(--shadow-lg)]">
       <div className="px-6 py-7 lg:px-8">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Purchase Requisition</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white">{title}</h1>
+        <h1 className="mt-3 text-2xl font-bold tracking-tight text-white">{title}</h1>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-[#E1E7FF]">{description}</p>
       </div>
     </section>
@@ -146,8 +151,13 @@ export default function NewRequisitionPage() {
   const [selectedLevel1, setSelectedLevel1] = useState("");
   const [selectedLevel2, setSelectedLevel2] = useState("");
   const [customLevel3Name, setCustomLevel3Name] = useState("");
-  const [supportingFiles, setSupportingFiles] = useState<File[]>([]);
+  const [showCreateLevel3Inline, setShowCreateLevel3Inline] = useState(false);
   const [dynamicDocumentFiles, setDynamicDocumentFiles] = useState<Record<string, File | null>>({});
+  const [lineDynamicValues, setLineDynamicValues] = useState<Record<number, Record<string, unknown>>>({});
+  const [lineDynamicDocumentFiles, setLineDynamicDocumentFiles] = useState<Record<number, Record<string, File | null>>>(
+    {},
+  );
+  const [activeLineDynamicIndex, setActiveLineDynamicIndex] = useState<number | null>(null);
   const router = useRouter();
   const createDraftReq = useCreateDraftRequisition();
   const updateReq = useUpdateRequisition();
@@ -156,6 +166,7 @@ export default function NewRequisitionPage() {
   const subcategories = useTaxonomySubcategories();
   const createCustomSubcategory = useCreateCustomTaxonomySubcategory();
   const existingReq = useRequisition(editId ?? "");
+  const organizationAdminSettings = useOrganizationAdminSettings();
   const { data: existingAudit = [] } = useAuditEvents(
     editId ? { entityType: "PurchaseRequisition", entityId: editId, limit: 50 } : undefined,
   );
@@ -176,15 +187,14 @@ export default function NewRequisitionPage() {
       costCenter: "",
       neededBy: "",
       justification: "",
-      subcategoryId: "",
       metadata: {},
-      lines: [{ description: "", quantity: 1, uom: "" }],
+      lines: [{ subcategoryId: "", description: "", quantity: 1, uom: "" }],
     },
   });
 
   const { fields, append, remove } = useFieldArray({ control: form.control, name: "lines" });
   const lines = form.watch("lines");
-  const selectedSubcategoryId = form.watch("subcategoryId");
+  const selectedSubcategoryId = form.watch("lines.0.subcategoryId");
   const allSubcategories = subcategories.data ?? [];
   const formSchemaQuery = usePrFormSchema(selectedSubcategoryId || undefined);
   const activeFormSchema =
@@ -208,11 +218,19 @@ export default function NewRequisitionPage() {
     [existingAudit],
   );
   const pendingRequiredDocumentCount = useMemo(
-    () =>
-      requiredDocumentFields.filter(
-        (field) => !Boolean(dynamicDocumentFiles[field.key]) && !existingDocuments.some((document) => document.fieldKey === field.key),
-      ).length,
-    [dynamicDocumentFiles, existingDocuments, requiredDocumentFields],
+    () => {
+      let pending = 0;
+      for (let lineIndex = 0; lineIndex < lines.length; lineIndex += 1) {
+        for (const field of requiredDocumentFields) {
+          const hasDocument =
+            Boolean(lineDynamicDocumentFiles[lineIndex]?.[field.key]) ||
+            existingDocuments.some((document) => document.fieldKey === `line_${lineIndex + 1}_${field.key}`);
+          if (!hasDocument) pending += 1;
+        }
+      }
+      return pending;
+    },
+    [existingDocuments, lineDynamicDocumentFiles, lines.length, requiredDocumentFields],
   );
   const uomFieldKey = useMemo(() => {
     if (!uomPolicy?.fieldPath?.startsWith("metadata.")) return null;
@@ -227,9 +245,21 @@ export default function NewRequisitionPage() {
       (lineBindings?.uom?.length ?? 0),
   );
   const metadataErrors = ((form.formState.errors as Record<string, unknown>).metadata ?? {}) as Record<string, { message?: string }>;
+  const departmentOptions = useMemo(
+    () =>
+      organizationAdminSettings.data?.settings.departments?.filter((department) => department.isActive).map((department) => department.name) ??
+      runtimeConfig.companyDepartments,
+    [organizationAdminSettings.data?.settings.departments],
+  );
+  const costCentreOptions = useMemo(
+    () =>
+      organizationAdminSettings.data?.settings.costCentres?.filter((costCentre) => costCentre.isActive).map((costCentre) => costCentre.code) ??
+      runtimeConfig.companyCostCentres,
+    [organizationAdminSettings.data?.settings.costCentres],
+  );
 
   const level1Options = useMemo(
-    () => [...new Set(allSubcategories.map((s) => s.level1))].sort((a, b) => a.localeCompare(b)),
+    () => [...new Set(allSubcategories.map((s) => s.level1))].sort((a, b) => formatDomainLabel(a).localeCompare(formatDomainLabel(b))),
     [allSubcategories],
   );
   const level2Options = useMemo(
@@ -250,6 +280,18 @@ export default function NewRequisitionPage() {
     () => allSubcategories.find((subcategory) => subcategory.id === selectedSubcategoryId) ?? null,
     [allSubcategories, selectedSubcategoryId],
   );
+  const lineSubcategoryIds = useMemo(() => lines.map((line) => line.subcategoryId || ""), [lines]);
+  const lineFormSchemas = useQueries({
+    queries: lineSubcategoryIds.map((subcategoryId) => ({
+      queryKey: ["taxonomy", "pr-form-schema", subcategoryId, runtimeConfig.useMockApi ? "mock" : "live"],
+      queryFn: () =>
+        runtimeConfig.useMockApi
+          ? mockApi.getPrFormSchema(subcategoryId)
+          : liveApi.getPrFormSchema(subcategoryId),
+      enabled: Boolean(subcategoryId),
+      staleTime: 5 * 60 * 1000,
+    })),
+  });
   const populatedDynamicFields = useMemo(
     () =>
       dynamicFields.filter((def) => !isMissing(form.getValues(`metadata.${def.key}` as any))).map((def) => ({
@@ -258,6 +300,17 @@ export default function NewRequisitionPage() {
       })),
     [dynamicFields, form],
   );
+
+  const populateLineDynamicFromMetadata = (metadata: Record<string, unknown> | null | undefined) => {
+    if (!metadata || typeof metadata !== "object") return;
+    const raw = (metadata as Record<string, unknown>).lineDynamicDetails;
+    if (!Array.isArray(raw)) return;
+    const mapped: Record<number, Record<string, unknown>> = {};
+    raw.forEach((entry, idx) => {
+      if (entry && typeof entry === "object") mapped[idx] = entry as Record<string, unknown>;
+    });
+    setLineDynamicValues(mapped);
+  };
 
   useEffect(() => {
     if (!selectedSubcategoryId || allSubcategories.length === 0) return;
@@ -276,16 +329,16 @@ export default function NewRequisitionPage() {
       costCenter: existing.costCenter,
       neededBy: existing.neededBy ?? "",
       justification: existing.justification ?? "",
-      subcategoryId: existing.subcategoryId ?? "",
       metadata: (existing.metadata as Record<string, unknown>) ?? {},
       lines:
         existing.lineItems.length > 0
           ? existing.lineItems.map((line) => ({
+              subcategoryId: line.subcategoryId ?? existing.subcategoryId ?? "",
               description: line.description,
               quantity: line.quantity,
               uom: line.uom ?? "",
             }))
-          : [{ description: "", quantity: 1, uom: "" }],
+          : [{ subcategoryId: existing.subcategoryId ?? "", description: "", quantity: 1, uom: "" }],
     });
 
     const selected = allSubcategories.find((s) => s.id === existing.subcategoryId);
@@ -293,11 +346,12 @@ export default function NewRequisitionPage() {
       setSelectedLevel1(selected.level1);
       setSelectedLevel2(selected.level2);
     }
+    populateLineDynamicFromMetadata((existing.metadata as Record<string, unknown>) ?? {});
     setIsPrefilled(true);
   }, [allSubcategories, editId, existingReq.data, form, isPrefilled]);
 
   useEffect(() => {
-    form.setValue("lines.0.uom", "", { shouldDirty: false });
+      form.setValue("lines.0.uom", "", { shouldDirty: false });
   }, [form, selectedSubcategoryId]);
 
   useEffect(() => {
@@ -332,7 +386,7 @@ export default function NewRequisitionPage() {
     const description = String(firstDefinedValue(lineBindings?.description) ?? "").trim();
     const qty = toPositiveNumber(firstDefinedValue(lineBindings?.quantity)) ?? 1;
     const uom = resolvedLineUom || String(firstDefinedValue(lineBindings?.uom) ?? "").trim();
-    return { description, quantity: qty, uom };
+    return { subcategoryId: selectedSubcategoryId ?? "", description, quantity: qty, uom };
   };
 
   const applyDynamicToFirstLine = () => {
@@ -364,10 +418,11 @@ export default function NewRequisitionPage() {
         level3,
         baseSubcategoryId: level3Options[0]?.id,
       });
-      form.setValue("subcategoryId", created.id, { shouldDirty: true, shouldValidate: true });
+      form.setValue("lines.0.subcategoryId", created.id, { shouldDirty: true, shouldValidate: true });
       form.setValue("metadata", {});
-      form.clearErrors(["subcategoryId", "metadata"]);
+      form.clearErrors(["lines.0.subcategoryId", "metadata"]);
       setCustomLevel3Name("");
+      setShowCreateLevel3Inline(false);
       toast.success("Custom level 3 category created");
     } catch (error) {
       console.error(error);
@@ -407,16 +462,12 @@ export default function NewRequisitionPage() {
   const hasExistingDocumentForField = (fieldKey: string) =>
     existingDocuments.some((document) => document.fieldKey === fieldKey);
 
-  const uploadPendingDocuments = async (requisitionId: string) => {
-    for (const file of supportingFiles) {
-      await uploadDocument.mutateAsync({
-        requisitionId,
-        file,
-        fieldKey: "supporting_documents",
-        label: "Supporting Document",
-      });
-    }
+  const withLineDynamicMetadata = (metadata: Record<string, unknown>) => ({
+    ...metadata,
+    lineDynamicDetails: form.getValues("lines").map((_, lineIndex) => lineDynamicValues[lineIndex] ?? {}),
+  });
 
+  const uploadPendingDocuments = async (requisitionId: string) => {
     for (const [fieldKey, file] of Object.entries(dynamicDocumentFiles)) {
       if (!file) continue;
       const definition = dynamicFields.find((field) => field.key === fieldKey);
@@ -427,12 +478,26 @@ export default function NewRequisitionPage() {
         label: definition?.label ?? fieldKey,
       });
     }
+
+    for (const [lineIndexRaw, docs] of Object.entries(lineDynamicDocumentFiles)) {
+      const lineIndex = Number(lineIndexRaw);
+      for (const [fieldKey, file] of Object.entries(docs ?? {})) {
+        if (!file) continue;
+        const definition = dynamicFields.find((field) => field.key === fieldKey);
+        await uploadDocument.mutateAsync({
+          requisitionId,
+          file,
+          fieldKey: `line_${lineIndex + 1}_${fieldKey}`,
+          label: `Line ${lineIndex + 1}: ${definition?.label ?? fieldKey}`,
+        });
+      }
+    }
   };
 
   const saveDraftPartial = async () => {
     const values = form.getValues();
-    if (!values.title.trim() || !values.subcategoryId) {
-      toast.error("Title and Level 3 subcategory are required to save a draft.");
+    if (!values.title.trim()) {
+      toast.error("Title is required to save a draft.");
       return;
     }
 
@@ -440,9 +505,11 @@ export default function NewRequisitionPage() {
       .filter((line) => line.description.trim().length > 0 && Number(line.quantity) > 0)
       .map((line, index) => ({
         id: `line-${index + 1}`,
+        subcategoryId: line.subcategoryId,
         description: line.description,
         quantity: line.quantity,
         uom: line.uom,
+        metadata: lineDynamicValues[index] ?? {},
       }));
 
     if (editId) {
@@ -453,8 +520,8 @@ export default function NewRequisitionPage() {
         costCenter: values.costCenter,
         justification: values.justification,
         currency: "ZAR",
-        subcategoryId: values.subcategoryId,
-        metadata: values.metadata,
+        subcategoryId: values.lines[0]?.subcategoryId || undefined,
+        metadata: withLineDynamicMetadata(values.metadata as Record<string, unknown>),
         lineItems,
         editSource: editSource === "rfq" ? "RFQ" : undefined,
         validateRequired: isApprovedEdit,
@@ -474,8 +541,8 @@ export default function NewRequisitionPage() {
       costCenter: values.costCenter,
       justification: values.justification,
       currency: "ZAR",
-      subcategoryId: values.subcategoryId,
-      metadata: values.metadata,
+      subcategoryId: values.lines[0]?.subcategoryId || undefined,
+      metadata: withLineDynamicMetadata(values.metadata as Record<string, unknown>),
       lineItems,
     });
     await uploadPendingDocuments(created.id);
@@ -485,30 +552,40 @@ export default function NewRequisitionPage() {
 
   const validateDynamicMetadata = () => {
     let ok = true;
-    for (const def of dynamicFields) {
-      if (def.inputType === "file") {
-        const hasDocument = Boolean(dynamicDocumentFiles[def.key]) || hasExistingDocumentForField(def.key);
-        if (def.required && !hasDocument) {
-          form.setError(`metadata.${def.key}` as any, {
-            type: "required",
-            message: def.message ?? `${def.label} document is required`,
+    for (let lineIndex = 0; lineIndex < fields.length; lineIndex += 1) {
+      const schemaForLine = lineFormSchemas[lineIndex]?.data;
+      const lineFields =
+        (schemaForLine?.sections.find((section) => section.id === "subcategory")?.fields ?? [])
+          .filter((field) => field.path.startsWith("metadata."))
+          .filter((field) => {
+            const bound = new Set(
+              [
+                ...(schemaForLine?.lineBindings?.description ?? []),
+                ...(schemaForLine?.lineBindings?.quantity ?? []),
+                ...(schemaForLine?.lineBindings?.uom ?? []),
+              ]
+                .filter((path) => path.startsWith("metadata."))
+                .map((path) => path.slice("metadata.".length)),
+            );
+            return !bound.has(field.key);
           });
-          ok = false;
-        } else {
-          form.clearErrors(`metadata.${def.key}` as any);
+      for (const def of lineFields) {
+        if (!def.required) continue;
+        if (def.inputType === "file") {
+          const hasDocument =
+            Boolean(lineDynamicDocumentFiles[lineIndex]?.[def.key]) ||
+            existingDocuments.some((document) => document.fieldKey === `line_${lineIndex + 1}_${def.key}`);
+          if (!hasDocument) ok = false;
+          continue;
         }
-        continue;
+        const value = lineDynamicValues[lineIndex]?.[def.key];
+        if (isMissing(value)) {
+          ok = false;
+        }
       }
-      const value = form.getValues(`metadata.${def.key}` as any);
-      if (def.required && isMissing(value)) {
-        form.setError(`metadata.${def.key}` as any, {
-          type: "required",
-          message: def.message ?? `${def.label} is required`,
-        });
-        ok = false;
-      } else {
-        form.clearErrors(`metadata.${def.key}` as any);
-      }
+    }
+    if (!ok) {
+      toast.error("Complete required dynamic details for each line item.");
     }
     return ok;
   };
@@ -521,19 +598,18 @@ export default function NewRequisitionPage() {
         "costCenter",
         ...(neededByMetadataPaths.length > 0 ? (["neededBy"] as const) : []),
         "justification",
-        "subcategoryId",
       ]);
       if (neededByMetadataPaths.length > 0 && isMissing(form.getValues("neededBy"))) {
         form.setError("neededBy", { type: "required", message: "Needed By is required" });
       } else {
         form.clearErrors("neededBy");
       }
-      const dynamicValid = validateDynamicMetadata();
-      if (!staticValid || !dynamicValid || (neededByMetadataPaths.length > 0 && isMissing(form.getValues("neededBy")))) return;
+      if (!staticValid || (neededByMetadataPaths.length > 0 && isMissing(form.getValues("neededBy")))) return;
     }
     if (step === 2) {
       const linesValid = await form.trigger("lines");
-      if (!linesValid) return;
+      const dynamicValid = validateDynamicMetadata();
+      if (!linesValid || !dynamicValid) return;
     }
     setStep((s) => Math.min(3, s + 1));
   };
@@ -541,14 +617,16 @@ export default function NewRequisitionPage() {
   const submitRequisition = form.handleSubmit(async (values) => {
     syncNeededByToMetadata(values.neededBy ?? "");
     if (!validateDynamicMetadata()) {
-      setStep(1);
+      setStep(2);
       return;
     }
     const lineItems = values.lines.map((line, i) => ({
       id: `line-${i + 1}`,
+      subcategoryId: line.subcategoryId,
       description: line.description,
       quantity: line.quantity,
       uom: line.uom,
+      metadata: lineDynamicValues[i] ?? {},
     }));
 
     if (editId) {
@@ -559,8 +637,8 @@ export default function NewRequisitionPage() {
         costCenter: values.costCenter,
         justification: values.justification,
         currency: "ZAR",
-        subcategoryId: values.subcategoryId,
-        metadata: values.metadata,
+        subcategoryId: values.lines[0]?.subcategoryId || undefined,
+        metadata: withLineDynamicMetadata(values.metadata as Record<string, unknown>),
         lineItems,
         editSource: editSource === "rfq" ? "RFQ" : undefined,
         validateRequired: isApprovedEdit,
@@ -578,8 +656,8 @@ export default function NewRequisitionPage() {
       costCenter: values.costCenter,
       justification: values.justification,
       currency: "ZAR",
-      subcategoryId: values.subcategoryId,
-      metadata: values.metadata,
+      subcategoryId: values.lines[0]?.subcategoryId || undefined,
+      metadata: withLineDynamicMetadata(values.metadata as Record<string, unknown>),
       lineItems,
     });
     await uploadPendingDocuments(created.id);
@@ -593,9 +671,11 @@ export default function NewRequisitionPage() {
     syncNeededByToMetadata(values.neededBy ?? "");
     const lineItems = values.lines.map((line, i) => ({
       id: `line-${i + 1}`,
+      subcategoryId: line.subcategoryId,
       description: line.description,
       quantity: line.quantity,
       uom: line.uom,
+      metadata: lineDynamicValues[i] ?? {},
     }));
     if (editId) {
       const updated = await updateReq.mutateAsync({
@@ -605,8 +685,8 @@ export default function NewRequisitionPage() {
         costCenter: values.costCenter,
         justification: values.justification,
         currency: "ZAR",
-        subcategoryId: values.subcategoryId,
-        metadata: values.metadata,
+        subcategoryId: values.lines[0]?.subcategoryId || undefined,
+        metadata: withLineDynamicMetadata(values.metadata as Record<string, unknown>),
         lineItems,
         editSource: editSource === "rfq" ? "RFQ" : undefined,
         validateRequired: isApprovedEdit,
@@ -626,8 +706,8 @@ export default function NewRequisitionPage() {
       costCenter: values.costCenter,
       justification: values.justification,
       currency: "ZAR",
-      subcategoryId: values.subcategoryId,
-      metadata: values.metadata,
+      subcategoryId: values.lines[0]?.subcategoryId || undefined,
+      metadata: withLineDynamicMetadata(values.metadata as Record<string, unknown>),
       lineItems,
     });
     await uploadPendingDocuments(created.id);
@@ -639,14 +719,16 @@ export default function NewRequisitionPage() {
     if (!editId) return;
     syncNeededByToMetadata(values.neededBy ?? "");
     if (!validateDynamicMetadata()) {
-      setStep(1);
+      setStep(2);
       return;
     }
     const lineItems = values.lines.map((line, i) => ({
       id: `line-${i + 1}`,
+      subcategoryId: line.subcategoryId,
       description: line.description,
       quantity: line.quantity,
       uom: line.uom,
+      metadata: lineDynamicValues[i] ?? {},
     }));
     const updated = await updateReq.mutateAsync({
       id: editId,
@@ -655,8 +737,8 @@ export default function NewRequisitionPage() {
       costCenter: values.costCenter,
       justification: values.justification,
       currency: "ZAR",
-      subcategoryId: values.subcategoryId,
-      metadata: values.metadata,
+      subcategoryId: values.lines[0]?.subcategoryId || undefined,
+      metadata: withLineDynamicMetadata(values.metadata as Record<string, unknown>),
       lineItems,
       editSource: editSource === "rfq" ? "RFQ" : undefined,
       validateRequired: false,
@@ -734,112 +816,43 @@ export default function NewRequisitionPage() {
             >
               {step === 1 && (
                 <div className="grid gap-4 md:grid-cols-2">
-                  <FormField
-                    control={form.control}
-                    name="subcategoryId"
-                    render={({ field }) => (
-                      <FormItem className="md:col-span-2">
-                        <FormLabel>Level 3 subcategory</FormLabel>
-                        <div className="grid gap-3 md:grid-cols-3">
-                          <div>
-                            <label className="mb-1 block text-xs text-slate-600">Domain (Level 1)</label>
-                            <select
-                              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
-                              value={selectedLevel1}
-                              onChange={(event) => {
-                                const nextLevel1 = event.target.value;
-                                setSelectedLevel1(nextLevel1);
-                                setSelectedLevel2("");
-                                field.onChange("");
-                                form.setValue("metadata", {});
-                                form.clearErrors(["subcategoryId", "metadata"]);
-                              }}
-                            >
-                              <option value="">Select domain</option>
-                              {level1Options.map((level1) => (
-                                <option key={level1} value={level1}>
-                                  {level1}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                          <div>
-                            <label className="mb-1 block text-xs text-slate-600">Level 2</label>
-                            <select
-                              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background disabled:opacity-50"
-                              value={selectedLevel2}
-                              disabled={!selectedLevel1}
-                              onChange={(event) => {
-                                const nextLevel2 = event.target.value;
-                                setSelectedLevel2(nextLevel2);
-                                field.onChange("");
-                                form.setValue("metadata", {});
-                                form.clearErrors(["subcategoryId", "metadata"]);
-                              }}
-                            >
-                              <option value="">{selectedLevel1 ? "Select level 2" : "Select domain first"}</option>
-                              {level2Options.map((level2) => (
-                                <option key={level2} value={level2}>
-                                  {level2}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                          <FormControl>
-                            <div>
-                              <label className="mb-1 block text-xs text-slate-600">Level 3</label>
-                              <select
-                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background disabled:opacity-50"
-                                value={field.value}
-                                disabled={!selectedLevel1 || !selectedLevel2}
-                                onChange={(event) => {
-                                  field.onChange(event.target.value);
-                                  form.setValue("metadata", {});
-                                  form.clearErrors("metadata");
-                                }}
-                              >
-                              <option value="">
-                                  {selectedLevel2
-                                    ? level3Options.length
-                                      ? "Select level 3 subcategory"
-                                      : "No level 3 options (check taxonomy load/error above)"
-                                    : "Select level 2 first"}
-                              </option>
-                                {level3Options.map((s) => (
-                                  <option key={s.id} value={s.id}>
-                                    {s.level3}{s.isCustom ? " (Custom)" : ""}
-                                  </option>
-                                ))}
-                              </select>
-                              <div className="mt-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
-                                <p className="text-xs font-medium uppercase tracking-[0.12em] text-slate-500">Need a new level 3 category?</p>
-                                <div className="mt-2 flex flex-col gap-2 sm:flex-row">
-                                  <Input
-                                    value={customLevel3Name}
-                                    onChange={(event) => setCustomLevel3Name(event.target.value)}
-                                    placeholder={selectedLevel2 ? "Create custom level 3 under this level 2" : "Select level 2 first"}
-                                    disabled={!selectedLevel1 || !selectedLevel2 || createCustomSubcategory.isPending}
-                                  />
-                                  <Button
-                                    type="button"
-                                    variant="outline"
-                                    disabled={!selectedLevel1 || !selectedLevel2 || !customLevel3Name.trim() || createCustomSubcategory.isPending}
-                                    onClick={() => void createCustomLevel3Category()}
-                                  >
-                                    {createCustomSubcategory.isPending ? "Creating..." : "Add Level 3"}
-                                  </Button>
-                                </div>
-                                <p className="mt-2 text-xs text-slate-500">
-                                  Custom categories are level 3 only and inherit the existing level 1 / level 2 workflow structure.
-                                </p>
-                              </div>
-                            </div>
-                          </FormControl>
-                        </div>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <div className="md:col-span-2 grid gap-3 md:grid-cols-2">
+                    <div>
+                      <label className="mb-1 block text-xs text-slate-600">Domain (Level 1)</label>
+                      <select
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                        value={selectedLevel1}
+                        onChange={(event) => {
+                          setSelectedLevel1(event.target.value);
+                          setSelectedLevel2("");
+                          setShowCreateLevel3Inline(false);
+                        }}
+                      >
+                        <option value="">Select domain</option>
+                        {level1Options.map((level1) => (
+                          <option key={level1} value={level1}>
+                            {formatDomainLabel(level1)}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="mb-1 block text-xs text-slate-600">Level 2</label>
+                      <select
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background disabled:opacity-50"
+                        value={selectedLevel2}
+                        disabled={!selectedLevel1}
+                        onChange={(event) => setSelectedLevel2(event.target.value)}
+                      >
+                        <option value="">{selectedLevel1 ? "Select level 2" : "Select domain first"}</option>
+                        {level2Options.map((level2) => (
+                          <option key={level2} value={level2}>
+                            {level2}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                   <FormField
                     control={form.control}
                     name="title"
@@ -866,7 +879,7 @@ export default function NewRequisitionPage() {
                             onChange={(event) => field.onChange(event.target.value)}
                           >
                             <option value="">Select department</option>
-                            {runtimeConfig.companyDepartments.map((department) => (
+                            {departmentOptions.map((department) => (
                               <option key={department} value={department}>
                                 {department}
                               </option>
@@ -890,7 +903,7 @@ export default function NewRequisitionPage() {
                             onChange={(event) => field.onChange(event.target.value)}
                           >
                             <option value="">Select cost centre</option>
-                            {runtimeConfig.companyCostCentres.map((costCentre) => (
+                            {costCentreOptions.map((costCentre) => (
                               <option key={costCentre} value={costCentre}>
                                 {costCentre}
                               </option>
@@ -921,11 +934,6 @@ export default function NewRequisitionPage() {
                       </FormItem>
                     )}
                   />
-                  {neededByMetadataPaths.length > 0 ? (
-                    <div className="md:col-span-2 -mt-2 text-xs text-slate-500">
-                      This subcategory requires a date field from Appendix C. The standard Needed By field is used as the single source of truth.
-                    </div>
-                  ) : null}
                   <div className="md:col-span-2">
                     <FormField
                       control={form.control}
@@ -941,296 +949,7 @@ export default function NewRequisitionPage() {
                       )}
                     />
                   </div>
-                  <div className="md:col-span-2 space-y-3">
-                    {formSchemaQuery.isFetching ? <p className="text-xs text-slate-500">Loading category fields…</p> : null}
-                    {!selectedSubcategoryId ? (
-                      <div className="rounded-md bg-slate-50 p-3 text-sm text-slate-600">
-                        Select a Level 3 subcategory first. Category-specific fields only appear after a subcategory is chosen.
-                      </div>
-                    ) : formSchemaQuery.isFetching && !activeFormSchema ? (
-                      <p className="text-sm text-slate-600">Loading subcategory schema…</p>
-                    ) : activeFormSchema ? (
-                      <div className="space-y-3">
-                        {requiredDocumentFields.length > 0 ? (
-                          <div className="rounded-md border border-sky-200 bg-sky-50 p-3 text-sm text-sky-900">
-                            Required documents for this subcategory:
-                            <span className="ml-1 font-medium">
-                              {requiredDocumentFields.map((field) => field.label).join(", ")}
-                            </span>
-                            <p className="mt-2 text-xs">
-                              You can save a draft without them, but final submit is blocked until each required document is attached.
-                            </p>
-                          </div>
-                        ) : null}
-                        {dynamicFields.length === 0 ? (
-                          <p className="text-sm text-slate-600">No additional metadata fields returned for this subcategory.</p>
-                        ) : null}
-                        <div className="grid gap-4 md:grid-cols-2">
-                        <div className="md:col-span-2">
-                          <label className="mb-1 block text-sm font-medium">Comment (all categories)</label>
-                          <Textarea
-                            rows={3}
-                            value={String(form.watch("metadata.comment") ?? "")}
-                            onChange={(e) => form.setValue("metadata.comment", e.target.value, { shouldDirty: true })}
-                          />
-                        </div>
-                        <div className="md:col-span-2">
-                          <label className="mb-1 block text-sm font-medium">Supporting documents (all categories)</label>
-                          <Input
-                            type="file"
-                            multiple
-                            onChange={(e) => {
-                              const files = Array.from(e.target.files ?? []);
-                              setSupportingFiles(files);
-                              form.setValue("metadata.supportingDocumentNames", files.map((f) => f.name), { shouldDirty: true });
-                            }}
-                          />
-                          <p className="mt-1 text-xs text-slate-500">
-                            Files are stored locally in dev. Move this to object/blob storage before production.
-                          </p>
-                          {existingDocuments.filter((document) => !document.fieldKey || document.fieldKey === "supporting_documents").length > 0 ? (
-                            <p className="mt-1 text-xs text-slate-700">
-                              Existing:{" "}
-                              {existingDocuments
-                                .filter((document) => !document.fieldKey || document.fieldKey === "supporting_documents")
-                                .map((document) => document.name)
-                                .join(", ")}
-                            </p>
-                          ) : null}
-                          {Array.isArray(form.watch("metadata.supportingDocumentNames")) &&
-                          (form.watch("metadata.supportingDocumentNames") as unknown[]).length > 0 ? (
-                            <p className="mt-1 text-xs text-slate-700">
-                              Selected: {(form.watch("metadata.supportingDocumentNames") as string[]).join(", ")}
-                            </p>
-                          ) : null}
-                        </div>
-                        {dynamicFields.map((def) => {
-                          const fieldName = `metadata.${def.key}` as any;
-                          const error = metadataErrors?.[def.key]?.message;
-                          const inputKind = fieldInput(def);
-                          if (inputKind === "textarea") {
-                            return (
-                              <div key={def.path} className="md:col-span-2">
-                                <label className="mb-1 block text-sm font-medium">
-                                  {def.label} {def.required ? <span className="text-red-600">*</span> : null}
-                                </label>
-                                <Textarea
-                                  rows={3}
-                                  {...form.register(fieldName)}
-                                  onChange={(e) => {
-                                    form.setValue(fieldName, e.target.value, { shouldDirty: true });
-                                    form.clearErrors(fieldName);
-                                  }}
-                                />
-                                {def.message ? <p className="mt-1 text-xs text-slate-500">{def.message}</p> : null}
-                                {error ? <p className="mt-1 text-xs text-red-600">{error}</p> : null}
-                              </div>
-                            );
-                          }
-                          if (inputKind === "checkbox") {
-                            return (
-                              <div key={def.path} className="rounded-md border p-3">
-                                <label className="flex items-start gap-2 text-sm font-medium">
-                                  <input
-                                    type="checkbox"
-                                    className="mt-0.5"
-                                    checked={Boolean(form.watch(fieldName))}
-                                    onChange={(e) => {
-                                      form.setValue(fieldName, e.target.checked, { shouldDirty: true });
-                                      form.clearErrors(fieldName);
-                                    }}
-                                  />
-                                  <span>
-                                    {def.label} {def.required ? <span className="text-red-600">*</span> : null}
-                                  </span>
-                                </label>
-                                {def.message ? <p className="mt-1 text-xs text-slate-500">{def.message}</p> : null}
-                                {error ? <p className="mt-1 text-xs text-red-600">{error}</p> : null}
-                              </div>
-                            );
-                          }
-                          if (inputKind === "file") {
-                            return (
-                              <div key={def.path} className="md:col-span-2">
-                                <label className="mb-1 block text-sm font-medium">
-                                  {def.label} {def.required ? <span className="text-red-600">*</span> : null}
-                                </label>
-                                <Input
-                                  type="file"
-                                  onChange={(e) => {
-                                    const file = e.target.files?.[0] ?? null;
-                                    setDynamicDocumentFiles((current) => ({ ...current, [def.key]: file }));
-                                    form.setValue(fieldName, file?.name ?? "", { shouldDirty: true });
-                                    form.clearErrors(fieldName);
-                                  }}
-                                />
-                                {hasExistingDocumentForField(def.key) ? (
-                                  <p className="mt-1 text-xs text-slate-700">
-                                    Existing:{" "}
-                                    {existingDocuments
-                                      .filter((document) => document.fieldKey === def.key)
-                                      .map((document) => document.name)
-                                      .join(", ")}
-                                  </p>
-                                ) : null}
-                                {dynamicDocumentFiles[def.key] ? (
-                                  <p className="mt-1 text-xs text-slate-700">Selected: {dynamicDocumentFiles[def.key]?.name}</p>
-                                ) : null}
-                                {def.message ? <p className="mt-1 text-xs text-slate-500">{def.message}</p> : null}
-                                {error ? <p className="mt-1 text-xs text-red-600">{error}</p> : null}
-                              </div>
-                            );
-                          }
-                          if (inputKind === "milestones") {
-                            const milestones = Array.isArray(form.watch(fieldName)) ? (form.watch(fieldName) as Array<{ text?: string; date?: string }>) : [];
-                            return (
-                              <div key={def.path} className="md:col-span-2 space-y-3 rounded-md border p-3">
-                                <div className="flex items-center justify-between gap-3">
-                                  <label className="block text-sm font-medium">
-                                    {def.label} {def.required ? <span className="text-red-600">*</span> : null}
-                                  </label>
-                                  <Button
-                                    type="button"
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => {
-                                      form.setValue(fieldName, [...milestones, { text: "", date: "" }], { shouldDirty: true });
-                                      form.clearErrors(fieldName);
-                                    }}
-                                  >
-                                    Add milestone
-                                  </Button>
-                                </div>
-                                {milestones.length === 0 ? (
-                                  <p className="text-xs text-slate-500">No milestones added yet.</p>
-                                ) : (
-                                  <div className="space-y-3">
-                                    {milestones.map((milestone, index) => (
-                                      <div key={`${def.key}-${index}`} className="grid gap-3 rounded-md border p-3 md:grid-cols-[1fr_180px_auto]">
-                                        <Input
-                                          placeholder="Milestone text"
-                                          value={milestone.text ?? ""}
-                                          onChange={(e) => {
-                                            const next = [...milestones];
-                                            next[index] = { ...next[index], text: e.target.value };
-                                            form.setValue(fieldName, next, { shouldDirty: true });
-                                            form.clearErrors(fieldName);
-                                          }}
-                                        />
-                                        <Input
-                                          type="date"
-                                          value={milestone.date ?? ""}
-                                          onChange={(e) => {
-                                            const next = [...milestones];
-                                            next[index] = { ...next[index], date: e.target.value };
-                                            form.setValue(fieldName, next, { shouldDirty: true });
-                                            form.clearErrors(fieldName);
-                                          }}
-                                        />
-                                        <Button
-                                          type="button"
-                                          variant="outline"
-                                          onClick={() => {
-                                            const next = milestones.filter((_, itemIndex) => itemIndex !== index);
-                                            form.setValue(fieldName, next, { shouldDirty: true });
-                                            form.clearErrors(fieldName);
-                                          }}
-                                        >
-                                          Remove
-                                        </Button>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-                                {def.message ? <p className="text-xs text-slate-500">{def.message}</p> : null}
-                                {error ? <p className="text-xs text-red-600">{error}</p> : null}
-                              </div>
-                            );
-                          }
-                          if (inputKind === "select") {
-                            return (
-                              <div key={def.path}>
-                                <label className="mb-1 block text-sm font-medium">
-                                  {def.label} {def.required ? <span className="text-red-600">*</span> : null}
-                                </label>
-                                <select
-                                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
-                                  value={String(form.watch(fieldName) ?? "")}
-                                  onChange={(e) => {
-                                    form.setValue(fieldName, e.target.value, { shouldDirty: true });
-                                    form.clearErrors(fieldName);
-                                    applyDynamicToFirstLine();
-                                  }}
-                                >
-                                  <option value="">Select {def.label.toLowerCase()}</option>
-                                  {(def.options ?? []).map((option) => (
-                                    <option key={option} value={option}>
-                                      {option}
-                                    </option>
-                                  ))}
-                                </select>
-                                {def.message ? <p className="mt-1 text-xs text-slate-500">{def.message}</p> : null}
-                                {error ? <p className="mt-1 text-xs text-red-600">{error}</p> : null}
-                              </div>
-                            );
-                          }
-                          return (
-                            <div key={def.path}>
-                              <label className="mb-1 block text-sm font-medium">
-                                {def.label} {def.required ? <span className="text-red-600">*</span> : null}
-                              </label>
-                              {isLocationAutocompleteField(def) ? (
-                                <LocationAutocompleteField
-                                  value={String(form.watch(fieldName) ?? "")}
-                                  placeholder={def.message ?? "Search location"}
-                                  country={runtimeConfig.organizationCountry}
-                                  onChange={(value) => {
-                                    form.setValue(fieldName, value, { shouldDirty: true });
-                                    form.clearErrors(fieldName);
-                                  }}
-                                  onSelect={(suggestion) => applyLocationSuggestion(def.key, suggestion)}
-                                />
-                              ) : uomFieldKey === def.key && uomOptions.length > 0 ? (
-                                <select
-                                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background disabled:opacity-50"
-                                  value={String(form.watch(fieldName) ?? "")}
-                                  disabled={Boolean(uomPolicy?.locked)}
-                                  onChange={(e) => {
-                                    form.setValue(fieldName, e.target.value, { shouldDirty: true });
-                                    form.clearErrors(fieldName);
-                                    applyDynamicToFirstLine();
-                                  }}
-                                >
-                                  <option value="">{uomPolicy?.locked ? "Unit inherited from subcategory" : "Select unit"}</option>
-                                  {uomOptions.map((option) => (
-                                    <option key={option} value={option}>
-                                      {option}
-                                    </option>
-                                  ))}
-                                </select>
-                              ) : (
-                                <Input
-                                  type={def.inputType === "number" ? "number" : def.inputType === "date" ? "date" : "text"}
-                                  {...form.register(fieldName)}
-                                  onChange={(e) => {
-                                    const rawValue = e.target.value;
-                                    const nextValue =
-                                      def.inputType === "number" ? (rawValue === "" ? "" : Number(rawValue)) : rawValue;
-                                    form.setValue(fieldName, nextValue, { shouldDirty: true });
-                                    form.clearErrors(fieldName);
-                                    applyDynamicToFirstLine();
-                                  }}
-                                />
-                              )}
-                              {def.message ? <p className="mt-1 text-xs text-slate-500">{def.message}</p> : null}
-                              {error ? <p className="mt-1 text-xs text-red-600">{error}</p> : null}
-                            </div>
-                          );
-                        })}
-                        </div>
-                      </div>
-                    ) : null}
-                  </div>
+                  
                 </div>
               )}
 
@@ -1265,7 +984,40 @@ export default function NewRequisitionPage() {
                     </div>
                   ) : null}
                   {fields.map((field, index) => (
-                    <div key={field.id} className="grid gap-3 rounded-lg border p-3 md:grid-cols-[1fr_110px_110px_auto]">
+                    <div key={field.id} className="grid gap-3 rounded-lg border p-3 md:grid-cols-[220px_1fr_110px_110px_auto]">
+                      <FormField
+                        control={form.control}
+                        name={`lines.${index}.subcategoryId`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Level 3</FormLabel>
+                            <FormControl>
+                              <select
+                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                                value={field.value}
+                                onChange={(event) => {
+                                  const next = event.target.value;
+                                  if (next === "__create_custom_level3__") {
+                                    setActiveLineDynamicIndex(index);
+                                    setShowCreateLevel3Inline(true);
+                                    return;
+                                  }
+                                  field.onChange(next);
+                                }}
+                              >
+                                <option value="">{selectedLevel2 ? "Select level 3" : "Select level 1/2 first"}</option>
+                                {level3Options.map((subcategory) => (
+                                  <option key={subcategory.id} value={subcategory.id}>
+                                    {subcategory.level3}
+                                  </option>
+                                ))}
+                                {selectedLevel2 ? <option value="__create_custom_level3__">+ Create new Level 3 category</option> : null}
+                              </select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                       <FormField
                         control={form.control}
                         name={`lines.${index}.description`}
@@ -1327,9 +1079,14 @@ export default function NewRequisitionPage() {
                         )}
                       />
                       <div className="flex items-end">
-                        <Button variant="outline" type="button" disabled={fields.length <= 1} onClick={() => remove(index)}>
-                          Remove
-                        </Button>
+                        <div className="flex gap-2">
+                          <Button type="button" variant="outline" onClick={() => setActiveLineDynamicIndex(index)}>
+                            Dynamic Details
+                          </Button>
+                          <Button variant="outline" type="button" disabled={fields.length <= 1} onClick={() => remove(index)}>
+                            Remove
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -1352,65 +1109,43 @@ export default function NewRequisitionPage() {
                     </Button>
                   </div>
 
-                  <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-                    <Card className="rounded-3xl border-[var(--border)] bg-white shadow-none">
-                      <CardHeader className="border-b border-[var(--border)] pb-4">
-                        <CardTitle>PR Review</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4 text-sm">
-                        <div className="grid gap-4 md:grid-cols-2">
-                          <div>
-                            <p className="text-slate-500">Title</p>
-                            <p className="font-medium">{form.getValues("title")}</p>
-                          </div>
-                          <div>
-                            <p className="text-slate-500">Needed by</p>
-                            <p className="font-medium">{form.getValues("neededBy") || "-"}</p>
-                          </div>
-                          <div>
-                            <p className="text-slate-500">Department</p>
-                            <p className="font-medium">{form.getValues("department")}</p>
-                          </div>
-                          <div>
-                            <p className="text-slate-500">Cost center</p>
-                            <p className="font-medium">{form.getValues("costCenter")}</p>
-                          </div>
-                          <div className="md:col-span-2">
-                            <p className="text-slate-500">Subcategory</p>
-                            <p className="font-medium">
-                              {selectedSubcategory
-                                ? `${selectedSubcategory.level1} / ${selectedSubcategory.level2} / ${selectedSubcategory.level3}`
-                                : form.getValues("subcategoryId")}
-                            </p>
-                          </div>
-                          <div className="md:col-span-2">
-                            <p className="text-slate-500">Justification</p>
-                            <p className="font-medium whitespace-pre-wrap">{form.getValues("justification")}</p>
-                          </div>
+                  <Card className="rounded-3xl border-[var(--border)] bg-white shadow-none">
+                    <CardHeader className="border-b border-[var(--border)] pb-4">
+                      <CardTitle>PR Review</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4 text-sm">
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                          <p className="text-slate-500">Title</p>
+                          <p className="font-medium">{form.getValues("title")}</p>
                         </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="rounded-3xl border-[var(--border)] bg-white shadow-none">
-                      <CardHeader className="border-b border-[var(--border)] pb-4">
-                        <CardTitle>Category Data</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-3 text-sm">
-                        <div className="rounded-2xl bg-[var(--surface-muted)] p-4">
-                          <p className="text-slate-500">Form key</p>
-                          <p className="font-medium">{activeFormSchema?.keys.prFormKey ?? "-"}</p>
+                        <div>
+                          <p className="text-slate-500">Needed by</p>
+                          <p className="font-medium">{form.getValues("neededBy") || "-"}</p>
                         </div>
-                        <div className="rounded-2xl bg-[var(--surface-muted)] p-4">
-                          <p className="text-slate-500">Rule pack</p>
-                          <p className="font-medium break-all">{activeFormSchema?.validation.rulePackKey ?? "-"}</p>
+                        <div>
+                          <p className="text-slate-500">Department</p>
+                          <p className="font-medium">{form.getValues("department")}</p>
                         </div>
-                        <div className="rounded-2xl bg-[var(--surface-muted)] p-4">
-                          <p className="text-slate-500">Dynamic fields completed</p>
-                          <p className="font-medium">{populatedDynamicFields.length}/{dynamicFields.length}</p>
+                        <div>
+                          <p className="text-slate-500">Cost center</p>
+                          <p className="font-medium">{form.getValues("costCenter")}</p>
                         </div>
-                      </CardContent>
-                    </Card>
-                  </div>
+                        <div className="md:col-span-2">
+                          <p className="text-slate-500">Subcategory</p>
+                          <p className="font-medium">
+                            {selectedSubcategory
+                              ? `${selectedSubcategory.level1} / ${selectedSubcategory.level2} / ${selectedSubcategory.level3}`
+                              : form.getValues("lines.0.subcategoryId")}
+                          </p>
+                        </div>
+                        <div className="md:col-span-2">
+                          <p className="text-slate-500">Justification</p>
+                          <p className="font-medium whitespace-pre-wrap">{form.getValues("justification")}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
 
                   <Card className="rounded-3xl border-[var(--border)] bg-white shadow-none">
                     <CardHeader className="border-b border-[var(--border)] pb-4">
@@ -1419,18 +1154,27 @@ export default function NewRequisitionPage() {
                     <CardContent className="space-y-3">
                       {lines.map((line, index) => (
                         <div key={`${line.description}-${index}`} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
-                          <div className="grid gap-3 md:grid-cols-[1fr_120px_140px] text-sm">
+                          <div className="mb-3 flex items-center justify-between gap-3">
+                            <p className="text-sm font-semibold text-slate-900">Item {index + 1}</p>
+                            <p className="text-xs text-slate-500">
+                              Qty {line.quantity}
+                              {line.uom ? ` ${line.uom}` : ""}
+                            </p>
+                          </div>
+                          <div className="space-y-3 text-sm">
                             <div>
                               <p className="text-slate-500">Description</p>
-                              <p className="font-medium">{line.description}</p>
+                              <p className="font-medium whitespace-pre-wrap">{line.description || "-"}</p>
                             </div>
-                            <div>
-                              <p className="text-slate-500">Quantity</p>
-                              <p className="font-medium">{line.quantity}</p>
-                            </div>
-                            <div>
-                              <p className="text-slate-500">Unit</p>
-                              <p className="font-medium">{line.uom || "-"}</p>
+                            <div className="grid gap-3 md:grid-cols-2">
+                              <div>
+                                <p className="text-slate-500">Quantity</p>
+                                <p className="font-medium">{line.quantity}</p>
+                              </div>
+                              <div>
+                                <p className="text-slate-500">Unit</p>
+                                <p className="font-medium">{line.uom || "-"}</p>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1485,7 +1229,12 @@ export default function NewRequisitionPage() {
                         <div className="space-y-2 rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
                           <p className="font-medium">Required before submit</p>
                           {requiredDocumentFields.map((field) => {
-                            const satisfied = Boolean(dynamicDocumentFiles[field.key]) || hasExistingDocumentForField(field.key);
+                            const satisfied = lines.every((_, lineIndex) => {
+                              return (
+                                Boolean(lineDynamicDocumentFiles[lineIndex]?.[field.key]) ||
+                                existingDocuments.some((document) => document.fieldKey === `line_${lineIndex + 1}_${field.key}`)
+                              );
+                            });
                             return (
                               <div key={`required-${field.key}`} className="flex items-center justify-between gap-3">
                                 <span>{field.label}</span>
@@ -1497,7 +1246,7 @@ export default function NewRequisitionPage() {
                           })}
                         </div>
                       ) : null}
-                      {existingDocuments.length === 0 && supportingFiles.length === 0 && Object.values(dynamicDocumentFiles).every((file) => !file) ? (
+                      {existingDocuments.length === 0 && Object.values(dynamicDocumentFiles).every((file) => !file) && Object.values(lineDynamicDocumentFiles).every((docs) => Object.values(docs ?? {}).every((file) => !file)) ? (
                         <p className="text-slate-500">No documents attached yet.</p>
                       ) : (
                         <div className="space-y-2">
@@ -1505,12 +1254,6 @@ export default function NewRequisitionPage() {
                             <div key={document.id} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
                               <p className="font-medium">{document.label ?? document.name}</p>
                               <p className="text-slate-500">{document.name}</p>
-                            </div>
-                          ))}
-                          {supportingFiles.map((file) => (
-                            <div key={`supporting-${file.name}`} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
-                              <p className="font-medium">Supporting Document</p>
-                              <p className="text-slate-500">{file.name}</p>
                             </div>
                           ))}
                           {Object.entries(dynamicDocumentFiles)
@@ -1524,12 +1267,167 @@ export default function NewRequisitionPage() {
                                 </div>
                               );
                             })}
+                          {Object.entries(lineDynamicDocumentFiles).flatMap(([lineIndexRaw, docs]) =>
+                            Object.entries(docs ?? {})
+                              .filter(([, file]) => Boolean(file))
+                              .map(([fieldKey, file]) => {
+                                const isSupportingDoc = fieldKey.startsWith("supporting_documents");
+                                const definition = dynamicFields.find((field) => field.key === fieldKey);
+                                const lineIndex = Number(lineIndexRaw) + 1;
+                                return (
+                                  <div key={`line-dynamic-${lineIndexRaw}-${fieldKey}`} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4">
+                                    <p className="font-medium">Line {lineIndex}: {isSupportingDoc ? "Supporting Document" : definition?.label ?? fieldKey}</p>
+                                    <p className="text-slate-500">{file?.name}</p>
+                                  </div>
+                                );
+                              }),
+                          )}
                         </div>
                       )}
                     </CardContent>
                   </Card>
                 </div>
               )}
+
+              <Dialog
+                open={activeLineDynamicIndex !== null}
+                onOpenChange={(open) => {
+                  if (!open) setActiveLineDynamicIndex(null);
+                }}
+              >
+                <DialogContent className="max-h-[85vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>
+                      {activeLineDynamicIndex !== null ? `Line ${activeLineDynamicIndex + 1} Dynamic Details` : "Dynamic Details"}
+                    </DialogTitle>
+                  </DialogHeader>
+                  {dynamicFields.length === 0 ? (
+                    <p className="text-sm text-slate-600">No additional fields required for this subcategory.</p>
+                  ) : (
+                    <div className="space-y-3">
+                      <div>
+                        <label className="mb-1 block text-sm font-medium">Comment</label>
+                        <Textarea
+                          rows={3}
+                          value={String((lineDynamicValues[activeLineDynamicIndex ?? 0]?.comment as string | undefined) ?? "")}
+                          onChange={(e) => {
+                            const lineIndex = activeLineDynamicIndex ?? 0;
+                            setLineDynamicValues((current) => ({
+                              ...current,
+                              [lineIndex]: { ...(current[lineIndex] ?? {}), comment: e.target.value },
+                            }));
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label className="mb-1 block text-sm font-medium">Supporting documents</label>
+                        <Input
+                          type="file"
+                          multiple
+                          onChange={(e) => {
+                            const lineIndex = activeLineDynamicIndex ?? 0;
+                            const files = Array.from(e.target.files ?? []);
+                            if (files.length === 0) return;
+                            setLineDynamicDocumentFiles((current) => ({
+                              ...current,
+                              [lineIndex]: {
+                                ...(current[lineIndex] ?? {}),
+                                ...Object.fromEntries(files.map((file, idx) => [`supporting_documents_${idx + 1}_${Date.now()}`, file])),
+                              },
+                            }));
+                          }}
+                        />
+                      </div>
+                      {dynamicFields.map((def) => {
+                        const lineIndex = activeLineDynamicIndex ?? 0;
+                        const value = lineDynamicValues[lineIndex]?.[def.key];
+                        const setValue = (nextValue: unknown) => {
+                          setLineDynamicValues((current) => ({
+                            ...current,
+                            [lineIndex]: { ...(current[lineIndex] ?? {}), [def.key]: nextValue },
+                          }));
+                        };
+
+                        if (def.inputType === "file") {
+                          return (
+                            <div key={`line-${lineIndex}-${def.key}`}>
+                              <label className="mb-1 block text-sm font-medium">
+                                {def.label} {def.required ? <span className="text-red-600">*</span> : null}
+                              </label>
+                              <Input
+                                type="file"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0] ?? null;
+                                  setLineDynamicDocumentFiles((current) => ({
+                                    ...current,
+                                    [lineIndex]: { ...(current[lineIndex] ?? {}), [def.key]: file },
+                                  }));
+                                }}
+                              />
+                            </div>
+                          );
+                        }
+
+                        if (def.inputType === "textarea") {
+                          return (
+                            <div key={`line-${lineIndex}-${def.key}`}>
+                              <label className="mb-1 block text-sm font-medium">{def.label}</label>
+                              <Textarea rows={3} value={String(value ?? "")} onChange={(e) => setValue(e.target.value)} />
+                            </div>
+                          );
+                        }
+
+                        if (def.inputType === "checkbox") {
+                          return (
+                            <label key={`line-${lineIndex}-${def.key}`} className="flex items-center gap-2 text-sm font-medium">
+                              <input type="checkbox" checked={Boolean(value)} onChange={(e) => setValue(e.target.checked)} />
+                              {def.label}
+                            </label>
+                          );
+                        }
+
+                        if (def.inputType === "select") {
+                          return (
+                            <div key={`line-${lineIndex}-${def.key}`}>
+                              <label className="mb-1 block text-sm font-medium">{def.label}</label>
+                              <select
+                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                                value={String(value ?? "")}
+                                onChange={(e) => setValue(e.target.value)}
+                              >
+                                <option value="">Select {def.label.toLowerCase()}</option>
+                                {(def.options ?? []).map((option) => (
+                                  <option key={option} value={option}>
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <div key={`line-${lineIndex}-${def.key}`}>
+                            <label className="mb-1 block text-sm font-medium">{def.label}</label>
+                            <Input
+                              type={def.inputType === "number" ? "number" : def.inputType === "date" ? "date" : "text"}
+                              value={String(value ?? "")}
+                              onChange={(e) =>
+                                setValue(def.inputType === "number" ? (e.target.value === "" ? "" : Number(e.target.value)) : e.target.value)
+                              }
+                            />
+                          </div>
+                        );
+                      })}
+                      <div className="flex justify-end">
+                        <Button type="button" onClick={() => setActiveLineDynamicIndex(null)}>
+                          Done
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </DialogContent>
+              </Dialog>
 
               <div className="flex items-center justify-between pt-4">
                 <Button type="button" variant="outline" className="rounded-full" disabled={step === 1} onClick={() => setStep((s) => Math.max(1, s - 1))}>

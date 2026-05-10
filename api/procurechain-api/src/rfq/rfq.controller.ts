@@ -8,6 +8,7 @@ import {
   CreateRFQDto,
   CreateSupplierFormTemplateDto,
   ReleaseRFQDto,
+  UpsertSupplierFormResponseDto,
 } from './rfq.dto';
 import { TenantGuard } from '../common/tenant.guard';
 
@@ -49,6 +50,21 @@ export class RfqController {
   @Post(':id/forms')
   attachRfqForm(@Req() req: any, @Param('id') id: string, @Body() dto: AttachSupplierFormDto) {
     return this.rfqs.attachSupplierForm(req.ctx, id, dto);
+  }
+
+  @Get(':id/form-responses')
+  listRfqFormResponses(@Req() req: any, @Param('id') id: string) {
+    return this.rfqs.listSupplierFormResponses(req.ctx, id);
+  }
+
+  @Post(':id/forms/:assignmentId/response')
+  upsertRfqFormResponse(
+    @Req() req: any,
+    @Param('id') id: string,
+    @Param('assignmentId') assignmentId: string,
+    @Body() dto: UpsertSupplierFormResponseDto,
+  ) {
+    return this.rfqs.upsertSupplierFormResponse(req.ctx, id, assignmentId, dto);
   }
 
   @Post(':id/suppliers')

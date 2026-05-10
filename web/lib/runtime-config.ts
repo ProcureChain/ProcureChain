@@ -28,7 +28,7 @@ const baseConfig = {
   actorId: process.env.NEXT_PUBLIC_ACTOR_ID ?? "kyle-supertest",
   actorName: process.env.NEXT_PUBLIC_ACTOR_NAME ?? "Kyle",
   actorInitials: process.env.NEXT_PUBLIC_ACTOR_INITIALS ?? "KY",
-  actorRoles: parseCsv(process.env.NEXT_PUBLIC_ACTOR_ROLES, ["PROCUREMENT_OFFICER"]),
+  actorRoles: parseCsv(process.env.NEXT_PUBLIC_ACTOR_ROLES, ["REQUESTER"]),
   useMockApi: parseBoolean(process.env.NEXT_PUBLIC_USE_MOCK, false),
   defaultSubcategoryId: process.env.NEXT_PUBLIC_DEFAULT_SUBCATEGORY_ID ?? "FAC-SRV-MNT-001",
   companyDepartments: parseCsvRaw(process.env.NEXT_PUBLIC_COMPANY_DEPARTMENTS, [

@@ -1,6 +1,7 @@
 import { apiRequest, extractError } from "@/lib/api/client";
 import { daysOld } from "@/lib/format";
 import { runtimeConfig } from "@/lib/runtime-config";
+import { formatSubcategoryLabel } from "@/lib/format";
 import {
   ApprovalAction,
   ApprovalTask,
@@ -13,11 +14,13 @@ import {
   GovernanceExportRecord,
   GovernanceGeneratedExport,
   LiveInvoice,
+  OrganizationAdminSettings,
   InvoiceSignature,
   InvoiceSnapshot,
   PaymentProof,
   OrganizationProfile,
   SupplierPortalProfile,
+  SupplierFormResponse,
   SupplierVerificationDocument,
   PoInvoiceValidation,
   ProcurementPolicy,
@@ -75,9 +78,11 @@ type RawPRDocument = {
 
 type RawLine = {
   id: string;
+  subcategoryId?: string | null;
   description: string;
   quantity: number;
   uom?: string | null;
+  metadata?: Record<string, unknown> | null;
 };
 
 type RawAudit = {
@@ -187,6 +192,23 @@ type RawRfqSupplierFormAssignment = {
   isRequired: boolean;
   createdAt: string;
   template: RawSupplierFormTemplate;
+  responses?: RawSupplierFormResponse[];
+};
+
+type RawSupplierFormResponse = {
+  id: string;
+  rfqId: string;
+  assignmentId: string;
+  templateId: string;
+  supplierId: string;
+  response?: Record<string, unknown> | null;
+  documents?: Record<string, unknown> | null;
+  isComplete: boolean;
+  completedAt?: string | null;
+  submittedBy?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  missingFields?: Array<{ key: string; label: string }>;
 };
 
 type RawBid = {
@@ -207,6 +229,16 @@ type RawBid = {
   closedAt?: string | null;
   payload?: Record<string, unknown> | null;
   documents?: Record<string, unknown> | null;
+  lines?: Array<{
+    id: string;
+    prLineId: string;
+    description: string;
+    quantity: number;
+    uom?: string | null;
+    unitPrice: string | number;
+    lineTotal: string | number;
+    notes?: string | null;
+  }>;
   supplier?: { id: string; name: string; profileScore?: number | null } | null;
 };
 
@@ -219,6 +251,15 @@ type RawPo = {
   commercialOnly: boolean;
   currency: string;
   committedAmount: string | number;
+  lineItems?: Array<{
+    prLineId: string;
+    description: string;
+    quantity: number;
+    uom?: string | null;
+    unitPrice: string | number;
+    lineTotal: string | number;
+    notes?: string | null;
+  }> | null;
   terms?: string | null;
   notes?: string | null;
   awardId: string;
@@ -333,9 +374,11 @@ const buildApiUrl = (path: string) => {
 
 const mapLine = (line: RawLine): RequisitionLine => ({
   id: line.id,
+  subcategoryId: line.subcategoryId ?? undefined,
   description: line.description,
   quantity: Number(line.quantity ?? 0),
   uom: line.uom ?? undefined,
+  metadata: line.metadata ?? null,
 });
 
 const mapPrDocument = (document: RawPRDocument): RequisitionDocument => ({
@@ -450,10 +493,10 @@ export async function listTaxonomySubcategories(limit = 500): Promise<TaxonomySu
   );
   return rows.map((row) => ({
     id: row.id,
-    name: row.name,
+    name: formatSubcategoryLabel(row.name, row.id),
     level1: row.level1,
     level2: row.level2,
-    level3: row.level3,
+    level3: formatSubcategoryLabel(row.level3, row.name || row.id),
     archetype: row.archetype,
     isCustom: row.isCustom ?? false,
     inheritsFromSubcategoryId: row.inheritsFromSubcategoryId ?? null,
@@ -472,10 +515,10 @@ export async function createCustomTaxonomySubcategory(payload: {
   });
   return {
     id: row.id,
-    name: row.name,
+    name: formatSubcategoryLabel(row.name, row.id),
     level1: row.level1,
     level2: row.level2,
-    level3: row.level3,
+    level3: formatSubcategoryLabel(row.level3, row.name || row.id),
     archetype: row.archetype,
     isCustom: row.isCustom ?? false,
     inheritsFromSubcategoryId: row.inheritsFromSubcategoryId ?? null,
@@ -569,6 +612,16 @@ const mapBid = (bid: RawBid): Bid => ({
   status: bid.status,
   currency: bid.currency ?? undefined,
   totalBidValue: bid.totalBidValue == null ? undefined : toNum(bid.totalBidValue),
+  lines: (bid.lines ?? []).map((line) => ({
+    id: line.id,
+    prLineId: line.prLineId,
+    description: line.description,
+    quantity: line.quantity,
+    uom: line.uom ?? null,
+    unitPrice: toNum(line.unitPrice),
+    lineTotal: toNum(line.lineTotal),
+    notes: line.notes ?? null,
+  })),
   finalScore: bid.finalScore == null ? null : toNum(bid.finalScore),
   recommended: Boolean(bid.recommended),
   recommendationReason: bid.recommendationReason ?? null,
@@ -588,6 +641,15 @@ const mapPo = (po: RawPo): PurchaseOrder => ({
   status: po.status,
   currency: po.currency,
   committedAmount: toNum(po.committedAmount),
+  lineItems: (po.lineItems ?? []).map((line) => ({
+    prLineId: line.prLineId,
+    description: line.description,
+    quantity: line.quantity,
+    uom: line.uom ?? null,
+    unitPrice: toNum(line.unitPrice),
+    lineTotal: toNum(line.lineTotal),
+    notes: line.notes ?? null,
+  })),
   commercialOnly: po.commercialOnly,
   awardId: po.awardId,
   rfqId: po.rfqId,
@@ -728,9 +790,11 @@ export async function createRequisition(payload: Omit<Requisition, "id" | "prNum
     await apiRequest(`/pr/${created.id}/lines`, {
       method: "POST",
       body: JSON.stringify({
+        subcategoryId: line.subcategoryId,
         description: line.description,
         quantity: line.quantity,
         uom: line.uom,
+        metadata: line.metadata ?? undefined,
       }),
     });
   }
@@ -767,9 +831,11 @@ export async function createDraftRequisition(payload: {
     await apiRequest(`/pr/${created.id}/lines`, {
       method: "POST",
       body: JSON.stringify({
+        subcategoryId: line.subcategoryId,
         description: line.description,
         quantity: line.quantity,
         uom: line.uom,
+        metadata: line.metadata ?? undefined,
       }),
     });
   }
@@ -822,9 +888,11 @@ export async function updateRequisition(
       await apiRequest(`/pr/${id}/lines`, {
         method: "POST",
         body: JSON.stringify({
+          subcategoryId: line.subcategoryId,
           description: line.description,
           quantity: line.quantity,
           uom: line.uom,
+          metadata: line.metadata ?? undefined,
         }),
       });
     }
@@ -1058,6 +1126,69 @@ export async function getOrganizationProfile() {
   return apiRequest<OrganizationProfile>("/organization/profile");
 }
 
+export async function getOrganizationAdminSettings() {
+  return apiRequest<OrganizationAdminSettings>("/organization/admin-settings");
+}
+
+export async function upsertOrganizationAdminSettings(payload: {
+  departments?: Array<{ id: string; code: string; name: string; isActive: boolean }>;
+  costCentres?: Array<{ id: string; code: string; name: string; departmentId?: string | null; isActive: boolean }>;
+  totalBudget?: number | null;
+  budgetCurrency?: string;
+  departmentBudgets?: Array<{ id: string; scopeId: string; amount: number }>;
+  costCentreBudgets?: Array<{ id: string; scopeId: string; amount: number }>;
+  approvalRoutes?: Array<{ id: string; scopeType: "DEPARTMENT" | "COST_CENTRE"; scopeValue: string; roles: string[] }>;
+  customRoles?: Array<{ id: string; name: string; permissions: string[] }>;
+  userPermissionOverrides?: Array<{ userId: string; permissions: string[] }>;
+}) {
+  return apiRequest<OrganizationAdminSettings>("/organization/admin-settings", {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function createOrganizationUser(payload: {
+  fullName: string;
+  email: string;
+  password?: string;
+  jobTitle?: string;
+  roles?: string[];
+  departmentIds?: string[];
+}) {
+  return apiRequest<OrganizationAdminSettings>("/organization/users", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function resendOrganizationUserInvite(userId: string) {
+  return apiRequest<{ userId: string; email: string; token: string; inviteUrl: string }>(`/organization/users/${userId}/invite`, {
+    method: "POST",
+  });
+}
+
+export async function issueOrganizationUserPasswordReset(userId: string) {
+  return apiRequest<{ userId: string; email: string; token: string }>(`/organization/users/${userId}/reset-password`, {
+    method: "POST",
+  });
+}
+
+export async function updateOrganizationUser(
+  userId: string,
+  payload: {
+    fullName?: string;
+    jobTitle?: string;
+    isActive?: boolean;
+    roles?: string[];
+    departmentIds?: string[];
+  },
+) {
+  return apiRequest<OrganizationAdminSettings>(`/organization/users/${userId}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+}
+
 export async function signupSupplier(payload: {
   companyName: string;
   registrationNumber?: string;
@@ -1229,7 +1360,30 @@ export async function createSupplierFormTemplate(payload: {
 
 export async function listRfqSupplierForms(rfqId: string) {
   const rows = await apiRequest<RawRfqSupplierFormAssignment[]>(`/rfqs/${rfqId}/forms`);
-  return rows as RfqSupplierFormAssignment[];
+  return rows.map((row) => ({
+    ...row,
+    responses: (row.responses ?? []).map((response) => response as SupplierFormResponse),
+  })) as RfqSupplierFormAssignment[];
+}
+
+export async function listRfqSupplierFormResponses(rfqId: string) {
+  const rows = await apiRequest<RawSupplierFormResponse[]>(`/rfqs/${rfqId}/form-responses`);
+  return rows as SupplierFormResponse[];
+}
+
+export async function upsertRfqSupplierFormResponse(
+  rfqId: string,
+  assignmentId: string,
+  payload: {
+    response?: Record<string, unknown>;
+    documents?: Record<string, unknown>;
+  },
+) {
+  const row = await apiRequest<RawSupplierFormResponse>(`/rfqs/${rfqId}/forms/${assignmentId}/response`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  return row as SupplierFormResponse;
 }
 
 export async function attachRfqSupplierForm(
@@ -1264,6 +1418,13 @@ export async function upsertBid(payload: {
   rfqId: string;
   supplierId: string;
   totalBidValue?: number;
+  lines?: Array<{
+    prLineId: string;
+    quantity?: number;
+    unitPrice?: number;
+    lineTotal?: number;
+    notes?: string;
+  }>;
   currency?: string;
   notes?: string;
   payload?: Record<string, unknown>;
@@ -1413,7 +1574,17 @@ export async function validatePoInvoices(poId: string): Promise<PoInvoiceValidat
 
 export async function createDeliveryNote(
   poId: string,
-  payload: { noteNumber?: string; supplierId?: string; deliveryDate?: string; receivedBy?: string; remarks?: string; documentUrl?: string; file?: File | null },
+  payload: {
+    noteNumber?: string;
+    supplierId?: string;
+    deliveryDate?: string;
+    receivedBy?: string;
+    remarks?: string;
+    documentUrl?: string;
+    manualOverride?: boolean;
+    manualOverrideReason?: string;
+    file?: File | null;
+  },
 ) {
   const body = new FormData();
   if (payload.noteNumber) body.append("noteNumber", payload.noteNumber);
@@ -1422,6 +1593,8 @@ export async function createDeliveryNote(
   if (payload.receivedBy) body.append("receivedBy", payload.receivedBy);
   if (payload.remarks) body.append("remarks", payload.remarks);
   if (payload.documentUrl) body.append("documentUrl", payload.documentUrl);
+  if (payload.manualOverride != null) body.append("manualOverride", String(payload.manualOverride));
+  if (payload.manualOverrideReason) body.append("manualOverrideReason", payload.manualOverrideReason);
   if (payload.file) body.append("file", payload.file);
   const row = await apiRequest<RawDeliveryNote>(`/finance/po/${poId}/delivery-notes`, { method: "POST", body });
   return mapDeliveryNote(row);

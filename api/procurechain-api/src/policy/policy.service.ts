@@ -13,6 +13,15 @@ type ResolveParams = {
   emergencyJustification?: string;
 };
 
+const LEGACY_ROLE_MAP: Record<string, string> = {
+  SUPERADMIN: 'ADMIN',
+  PROCUREMENT_OFFICER: 'BUYER',
+  PROCUREMENT_MANAGER: 'MANAGER',
+  COMPLIANCE_OFFICER: 'APPROVER',
+  FINANCE_MANAGER: 'APPROVER',
+  EVALUATOR: 'APPROVER',
+};
+
 @Injectable()
 export class PolicyService {
   constructor(
@@ -21,12 +30,12 @@ export class PolicyService {
   ) {}
 
   private readonly defaultSodRules: Record<SoDAction, string[]> = {
-    RFQ_RELEASE: ['PROCUREMENT_OFFICER', 'PROCUREMENT_MANAGER'],
-    RFQ_OPEN: ['PROCUREMENT_OFFICER', 'PROCUREMENT_MANAGER'],
-    RFQ_AWARD: ['PROCUREMENT_MANAGER', 'COMPLIANCE_OFFICER'],
-    COI_REVIEW: ['COMPLIANCE_OFFICER'],
-    BID_EVALUATE: ['PROCUREMENT_OFFICER', 'PROCUREMENT_MANAGER', 'EVALUATOR'],
-    BID_RECOMMEND: ['PROCUREMENT_MANAGER', 'COMPLIANCE_OFFICER'],
+    RFQ_RELEASE: ['BUYER', 'MANAGER', 'ADMIN'],
+    RFQ_OPEN: ['BUYER', 'MANAGER', 'ADMIN'],
+    RFQ_AWARD: ['APPROVER', 'MANAGER', 'ADMIN'],
+    COI_REVIEW: ['APPROVER', 'MANAGER', 'ADMIN'],
+    BID_EVALUATE: ['BUYER', 'APPROVER', 'MANAGER', 'ADMIN'],
+    BID_RECOMMEND: ['APPROVER', 'MANAGER', 'ADMIN'],
   };
 
   async getProcurementPolicy(ctx: Ctx) {
@@ -145,6 +154,8 @@ export class PolicyService {
   async upsertSoDRule(ctx: Ctx, action: SoDAction, dto: UpdateSoDRuleDto) {
     const allowedRoles = dto.allowedRoles?.map((r) => r.trim().toUpperCase()).filter(Boolean);
     const blockedRoles = dto.blockedRoles?.map((r) => r.trim().toUpperCase()).filter(Boolean);
+    const normalizedAllowedRoles = allowedRoles?.map((role) => LEGACY_ROLE_MAP[role] ?? role);
+    const normalizedBlockedRoles = blockedRoles?.map((role) => LEGACY_ROLE_MAP[role] ?? role);
 
     const updated = await this.prisma.soDPolicyRule.upsert({
       where: {
@@ -158,13 +169,13 @@ export class PolicyService {
         tenantId: ctx.tenantId,
         companyId: ctx.companyId,
         action,
-        allowedRoles: allowedRoles ?? this.defaultSodRules[action],
-        blockedRoles: blockedRoles ?? [],
+        allowedRoles: normalizedAllowedRoles ?? this.defaultSodRules[action],
+        blockedRoles: normalizedBlockedRoles ?? [],
         isActive: dto.isActive ?? true,
       },
       update: {
-        allowedRoles,
-        blockedRoles,
+        allowedRoles: normalizedAllowedRoles,
+        blockedRoles: normalizedBlockedRoles,
         isActive: dto.isActive,
       },
     });
@@ -183,11 +194,12 @@ export class PolicyService {
   }
 
   async assertActionAllowed(ctx: Ctx, action: SoDAction) {
-    const actorRoles = (ctx.roles ?? ['PROCUREMENT_OFFICER'])
+    const actorRoles = (ctx.roles ?? ['REQUESTER'])
       .map((r) => r.toUpperCase())
+      .map((role) => LEGACY_ROLE_MAP[role] ?? role)
       .filter(Boolean);
 
-    if (actorRoles.includes('SUPERADMIN')) {
+    if (actorRoles.includes('ADMIN')) {
       return;
     }
 
@@ -205,7 +217,7 @@ export class PolicyService {
     const allowedRoles = (rule?.allowedRoles && rule.allowedRoles.length > 0)
       ? rule.allowedRoles
       : this.defaultSodRules[action];
-    const blockedRoles = rule?.blockedRoles ?? [];
+    const blockedRoles = (rule?.blockedRoles ?? []).map((role) => LEGACY_ROLE_MAP[role] ?? role);
 
     if (!isActive) {
       return;

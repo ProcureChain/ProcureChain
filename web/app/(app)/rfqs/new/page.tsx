@@ -1,21 +1,20 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { notFound, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
 import { EmptyState } from "@/components/common/empty-state";
 import { PageHeader } from "@/components/common/page-header";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { formatBusinessRef, formatDateTime } from "@/lib/format";
-import { useCreateRfq, useRequisitions, useRfqs, useTaxonomySubcategories } from "@/lib/query-hooks";
+import { formatBusinessRef } from "@/lib/format";
+import { useCreateRfq, useRequisitions, useRfqs } from "@/lib/query-hooks";
 
 const currencyOptions = ["ZAR", "USD", "EUR", "GBP"];
 const paymentTermsOptions = ["IMMEDIATE", "NET_7", "NET_15", "NET_30", "NET_60", "NET_90"];
@@ -25,7 +24,6 @@ export default function NewRfqPage() {
   const router = useRouter();
   const { data: requisitions = [], error: requisitionsError, isLoading: reqLoading } = useRequisitions();
   const { data: rfqs = [], error: rfqError } = useRfqs();
-  const { data: taxonomy = [] } = useTaxonomySubcategories();
   const createRfq = useCreateRfq();
 
   const [prId, setPrId] = useState<string | null>(null);
@@ -52,11 +50,6 @@ export default function NewRfqPage() {
   );
   const existingRfqPrIds = useMemo(() => new Set(rfqs.map((row) => row.prId)), [rfqs]);
   const selectedPr = approvedPrs.find((pr) => pr.id === prId) ?? null;
-  const subcategoryLabel =
-    taxonomy.find((subcategory) => subcategory.id === selectedPr?.subcategoryId)?.level3 ??
-    taxonomy.find((subcategory) => subcategory.id === selectedPr?.subcategoryId)?.name ??
-    selectedPr?.subcategoryId ??
-    "-";
   const alreadyConverted = selectedPr ? existingRfqPrIds.has(selectedPr.id) : false;
   const isReady = Boolean(selectedPr && rfqTitle.trim() && paymentTerms && currency && taxIncluded && priceValidityDays && Number(budget) > 0);
 
@@ -123,64 +116,7 @@ export default function NewRfqPage() {
       {requisitionsError ? <ApiErrorAlert error={requisitionsError} /> : null}
       {rfqError ? <ApiErrorAlert error={rfqError} /> : null}
       {createRfq.error ? <ApiErrorAlert error={createRfq.error} /> : null}
-
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card>
-          <CardHeader>
-            <CardTitle>Approved PR Context</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {selectedPr ? (
-              <>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-lg font-semibold">{selectedPr.title}</p>
-                    <p className="text-sm text-slate-500">{formatBusinessRef("PR", selectedPr.id)}</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <Badge variant="secondary">{selectedPr.status}</Badge>
-                    {selectedPr.editedAfterApprovalAt ? <Badge variant="outline">Edited</Badge> : null}
-                    {alreadyConverted ? <Badge variant="outline">Already Converted</Badge> : null}
-                  </div>
-                </div>
-                <div className="grid gap-2 text-sm text-slate-700 md:grid-cols-2">
-                  <p><span className="font-medium">Requester:</span> {selectedPr.requester}</p>
-                  <p><span className="font-medium">Department:</span> {selectedPr.department}</p>
-                  <p><span className="font-medium">Cost centre:</span> {selectedPr.costCenter}</p>
-                  <p><span className="font-medium">Updated:</span> {formatDateTime(selectedPr.updatedAt)}</p>
-                  <p><span className="font-medium">Needed by:</span> {selectedPr.neededBy || "-"}</p>
-                  <p><span className="font-medium">Subcategory:</span> {subcategoryLabel}</p>
-                  <p className="md:col-span-2"><span className="font-medium">Justification:</span> {selectedPr.justification || "-"}</p>
-                </div>
-                {selectedPr.lineItems.length > 0 ? (
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">PR line items</p>
-                    {selectedPr.lineItems.map((line) => (
-                      <div key={line.id} className="rounded-lg border p-3 text-sm">
-                        <p className="font-medium">{line.description}</p>
-                        <p className="text-slate-600">
-                          Quantity: {line.quantity}
-                          {line.uom ? ` ${line.uom}` : ""}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
-                {selectedPr.metadata && Object.keys(selectedPr.metadata).length > 0 ? (
-                  <div>
-                    <p className="mb-2 text-sm font-medium">PR metadata carried forward</p>
-                    <pre className="overflow-x-auto rounded-md bg-slate-50 p-3 text-xs text-slate-700">
-                      {JSON.stringify(selectedPr.metadata, null, 2)}
-                    </pre>
-                  </div>
-                ) : null}
-              </>
-            ) : (
-              <p className="text-sm text-slate-500">Select an approved PR from the RFx page to begin RFQ creation.</p>
-            )}
-          </CardContent>
-        </Card>
-
+      <div className="mx-auto max-w-3xl">
         <Card>
           <CardHeader>
             <CardTitle>RFQ Details</CardTitle>

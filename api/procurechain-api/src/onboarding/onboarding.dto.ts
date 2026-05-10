@@ -7,6 +7,8 @@ import {
   IsIn,
   IsInt,
   IsNotEmpty,
+  IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   Max,
@@ -150,6 +152,124 @@ export class UploadSupplierDocumentDto {
   @IsOptional()
   @IsString()
   label?: string;
+}
+
+export class CreateOrganizationUserDto {
+  @IsString()
+  @IsNotEmpty()
+  fullName!: string;
+
+  @IsEmail()
+  email!: string;
+
+  @IsOptional()
+  @IsString()
+  @MinLength(8)
+  password?: string;
+
+  @IsOptional()
+  @IsString()
+  jobTitle?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(20)
+  @IsString({ each: true })
+  roles?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(200)
+  @IsString({ each: true })
+  departmentIds?: string[];
+}
+
+export class UpdateOrganizationUserDto {
+  @IsOptional()
+  @IsString()
+  fullName?: string;
+
+  @IsOptional()
+  @IsString()
+  jobTitle?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(20)
+  @IsString({ each: true })
+  roles?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(200)
+  @IsString({ each: true })
+  departmentIds?: string[];
+}
+
+export class UpsertOrganizationAdminSettingsDto {
+  @IsOptional()
+  @IsArray()
+  departments?: Record<string, unknown>[];
+
+  @IsOptional()
+  @IsArray()
+  costCentres?: Record<string, unknown>[];
+
+  @IsOptional()
+  @IsNumber()
+  totalBudget?: number;
+
+  @IsOptional()
+  @IsString()
+  budgetCurrency?: string;
+
+  @IsOptional()
+  @IsArray()
+  departmentBudgets?: Record<string, unknown>[];
+
+  @IsOptional()
+  @IsArray()
+  costCentreBudgets?: Record<string, unknown>[];
+
+  @IsOptional()
+  @IsArray()
+  approvalRoutes?: Record<string, unknown>[];
+
+  @IsOptional()
+  @IsArray()
+  customRoles?: Record<string, unknown>[];
+
+  @IsOptional()
+  @IsArray()
+  userPermissionOverrides?: Record<string, unknown>[];
+}
+
+export class AcceptInviteDto {
+  @IsString()
+  @IsNotEmpty()
+  token!: string;
+
+  @IsString()
+  @MinLength(8)
+  password!: string;
+
+  @IsOptional()
+  @IsString()
+  fullName?: string;
+}
+
+export class ConfirmPasswordResetDto {
+  @IsString()
+  @IsNotEmpty()
+  token!: string;
+
+  @IsString()
+  @MinLength(8)
+  password!: string;
 }
 
 export class SupplierSignupDto {

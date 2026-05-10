@@ -9,12 +9,14 @@ import type {
   CreateRFQDto,
   CreateSupplierFormTemplateDto,
   ReleaseRFQDto,
+  UpsertSupplierFormResponseDto,
 } from './rfq.dto';
 import { RFQReleaseMode, RFQStatus } from '@prisma/client';
 import { RulesService } from '../rules/rules.service';
 import { PolicyService } from '../policy/policy.service';
 import { ComplianceService } from '../compliance/compliance.service';
 import { TaxonomyService } from '../taxonomy/taxonomy.service';
+import { ApprovalService } from '../pr/approval.service';
 
 @Injectable()
 export class RfqService {
@@ -25,6 +27,7 @@ export class RfqService {
     private readonly policy: PolicyService,
     private readonly compliance: ComplianceService,
     private readonly taxonomy: TaxonomyService,
+    private readonly approvals: ApprovalService,
   ) {}
 
   private readonly allowedTransitions: Record<RFQStatus, RFQStatus[]> = {
@@ -84,7 +87,7 @@ export class RfqService {
     return ctx.actorType === 'PARTNER' && (ctx.roles ?? []).includes('SUPPLIER') && !!ctx.partnerId;
   }
 
-  private requireSupplierId(ctx: any) {
+  private requireSupplierId(ctx: any): string | undefined {
     if (!this.isSupplierCtx(ctx)) return undefined;
     if (!ctx.partnerId) {
       throw new BadRequestException('Missing supplier partner context');
@@ -96,6 +99,72 @@ export class RfqService {
     if (this.isSupplierCtx(ctx)) {
       throw new BadRequestException(`${action} is not available from the supplier portal`);
     }
+  }
+
+  private hasUnrestrictedDepartmentAccess(ctx: any) {
+    const roles = (ctx.roles ?? []).map((role: string) => String(role).toUpperCase());
+    return roles.includes('ADMIN') || roles.includes('EXECUTIVE');
+  }
+
+  private getScopedDepartmentIds(ctx: any) {
+    return Array.isArray(ctx.departmentIds)
+      ? ctx.departmentIds.map((departmentId: string) => String(departmentId).trim()).filter(Boolean)
+      : [];
+  }
+
+  private canAccessDepartment(ctx: any, department?: string | null) {
+    if (this.isSupplierCtx(ctx) || this.hasUnrestrictedDepartmentAccess(ctx)) return true;
+    const scopedDepartmentIds = this.getScopedDepartmentIds(ctx);
+    if (scopedDepartmentIds.length === 0) return false;
+    return Boolean(department && scopedDepartmentIds.includes(department));
+  }
+
+  private validateSupplierFormResponse(
+    template: {
+      fields: any;
+    },
+    response?: Record<string, unknown> | null,
+    documents?: Record<string, unknown> | null,
+  ) {
+    const fields = Array.isArray(template.fields) ? template.fields : [];
+    const responseData = response ?? {};
+    const documentData = documents ?? {};
+    const missing: Array<{ key: string; label: string }> = [];
+
+    for (const field of fields) {
+      if (!field?.required) continue;
+      const key = String(field.key ?? '').trim();
+      const label = String(field.label ?? key ?? 'Field');
+      if (!key) continue;
+
+      if (String(field.type ?? '').toUpperCase() === 'DOCUMENT') {
+        const docValue = (documentData as Record<string, unknown>)[key];
+        const attachments = Array.isArray(docValue)
+          ? docValue
+          : docValue && typeof docValue === 'object' && Array.isArray((docValue as any).attachments)
+            ? (docValue as any).attachments
+            : [];
+        if (!attachments.length) {
+          missing.push({ key, label });
+        }
+        continue;
+      }
+
+      const value = (responseData as Record<string, unknown>)[key];
+      if (
+        value === undefined ||
+        value === null ||
+        (typeof value === 'string' && value.trim().length === 0) ||
+        (Array.isArray(value) && value.length === 0)
+      ) {
+        missing.push({ key, label });
+      }
+    }
+
+    return {
+      isComplete: missing.length === 0,
+      missing,
+    };
   }
 
   private async getSupplierEligibilityContext(ctx: any, supplierId: string) {
@@ -181,6 +250,14 @@ export class RfqService {
         supplierForms: {
           include: {
             template: true,
+            responses: supplierId
+              ? {
+                  where: { supplierId },
+                  orderBy: { updatedAt: 'desc' },
+                }
+              : {
+                  orderBy: { updatedAt: 'desc' },
+                },
           },
           orderBy: { createdAt: 'desc' },
         },
@@ -190,6 +267,9 @@ export class RfqService {
     });
 
     if (!rfq) throw new NotFoundException('RFQ not found');
+    if (!this.canAccessDepartment(ctx, rfq.pr?.department)) {
+      throw new NotFoundException('RFQ not found');
+    }
     if (supplierId) {
       const supplier = await this.getSupplierEligibilityContext(ctx, supplierId);
       if (!this.isSupplierEligibleForRfq(rfq, supplier)) {
@@ -216,6 +296,14 @@ export class RfqService {
         supplierForms: {
           include: {
             template: true,
+            responses: supplierId
+              ? {
+                  where: { supplierId },
+                  orderBy: { updatedAt: 'desc' },
+                }
+              : {
+                  orderBy: { updatedAt: 'desc' },
+                },
           },
           orderBy: { createdAt: 'desc' },
         },
@@ -227,7 +315,7 @@ export class RfqService {
     });
 
     if (!supplierId) {
-      return rfqs;
+      return rfqs.filter((rfq) => this.canAccessDepartment(ctx, rfq.pr?.department));
     }
 
     const supplier = await this.getSupplierEligibilityContext(ctx, supplierId);
@@ -286,11 +374,116 @@ export class RfqService {
 
   async listRfqSupplierForms(ctx: any, rfqId: string) {
     await this.getScoped(ctx, rfqId);
+    const supplierId = this.requireSupplierId(ctx);
     return this.prisma.rFQSupplierFormAssignment.findMany({
       where: { rfqId, tenantId: ctx.tenantId, companyId: ctx.companyId },
-      include: { template: true },
+      include: {
+        template: true,
+        responses: supplierId
+          ? {
+              where: { supplierId },
+              orderBy: { updatedAt: 'desc' },
+            }
+          : {
+              orderBy: { updatedAt: 'desc' },
+            },
+      },
       orderBy: { createdAt: 'desc' },
     });
+  }
+
+  async listSupplierFormResponses(ctx: any, rfqId: string) {
+    const supplierId = this.requireSupplierId(ctx);
+    if (!supplierId) {
+      throw new BadRequestException('Supplier partner context is required');
+    }
+    await this.getScoped(ctx, rfqId);
+    return this.prisma.rFQSupplierFormResponse.findMany({
+      where: {
+        rfqId,
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        supplierId,
+      },
+      orderBy: { updatedAt: 'desc' },
+    });
+  }
+
+  async upsertSupplierFormResponse(ctx: any, rfqId: string, assignmentId: string, dto: UpsertSupplierFormResponseDto) {
+    const supplierId = this.requireSupplierId(ctx);
+    if (!supplierId) {
+      throw new BadRequestException('Supplier partner context is required');
+    }
+    const assignment = await this.prisma.rFQSupplierFormAssignment.findFirst({
+      where: {
+        id: assignmentId,
+        rfqId,
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+      },
+      include: {
+        template: true,
+      },
+    });
+    if (!assignment) {
+      throw new NotFoundException('RFQ supplier form assignment not found');
+    }
+
+    await this.getScoped(ctx, rfqId);
+
+    const response = (dto.response as Record<string, unknown> | undefined) ?? {};
+    const documents = (dto.documents as Record<string, unknown> | undefined) ?? {};
+    const validation = this.validateSupplierFormResponse(assignment.template, response, documents);
+
+    const record = await this.prisma.rFQSupplierFormResponse.upsert({
+      where: {
+        assignmentId_supplierId: {
+          assignmentId: assignment.id,
+          supplierId,
+        },
+      },
+      create: {
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        rfqId,
+        assignmentId: assignment.id,
+        templateId: assignment.templateId,
+        supplierId,
+        response: response as Prisma.InputJsonValue,
+        documents: documents as Prisma.InputJsonValue,
+        isComplete: validation.isComplete,
+        completedAt: validation.isComplete ? new Date() : null,
+        submittedBy: ctx.partnerUserId ?? ctx.userId ?? supplierId,
+      },
+      update: {
+        response: response as Prisma.InputJsonValue,
+        documents: documents as Prisma.InputJsonValue,
+        isComplete: validation.isComplete,
+        completedAt: validation.isComplete ? new Date() : null,
+        submittedBy: ctx.partnerUserId ?? ctx.userId ?? supplierId,
+      },
+    });
+
+    await this.audit.record({
+      tenantId: ctx.tenantId,
+      companyId: ctx.companyId,
+      actor: ctx.partnerUserId ?? ctx.userId ?? supplierId,
+      eventType: 'RFQ_SUPPLIER_FORM_RESPONSE_UPSERTED',
+      entityType: 'RFQ',
+      entityId: rfqId,
+      payload: {
+        assignmentId: assignment.id,
+        templateId: assignment.templateId,
+        supplierId,
+        isComplete: validation.isComplete,
+        missingFields: validation.missing,
+      },
+    });
+
+    return {
+      ...record,
+      missingFields: validation.missing,
+    };
   }
 
   async attachSupplierForm(ctx: any, rfqId: string, dto: AttachSupplierFormDto) {
@@ -389,6 +582,14 @@ export class RfqService {
       isEmergency: dto.isEmergency,
       requestedMethod: dto.procurementMethod,
       emergencyJustification: dto.emergencyJustification,
+    });
+
+    await this.approvals.validateBudget({
+      tenantId: ctx.tenantId,
+      companyId: ctx.companyId,
+      department: pr.department,
+      costCentre: pr.costCentre,
+      budgetAmount: Number(dto.budgetAmount),
     });
 
     const rfq = await this.prisma.rFQ.create({
@@ -700,6 +901,11 @@ export class RfqService {
           closedAt: new Date(),
           recommended: true,
         },
+        include: {
+          lines: {
+            orderBy: { createdAt: 'asc' },
+          },
+        },
       });
       awardedBidCurrency = winningBid.currency;
       awardedBidTotalValue = winningBid.totalBidValue;
@@ -729,6 +935,15 @@ export class RfqService {
             commercialOnly: true,
             currency: winningBid.currency || rfq.currency || rfq.pr.currency,
             committedAmount: new Prisma.Decimal(winningBid.totalBidValue),
+            lineItems: winningBid.lines.map((line) => ({
+              prLineId: line.prLineId,
+              description: line.description,
+              quantity: line.quantity,
+              uom: line.uom,
+              unitPrice: Number(line.unitPrice),
+              lineTotal: Number(line.lineTotal),
+              notes: line.notes,
+            })),
             terms: rfq.paymentTerms ?? undefined,
             notes: `Auto-created from RFQ award ${rfq.id}`,
             awardId: award.id,

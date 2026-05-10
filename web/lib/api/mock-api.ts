@@ -12,6 +12,12 @@ import {
   InvoiceSignature,
   InvoiceSnapshot,
   LiveInvoice,
+  OrganizationAdminSettings,
+  OrganizationApprovalRoute,
+  OrganizationUser,
+  OrganizationBudgetAllocation,
+  OrganizationCostCentre,
+  OrganizationDepartment,
   OrganizationProfile,
   PaymentProof,
   PoInvoiceValidation,
@@ -25,6 +31,7 @@ import {
   Rfq,
   SoDRule,
   SupplierFormTemplate,
+  SupplierFormResponse,
   SupplierPortalProfile,
   SupplierVerificationDocument,
   TaxonomySubcategory,
@@ -33,7 +40,7 @@ import {
   WorkflowThreadResponse,
   WorkflowThreadEntry,
 } from "@/lib/types";
-import { daysOld } from "@/lib/format";
+import { daysOld, formatSubcategoryLabel } from "@/lib/format";
 import { runtimeConfig } from "@/lib/runtime-config";
 
 const delay = (ms = 220) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -45,6 +52,7 @@ let supplierFormTemplateStore: SupplierFormTemplate[] = [];
 let rfqSupplierFormStore: RfqSupplierFormAssignment[] = [];
 let bidStore: Bid[] = [];
 let poStore: PurchaseOrder[] = [];
+let rfqSupplierFormResponseStore: SupplierFormResponse[] = [];
 let invoiceStore: InvoiceSnapshot[] = [];
 let deliveryNoteStore: DeliveryNote[] = [];
 let liveInvoiceStore: LiveInvoice[] = [];
@@ -76,6 +84,43 @@ let retentionRuns: RetentionRunLog[] = [];
 let workflowMessages: Array<{ id: string; prId: string; at: string; authorLabel: string; message: string }> = [];
 let supplierVerificationDocuments: SupplierVerificationDocument[] = [];
 let supplierVerificationStatusById = new Map<string, "PENDING" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED">();
+let organizationUsers: OrganizationUser[] = [
+  {
+    id: "mock-org-user",
+    fullName: "test_org",
+    email: "test_org@procurechain.local",
+    jobTitle: "Procurement Lead",
+    roles: ["ADMIN"],
+    departmentIds: ["dept-ops", "dept-fin", "dept-proc"],
+    isActive: true,
+    createdAt: new Date().toISOString(),
+  },
+];
+let organizationDepartments: OrganizationDepartment[] = [
+  { id: "dept-ops", code: "OPS", name: "Operations", isActive: true },
+  { id: "dept-fin", code: "FIN", name: "Finance", isActive: true },
+  { id: "dept-proc", code: "PROC", name: "Procurement", isActive: true },
+];
+let organizationCostCentres: OrganizationCostCentre[] = [
+  { id: "cc-ops-001", code: "OPS-001", name: "Operations Core", departmentId: "dept-ops", isActive: true },
+  { id: "cc-fin-001", code: "FIN-001", name: "Finance Shared", departmentId: "dept-fin", isActive: true },
+  { id: "cc-proc-001", code: "PROC-001", name: "Procurement Ops", departmentId: "dept-proc", isActive: true },
+];
+let organizationDepartmentBudgets: OrganizationBudgetAllocation[] = [
+  { id: "bgt-dept-ops", scopeId: "dept-ops", amount: 800000 },
+  { id: "bgt-dept-fin", scopeId: "dept-fin", amount: 300000 },
+  { id: "bgt-dept-proc", scopeId: "dept-proc", amount: 450000 },
+];
+let organizationCostCentreBudgets: OrganizationBudgetAllocation[] = [
+  { id: "bgt-cc-ops-001", scopeId: "cc-ops-001", amount: 500000 },
+  { id: "bgt-cc-fin-001", scopeId: "cc-fin-001", amount: 200000 },
+  { id: "bgt-cc-proc-001", scopeId: "cc-proc-001", amount: 250000 },
+];
+let organizationTotalBudget = 1550000;
+let organizationBudgetCurrency = "ZAR";
+let organizationApprovalRoutes: OrganizationApprovalRoute[] = [];
+let organizationCustomRoles: Array<{ id: string; name: string; permissions: string[] }> = [];
+let organizationUserPermissionOverrides: Array<{ userId: string; permissions: string[] }> = [];
 
 const mockSubcategories: TaxonomySubcategory[] = [
   {
@@ -191,7 +236,11 @@ function buildMockSupplierProfile(supplierId: string): SupplierPortalProfile {
 
 export async function listTaxonomySubcategories(): Promise<TaxonomySubcategory[]> {
   await delay();
-  return mockSubcategories;
+  return mockSubcategories.map((subcategory) => ({
+    ...subcategory,
+    name: formatSubcategoryLabel(subcategory.name, subcategory.id),
+    level3: formatSubcategoryLabel(subcategory.level3, subcategory.name || subcategory.id),
+  }));
 }
 
 export async function createCustomTaxonomySubcategory(payload: {
@@ -216,10 +265,10 @@ export async function createCustomTaxonomySubcategory(payload: {
 
   const created: TaxonomySubcategory = {
     id: crypto.randomUUID(),
-    name: payload.level3.trim(),
+    name: formatSubcategoryLabel(payload.level3.trim()),
     level1: payload.level1,
     level2: payload.level2,
-    level3: payload.level3.trim(),
+    level3: formatSubcategoryLabel(payload.level3.trim()),
     archetype: base.archetype,
     isCustom: true,
     inheritsFromSubcategoryId: base.id,
@@ -231,11 +280,11 @@ export async function createCustomTaxonomySubcategory(payload: {
 export async function getPrDynamicFieldDefs(_subcategoryId: string): Promise<DynamicFieldDef[]> {
   await delay();
   return [
-    { path: "metadata.item_name", key: "item_name", label: "Item Name", type: "text", required: true, hint: "Catalog field: item_name" },
-    { path: "metadata.qty", key: "qty", label: "Qty", type: "number", required: true, hint: "Catalog field: qty" },
-    { path: "metadata.uom", key: "uom", label: "Uom", type: "text", required: true, hint: "Catalog field: uom" },
-    { path: "metadata.required_date", key: "required_date", label: "Required Date", type: "date", required: true, hint: "Catalog field: required_date" },
-    { path: "metadata.delivery_location", key: "delivery_location", label: "Delivery Location", type: "text", required: true, hint: "Catalog field: delivery_location" },
+    { path: "metadata.item_name", key: "item_name", label: "Item Name", type: "text", required: true },
+    { path: "metadata.qty", key: "qty", label: "Qty", type: "number", required: true },
+    { path: "metadata.uom", key: "uom", label: "UOM", type: "text", required: true },
+    { path: "metadata.required_date", key: "required_date", label: "Required Date", type: "date", required: true },
+    { path: "metadata.delivery_location", key: "delivery_location", label: "Delivery Location", type: "text", required: true },
   ];
 }
 
@@ -652,6 +701,129 @@ export async function getOrganizationProfile(): Promise<OrganizationProfile> {
   };
 }
 
+function buildMockOrganizationAdminSettings(): OrganizationAdminSettings {
+  return {
+    users: organizationUsers,
+    settings: {
+      departments: organizationDepartments,
+      costCentres: organizationCostCentres,
+      totalBudget: organizationTotalBudget,
+      budgetCurrency: organizationBudgetCurrency,
+      departmentBudgets: organizationDepartmentBudgets,
+      costCentreBudgets: organizationCostCentreBudgets,
+      approvalRoutes: organizationApprovalRoutes,
+      customRoles: organizationCustomRoles,
+      userPermissionOverrides: organizationUserPermissionOverrides,
+      updatedAt: new Date().toISOString(),
+    },
+  };
+}
+
+export async function getOrganizationAdminSettings(): Promise<OrganizationAdminSettings> {
+  await delay();
+  return buildMockOrganizationAdminSettings();
+}
+
+export async function upsertOrganizationAdminSettings(payload: {
+  departments?: OrganizationDepartment[];
+  costCentres?: OrganizationCostCentre[];
+  totalBudget?: number | null;
+  budgetCurrency?: string;
+  departmentBudgets?: OrganizationBudgetAllocation[];
+  costCentreBudgets?: OrganizationBudgetAllocation[];
+  approvalRoutes?: OrganizationApprovalRoute[];
+  customRoles?: Array<{ id: string; name: string; permissions: string[] }>;
+  userPermissionOverrides?: Array<{ userId: string; permissions: string[] }>;
+}) {
+  await delay();
+  if (payload.departments) organizationDepartments = payload.departments;
+  if (payload.costCentres) organizationCostCentres = payload.costCentres;
+  if (payload.totalBudget !== undefined) organizationTotalBudget = Number(payload.totalBudget ?? 0);
+  if (payload.budgetCurrency) organizationBudgetCurrency = payload.budgetCurrency;
+  if (payload.departmentBudgets) organizationDepartmentBudgets = payload.departmentBudgets;
+  if (payload.costCentreBudgets) organizationCostCentreBudgets = payload.costCentreBudgets;
+  if (payload.approvalRoutes) organizationApprovalRoutes = payload.approvalRoutes;
+  if (payload.customRoles) organizationCustomRoles = payload.customRoles;
+  if (payload.userPermissionOverrides) organizationUserPermissionOverrides = payload.userPermissionOverrides;
+  return buildMockOrganizationAdminSettings();
+}
+
+export async function createOrganizationUser(payload: {
+  fullName: string;
+  email: string;
+  password?: string;
+  jobTitle?: string;
+  roles?: string[];
+  departmentIds?: string[];
+}) {
+  await delay();
+  organizationUsers = [
+    ...organizationUsers,
+    {
+      id: crypto.randomUUID(),
+      fullName: payload.fullName.trim(),
+      email: payload.email.trim().toLowerCase(),
+      jobTitle: payload.jobTitle?.trim() || null,
+      roles: payload.roles?.map((role) => role.trim().toUpperCase()).filter(Boolean) ?? ["REQUESTER"],
+      departmentIds: payload.departmentIds ?? [],
+      isActive: true,
+      createdAt: new Date().toISOString(),
+    },
+  ];
+  return {
+    ...buildMockOrganizationAdminSettings(),
+    invite: payload.password
+      ? null
+      : {
+          userId: organizationUsers.at(-1)?.id,
+          email: payload.email.trim().toLowerCase(),
+          token: crypto.randomUUID(),
+          inviteUrl: `https://dev.procurechain.co.za/login?invite=${crypto.randomUUID()}`,
+        },
+  };
+}
+
+export async function updateOrganizationUser(
+  userId: string,
+  payload: { fullName?: string; jobTitle?: string; isActive?: boolean; roles?: string[]; departmentIds?: string[] },
+) {
+  await delay();
+  organizationUsers = organizationUsers.map((user) =>
+    user.id === userId
+      ? {
+          ...user,
+          fullName: payload.fullName?.trim() || user.fullName,
+          jobTitle: payload.jobTitle?.trim() || user.jobTitle,
+          isActive: payload.isActive ?? user.isActive,
+          roles: payload.roles?.map((role) => role.trim().toUpperCase()).filter(Boolean) ?? user.roles,
+          departmentIds: payload.departmentIds ?? user.departmentIds,
+        }
+      : user,
+  );
+  return buildMockOrganizationAdminSettings();
+}
+
+export async function resendOrganizationUserInvite(userId: string) {
+  await delay();
+  const user = organizationUsers.find((entry) => entry.id === userId);
+  return {
+    userId,
+    email: user?.email ?? "",
+    token: crypto.randomUUID(),
+    inviteUrl: `https://dev.procurechain.co.za/login?invite=${crypto.randomUUID()}`,
+  };
+}
+
+export async function issueOrganizationUserPasswordReset(userId: string) {
+  await delay();
+  const user = organizationUsers.find((entry) => entry.id === userId);
+  return {
+    userId,
+    email: user?.email ?? "",
+    token: crypto.randomUUID(),
+  };
+}
+
 export async function signupSupplier(payload: {
   companyName: string;
   workEmail: string;
@@ -683,16 +855,17 @@ export async function signupSupplier(payload: {
 export async function login(payload: { portal: "organization" | "supplier"; identifier: string; password: string }) {
   await delay();
   if (payload.portal === "organization") {
-    const actorName = payload.identifier.includes("@")
-      ? payload.identifier.split("@")[0]
-      : "Organization User";
+    const normalized = payload.identifier.trim().toLowerCase();
+    const matchedUser =
+      organizationUsers.find((user) => user.email.toLowerCase() === normalized || user.fullName.toLowerCase() === normalized) ??
+      organizationUsers[0];
     return {
       portal: "organization" as const,
       tenantId: runtimeConfig.tenantId,
       companyId: runtimeConfig.companyId,
-      actorId: "mock-org-user",
-      actorName,
-      actorRoles: ["SUPERADMIN", "PROCUREMENT_OFFICER"],
+      actorId: matchedUser.id,
+      actorName: matchedUser.fullName,
+      actorRoles: matchedUser.roles,
     };
   }
 
@@ -896,7 +1069,61 @@ export async function createSupplierFormTemplate(payload: {
 
 export async function listRfqSupplierForms(rfqId: string) {
   await delay();
-  return rfqSupplierFormStore.filter((row) => row.rfqId === rfqId);
+  return rfqSupplierFormStore
+    .filter((row) => row.rfqId === rfqId)
+    .map((row) => ({
+      ...row,
+      responses: rfqSupplierFormResponseStore.filter((response) => response.assignmentId === row.id),
+    }));
+}
+
+export async function listRfqSupplierFormResponses(rfqId: string) {
+  await delay();
+  return rfqSupplierFormResponseStore.filter((row) => row.rfqId === rfqId);
+}
+
+export async function upsertRfqSupplierFormResponse(
+  rfqId: string,
+  assignmentId: string,
+  payload: { response?: Record<string, unknown>; documents?: Record<string, unknown> },
+) {
+  await delay();
+  const assignment = rfqSupplierFormStore.find((row) => row.id === assignmentId && row.rfqId === rfqId);
+  if (!assignment) {
+    throw new Error("RFQ supplier form assignment not found");
+  }
+  const supplierId = "sup-1";
+  const missingFields = assignment.template.fields
+    .filter((field) => field.required)
+    .filter((field) => {
+      if (field.type === "DOCUMENT") {
+        const docValue = payload.documents?.[field.key];
+        return !Array.isArray(docValue) || docValue.length === 0;
+      }
+      const value = payload.response?.[field.key];
+      return value == null || String(value).trim().length === 0;
+    })
+    .map((field) => ({ key: field.key, label: field.label }));
+  const next: SupplierFormResponse = {
+    id: rfqSupplierFormResponseStore.find((row) => row.assignmentId === assignmentId && row.supplierId === supplierId)?.id ?? crypto.randomUUID(),
+    rfqId,
+    assignmentId,
+    templateId: assignment.templateId,
+    supplierId,
+    response: payload.response ?? null,
+    documents: payload.documents ?? null,
+    isComplete: missingFields.length === 0,
+    completedAt: missingFields.length === 0 ? new Date().toISOString() : null,
+    submittedBy: supplierId,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    missingFields,
+  };
+  rfqSupplierFormResponseStore = [
+    next,
+    ...rfqSupplierFormResponseStore.filter((row) => !(row.assignmentId === assignmentId && row.supplierId === supplierId)),
+  ];
+  return next;
 }
 
 export async function attachRfqSupplierForm(
@@ -968,10 +1195,50 @@ export async function getBid(id: string) {
   return bidStore.find((bid) => bid.id === id) ?? null;
 }
 
-export async function upsertBid(payload: { rfqId: string; supplierId: string; totalBidValue?: number; currency?: string }) {
+export async function upsertBid(payload: {
+  rfqId: string;
+  supplierId: string;
+  totalBidValue?: number;
+  lines?: Array<{ prLineId: string; quantity?: number; unitPrice?: number; lineTotal?: number; notes?: string }>;
+  currency?: string;
+  notes?: string;
+  payload?: Record<string, unknown>;
+  documents?: Record<string, unknown>;
+}) {
   await delay();
   const existing = bidStore.find((bid) => bid.rfqId === payload.rfqId && bid.supplierId === payload.supplierId);
-  if (existing) return existing;
+  const rfq = rfqStore.find((entry) => entry.id === payload.rfqId);
+  const mappedLines = (payload.lines ?? []).map((line, index) => {
+    const rfqLine = rfq?.lines.find((entry) => entry.id === line.prLineId) ?? rfq?.lines[index];
+    const quantity = line.quantity ?? rfqLine?.quantity ?? 0;
+    const unitPrice = line.unitPrice ?? 0;
+    return {
+      id: `${payload.rfqId}-${line.prLineId}`,
+      prLineId: line.prLineId,
+      description: rfqLine?.description ?? `Line ${index + 1}`,
+      quantity,
+      uom: rfqLine?.uom ?? null,
+      unitPrice,
+      lineTotal: quantity * unitPrice,
+      notes: line.notes ?? null,
+    };
+  });
+  const computedTotal = mappedLines.length > 0
+    ? mappedLines.reduce((sum, line) => sum + line.lineTotal, 0)
+    : (payload.totalBidValue ?? 0);
+  if (existing) {
+    const updated = {
+      ...existing,
+      currency: payload.currency ?? existing.currency,
+      totalBidValue: computedTotal,
+      lines: mappedLines.length > 0 ? mappedLines : existing.lines,
+      notes: payload.notes ?? existing.notes,
+      payload: payload.payload ?? existing.payload,
+      documents: payload.documents ?? existing.documents,
+    };
+    bidStore = bidStore.map((bid) => (bid.id === existing.id ? updated : bid));
+    return updated;
+  }
   const bid: Bid = {
     id: crypto.randomUUID(),
     rfqId: payload.rfqId,
@@ -980,7 +1247,11 @@ export async function upsertBid(payload: { rfqId: string; supplierId: string; to
     supplierProfileScore: suppliers.find((s) => s.id === payload.supplierId)?.profileScore ?? null,
     status: "DRAFT",
     currency: payload.currency ?? "USD",
-    totalBidValue: payload.totalBidValue ?? 0,
+    totalBidValue: computedTotal,
+    lines: mappedLines,
+    notes: payload.notes ?? null,
+    payload: payload.payload ?? null,
+    documents: payload.documents ?? null,
     recommended: false,
   };
   bidStore = [bid, ...bidStore];
@@ -1038,16 +1309,27 @@ export async function getPo(id: string) {
 
 export async function createPoFromAward(payload: { awardId: string; terms?: string; notes?: string }) {
   await delay();
+  const awardedRfq = rfqStore.find((rfq) => rfq.award?.bidId === payload.awardId || rfq.award?.bidId === payload.awardId);
+  const awardedBid = bidStore.find((bid) => bid.id === payload.awardId);
   const po: PurchaseOrder = {
     id: crypto.randomUUID(),
     poNumber: `PO-${Date.now()}`,
     status: "DRAFT",
     currency: "ZAR",
-    committedAmount: 3000,
+    committedAmount: awardedBid?.totalBidValue ?? 3000,
+    lineItems: awardedBid?.lines?.map((line) => ({
+      prLineId: line.prLineId,
+      description: line.description,
+      quantity: line.quantity,
+      uom: line.uom ?? null,
+      unitPrice: line.unitPrice,
+      lineTotal: line.lineTotal,
+      notes: line.notes ?? null,
+    })) ?? [],
     commercialOnly: true,
     awardId: payload.awardId,
-    rfqId: "rfq-mock",
-    prId: "pr-mock",
+    rfqId: awardedBid?.rfqId ?? "rfq-mock",
+    prId: awardedRfq?.prId ?? "pr-mock",
     terms: payload.terms ?? null,
     notes: payload.notes ?? null,
     createdAt: new Date().toISOString(),
@@ -1152,7 +1434,16 @@ export async function validatePoInvoices(poId: string): Promise<PoInvoiceValidat
 
 export async function createDeliveryNote(
   poId: string,
-  payload: { noteNumber?: string; supplierId?: string; deliveryDate?: string; receivedBy?: string; remarks?: string; documentUrl?: string },
+  payload: {
+    noteNumber?: string;
+    supplierId?: string;
+    deliveryDate?: string;
+    receivedBy?: string;
+    remarks?: string;
+    documentUrl?: string;
+    manualOverride?: boolean;
+    manualOverrideReason?: string;
+  },
 ) {
   await delay();
   const po = poStore.find((candidate) => candidate.id === poId);
@@ -1394,7 +1685,7 @@ export async function upsertSoDRule(action: string, payload: { allowedRoles?: st
     sodRules = sodRules.map((rule) => (rule.action === action ? updated : rule));
     return updated;
   }
-  const created: SoDRule = { id: crypto.randomUUID(), action, allowedRoles: payload.allowedRoles ?? ["PROCUREMENT_MANAGER"], blockedRoles: payload.blockedRoles ?? [], isActive: payload.isActive ?? true };
+  const created: SoDRule = { id: crypto.randomUUID(), action, allowedRoles: payload.allowedRoles ?? ["MANAGER"], blockedRoles: payload.blockedRoles ?? [], isActive: payload.isActive ?? true };
   sodRules = [created, ...sodRules];
   return created;
 }

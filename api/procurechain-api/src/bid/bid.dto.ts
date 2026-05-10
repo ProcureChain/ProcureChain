@@ -1,6 +1,31 @@
 import { IsArray, IsIn, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, Max, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
+export class UpsertBidLineDto {
+  @IsString()
+  @IsNotEmpty()
+  prLineId!: string;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  quantity?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  unitPrice?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  lineTotal?: number;
+
+  @IsOptional()
+  @IsString()
+  notes?: string;
+}
+
 export class UpsertBidDto {
   @IsString()
   @IsNotEmpty()
@@ -30,6 +55,12 @@ export class UpsertBidDto {
   @IsNumber()
   @Min(0)
   totalBidValue?: number;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => UpsertBidLineDto)
+  lines?: UpsertBidLineDto[];
 }
 
 export class EvaluateBidCriterionDto {

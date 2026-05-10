@@ -68,14 +68,20 @@ import {
   listSupplierFormTemplates,
   createSupplierFormTemplate,
   listRfqSupplierForms,
+  listRfqSupplierFormResponses,
   attachRfqSupplierForm,
+  upsertRfqSupplierFormResponse,
   createDeliveryNote,
   listDeliveryNotes,
   createLiveInvoiceFromTemplate,
   createSupplierInvoice,
   createCustomTaxonomySubcategory,
+  createOrganizationUser,
   listSupplierDocuments,
+  getOrganizationAdminSettings,
+  issueOrganizationUserPasswordReset,
   login,
+  resendOrganizationUserInvite,
   listLiveInvoices,
   getLiveInvoice,
   markLiveInvoicePaid,
@@ -85,7 +91,9 @@ import {
   submitSupplierInvoice,
   uploadSupplierDocument,
   uploadSignedInvoice,
+  upsertOrganizationAdminSettings,
   updateSupplierVerification,
+  updateOrganizationUser,
   addWorkflowMessage,
 } from "@/lib/api/mock-api";
 import { runtimeConfig } from "@/lib/runtime-config";
@@ -99,6 +107,7 @@ import {
   GovernanceGeneratedExport,
   InvoiceSnapshot,
   LiveInvoice,
+  OrganizationAdminSettings,
   OrganizationProfile,
   SupplierPortalProfile,
   SupplierVerificationDocument,
@@ -115,6 +124,7 @@ import {
   RfqSupplierFormAssignment,
   LocationSuggestion,
   SupplierFormTemplate,
+  SupplierFormResponse,
   TaxonomySubcategory,
   WorkflowThreadResponse,
 } from "@/lib/types";
@@ -148,11 +158,13 @@ export const queryKeys = {
   locationSuggestions: (query: string, country?: string) => ["taxonomy", "location-suggestions", query, country ?? ""] as const,
   supplierFormTemplates: ["rfq", "supplier-form-templates"] as const,
   rfqSupplierForms: (rfqId: string) => ["rfq", rfqId, "supplier-forms"] as const,
+  rfqSupplierFormResponses: (rfqId: string) => ["rfq", rfqId, "supplier-form-responses"] as const,
   deliveryNotes: (poId: string) => ["finance", "delivery-notes", poId] as const,
   liveInvoices: (poId: string) => ["finance", "live-invoices", poId] as const,
   liveInvoice: (invoiceId: string) => ["finance", "live-invoice", invoiceId] as const,
   workflowThread: (prId: string) => ["workflow", "thread", prId] as const,
   organizationProfile: ["organization", "profile"] as const,
+  organizationAdminSettings: ["organization", "admin-settings"] as const,
   supplierProfile: ["supplier", "profile"] as const,
   supplierDocuments: ["supplier", "documents"] as const,
   // Include the current data source in every cache key so mock and live data
@@ -191,12 +203,14 @@ const readApi = runtimeConfig.useMockApi
       getPrFormSchema,
       getLocationSuggestions,
       getOrganizationProfile,
+      getOrganizationAdminSettings,
       getSupplierProfile,
       listSupplierDocuments,
       login,
       getWorkflowThread,
       listSupplierFormTemplates,
       listRfqSupplierForms,
+      listRfqSupplierFormResponses,
       listDeliveryNotes,
       listLiveInvoices,
       getLiveInvoice,
@@ -241,7 +255,9 @@ const actionApi = runtimeConfig.useMockApi
       runRetention,
       createSupplierFormTemplate,
       attachRfqSupplierForm,
+      upsertRfqSupplierFormResponse,
       signupSupplier,
+      createOrganizationUser,
       createDeliveryNote,
       createLiveInvoiceFromTemplate,
       createSupplierInvoice,
@@ -252,6 +268,10 @@ const actionApi = runtimeConfig.useMockApi
       uploadSupplierDocument,
       uploadSignedInvoice,
       updateSupplierVerification,
+      upsertOrganizationAdminSettings,
+      updateOrganizationUser,
+      resendOrganizationUserInvite,
+      issueOrganizationUserPasswordReset,
       login,
       createCustomTaxonomySubcategory,
       addWorkflowMessage,
@@ -290,6 +310,7 @@ const actionApi = runtimeConfig.useMockApi
       runRetention: liveApi.runRetention,
       createSupplierFormTemplate: liveApi.createSupplierFormTemplate,
       attachRfqSupplierForm: liveApi.attachRfqSupplierForm,
+      upsertRfqSupplierFormResponse: liveApi.upsertRfqSupplierFormResponse,
       createDeliveryNote: liveApi.createDeliveryNote,
       createLiveInvoiceFromTemplate: liveApi.createLiveInvoiceFromTemplate,
       createSupplierInvoice: liveApi.createSupplierInvoice,
@@ -305,7 +326,13 @@ const actionApi = runtimeConfig.useMockApi
       getSupplierProfile: liveApi.getSupplierProfile,
       listSupplierDocuments: liveApi.listSupplierDocuments,
       addWorkflowMessage: liveApi.addWorkflowMessage,
+      createOrganizationUser: liveApi.createOrganizationUser,
+      getOrganizationAdminSettings: liveApi.getOrganizationAdminSettings,
+      issueOrganizationUserPasswordReset: liveApi.issueOrganizationUserPasswordReset,
       createCustomTaxonomySubcategory: liveApi.createCustomTaxonomySubcategory,
+      resendOrganizationUserInvite: liveApi.resendOrganizationUserInvite,
+      upsertOrganizationAdminSettings: liveApi.upsertOrganizationAdminSettings,
+      updateOrganizationUser: liveApi.updateOrganizationUser,
     };
 
 export function useRequisitions() {
@@ -444,6 +471,14 @@ export function useOrganizationProfile(enabled = true) {
   });
 }
 
+export function useOrganizationAdminSettings(enabled = true) {
+  return useQuery<OrganizationAdminSettings>({
+    queryKey: [...queryKeys.organizationAdminSettings, queryKeys.mode],
+    queryFn: () => readApi.getOrganizationAdminSettings() as Promise<OrganizationAdminSettings>,
+    enabled,
+  });
+}
+
 export function useSupplierProfile(enabled = true) {
   return useQuery<SupplierPortalProfile>({
     queryKey: [...queryKeys.supplierProfile, queryKeys.mode],
@@ -493,6 +528,49 @@ export function useLoginAction() {
   return useMutation({
     mutationFn: (payload: { portal: "organization" | "supplier"; identifier: string; password: string }) =>
       actionApi.login(payload),
+  });
+}
+
+export function useOrganizationAdminSettingsAction() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (
+      payload:
+        | {
+            type: "save-settings";
+            data: {
+              departments?: Array<{ id: string; code: string; name: string; isActive: boolean }>;
+              costCentres?: Array<{ id: string; code: string; name: string; departmentId?: string | null; isActive: boolean }>;
+              totalBudget?: number | null;
+              budgetCurrency?: string;
+              departmentBudgets?: Array<{ id: string; scopeId: string; amount: number }>;
+              costCentreBudgets?: Array<{ id: string; scopeId: string; amount: number }>;
+              approvalRoutes?: Array<{ id: string; scopeType: "DEPARTMENT" | "COST_CENTRE"; scopeValue: string; roles: string[] }>;
+              customRoles?: Array<{ id: string; name: string; permissions: string[] }>;
+              userPermissionOverrides?: Array<{ userId: string; permissions: string[] }>;
+            };
+          }
+        | {
+            type: "create-user";
+            data: { fullName: string; email: string; password?: string; jobTitle?: string; roles?: string[]; departmentIds?: string[] };
+          }
+        | {
+            type: "update-user";
+            userId: string;
+            data: { fullName?: string; jobTitle?: string; isActive?: boolean; roles?: string[]; departmentIds?: string[] };
+          }
+        | { type: "invite-user"; userId: string }
+        | { type: "reset-user-password"; userId: string },
+    ) => {
+      if (payload.type === "save-settings") return actionApi.upsertOrganizationAdminSettings(payload.data);
+      if (payload.type === "create-user") return actionApi.createOrganizationUser(payload.data);
+      if (payload.type === "invite-user") return actionApi.resendOrganizationUserInvite(payload.userId);
+      if (payload.type === "reset-user-password") return actionApi.issueOrganizationUserPasswordReset(payload.userId);
+      return actionApi.updateOrganizationUser(payload.userId, payload.data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.organizationAdminSettings });
+    },
   });
 }
 
@@ -575,6 +653,14 @@ export function useRfqSupplierForms(rfqId: string) {
   });
 }
 
+export function useRfqSupplierFormResponses(rfqId: string) {
+  return useQuery<SupplierFormResponse[]>({
+    queryKey: [...queryKeys.rfqSupplierFormResponses(rfqId), queryKeys.mode],
+    queryFn: () => readApi.listRfqSupplierFormResponses(rfqId) as Promise<SupplierFormResponse[]>,
+    enabled: Boolean(rfqId),
+  });
+}
+
 export function useSupplierFormAction() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -619,6 +705,27 @@ export function useSupplierFormAction() {
         queryClient.invalidateQueries({ queryKey: queryKeys.rfqSupplierForms(variables.rfqId) });
         queryClient.invalidateQueries({ queryKey: queryKeys.rfq(variables.rfqId) });
       }
+    },
+  });
+}
+
+export function useSupplierFormResponseAction() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: {
+      rfqId: string;
+      assignmentId: string;
+      response?: Record<string, unknown>;
+      documents?: Record<string, unknown>;
+    }) =>
+      actionApi.upsertRfqSupplierFormResponse(payload.rfqId, payload.assignmentId, {
+        response: payload.response,
+        documents: payload.documents,
+      }),
+    onSuccess: (_res, variables) => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.rfqSupplierForms(variables.rfqId) });
+      queryClient.invalidateQueries({ queryKey: queryKeys.rfqSupplierFormResponses(variables.rfqId) });
+      queryClient.invalidateQueries({ queryKey: queryKeys.rfq(variables.rfqId) });
     },
   });
 }
@@ -768,6 +875,13 @@ export function useBidAction() {
       rfqId?: string;
       supplierId?: string;
       totalBidValue?: number;
+      lines?: Array<{
+        prLineId: string;
+        quantity?: number;
+        unitPrice?: number;
+        lineTotal?: number;
+        notes?: string;
+      }>;
       reason?: string;
       status?: "SHORTLISTED" | "REJECTED" | "CLOSED";
       notes?: string;
@@ -780,6 +894,7 @@ export function useBidAction() {
           rfqId: payload.rfqId ?? "",
           supplierId: payload.supplierId ?? "",
           totalBidValue: payload.totalBidValue,
+          lines: payload.lines,
           currency: payload.currency ?? "ZAR",
           notes: payload.notes,
           payload: payload.payload ?? { compliance: { supplier_documents: true } },
@@ -932,6 +1047,8 @@ export function useFinanceAction() {
         receivedBy?: string;
         remarks?: string;
         documentUrl?: string;
+        manualOverride?: boolean;
+        manualOverrideReason?: string;
         file?: File | null;
       }
     | {
@@ -1013,6 +1130,8 @@ export function useFinanceAction() {
             receivedBy?: string;
             remarks?: string;
             documentUrl?: string;
+            manualOverride?: boolean;
+            manualOverrideReason?: string;
             file?: File | null;
           }
         | {

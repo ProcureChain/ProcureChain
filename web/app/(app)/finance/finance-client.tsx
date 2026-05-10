@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useQueries } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
@@ -11,8 +12,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { downloadDeliveryNoteDocument, downloadLiveInvoiceDocument, downloadLiveInvoicePdf, previewLiveInvoiceDocument } from "@/lib/api/live-api";
 import { formatDateTime, formatMoney } from "@/lib/format";
-import { useDeliveryNotes, useFinanceAction, useInvoices, useLiveInvoices, usePoValidation } from "@/lib/query-hooks";
+import * as liveApi from "@/lib/api/live-api";
+import * as mockApi from "@/lib/api/mock-api";
+import { queryKeys, useDeliveryNotes, useFinanceAction, useInvoices, useLiveInvoices, usePoValidation, usePos } from "@/lib/query-hooks";
 import { runtimeConfig } from "@/lib/runtime-config";
+import type { LiveInvoice, PurchaseOrder } from "@/lib/types";
 
 export function FinanceClient() {
   const searchParams = useSearchParams();
@@ -29,13 +33,59 @@ export function FinanceClient() {
   const [supplierInvoiceFile, setSupplierInvoiceFile] = useState<File | null>(null);
   const [reviewNotes, setReviewNotes] = useState("");
   const [signedInvoiceFile, setSignedInvoiceFile] = useState<File | null>(null);
+  const [invoiceSearch, setInvoiceSearch] = useState("");
+  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState("ALL");
+  const [invoicePoFilter, setInvoicePoFilter] = useState("ALL");
+  const [invoiceSupplierFilter, setInvoiceSupplierFilter] = useState("ALL");
+  const [invoiceDateFilter, setInvoiceDateFilter] = useState("ALL");
 
   const { data: invoices = [], error } = useInvoices(poId || undefined);
+  const { data: pos = [] } = usePos();
   const { data: validation, error: validationError } = usePoValidation(poId);
   const { data: deliveryNotes = [] } = useDeliveryNotes(poId);
   const { data: liveInvoices = [] } = useLiveInvoices(poId);
   const financeAction = useFinanceAction();
   const isSupplierActor = runtimeConfig.actorRoles.includes("SUPPLIER");
+  const readApi = runtimeConfig.useMockApi ? mockApi : liveApi;
+  const orgInvoiceQueries = useQueries({
+    queries: !isSupplierActor
+      ? pos.map((po: PurchaseOrder) => ({
+          queryKey: [...queryKeys.liveInvoices(po.id), runtimeConfig.portal, "org-invoice-register"],
+          queryFn: () => readApi.listLiveInvoices(po.id) as Promise<LiveInvoice[]>,
+        }))
+      : [],
+  });
+  const orgInvoiceRows = !isSupplierActor
+    ? pos.flatMap((po: PurchaseOrder, index: number) =>
+        (orgInvoiceQueries[index]?.data ?? []).map((invoice) => ({ po, invoice })),
+      )
+    : [];
+  const orgInvoicePoOptions = Array.from(
+    new Set(orgInvoiceRows.map(({ po }) => po.poNumber).filter(Boolean)),
+  ).sort((a, b) => a.localeCompare(b));
+  const orgInvoiceSupplierOptions = Array.from(
+    new Set(orgInvoiceRows.map(({ po }) => po.supplierName?.trim() || "Unassigned").filter(Boolean)),
+  ).sort((a, b) => a.localeCompare(b));
+  const filteredOrgInvoiceRows = orgInvoiceRows.filter(({ po, invoice }) => {
+    const matchesSearch =
+      invoiceSearch.trim().length < 1 ||
+      invoice.invoiceNumber.toLowerCase().includes(invoiceSearch.trim().toLowerCase()) ||
+      po.poNumber.toLowerCase().includes(invoiceSearch.trim().toLowerCase());
+    const matchesStatus = invoiceStatusFilter === "ALL" || invoice.status === invoiceStatusFilter;
+    const matchesPo = invoicePoFilter === "ALL" || po.poNumber === invoicePoFilter;
+    const supplierName = po.supplierName?.trim() || "Unassigned";
+    const matchesSupplier = invoiceSupplierFilter === "ALL" || supplierName === invoiceSupplierFilter;
+    const invoiceDate = new Date(invoice.createdAt);
+    const now = new Date();
+    const matchesDate =
+      invoiceDateFilter === "ALL" ||
+      (invoiceDateFilter === "THIS_MONTH" &&
+        invoiceDate.getUTCFullYear() === now.getUTCFullYear() &&
+        invoiceDate.getUTCMonth() === now.getUTCMonth()) ||
+      (invoiceDateFilter === "THIS_YEAR" && invoiceDate.getUTCFullYear() === now.getUTCFullYear());
+
+    return matchesSearch && matchesStatus && matchesPo && matchesSupplier && matchesDate;
+  });
 
   const syncSingleSnapshot = async () => {
     try {
@@ -110,9 +160,9 @@ export function FinanceClient() {
   const moveInvoiceToReview = async (invoiceId: string) => {
     try {
       await financeAction.mutateAsync({ type: "review-live-invoice", invoiceId, notes: reviewNotes || undefined });
-      toast.success("Invoice moved to review");
+      toast.success("Supplier invoice accepted");
     } catch (err) {
-      toast.error("Invoice review failed");
+      toast.error("Invoice acceptance failed");
       console.error(err);
     }
   };
@@ -157,11 +207,13 @@ export function FinanceClient() {
 
   return (
     <div className="space-y-5">
-      <PageHeader title="Finance" description="Supplier invoice submission, organisation review, signing, and payment controls." />
+      <PageHeader title="Invoices" description="Organisation invoice inbox for supplier-submitted invoices, acceptance, signing, and payment confirmation." />
       {error ? <ApiErrorAlert error={error} /> : null}
       {validationError ? <ApiErrorAlert error={validationError} /> : null}
       {financeAction.error ? <ApiErrorAlert error={financeAction.error} /> : null}
 
+      {isSupplierActor ? (
+        <>
       <Card>
         <CardHeader>
           <CardTitle>Scope by PO</CardTitle>
@@ -280,7 +332,7 @@ export function FinanceClient() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Live Invoices</CardTitle>
+          <CardTitle>Supplier Invoice Inbox</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm">
           <Input value={reviewNotes} onChange={(e) => setReviewNotes(e.target.value)} placeholder="Organisation review notes" />
@@ -321,7 +373,7 @@ export function FinanceClient() {
                   ) : null}
                   {!isSupplierActor && invoice.status === "SUBMITTED_TO_ORG" ? (
                     <Button size="sm" variant="outline" disabled={financeAction.isPending} onClick={() => moveInvoiceToReview(invoice.id)}>
-                      Move To Review
+                      Accept Received Invoice
                     </Button>
                   ) : null}
                   {!isSupplierActor && invoice.status === "UNDER_REVIEW" ? (
@@ -353,6 +405,95 @@ export function FinanceClient() {
           )}
         </CardContent>
       </Card>
+        </>
+      ) : null}
+
+      {!isSupplierActor ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>Received Supplier Invoices</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-5">
+              <Input value={invoiceSearch} onChange={(e) => setInvoiceSearch(e.target.value)} placeholder="Search invoice / PO" />
+              <select className="h-10 rounded-md border px-3 text-sm" value={invoiceStatusFilter} onChange={(e) => setInvoiceStatusFilter(e.target.value)}>
+                <option value="ALL">All statuses</option>
+                <option value="DRAFT">Draft</option>
+                <option value="SUBMITTED_TO_ORG">Submitted</option>
+                <option value="UNDER_REVIEW">Under Review</option>
+                <option value="SIGNED">Signed</option>
+                <option value="PAID">Paid</option>
+              </select>
+              <select className="h-10 rounded-md border px-3 text-sm" value={invoicePoFilter} onChange={(e) => setInvoicePoFilter(e.target.value)}>
+                <option value="ALL">All POs</option>
+                {orgInvoicePoOptions.map((poNumber) => (
+                  <option key={poNumber} value={poNumber}>{poNumber}</option>
+                ))}
+              </select>
+              <select className="h-10 rounded-md border px-3 text-sm" value={invoiceSupplierFilter} onChange={(e) => setInvoiceSupplierFilter(e.target.value)}>
+                <option value="ALL">All suppliers</option>
+                {orgInvoiceSupplierOptions.map((supplier) => (
+                  <option key={supplier} value={supplier}>{supplier}</option>
+                ))}
+              </select>
+              <select className="h-10 rounded-md border px-3 text-sm" value={invoiceDateFilter} onChange={(e) => setInvoiceDateFilter(e.target.value)}>
+                <option value="ALL">All dates</option>
+                <option value="THIS_MONTH">This month</option>
+                <option value="THIS_YEAR">This year</option>
+              </select>
+            </div>
+            {filteredOrgInvoiceRows.length === 0 ? (
+              <p className="text-sm text-slate-500">No invoices match the selected filters.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="min-w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b bg-slate-50 text-left">
+                      <th className="px-3 py-2 font-medium">Invoice</th>
+                      <th className="px-3 py-2 font-medium">PO</th>
+                      <th className="px-3 py-2 font-medium">Supplier</th>
+                      <th className="px-3 py-2 font-medium">Created</th>
+                      <th className="px-3 py-2 font-medium">Status</th>
+                      <th className="px-3 py-2 font-medium">Amount</th>
+                      <th className="px-3 py-2 font-medium">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredOrgInvoiceRows.map(({ po, invoice }) => (
+                      <tr key={`${po.id}-${invoice.id}`} className="border-b align-top">
+                        <td className="px-3 py-2 font-medium">{invoice.invoiceNumber}</td>
+                        <td className="px-3 py-2">{po.poNumber}</td>
+                        <td className="px-3 py-2">{po.supplierName || "Unassigned"}</td>
+                        <td className="px-3 py-2">{formatDateTime(invoice.createdAt)}</td>
+                        <td className="px-3 py-2">{invoice.status}</td>
+                        <td className="px-3 py-2">{formatMoney(invoice.totalAmount, invoice.currency)}</td>
+                        <td className="px-3 py-2">
+                          <div className="flex flex-wrap gap-2">
+                            <Button size="sm" variant="outline" onClick={() => previewLiveInvoiceDocument(invoice.id)}>
+                              View
+                            </Button>
+                            <Button size="sm" variant="outline" onClick={() => downloadLiveInvoicePdf(invoice.id)}>
+                              Download PDF
+                            </Button>
+                            <Button size="sm" variant="outline" onClick={() => downloadLiveInvoiceDocument(invoice.id, "source")}>
+                              Download Source
+                            </Button>
+                            {invoice.signedDocumentName ? (
+                              <Button size="sm" variant="outline" onClick={() => downloadLiveInvoiceDocument(invoice.id, "signed")}>
+                                Download Signed
+                              </Button>
+                            ) : null}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      ) : null}
     </div>
   );
 }

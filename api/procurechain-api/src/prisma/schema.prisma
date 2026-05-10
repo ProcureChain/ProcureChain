@@ -16,6 +16,7 @@ model Tenant {
   audits    AuditEvent[]
   customSubcategories Subcategory[]
   organizationProfiles  OrganizationProfile[]
+  organizationAdminSettings OrganizationAdminSettings[]
   organizationDocuments OrganizationDocument[]
   supplierOnboardingProfiles SupplierOnboardingProfile[]
   supplierDocuments SupplierDocument[]
@@ -37,6 +38,7 @@ model Company {
   tenant    Tenant   @relation(fields: [tenantId], references: [id])
   customSubcategories Subcategory[]
   organizationProfile  OrganizationProfile?
+  organizationAdminSettings OrganizationAdminSettings?
   organizationDocuments OrganizationDocument[]
   supplierOnboardingProfiles SupplierOnboardingProfile[]
   supplierDocuments SupplierDocument[]
@@ -54,10 +56,43 @@ model User {
   companyId String
   email     String?
   passwordHash String?
+  fullName  String?
+  jobTitle  String?
+  isActive  Boolean @default(true)
+  inviteToken String?
+  inviteSentAt DateTime?
+  inviteAcceptedAt DateTime?
+  resetToken String?
+  resetSentAt DateTime?
   roles     String[] @default([])
+  departmentIds String[] @default([])
   createdAt DateTime @default(now())
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
+}
+
+model OrganizationAdminSettings {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String   @unique
+
+  departments      Json?
+  costCentres      Json?
+  departmentBudgets Json?
+  costCentreBudgets Json?
+  approvalRoutes   Json?
+  customRoles      Json?
+  userPermissionOverrides Json?
+  totalBudget      Decimal? @db.Decimal(18, 2)
+  budgetCurrency   String   @default("ZAR")
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, companyId])
 }
 
 enum OrganizationVerificationStatus {
@@ -257,6 +292,7 @@ model Subcategory {
   supplierTags SupplierTaxonomyTag[]
   ruleFormConfig SubcategoryRuleFormConfig?
   ruleFormOverlays SubcategoryRuleFormOverlay[]
+  requisitionLines PurchaseRequisitionLine[]
 
   @@index([level1, level2, level3])
   @@index([archetype])
@@ -430,15 +466,20 @@ model PurchaseRequisitionLine {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  subcategoryId String?
   description String
   quantity    Int     @default(1)
 
   uom   String?
   notes String?
+  metadata Json?
 
   pr PurchaseRequisition @relation(fields: [prId], references: [id], onDelete: Cascade)
+  subcategory Subcategory? @relation(fields: [subcategoryId], references: [id], onDelete: SetNull)
+  bidLines BidLine[]
 
   @@index([prId, createdAt])
+  @@index([subcategoryId])
 }
 
 model PurchaseRequisitionDocument {
@@ -532,6 +573,7 @@ model Supplier {
   rfqs RFQSupplier[]
   awards RFQAward[]
   bids Bid[]
+  supplierFormResponses RFQSupplierFormResponse[]
   coiDeclarations COIDeclaration[]
   deliveryNotes DeliveryNote[]
   invoices Invoice[]
@@ -717,7 +759,9 @@ model RFQ {
 
   suppliers RFQSupplier[]
   supplierForms RFQSupplierFormAssignment[]
+  supplierFormResponses RFQSupplierFormResponse[]
   bids Bid[]
+  bidLines BidLine[]
   award     RFQAward?
   purchaseOrders PurchaseOrder[]
   coiDeclarations COIDeclaration[]
@@ -742,6 +786,7 @@ model SupplierFormTemplate {
   createdBy   String?
 
   assignments RFQSupplierFormAssignment[]
+  responses   RFQSupplierFormResponse[]
 
   @@index([tenantId, companyId, createdAt])
   @@index([tenantId, companyId, isReusable, isActive, createdAt])
@@ -761,9 +806,37 @@ model RFQSupplierFormAssignment {
 
   rfq      RFQ                  @relation(fields: [rfqId], references: [id], onDelete: Cascade)
   template SupplierFormTemplate @relation(fields: [templateId], references: [id], onDelete: Restrict)
+  responses RFQSupplierFormResponse[]
 
   @@unique([rfqId, templateId])
   @@index([tenantId, companyId, rfqId, createdAt])
+}
+
+model RFQSupplierFormResponse {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenantId  String
+  companyId String
+
+  rfqId          String
+  assignmentId   String
+  templateId     String
+  supplierId     String
+  response       Json?
+  documents      Json?
+  isComplete     Boolean  @default(false)
+  completedAt    DateTime?
+  submittedBy    String?
+
+  rfq        RFQ                     @relation(fields: [rfqId], references: [id], onDelete: Cascade)
+  assignment RFQSupplierFormAssignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  template   SupplierFormTemplate    @relation(fields: [templateId], references: [id], onDelete: Restrict)
+  supplier   Supplier                @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+
+  @@unique([assignmentId, supplierId])
+  @@index([tenantId, companyId, rfqId, supplierId, createdAt])
 }
 
 model TenantProcurementPolicy {
@@ -917,10 +990,36 @@ model Bid {
   supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
   scores BidScore[]
   award RFQAward?
+  lines BidLine[]
 
   @@unique([rfqId, supplierId])
   @@index([tenantId, companyId, rfqId, status])
   @@index([supplierId, status])
+}
+
+model BidLine {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bidId    String
+  rfqId    String
+  prLineId String
+
+  description String
+  quantity    Int
+  uom         String?
+  unitPrice   Decimal @db.Decimal(18, 2)
+  lineTotal   Decimal @db.Decimal(18, 2)
+  notes       String?
+
+  bid    Bid                     @relation(fields: [bidId], references: [id], onDelete: Cascade)
+  rfq    RFQ                     @relation(fields: [rfqId], references: [id], onDelete: Cascade)
+  prLine PurchaseRequisitionLine @relation(fields: [prLineId], references: [id], onDelete: Restrict)
+
+  @@unique([bidId, prLineId])
+  @@index([rfqId, createdAt])
+  @@index([prLineId])
 }
 
 model BidScore {
@@ -964,6 +1063,7 @@ model PurchaseOrder {
   commercialOnly Boolean @default(true)
   currency       String  @default("ZAR")
   committedAmount Decimal @db.Decimal(18, 2)
+  lineItems       Json?
   terms          String?
   notes          String?
 

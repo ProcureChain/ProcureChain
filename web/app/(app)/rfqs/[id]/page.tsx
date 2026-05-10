@@ -3,13 +3,15 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { MessageSquareText } from "lucide-react";
+import { CheckCircle2, CircleDot, Clock3, FileText, MessageSquareText, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
 import { ApiErrorAlert } from "@/components/common/api-error-alert";
+import { BidComparisonBarChart } from "@/components/bids/bid-comparison-bar-chart";
 import { PageHeader } from "@/components/common/page-header";
 import { PermissionNote } from "@/components/common/permission-note";
 import { WorkflowChatSheet } from "@/components/workflow/workflow-chat-sheet";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -17,10 +19,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { formatBusinessRef } from "@/lib/format";
-import { useBidsByRfq, useOrganizationProfile, useRfq, useRfqAction, useRfqSupplierForms, useSupplierFormAction, useSupplierFormTemplates, useSuppliers } from "@/lib/query-hooks";
+import { formatBusinessRef, formatCountryWithFlag, formatDateTime } from "@/lib/format";
+import { useAuditEvents, useBidsByRfq, useOrganizationProfile, useRfq, useRfqAction, useRfqSupplierForms, useSupplierFormAction, useSupplierFormTemplates, useSuppliers } from "@/lib/query-hooks";
 import { runtimeConfig } from "@/lib/runtime-config";
 import { canPerformAction, permissionHint } from "@/lib/roles";
+import type { AuditEvent } from "@/lib/types";
 
 const bidStatusLabel = (status: string) => {
   switch (status) {
@@ -41,10 +44,111 @@ const bidStatusLabel = (status: string) => {
   }
 };
 
+const auditActionLabel = (action: string) =>
+  action
+    .replace(/^RFQ_/, "")
+    .replace(/_/g, " ")
+    .toLowerCase()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+
+function auditTone(action: string) {
+  if (action.includes("RELEASE")) return "border-blue-200 bg-blue-50 text-blue-700";
+  if (action.includes("OPEN")) return "border-emerald-200 bg-emerald-50 text-emerald-700";
+  if (action.includes("AWARD")) return "border-amber-200 bg-amber-50 text-amber-700";
+  if (action.includes("CLOSE")) return "border-slate-300 bg-slate-100 text-slate-700";
+  return "border-[var(--border)] bg-white text-[var(--text-secondary)]";
+}
+
+function AuditIcon({ action }: { action: string }) {
+  if (action.includes("AWARD")) return <ShieldCheck className="h-4 w-4" />;
+  if (action.includes("RELEASE") || action.includes("OPEN")) return <CheckCircle2 className="h-4 w-4" />;
+  if (action.includes("FORM")) return <FileText className="h-4 w-4" />;
+  return <CircleDot className="h-4 w-4" />;
+}
+
+function auditDetail(event: AuditEvent) {
+  const payload = event.after ?? {};
+  const values = [
+    typeof payload.status === "string" ? `Status: ${payload.status}` : null,
+    typeof payload.releaseMode === "string" ? `Release: ${payload.releaseMode}` : null,
+    typeof payload.reason === "string" ? payload.reason : null,
+    typeof payload.overrideReason === "string" ? payload.overrideReason : null,
+    typeof payload.templateId === "string" ? "Supplier form attached" : null,
+  ].filter(Boolean);
+  return values.length > 0 ? values.join(" • ") : event.details;
+}
+
+function RfqAuditTrail({ events }: { events: AuditEvent[] }) {
+  const sorted = [...events].sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime());
+
+  return (
+    <Card className="overflow-hidden rounded-[28px] border-[var(--border)] bg-white shadow-[var(--shadow-sm)]">
+      <CardHeader className="border-b border-[var(--border)] bg-[linear-gradient(135deg,#FFFFFF_0%,#F7F8FA_100%)] pb-5">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              <Clock3 className="h-4 w-4 text-[var(--secondary)]" />
+              Activity Timeline
+            </div>
+            <CardTitle className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">RFQ Audit Trail</CardTitle>
+            <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
+              Immutable RFQ lifecycle events captured from release through award and close.
+            </p>
+          </div>
+          <div className="rounded-full border border-[var(--border)] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)]">
+            {sorted.length} Events
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent className="p-5">
+        {sorted.length === 0 ? (
+          <div className="rounded-3xl border border-dashed border-[var(--border)] bg-[var(--surface-muted)] p-6 text-sm text-[var(--text-muted)]">
+            No RFQ audit events have been captured yet.
+          </div>
+        ) : (
+          <div className="relative space-y-4">
+            <div className="absolute left-5 top-5 bottom-5 w-px bg-[var(--border)]" />
+            {sorted.map((event, index) => (
+              <div key={event.id} className="relative flex gap-4">
+                <div className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border ${auditTone(event.action)}`}>
+                  <AuditIcon action={event.action} />
+                </div>
+                <div className="min-w-0 flex-1 rounded-3xl border border-[var(--border)] bg-white p-4 shadow-[var(--shadow-sm)]">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="font-semibold text-[var(--text-primary)]">{auditActionLabel(event.action)}</p>
+                      <p className="mt-1 text-sm text-[var(--text-secondary)]">{auditDetail(event)}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
+                        Step {sorted.length - index}
+                      </p>
+                      <p className="mt-1 text-xs text-[var(--text-muted)]">{formatDateTime(event.at)}</p>
+                    </div>
+                  </div>
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-[var(--surface-muted)] px-3 py-1 text-xs text-[var(--text-secondary)]">
+                      Actor: {event.actor}
+                    </span>
+                    <span className="rounded-full bg-[var(--surface-muted)] px-3 py-1 text-xs text-[var(--text-secondary)]">
+                      {formatBusinessRef(event.entityType, event.entityId)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function RfqDetailPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const { data: rfq, error } = useRfq(params.id);
+  const { data: auditEvents = [], error: auditError } = useAuditEvents({ entityType: "RFQ", entityId: params.id, limit: 100 });
   const { data: suppliers = [] } = useSuppliers();
   const { data: bids = [] } = useBidsByRfq(params.id);
   const organizationProfile = useOrganizationProfile(!runtimeConfig.isSupplierPortal);
@@ -71,6 +175,14 @@ export default function RfqDetailPage() {
   const canClose = rfq?.status === "OPEN" || rfq?.status === "AWARDED";
 
   const supplierLookup = useMemo(() => new Map(suppliers.map((s) => [s.id, s.name])), [suppliers]);
+  const supplierById = useMemo(() => new Map(suppliers.map((supplier) => [supplier.id, supplier])), [suppliers]);
+  const supplierMeta = useMemo(
+    () =>
+      Object.fromEntries(
+        suppliers.map((supplier) => [supplier.id, { countryLabel: formatCountryWithFlag(supplier.country) }]),
+      ),
+    [suppliers],
+  );
   const awardableBids = useMemo(
     () => bids.filter((bid) => ["SUBMITTED", "OPENED", "UNDER_EVALUATION", "SHORTLISTED", "AWARD_RECOMMENDED"].includes(bid.status)),
     [bids],
@@ -144,6 +256,7 @@ export default function RfqDetailPage() {
       />
       {action.error ? <ApiErrorAlert error={action.error} /> : null}
       {organizationProfile.error ? <ApiErrorAlert error={organizationProfile.error} /> : null}
+      {auditError ? <ApiErrorAlert error={auditError} /> : null}
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
@@ -404,12 +517,50 @@ export default function RfqDetailPage() {
           <CardHeader>
             <CardTitle>Bids</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2 text-sm">
+          <CardContent className="space-y-4 text-sm">
+            {bids.length ? (
+              <BidComparisonBarChart bids={bids} supplierMeta={supplierMeta} />
+            ) : null}
+
+            {bids.length ? (
+              <div className="grid gap-3 xl:grid-cols-2">
+                {bids.map((bid) => {
+                  const supplier = supplierById.get(bid.supplierId);
+                  const metrics = [
+                    ["Profile", supplier?.profileScore],
+                    ["Compliance", supplier?.complianceScore],
+                    ["Delivery", supplier?.deliveryScore],
+                    ["Quality", supplier?.qualityScore],
+                    ["Risk", supplier?.riskScore],
+                  ] as const;
+                  return (
+                    <div key={`rfq-bid-score-${bid.id}`} className="rounded-xl border border-[var(--border)] bg-[var(--surface-muted)] p-3">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div>
+                          <p className="font-semibold text-[var(--text-primary)]">{supplierLookup.get(bid.supplierId) ?? formatBusinessRef("SUP", bid.supplierId)}</p>
+                          <p className="text-xs text-[var(--text-muted)]">{supplierMeta[bid.supplierId]?.countryLabel ?? "N/A"}</p>
+                        </div>
+                        <Badge variant="outline" className="rounded-full">{bidStatusLabel(bid.status)}</Badge>
+                      </div>
+                      <div className="mt-3 grid grid-cols-5 gap-2">
+                        {metrics.map(([label, score]) => (
+                          <div key={`${bid.id}-${label}`} className="rounded-lg border border-[var(--border)] bg-white p-2 text-center">
+                            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">{label}</p>
+                            <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">{score ?? "N/A"}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : null}
+
             {bids.length ? (
               bids.map((bid) => (
                 <div key={bid.id} className="flex items-center justify-between rounded border p-2">
                   <p>
-                    {formatBusinessRef("BID", bid.id)} • {supplierLookup.get(bid.supplierId) ?? formatBusinessRef("SUP", bid.supplierId)} • {bidStatusLabel(bid.status)}
+                    {formatBusinessRef("BID", bid.id)} • {supplierLookup.get(bid.supplierId) ?? formatBusinessRef("SUP", bid.supplierId)} • {supplierMeta[bid.supplierId]?.countryLabel ?? "N/A"} • {bidStatusLabel(bid.status)}
                   </p>
                   <div className="flex items-center gap-2">
                     <Button
@@ -435,6 +586,8 @@ export default function RfqDetailPage() {
           </CardContent>
         </Card>
       </div>
+
+      <RfqAuditTrail events={auditEvents} />
 
       <WorkflowChatSheet
         open={queryOpen}

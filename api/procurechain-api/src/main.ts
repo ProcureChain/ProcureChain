@@ -6,6 +6,15 @@ import type { Request, Response, NextFunction } from 'express';
 import { HttpExceptionFilter } from './common/http-exception.filter';
 import { MetricsService } from './common/metrics.service';
 
+const LEGACY_ROLE_MAP: Record<string, string> = {
+  SUPERADMIN: 'ADMIN',
+  PROCUREMENT_OFFICER: 'BUYER',
+  PROCUREMENT_MANAGER: 'MANAGER',
+  COMPLIANCE_OFFICER: 'APPROVER',
+  FINANCE_MANAGER: 'APPROVER',
+  EVALUATOR: 'APPROVER',
+};
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const metricsService = app.get(MetricsService);
@@ -42,9 +51,10 @@ async function bootstrap() {
     const tenantId = req.header('x-tenant-id');
     const companyId = req.header('x-company-id');
     const userId = req.header('x-user-id') ?? 'dev-user';
-    const roles = (req.header('x-user-roles') ?? 'PROCUREMENT_OFFICER')
+    const roles = (req.header('x-user-roles') ?? 'REQUESTER')
       .split(',')
-      .map((r) => r.trim())
+      .map((r) => r.trim().toUpperCase())
+      .map((r) => LEGACY_ROLE_MAP[r] ?? r)
       .filter(Boolean);
     const partnerId = req.header('x-partner-id') ?? undefined;
     const partnerUserId = req.header('x-partner-user-id') ?? undefined;

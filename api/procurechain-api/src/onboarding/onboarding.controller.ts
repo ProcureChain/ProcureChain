@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Req,
   Res,
   UploadedFile,
@@ -16,10 +17,15 @@ import type { Response } from 'express';
 import { TenantGuard } from '../common/tenant.guard';
 import { OnboardingService } from './onboarding.service';
 import {
+  AcceptInviteDto,
+  ConfirmPasswordResetDto,
   LoginDto,
   OrganizationSignupDto,
   SupplierSignupDto,
+  CreateOrganizationUserDto,
   UpdateOrganizationProfileDto,
+  UpdateOrganizationUserDto,
+  UpsertOrganizationAdminSettingsDto,
   UploadOrganizationDocumentDto,
   UploadSupplierDocumentDto,
 } from './onboarding.dto';
@@ -50,6 +56,16 @@ export class OnboardingController {
     return this.onboarding.login(dto);
   }
 
+  @Post('auth/invite/accept')
+  acceptInvite(@Body() dto: AcceptInviteDto) {
+    return this.onboarding.acceptInvite(dto);
+  }
+
+  @Post('auth/password-reset/confirm')
+  confirmPasswordReset(@Body() dto: ConfirmPasswordResetDto) {
+    return this.onboarding.confirmPasswordReset(dto);
+  }
+
   @Get('organization/profile')
   @UseGuards(TenantGuard)
   getOrganizationProfile(@Req() req: any) {
@@ -60,6 +76,42 @@ export class OnboardingController {
   @UseGuards(TenantGuard)
   updateOrganizationProfile(@Req() req: any, @Body() dto: UpdateOrganizationProfileDto) {
     return this.onboarding.updateOrganizationProfile(req.ctx, dto);
+  }
+
+  @Get('organization/admin-settings')
+  @UseGuards(TenantGuard)
+  getOrganizationAdminSettings(@Req() req: any) {
+    return this.onboarding.getOrganizationAdminSettings(req.ctx);
+  }
+
+  @Put('organization/admin-settings')
+  @UseGuards(TenantGuard)
+  upsertOrganizationAdminSettings(@Req() req: any, @Body() dto: any) {
+    return this.onboarding.upsertOrganizationAdminSettings(req.ctx, dto);
+  }
+
+  @Post('organization/users')
+  @UseGuards(TenantGuard)
+  createOrganizationUser(@Req() req: any, @Body() dto: CreateOrganizationUserDto) {
+    return this.onboarding.createOrganizationUser(req.ctx, dto);
+  }
+
+  @Patch('organization/users/:userId')
+  @UseGuards(TenantGuard)
+  updateOrganizationUser(@Req() req: any, @Param('userId') userId: string, @Body() dto: UpdateOrganizationUserDto) {
+    return this.onboarding.updateOrganizationUser(req.ctx, userId, dto);
+  }
+
+  @Post('organization/users/:userId/invite')
+  @UseGuards(TenantGuard)
+  resendOrganizationUserInvite(@Req() req: any, @Param('userId') userId: string) {
+    return this.onboarding.resendOrganizationUserInvite(req.ctx, userId);
+  }
+
+  @Post('organization/users/:userId/reset-password')
+  @UseGuards(TenantGuard)
+  issueOrganizationUserPasswordReset(@Req() req: any, @Param('userId') userId: string) {
+    return this.onboarding.issueOrganizationUserPasswordReset(req.ctx, userId);
   }
 
   @Get('organization/documents')

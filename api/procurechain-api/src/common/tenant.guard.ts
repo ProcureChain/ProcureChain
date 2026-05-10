@@ -7,6 +7,15 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
+const LEGACY_ROLE_MAP: Record<string, string> = {
+  SUPERADMIN: 'ADMIN',
+  PROCUREMENT_OFFICER: 'BUYER',
+  PROCUREMENT_MANAGER: 'MANAGER',
+  COMPLIANCE_OFFICER: 'APPROVER',
+  FINANCE_MANAGER: 'APPROVER',
+  EVALUATOR: 'APPROVER',
+};
+
 @Injectable()
 export class TenantGuard implements CanActivate {
   constructor(private readonly prisma: PrismaService) {}
@@ -29,9 +38,10 @@ export class TenantGuard implements CanActivate {
     const rolesHeader = req.header('x-user-roles');
     const roles = Array.isArray(req.ctx?.roles)
       ? req.ctx.roles
-      : (rolesHeader ?? 'PROCUREMENT_OFFICER')
+      : (rolesHeader ?? 'REQUESTER')
           .split(',')
-          .map((r: string) => r.trim())
+          .map((r: string) => r.trim().toUpperCase())
+          .map((r: string) => LEGACY_ROLE_MAP[r] ?? r)
           .filter(Boolean);
 
     const company = await this.prisma.company.findFirst({
@@ -43,12 +53,24 @@ export class TenantGuard implements CanActivate {
       throw new ForbiddenException('Invalid tenant/company scope');
     }
 
+    const user = await this.prisma.user.findFirst({
+      where: {
+        id: userId,
+        tenantId: tId,
+        companyId: cId,
+      },
+      select: {
+        departmentIds: true,
+      },
+    });
+
     req.ctx = {
       ...req.ctx,
       tenantId: tId,
       companyId: cId,
       userId,
       roles,
+      departmentIds: user?.departmentIds ?? [],
       actorType: req.ctx?.actorType ?? 'INTERNAL',
       partnerId: req.ctx?.partnerId,
       partnerUserId: req.ctx?.partnerUserId,

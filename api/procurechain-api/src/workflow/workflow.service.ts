@@ -1,15 +1,50 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 type Ctx = {
   tenantId: string;
   companyId: string;
   userId?: string;
+  roles?: string[];
+  actorType?: 'INTERNAL' | 'PARTNER';
+  partnerId?: string;
 };
 
 @Injectable()
 export class WorkflowService {
   constructor(private readonly prisma: PrismaService) {}
+
+  private isSupplierCtx(ctx: Ctx) {
+    return ctx.actorType === 'PARTNER' && (ctx.roles ?? []).includes('SUPPLIER') && !!ctx.partnerId;
+  }
+
+  private requireSupplierId(ctx: Ctx) {
+    if (!this.isSupplierCtx(ctx) || !ctx.partnerId) return undefined;
+    return ctx.partnerId;
+  }
+
+  private async assertThreadAccess(ctx: Ctx, prId: string) {
+    const supplierId = this.requireSupplierId(ctx);
+    if (!supplierId) return;
+
+    const scopedPo = await this.prisma.purchaseOrder.findFirst({
+      where: {
+        tenantId: ctx.tenantId,
+        companyId: ctx.companyId,
+        prId,
+        award: {
+          is: {
+            supplierId,
+          },
+        },
+      },
+      select: { id: true },
+    });
+
+    if (!scopedPo) {
+      throw new ForbiddenException('Workflow chat is only available to the awarded supplier for this RFQ/PO workflow');
+    }
+  }
 
   private getActorLabel(ctx: Ctx, actorLabel?: string) {
     return actorLabel?.trim() || ctx.userId || 'dev-user';
@@ -44,6 +79,7 @@ export class WorkflowService {
     if (!input.message?.trim()) {
       throw new BadRequestException('message is required');
     }
+    await this.assertThreadAccess(ctx, prId);
     const thread = await this.ensureThread(ctx, prId);
     return this.prisma.workflowMessage.create({
       data: {
@@ -59,6 +95,7 @@ export class WorkflowService {
   }
 
   async getThread(ctx: Ctx, prId: string) {
+    await this.assertThreadAccess(ctx, prId);
     const thread = await this.ensureThread(ctx, prId);
 
     const [messages, rfqs, pos] = await Promise.all([

@@ -29,14 +29,7 @@ export const ORGANIZATION_SESSION: SessionProfile = {
   actorId: "org-kyle",
   actorName: "Kyle",
   actorInitials: "KY",
-  actorRoles: [
-    "SUPERADMIN",
-    "PROCUREMENT_OFFICER",
-    "PROCUREMENT_MANAGER",
-    "COMPLIANCE_OFFICER",
-    "ADMIN",
-    "EVALUATOR",
-  ],
+  actorRoles: ["ADMIN"],
 };
 
 export const SUPPLIER_SESSION: SessionProfile = {

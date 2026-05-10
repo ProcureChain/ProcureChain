@@ -10,6 +10,7 @@ import { ApiErrorAlert } from "@/components/common/api-error-alert";
 import { BrandLogo } from "@/components/common/brand-logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { formatDomainLabel, formatSubcategoryLabel } from "@/lib/format";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -169,7 +170,7 @@ export default function SupplierSignupPage() {
   const level1Options = useMemo(() => {
     const values = new Set<string>();
     for (const row of taxonomy.data ?? []) values.add(row.level1);
-    return Array.from(values).sort((a, b) => a.localeCompare(b));
+    return Array.from(values).sort((a, b) => formatDomainLabel(a).localeCompare(formatDomainLabel(b)));
   }, [taxonomy.data]);
 
   const availableSubcategories = useMemo(() => {
@@ -446,7 +447,7 @@ export default function SupplierSignupPage() {
                   <div className="flex flex-wrap gap-2">
                     {level1Options.map((option) => (
                       <Button key={option} type="button" variant={selectedLevel1.includes(option) ? "default" : "outline"} className="rounded-full" onClick={() => toggleValue(option, selectedLevel1, setSelectedLevel1)}>
-                        {option}
+                        {formatDomainLabel(option)}
                       </Button>
                     ))}
                   </div>
@@ -459,7 +460,7 @@ export default function SupplierSignupPage() {
                     <div className="flex flex-wrap gap-2">
                       {availableSubcategories.map((subcategory) => (
                         <Button key={subcategory.id} type="button" variant={selectedSubcategories.includes(subcategory.id) ? "default" : "outline"} className="rounded-full" onClick={() => toggleValue(subcategory.id, selectedSubcategories, setSelectedSubcategories)}>
-                          {subcategory.level3 || subcategory.name}
+                          {formatSubcategoryLabel(subcategory.level3, subcategory.name)}
                         </Button>
                       ))}
                     </div>

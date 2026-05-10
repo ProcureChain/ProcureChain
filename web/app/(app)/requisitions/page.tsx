@@ -13,8 +13,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { formatBusinessRef, formatDate, daysOld } from "@/lib/format";
-import { useRequisitions } from "@/lib/query-hooks";
+import { formatBusinessRef, formatDate, formatSubcategoryLabel, daysOld } from "@/lib/format";
+import { useRequisitions, useTaxonomySubcategories } from "@/lib/query-hooks";
 import { ReqStatus, Requisition } from "@/lib/types";
 
 type SortKey = "updated_desc" | "created_desc" | "needed_asc" | "title_asc" | "status_asc";
@@ -95,6 +95,7 @@ function sortRequisitions(data: Requisition[], sortKey: SortKey) {
 
 export default function RequisitionsPage() {
   const { data = [], isLoading, error } = useRequisitions();
+  const taxonomy = useTaxonomySubcategories();
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<"ALL" | ReqStatus>("ALL");
   const [department, setDepartment] = useState<string>("ALL");
@@ -104,6 +105,13 @@ export default function RequisitionsPage() {
     () => ["ALL", ...Array.from(new Set(data.map((req) => req.department).filter(Boolean))).sort((a, b) => a.localeCompare(b))],
     [data],
   );
+  const subcategoryById = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const row of taxonomy.data ?? []) {
+      map.set(row.id, formatSubcategoryLabel(row.level3, row.name));
+    }
+    return map;
+  }, [taxonomy.data]);
 
   const filtered = useMemo(() => {
     const base = data.filter((req) => {
@@ -256,7 +264,7 @@ export default function RequisitionsPage() {
                           <div className="flex flex-wrap gap-2">
                             {req.subcategoryId ? (
                               <Badge variant="outline" className="rounded-full border-[var(--border)] bg-white px-2.5 py-0.5 text-[10px] text-[var(--text-secondary)]">
-                                {req.subcategoryId}
+                                {formatSubcategoryLabel(subcategoryById.get(req.subcategoryId), req.subcategoryId)}
                               </Badge>
                             ) : null}
                             <Badge variant="outline" className="rounded-full border-[var(--border)] bg-white px-2.5 py-0.5 text-[10px] text-[var(--text-secondary)]">

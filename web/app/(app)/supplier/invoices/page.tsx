@@ -12,10 +12,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { formatDateTime } from "@/lib/format";
 import * as liveApi from "@/lib/api/live-api";
 import * as mockApi from "@/lib/api/mock-api";
+import { downloadLiveInvoiceDocument, downloadLiveInvoicePdf, previewLiveInvoiceDocument } from "@/lib/api/live-api";
 import { queryKeys, useFinanceAction, usePos } from "@/lib/query-hooks";
 import { runtimeConfig } from "@/lib/runtime-config";
 import type { DeliveryNote, LiveInvoice, PurchaseOrder } from "@/lib/types";
@@ -29,6 +31,7 @@ export default function SupplierInvoicesPage() {
   const [invoiceNumber, setInvoiceNumber] = useState("");
   const [invoiceNotes, setInvoiceNotes] = useState("");
   const [invoiceFile, setInvoiceFile] = useState<File | null>(null);
+  const [invoiceMode, setInvoiceMode] = useState<"TEMPLATE" | "CUSTOM_FILE">("TEMPLATE");
 
   const invoiceReadyPos = useMemo(() => pos.filter((po) => po.status === "ACCEPTED"), [pos]);
 
@@ -67,6 +70,7 @@ export default function SupplierInvoicesPage() {
       setInvoiceNumber("");
       setInvoiceNotes("");
       setInvoiceFile(null);
+      setInvoiceMode("TEMPLATE");
     } catch (err) {
       console.error(err);
       toast.error("Invoice draft creation failed");
@@ -124,7 +128,7 @@ export default function SupplierInvoicesPage() {
                           <div className="flex flex-wrap gap-2">
                             {!latest ? (
                               <Button size="sm" variant="outline" disabled={deliveryNotes.length < 1} onClick={() => setSelectedPo(po)}>
-                                Create Draft
+                                Create Invoice
                               </Button>
                             ) : null}
                             {draft ? (
@@ -157,6 +161,19 @@ export default function SupplierInvoicesPage() {
                 <p className="font-medium">{invoice.invoiceNumber}</p>
                 <p className="mt-1 text-sm text-slate-600">{invoice.status} • {invoice.sourceDocumentName ?? "No source file"}</p>
                 {invoice.submittedAt ? <p className="mt-1 text-xs text-slate-500">Submitted {formatDateTime(invoice.submittedAt)}</p> : null}
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button size="sm" variant="outline" onClick={() => previewLiveInvoiceDocument(invoice.id)}>
+                    Preview Invoice
+                  </Button>
+                  <Button size="sm" variant="outline" onClick={() => downloadLiveInvoicePdf(invoice.id)}>
+                    Download PDF
+                  </Button>
+                  {invoice.sourceDocumentName ? (
+                    <Button size="sm" variant="outline" onClick={() => downloadLiveInvoiceDocument(invoice.id, "source")}>
+                      Download Source
+                    </Button>
+                  ) : null}
+                </div>
               </div>
             ))
           )}
@@ -170,6 +187,18 @@ export default function SupplierInvoicesPage() {
           </DialogHeader>
           <div className="space-y-3">
             <div className="space-y-1">
+              <Label htmlFor="supplier-invoice-mode">Invoice mode</Label>
+              <Select value={invoiceMode} onValueChange={(value) => setInvoiceMode(value as "TEMPLATE" | "CUSTOM_FILE")}>
+                <SelectTrigger id="supplier-invoice-mode">
+                  <SelectValue placeholder="Select invoice mode" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="TEMPLATE">Platform Template Invoice</SelectItem>
+                  <SelectItem value="CUSTOM_FILE">Upload Custom Invoice File</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1">
               <Label htmlFor="supplier-invoice-number">Invoice number</Label>
               <Input id="supplier-invoice-number" value={invoiceNumber} onChange={(event) => setInvoiceNumber(event.target.value)} placeholder="Supplier invoice number" />
             </div>
@@ -178,11 +207,11 @@ export default function SupplierInvoicesPage() {
               <Textarea id="supplier-invoice-notes" value={invoiceNotes} onChange={(event) => setInvoiceNotes(event.target.value)} placeholder="Invoice notes" />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="supplier-invoice-file">Invoice file</Label>
+              <Label htmlFor="supplier-invoice-file">Invoice file {invoiceMode === "CUSTOM_FILE" ? "(required)" : "(optional)"}</Label>
               <Input id="supplier-invoice-file" type="file" onChange={(event) => setInvoiceFile(event.target.files?.[0] ?? null)} />
             </div>
-            <Button className="w-full" disabled={!selectedPo} onClick={createDraft}>
-              Create Supplier Invoice Draft
+            <Button className="w-full" disabled={!selectedPo || (invoiceMode === "CUSTOM_FILE" && !invoiceFile)} onClick={createDraft}>
+              Create Invoice
             </Button>
           </div>
         </DialogContent>

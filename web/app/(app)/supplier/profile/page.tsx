@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useSupplierDocumentAction, useSupplierDocuments, useSupplierProfile } from "@/lib/query-hooks";
-import { formatDateTime } from "@/lib/format";
+import { formatDateTime, formatSubcategoryLabel } from "@/lib/format";
 
 const verificationFields = [
   { key: "company_registration_certificate", label: "Company Registration Certificate" },
@@ -102,7 +102,9 @@ export default function SupplierProfilePage() {
                   <p className="font-medium">Subcategories</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {profile.data.tags.length === 0 ? <span className="text-slate-500">No categories assigned</span> : profile.data.tags.map((tag) => (
-                      <Badge key={tag.id} variant="outline">{tag.subcategory?.level3 ?? tag.subcategoryId}</Badge>
+                      <Badge key={tag.id} variant="outline">
+                        {formatSubcategoryLabel(tag.subcategory?.level3 ?? tag.subcategory?.name, tag.subcategoryId)}
+                      </Badge>
                     ))}
                   </div>
                 </div>

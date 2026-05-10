@@ -149,3 +149,13 @@ export class AttachSupplierFormDto {
   @IsBoolean()
   saveForReuse?: boolean;
 }
+
+export class UpsertSupplierFormResponseDto {
+  @IsOptional()
+  @IsObject()
+  response?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsObject()
+  documents?: Record<string, unknown>;
+}

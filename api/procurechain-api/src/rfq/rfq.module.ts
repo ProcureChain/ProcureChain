@@ -7,10 +7,11 @@ import { RulesModule } from '../rules/rules.module';
 import { PolicyModule } from '../policy/policy.module';
 import { ComplianceModule } from '../compliance/compliance.module';
 import { TaxonomyModule } from '../taxonomy/taxonomy.module';
+import { ApprovalService } from '../pr/approval.service';
 
 @Module({
   imports: [PrismaModule, AuditModule, RulesModule, PolicyModule, ComplianceModule, TaxonomyModule],
   controllers: [RfqController],
-  providers: [RfqService],
+  providers: [RfqService, ApprovalService],
 })
 export class RfqModule {}

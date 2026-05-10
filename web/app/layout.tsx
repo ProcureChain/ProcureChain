@@ -11,16 +11,6 @@ const plexMono = IBM_Plex_Mono({ subsets: ["latin"], variable: "--font-plex-mono
 export const metadata: Metadata = {
   title: "ProcureChain",
   description: "Enterprise procurement workspace",
-  icons: {
-    icon: [
-      { url: "/brand/favicon-16x16.png", type: "image/png", sizes: "16x16" },
-      { url: "/brand/favicon-32x32.png", type: "image/png", sizes: "32x32" },
-      { url: "/brand/favicon-48x48.png", type: "image/png", sizes: "48x48" },
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
-    shortcut: [{ url: "/brand/favicon-32x32.png", type: "image/png", sizes: "32x32" }],
-    apple: [{ url: "/brand/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
-  },
 };
 
 export default function RootLayout({

@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { IsArray, IsBoolean, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString, Min, ValidateNested } from 'class-validator';
 
 export class SyncInvoiceSnapshotItemDto {
@@ -76,6 +76,15 @@ export class CreateDeliveryNoteDto {
   @IsOptional()
   @IsString()
   documentUrl?: string;
+
+  @IsOptional()
+  @Transform(({ value }) => value === true || value === 'true')
+  @IsBoolean()
+  manualOverride?: boolean;
+
+  @IsOptional()
+  @IsString()
+  manualOverrideReason?: string;
 }
 
 export class CreateInvoiceFromTemplateDto {

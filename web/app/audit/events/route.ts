@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       "x-user-id": request.headers.get("x-user-id") ?? "kyle-supertest",
       "x-user-roles":
         request.headers.get("x-user-roles") ??
-        "SUPERADMIN,PROCUREMENT_OFFICER,PROCUREMENT_MANAGER,COMPLIANCE_OFFICER,ADMIN,EVALUATOR",
+        "ADMIN,REQUESTER,APPROVER,BUYER,MANAGER,EXECUTIVE",
     },
     cache: "no-store",
   });

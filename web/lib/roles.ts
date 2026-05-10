@@ -17,33 +17,51 @@ export type AppAction =
   | "RETENTION_RUN";
 
 const ACTION_ROLES: Record<AppAction, string[]> = {
-  PR_APPROVE: ["PROCUREMENT_OFFICER", "PROCUREMENT_MANAGER", "COMPLIANCE_OFFICER"],
-  RFQ_RELEASE: ["PROCUREMENT_OFFICER", "PROCUREMENT_MANAGER"],
-  RFQ_OPEN: ["PROCUREMENT_OFFICER", "PROCUREMENT_MANAGER"],
-  RFQ_AWARD: ["PROCUREMENT_MANAGER", "COMPLIANCE_OFFICER"],
-  BID_EVALUATE: ["PROCUREMENT_OFFICER", "PROCUREMENT_MANAGER", "EVALUATOR"],
-  BID_RECOMMEND: ["PROCUREMENT_MANAGER", "COMPLIANCE_OFFICER"],
-  PO_RELEASE: ["PROCUREMENT_OFFICER", "PROCUREMENT_MANAGER"],
-  PO_SUPPLIER_RESPOND: ["SUPPLIER", "PROCUREMENT_OFFICER", "PROCUREMENT_MANAGER"],
-  PO_CLOSE: ["PROCUREMENT_OFFICER", "PROCUREMENT_MANAGER"],
-  COI_REVIEW: ["COMPLIANCE_OFFICER"],
-  POLICY_EDIT: ["PROCUREMENT_MANAGER", "COMPLIANCE_OFFICER", "ADMIN"],
-  SOD_EDIT: ["COMPLIANCE_OFFICER", "ADMIN"],
-  GOV_EXPORT: ["PROCUREMENT_MANAGER", "COMPLIANCE_OFFICER", "ADMIN"],
-  RETENTION_RUN: ["COMPLIANCE_OFFICER", "ADMIN"],
+  PR_APPROVE: ["APPROVER", "MANAGER", "ADMIN"],
+  RFQ_RELEASE: ["BUYER", "MANAGER", "ADMIN"],
+  RFQ_OPEN: ["BUYER", "MANAGER", "ADMIN"],
+  RFQ_AWARD: ["APPROVER", "MANAGER", "ADMIN"],
+  BID_EVALUATE: ["BUYER", "APPROVER", "MANAGER", "ADMIN"],
+  BID_RECOMMEND: ["APPROVER", "MANAGER", "ADMIN"],
+  PO_RELEASE: ["BUYER", "MANAGER", "ADMIN"],
+  PO_SUPPLIER_RESPOND: ["SUPPLIER", "BUYER", "MANAGER", "ADMIN"],
+  PO_CLOSE: ["APPROVER", "MANAGER", "ADMIN"],
+  COI_REVIEW: ["APPROVER", "MANAGER", "ADMIN"],
+  POLICY_EDIT: ["MANAGER", "ADMIN"],
+  SOD_EDIT: ["ADMIN"],
+  GOV_EXPORT: ["MANAGER", "ADMIN"],
+  RETENTION_RUN: ["ADMIN"],
 };
 
+const LEGACY_ROLE_MAP: Record<string, string> = {
+  SUPERADMIN: "ADMIN",
+  PROCUREMENT_OFFICER: "BUYER",
+  PROCUREMENT_MANAGER: "MANAGER",
+  COMPLIANCE_OFFICER: "APPROVER",
+  FINANCE_MANAGER: "APPROVER",
+  EVALUATOR: "APPROVER",
+};
+
+function normalizeActorRoles(actorRoles: string[]) {
+  return actorRoles
+    .map((role) => role.trim().toUpperCase())
+    .map((role) => LEGACY_ROLE_MAP[role] ?? role)
+    .filter(Boolean);
+}
+
 export function canPerformAction(action: AppAction, actorRoles = runtimeConfig.actorRoles) {
-  if (actorRoles.map((role) => role.toUpperCase()).includes("SUPERADMIN")) {
+  const normalizedRoles = normalizeActorRoles(actorRoles);
+  if (normalizedRoles.includes("ADMIN")) {
     return true;
   }
   const allowedRoles = ACTION_ROLES[action] ?? [];
-  return actorRoles.some((role) => allowedRoles.includes(role));
+  return normalizedRoles.some((role) => allowedRoles.includes(role));
 }
 
 export function permissionHint(action: AppAction) {
-  if (runtimeConfig.actorRoles.map((role) => role.toUpperCase()).includes("SUPERADMIN")) {
-    return "SUPERADMIN override active";
+  const normalizedRoles = normalizeActorRoles(runtimeConfig.actorRoles);
+  if (normalizedRoles.includes("ADMIN")) {
+    return "ADMIN override active";
   }
   const roles = ACTION_ROLES[action] ?? [];
   return `Requires role: ${roles.join(", ")}`;
