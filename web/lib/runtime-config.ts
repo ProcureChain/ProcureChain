@@ -44,6 +44,8 @@ const baseConfig = {
     "PROC-001",
   ]),
   organizationCountry: (process.env.NEXT_PUBLIC_ORGANIZATION_COUNTRY ?? "ZA").toUpperCase(),
+  organizationLanguage: process.env.NEXT_PUBLIC_ORGANIZATION_LANGUAGE ?? "en-ZA",
+  organizationCurrency: (process.env.NEXT_PUBLIC_ORGANIZATION_CURRENCY ?? "ZAR").toUpperCase(),
 };
 
 const sessionOverride = () => readBrowserSessionProfile();
@@ -92,6 +94,12 @@ export const runtimeConfig = {
     return baseConfig.companyCostCentres;
   },
   get organizationCountry() {
-    return baseConfig.organizationCountry;
+    return (sessionOverride()?.country ?? baseConfig.organizationCountry).toUpperCase();
+  },
+  get organizationLanguage() {
+    return sessionOverride()?.language ?? baseConfig.organizationLanguage;
+  },
+  get organizationCurrency() {
+    return (sessionOverride()?.currency ?? baseConfig.organizationCurrency).toUpperCase();
   },
 };

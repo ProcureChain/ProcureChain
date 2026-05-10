@@ -34,6 +34,14 @@ export class OrganizationSignupDto {
 
   @IsOptional()
   @IsString()
+  preferredLanguage?: string;
+
+  @IsOptional()
+  @IsString()
+  preferredCurrency?: string;
+
+  @IsOptional()
+  @IsString()
   companySize?: string;
 
   @IsString()
@@ -90,6 +98,14 @@ export class UpdateOrganizationProfileDto {
   @IsOptional()
   @IsString()
   country?: string;
+
+  @IsOptional()
+  @IsString()
+  preferredLanguage?: string;
+
+  @IsOptional()
+  @IsString()
+  preferredCurrency?: string;
 
   @IsOptional()
   @IsString()

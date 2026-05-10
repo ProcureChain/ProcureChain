@@ -57,6 +57,20 @@ export class OnboardingService {
     private readonly audit: AuditService,
   ) {}
 
+  private resolveCountryDefaults(country?: string | null) {
+    const normalizedCountry = (country ?? 'ZA').trim().toUpperCase();
+    const map: Record<string, { language: string; currency: string }> = {
+      ZA: { language: 'en-ZA', currency: 'ZAR' },
+      CG: { language: 'fr-CG', currency: 'XAF' },
+      NG: { language: 'en-NG', currency: 'NGN' },
+      NA: { language: 'en-NA', currency: 'NAD' },
+      AO: { language: 'pt-AO', currency: 'AOA' },
+      ET: { language: 'am-ET', currency: 'ETB' },
+      MZ: { language: 'pt-MZ', currency: 'MZN' },
+    };
+    return map[normalizedCountry] ?? { language: 'en-US', currency: 'USD' };
+  }
+
   private normalizeEmail(email: string) {
     return email.trim().toLowerCase();
   }
@@ -336,6 +350,8 @@ export class OnboardingService {
     const companyId = randomUUID();
     const userId = randomUUID();
     const defaultRoles = ['ADMIN', 'REQUESTER', 'APPROVER', 'BUYER', 'MANAGER', 'EXECUTIVE'];
+    const country = dto.country?.trim().toUpperCase() || 'ZA';
+    const countryDefaults = this.resolveCountryDefaults(country);
 
     const created = await this.prisma.$transaction(async (tx) => {
       const tenant = await tx.tenant.create({
@@ -372,7 +388,9 @@ export class OnboardingService {
           companyId,
           registrationNumber: dto.registrationNumber?.trim() || null,
           industry: dto.industry?.trim() || null,
-          country: dto.country?.trim() || 'ZA',
+          country,
+          preferredLanguage: dto.preferredLanguage?.trim() || countryDefaults.language,
+          preferredCurrency: dto.preferredCurrency?.trim()?.toUpperCase() || countryDefaults.currency,
           companySize: dto.companySize?.trim() || null,
           contactFullName: fullName,
           workEmail,
@@ -432,6 +450,11 @@ export class OnboardingService {
           'tax_vat_certificate',
           'bank_confirmation_letter',
         ],
+      },
+      locale: {
+        country,
+        language: created.profile.preferredLanguage ?? countryDefaults.language,
+        currency: created.profile.preferredCurrency ?? countryDefaults.currency,
       },
     };
   }
@@ -930,6 +953,9 @@ export class OnboardingService {
         select: {
           contactFullName: true,
           workEmail: true,
+          country: true,
+          preferredLanguage: true,
+          preferredCurrency: true,
         },
       });
 
@@ -947,6 +973,13 @@ export class OnboardingService {
         actorId: user.id,
         actorName,
         actorRoles: user.roles,
+        country: profile?.country ?? 'ZA',
+        language:
+          profile?.preferredLanguage ??
+          this.resolveCountryDefaults(profile?.country ?? 'ZA').language,
+        currency:
+          profile?.preferredCurrency ??
+          this.resolveCountryDefaults(profile?.country ?? 'ZA').currency,
       };
     }
 
@@ -980,6 +1013,9 @@ export class OnboardingService {
       actorName,
       actorRoles: ['SUPPLIER'],
       supplierId: supplier.id,
+      country: supplier.country ?? 'ZA',
+      language: this.resolveCountryDefaults(supplier.country ?? 'ZA').language,
+      currency: this.resolveCountryDefaults(supplier.country ?? 'ZA').currency,
     };
   }
 
@@ -1016,7 +1052,7 @@ export class OnboardingService {
   }
 
   async updateOrganizationProfile(ctx: Ctx, dto: UpdateOrganizationProfileDto) {
-    await this.getOrganizationProfile(ctx);
+    const currentProfile = await this.getOrganizationProfile(ctx);
 
     if (dto.workEmail) {
       const normalizedEmail = this.normalizeEmail(dto.workEmail);
@@ -1034,6 +1070,9 @@ export class OnboardingService {
         throw new BadRequestException('Another account already uses this work email');
       }
     }
+
+    const nextCountry = dto.country?.trim()?.toUpperCase() || currentProfile.country || 'ZA';
+    const nextCountryDefaults = this.resolveCountryDefaults(nextCountry);
 
     const updated = await this.prisma.$transaction(async (tx) => {
       if (dto.companyName?.trim()) {
@@ -1055,7 +1094,13 @@ export class OnboardingService {
         data: {
           registrationNumber: dto.registrationNumber?.trim(),
           industry: dto.industry?.trim(),
-          country: dto.country?.trim(),
+          country: dto.country?.trim()?.toUpperCase(),
+          preferredLanguage:
+            dto.preferredLanguage?.trim() ||
+            (dto.country ? nextCountryDefaults.language : undefined),
+          preferredCurrency:
+            dto.preferredCurrency?.trim()?.toUpperCase() ||
+            (dto.country ? nextCountryDefaults.currency : undefined),
           companySize: dto.companySize?.trim(),
           contactFullName: dto.fullName?.trim(),
           workEmail: dto.workEmail ? this.normalizeEmail(dto.workEmail) : undefined,

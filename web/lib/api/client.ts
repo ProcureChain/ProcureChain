@@ -97,6 +97,9 @@ export async function apiRequest<T>(
       "x-company-id": init?.companyId ?? runtimeConfig.companyId,
       "x-user-id": runtimeConfig.actorId,
       "x-user-roles": runtimeConfig.actorRoles.join(","),
+      "x-country-code": runtimeConfig.organizationCountry,
+      "x-language": runtimeConfig.organizationLanguage,
+      "x-currency": runtimeConfig.organizationCurrency,
     };
     if (runtimeConfig.isSupplierPortal && runtimeConfig.supplierId) {
       // Supplier users run through the same API surface, but the backend needs

@@ -113,6 +113,8 @@ model OrganizationProfile {
   registrationNumber            String?
   industry                      String?
   country                       String? @default("ZA")
+  preferredLanguage             String? @default("en-ZA")
+  preferredCurrency             String? @default("ZAR")
   companySize                   String?
   contactFullName               String?
   workEmail                     String?

@@ -60,6 +60,9 @@ export default function LoginPage() {
       setCookie(SESSION_COOKIE_KEYS.actorName, session.actorName);
       setCookie(SESSION_COOKIE_KEYS.actorInitials, initialsFromName(session.actorName));
       setCookie(SESSION_COOKIE_KEYS.actorRoles, session.actorRoles.join(","));
+      if (session.country) setCookie(SESSION_COOKIE_KEYS.country, session.country);
+      if (session.language) setCookie(SESSION_COOKIE_KEYS.language, session.language);
+      if (session.currency) setCookie(SESSION_COOKIE_KEYS.currency, session.currency);
       if (session.supplierId) {
         setCookie(SESSION_COOKIE_KEYS.supplierId, session.supplierId);
       } else {

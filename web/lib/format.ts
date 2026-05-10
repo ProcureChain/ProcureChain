@@ -1,10 +1,10 @@
+import { runtimeConfig } from "@/lib/runtime-config";
+
 export const formatMoney = (value: number, currency = "ZAR") =>
-  new Intl.NumberFormat("en-US", {
+  new Intl.NumberFormat(runtimeConfig.organizationLanguage, {
     style: "currency",
     currency,
     currencyDisplay: "narrowSymbol",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
   })
     .formatToParts(value)
     .filter((part) => part.type !== "literal")
@@ -13,7 +13,7 @@ export const formatMoney = (value: number, currency = "ZAR") =>
 
 export const formatDate = (iso?: string) => {
   if (!iso) return "-";
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat(runtimeConfig.organizationLanguage, {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -22,7 +22,7 @@ export const formatDate = (iso?: string) => {
 
 export const formatDateTime = (iso?: string) => {
   if (!iso) return "-";
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat(runtimeConfig.organizationLanguage, {
     month: "short",
     day: "numeric",
     year: "numeric",

@@ -1243,6 +1243,9 @@ export async function login(payload: {
     actorName: string;
     actorRoles: string[];
     supplierId?: string;
+    country?: string;
+    language?: string;
+    currency?: string;
   }>("/auth/login", {
     method: "POST",
     body: JSON.stringify(payload),

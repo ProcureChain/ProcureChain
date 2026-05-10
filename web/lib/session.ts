@@ -9,6 +9,9 @@ export const SESSION_COOKIE_KEYS = {
   actorInitials: "pc_actor_initials",
   actorRoles: "pc_actor_roles",
   supplierId: "pc_supplier_id",
+  country: "pc_country",
+  language: "pc_language",
+  currency: "pc_currency",
 } as const;
 
 export type SessionProfile = {
@@ -20,6 +23,9 @@ export type SessionProfile = {
   actorInitials: string;
   actorRoles: string[];
   supplierId?: string;
+  country?: string;
+  language?: string;
+  currency?: string;
 };
 
 export const ORGANIZATION_SESSION: SessionProfile = {
@@ -30,6 +36,9 @@ export const ORGANIZATION_SESSION: SessionProfile = {
   actorName: "Kyle",
   actorInitials: "KY",
   actorRoles: ["ADMIN"],
+  country: "ZA",
+  language: "en-ZA",
+  currency: "ZAR",
 };
 
 export const SUPPLIER_SESSION: SessionProfile = {
@@ -41,6 +50,9 @@ export const SUPPLIER_SESSION: SessionProfile = {
   actorInitials: "TS",
   actorRoles: ["SUPPLIER"],
   supplierId: undefined,
+  country: "ZA",
+  language: "en-ZA",
+  currency: "ZAR",
 };
 
 export function getSessionProfile(portal: PortalType) {
@@ -73,6 +85,9 @@ export function readBrowserSessionProfile(): Partial<SessionProfile> | null {
     .map((role) => role.trim().toUpperCase())
     .filter(Boolean);
   const supplierId = cookieMap.get(SESSION_COOKIE_KEYS.supplierId);
+  const country = cookieMap.get(SESSION_COOKIE_KEYS.country);
+  const language = cookieMap.get(SESSION_COOKIE_KEYS.language);
+  const currency = cookieMap.get(SESSION_COOKIE_KEYS.currency);
 
   if (!portal && !actorRoles?.length) return null;
 
@@ -85,5 +100,8 @@ export function readBrowserSessionProfile(): Partial<SessionProfile> | null {
     actorInitials: actorInitials || undefined,
     actorRoles,
     supplierId: supplierId || undefined,
+    country: country || undefined,
+    language: language || undefined,
+    currency: currency || undefined,
   };
 }

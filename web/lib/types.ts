@@ -192,6 +192,8 @@ export interface OrganizationProfile {
   registrationNumber?: string | null;
   industry?: string | null;
   country?: string | null;
+  preferredLanguage?: string | null;
+  preferredCurrency?: string | null;
   companySize?: string | null;
   contactFullName?: string | null;
   workEmail?: string | null;

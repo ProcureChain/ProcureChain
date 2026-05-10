@@ -866,6 +866,9 @@ export async function login(payload: { portal: "organization" | "supplier"; iden
       actorId: matchedUser.id,
       actorName: matchedUser.fullName,
       actorRoles: matchedUser.roles,
+      country: runtimeConfig.organizationCountry,
+      language: runtimeConfig.organizationLanguage,
+      currency: runtimeConfig.organizationCurrency,
     };
   }
 
@@ -882,6 +885,9 @@ export async function login(payload: { portal: "organization" | "supplier"; iden
     actorName: supplier.contacts[0]?.name ?? supplier.name,
     actorRoles: ["SUPPLIER"],
     supplierId: supplier.id,
+    country: supplier.country ?? runtimeConfig.organizationCountry,
+    language: runtimeConfig.organizationLanguage,
+    currency: runtimeConfig.organizationCurrency,
   };
 }
 
